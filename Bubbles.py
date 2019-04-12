@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[15]:
+# In[7]:
 
 
 import random
@@ -18,12 +18,8 @@ T = 100
 u = [0 for i in range(N)]
 
 # p ∈ (0, 1) 
-p = [random.uniform(0,1) for i in range(N)]
+p_0 = random.uniform(0,1)
 
-# To keep track of what goods we chosen so far
-items = [i for i in range(N)]
-
-selections = []
 
 # δ ∈ (0, 1) strength of learning spillovers
 delta = .1
@@ -34,42 +30,53 @@ def d(i,j):
     return min(abs(i-j), abs(i-j-N))
 
 # update
-def update(i,j):
+def update(i,j,p):
     rt = u[i]
-    delta_d_ij = delta**d(i,j)
-    
+    delta_d_ij = delta**d(i,j)    
     p[j] = (1-delta_d_ij)* p[j] + delta_d_ij * rt
 
-for t in range(T):
-    #print("iterations: %d" % t)
-    if t == 0:
-        # for the first iteration choose item N/2 
-        idx = N//2
-    else:
-        # after look for highest probability, skip over previously selected nodes
-        val, idx = max((val, idx) for (idx, val) in enumerate(p)if idx not in selections )
+def simulate(N, T, delta, p_0, u):
     
-    choice = items[idx]
-    selections.append(choice)
-    #print("chose item: %s " % (choice))
+    p = [ p_0 for i in range(N)]
     
-    # update beliefs
-    for p_idx in range(len(p)):
-        update(idx, p_idx)
+    # To keep track of what goods we chosen so far
+    items = [i for i in range(N)]
+
+    selections = []
+    for t in range(T):
+        #print("iterations: %d" % t)
+        if t == 0:
+            # for the first iteration choose item N/2 
+            idx = N//2
+        else:
+            # after look for highest probability, skip over previously selected nodes
+            val, idx = max((val, idx) for (idx, val) in enumerate(p)if idx not in selections )
+
+        choice = items[idx]
+        selections.append(choice)
+        #print("chose item: %s " % (choice))
+
+        # update beliefs
+        for p_idx in range(len(p)):
+            update(idx, p_idx, p)
+            
+    return selections
 
 
-# In[16]:
+# In[8]:
 
 
+selections = simulate(N, T, delta, p_0, u)
 print(sorted(selections))
+import json
+with open('utility0.json', 'w') as outfile:
+    json.dump(sorted(selections), outfile)
 
 
 # In[17]:
 
 
-import json
-with open('utility0.json', 'w') as outfile:
-    json.dump(sorted(selections), outfile)
+
 
 
 # In[ ]:
