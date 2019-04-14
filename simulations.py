@@ -38,7 +38,7 @@ T = 25
 nr_pop = 1000
 nr_ind = 1000
 
-num_cores = 16
+num_cores = 4
 
 
 
@@ -155,53 +155,54 @@ def simulate(
 	seed=1.0
 ):
 	np.random.seed(int(seed))
-	Nset = range(0,N)
+	#Nset = range(0,N)
 	Sigma_V_i = cov_mat_fun(sigma_i,rho_i,N)
-	Sigma_V = cov_mat_fun(sigma,rho,N)
-	Sigma_V_ibar = cov_mat_fun(sigma_ibar,rho_ibar,N)
-	mu_V = np.zeros(N)
-	V = np.random.multivariate_normal(mu_V, Sigma_V)
-	mu_V.reshape((1,N))
+	#Sigma_V = cov_mat_fun(sigma,rho,N)
+	#Sigma_V_ibar = cov_mat_fun(sigma_ibar,rho_ibar,N)
+	#mu_V = np.zeros(N)
+	#V = np.random.multivariate_normal(mu_V, Sigma_V)
+	#mu_V.reshape((1,N))
 	C_pop = { NO_REC: [], OMNI: [], PARTIAL: []}
 	W_pop = { NO_REC: [], OMNI: [], PARTIAL: []}
 	R_pop = { NO_REC: [], OMNI: [], PARTIAL: []}
 
-	for it_ind in range(nr_ind):
-		mu_V_ibar = np.zeros(N)
-		V_ibar = np.random.multivariate_normal(np.zeros(N), Sigma_V_ibar)
+	#for it_ind in range(nr_ind):
+		#mu_V_ibar = np.zeros(N)
+		#V_ibar = np.random.multivariate_normal(np.zeros(N), Sigma_V_ibar)
         
-		mu_V_i = V_ibar
+		#mu_V_i = V_ibar
    
-		V_i = np.random.multivariate_normal(mu_V_i, Sigma_V_i)
-		mu_V_ibar.reshape((1,N))
-		mu_V_i.reshape((1,N))
+		#V_i = np.random.multivariate_normal(mu_V_i, Sigma_V_i)
+		#mu_V_ibar.reshape((1,N))
+		#mu_V_i.reshape((1,N))
 
-		U_i = beta * V_i + (1-beta) * V
-		mu_U_i = beta * mu_V_i + (1-beta) * mu_V
+		#U_i = beta * V_i + (1-beta) * V
+		#mu_U_i = beta * mu_V_i + (1-beta) * mu_V
 
-		##No Rec Case
-		Sigma_U_i = beta**2 * Sigma_V_ibar + (1-beta)**2 * Sigma_V
-		C_iT = choice_ind(U_i,mu_U_i, Sigma_U_i,T,N, Nset)
-		C_pop[NO_REC] += [C_iT]
-		W_pop[NO_REC] += [w_fun(C_iT,U_i)]
+		###No Rec Case
+		#Sigma_U_i = beta**2 * Sigma_V_ibar + (1-beta)**2 * Sigma_V
+		#C_iT = choice_ind(U_i,mu_U_i, Sigma_U_i,T,N, Nset)
+		#C_pop[NO_REC] += [C_iT]
+		#W_pop[NO_REC] += [w_fun(C_iT,U_i)]
 
-		## OMNI CASE
-		C_iT = choice_omni(U_i,T,N, Nset)
-		C_pop[OMNI] += [C_iT]
-		W_pop[OMNI] += [w_fun(C_iT,U_i)]
+		### OMNI CASE
+		#C_iT = choice_omni(U_i,T,N, Nset)
+		#C_pop[OMNI] += [C_iT]
+		#W_pop[OMNI] += [w_fun(C_iT,U_i)]
 
-		## PARTIAL REC Case
-		Sigma_U_i = beta**2 * Sigma_V_ibar
-		C_iT, R_iT = choice_part(U_i,mu_U_i, Sigma_U_i,V,T,N, Nset)
-		C_pop[PARTIAL] += [C_iT]
-		W_pop[PARTIAL] += [w_fun(C_iT,U_i)]
-		R_pop[PARTIAL] += [R_iT]
+		### PARTIAL REC Case
+		#Sigma_U_i = beta**2 * Sigma_V_ibar
+		#C_iT, R_iT = choice_part(U_i,mu_U_i, Sigma_U_i,V,T,N, Nset)
+		#C_pop[PARTIAL] += [C_iT]
+		#W_pop[PARTIAL] += [w_fun(C_iT,U_i)]
+		#R_pop[PARTIAL] += [R_iT]
 	return { 'Consumption': C_pop, 'Welfare': W_pop, 'Rec': R_pop }
 
 sim_results ={}
 for rho in [.1, .5, .9]:
 	for beta in [.1, .5, .9]:
-		sim_results[(rho, beta)] = Parallel(n_jobs=num_cores)(delayed(simulate)(N,T,sigma,sigma_i,sigma_ibar,rho,rho,rho_ibar,beta,nr_ind,seed=i+1) for i in range(nr_pop))
+		#sim_results[(rho, beta)] = Parallel(n_jobs=num_cores)(delayed(simulate)(N,T,sigma,sigma_i,sigma_ibar,rho,rho,rho_ibar,beta,nr_ind,seed=i+1) for i in range(nr_pop))
+		simulate(N,T,sigma,sigma_i,sigma_ibar,rho,rho,rho_ibar,beta,nr_ind,seed=1)
 
 
 with open('sim_results.p', 'wb') as fp:
