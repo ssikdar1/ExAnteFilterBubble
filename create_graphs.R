@@ -6,54 +6,100 @@ library(tidyverse)
 WORKING_DIR <- "/Users/guyaridor/Desktop/recommender_systems/rec_sys_conf_paper/"
 rec_data <- read.csv(paste(WORKING_DIR, "rec_data.csv", sep=""))
 
-# like above but get mean std, n , confidence intervals for graph
 get_stats_diversity <- function(rec_data, var){
-  df <- rec_data %>%
-    group_by(regime, UQ(var)) %>% 
-    mutate(diversity_mean = mean(diversity_score),
-           diversity_sd = sd(diversity_score),
-           diversity_n = n()) %>% 
-    mutate(diversity_se =  diversity_sd/ sqrt(diversity_n),
-           lower_ci_diversity = diversity_mean - qt(1 - (0.05 / 2), diversity_n - 1) * diversity_se,
-           upper_ci_diveristy = diversity_mean + qt(1 - (0.05 / 2), diversity_n - 1) * diversity_se) %>% 
-    slice(1)
-  return(df)
+  if (var == "rho") { # there must be a better way
+    df <- rec_data %>%
+      group_by(regime, rho) %>% 
+      mutate(diversity_mean = mean(diversity_score),
+             diversity_sd = sd(diversity_score),
+             diversity_n = n()) %>%
+      mutate(diversity_se =  diversity_sd/ sqrt(diversity_n),
+             lower_ci_diversity = diversity_mean - qt(1 - (0.05 / 2), diversity_n - 1) * diversity_se,
+             upper_ci_diveristy = diversity_mean + qt(1 - (0.05 / 2), diversity_n - 1) * diversity_se) %>% 
+      slice(1)
+    return(df)
+  } else {
+    df <- rec_data %>%
+      group_by(regime, beta) %>% 
+      mutate(diversity_mean = mean(diversity_score),
+             diversity_sd = sd(diversity_score),
+             diversity_n = n()) %>%
+      mutate(diversity_se =  diversity_sd/ sqrt(diversity_n),
+             lower_ci_diversity = diversity_mean - qt(1 - (0.05 / 2), diversity_n - 1) * diversity_se,
+             upper_ci_diveristy = diversity_mean + qt(1 - (0.05 / 2), diversity_n - 1) * diversity_se) %>% 
+      slice(1)
+    return(df)
+  }
 }
 
 # graph w/ themes
 graph_stats_diversity <- function(df, var){
-  g <- ggplot(df2, aes(x=UQ(var), y=diversity_mean)) +
-    geom_line(aes(colour=regime)) +
-    geom_errorbar(aes(ymin=lower_ci_diversity, ymax=upper_ci_diveristy), width=.02,
-                  position=position_dodge(.9)) + 
-    labs(x=var, y="diversity",
-         title=paste("N=500,T=25, Diversity",sep=" ")) +
-    theme_ipsum_rc()
-  return(g)
+  if (var == "rho") {
+    g <- ggplot(df2, aes(x=rho, y=diversity_mean)) +
+      geom_line(aes(colour=regime)) +
+      geom_errorbar(aes(ymin=lower_ci_diversity, ymax=upper_ci_diveristy), width=.02,
+                    position=position_dodge(.9)) + 
+      labs(x="rho", y="diversity",
+           title=paste("N=500,T=25, Diversity",sep=" "))
+    return(g)
+  } else {
+    g <- ggplot(df2, aes(x=beta, y=diversity_mean)) +
+      geom_line(aes(colour=regime)) +
+      geom_errorbar(aes(ymin=lower_ci_diversity, ymax=upper_ci_diveristy), width=.02,
+                    position=position_dodge(.9)) + 
+      labs(x="beta", y="diversity",
+           title=paste("N=500,T=25, Diversity",sep=" "))
+    return(g)
+  }
+  
 }
 
 get_stats_welfare <- function(rec_data, var){
-  df <- rec_data %>%
-    group_by(regime, UQ(var)) %>%
-    mutate(welfare_mean = mean(welfare),
-          welfare_sd = sd(welfare),
-           welfare_n = n()) %>% 
-    mutate(welfare_se =  welfare_sd/ sqrt(welfare_n),
-           lower_ci_welfare = welfare_mean - qt(1 - (0.05 / 2), welfare_n - 1) * welfare_se,
-           upper_ci_welfare = welfare_mean + qt(1 - (0.05 / 2), welfare_n - 1) * welfare_se) %>%
-    slice(1)
-  return(df)
+  if (var == "rho") {
+    df <- rec_data %>%
+      group_by(regime, rho) %>%
+      mutate(welfare_mean = mean(welfare),
+             welfare_sd = sd(welfare),
+             welfare_n = n()) %>% 
+      mutate(welfare_se =  welfare_sd/ sqrt(welfare_n),
+             lower_ci_welfare = welfare_mean - qt(1 - (0.05 / 2), welfare_n - 1) * welfare_se,
+             upper_ci_welfare = welfare_mean + qt(1 - (0.05 / 2), welfare_n - 1) * welfare_se) %>%
+      slice(1)
+    return(df)
+  } else {
+    df <- rec_data %>%
+      group_by(regime, beta) %>%
+      mutate(welfare_mean = mean(welfare),
+             welfare_sd = sd(welfare),
+             welfare_n = n()) %>% 
+      mutate(welfare_se =  welfare_sd/ sqrt(welfare_n),
+             lower_ci_welfare = welfare_mean - qt(1 - (0.05 / 2), welfare_n - 1) * welfare_se,
+             upper_ci_welfare = welfare_mean + qt(1 - (0.05 / 2), welfare_n - 1) * welfare_se) %>%
+      slice(1)
+    return(df)
+  }
+  
 }
 
 # graph w/ themes
 graph_stats_welfare <- function(d, var){
-  g <- ggplot(d, aes(x=UQ(var), y=welfare_mean)) +
-    geom_line(aes(colour=regime)) +
-    geom_errorbar(aes(ymin=lower_ci_welfare, ymax=upper_ci_welfare), width=.02, position=position_dodge(.9)) + 
-    labs(x=var, y="welfare",
-         title=paste("N=500,T=25, Welfare",sep=" "))+
-    theme_ipsum_rc()
-  return(g)
+  if (var == "rho") {
+    g <- ggplot(d, aes(x=rho, y=welfare_mean)) +
+      geom_line(aes(colour=regime)) +
+      geom_errorbar(aes(ymin=lower_ci_welfare, ymax=upper_ci_welfare), width=.02, position=position_dodge(.9)) + 
+      labs(x="rho", y="welfare",
+           title=paste("N=500,T=25, Welfare",sep=" "))
+     # theme_ipsum_rc()
+    return(g)
+  } else {
+    g <- ggplot(d, aes(x=beta, y=welfare_mean)) +
+      geom_line(aes(colour=regime)) +
+      geom_errorbar(aes(ymin=lower_ci_welfare, ymax=upper_ci_welfare), width=.02, position=position_dodge(.9)) + 
+      labs(x="beta", y="welfare",
+           title=paste("N=500,T=25, Welfare",sep=" "))
+#      theme_ipsum_rc()
+    return(g)
+  }
 }
 
 #df2 <- get_stats_diversity(rec_data, 0.9)
