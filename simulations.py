@@ -112,7 +112,7 @@ def choice_omni(U_i,T,N, Nset):
     return C_iT
 
 
-def choice_part(V_i,mu_U_i, mu_V_i, Sigma_U_i,Sigma_V_i,V,T,N, Nset):
+def choice_part(V_i, mu_V_i,Sigma_V_i,V,T,N, Nset):
     C_iT = []
     R_iT = []
     for t in range(T):
@@ -152,30 +152,31 @@ def simulate(
     W_pop = { NO_REC: [], OMNI: [], PARTIAL: []}
     R_pop = { NO_REC: [], OMNI: [], PARTIAL: []}
     for it_ind in range(nr_ind):
-        mu_V_ibar = np.zeros(N)
-        V_ibar = np.random.multivariate_normal(np.zeros(N), Sigma_V_ibar)
-        mu_V_i = V_ibar
+        mu_V_ibar = np.random.multivariate_normal(np.zeros(N), Sigma_V_ibar)
+        mu_V_i = copy(mu_V_ibar)
         V_i = np.random.multivariate_normal(mu_V_i, Sigma_V_i)
-        mu_V_ibar.reshape((1,N))
         mu_V_i.reshape((1,N))
         U_i = beta * V_i + (1-beta) * V
         mu_U_i = beta * mu_V_i + (1-beta) * mu_V
+
         ##No Rec Case
         Sigma_U_i = beta**2 * Sigma_V_i + (1-beta)**2 * Sigma_V
         C_iT = choice_ind(U_i,copy(mu_U_i), Sigma_U_i,T,N, Nset)
         C_pop[NO_REC] += [C_iT]
         w_val = w_fun(C_iT,U_i)
         W_pop[NO_REC] += [w_val]
+        print(C_iT)
         ## OMNI CASE
-
-        mu_U_i = beta * mu_V_i + (1-beta) * V
         C_iT = choice_omni(U_i,T,N, Nset)
         C_pop[OMNI] += [C_iT]
         w_val = w_fun(C_iT,U_i)
         W_pop[OMNI] += [w_val]
+        print(C_iT)
         ## PARTIAL REC Case
-        Sigma_U_i = beta**2 * Sigma_V_i
-        C_iT, R_iT = choice_part(V_i,copy(mu_U_i), copy(mu_V_i), Sigma_U_i,Sigma_V_i,V,T,N, Nset)
+
+        mu_V_i = copy(mu_V_ibar)
+        mu_V_i.reshape((1,N))
+        C_iT, R_iT = choice_part(V_i,mu_V_i, Sigma_V_i,V,T,N, Nset)
         C_pop[PARTIAL] += [C_iT]
         w_val = w_fun(C_iT,U_i)
         W_pop[PARTIAL] += [w_val]
@@ -189,18 +190,18 @@ OMNI = 'rec'
 PARTIAL = 'partial'
 NO_REC = 'no_rec'
 
-N = 1000
-T = 25
-nr_pop = 50
-nr_ind = 50
+N = 500
+T = 10
+nr_pop = 1
+nr_ind = 5
 sigma_ibar = .1
 rho_ibar = 0
 
-num_cores = 8
+num_cores = 1
 sim_results ={}
-rho_vals = [0.1, 0.5, 0.9]
-beta_vals = [0.1, 0.5, 0.9]
-sigma_vals = [0.25, 1.0, 4]
+rho_vals = [0.1]
+beta_vals = [0.1]
+sigma_vals = [0.25]
 for rho in rho_vals:
     for beta in beta_vals:
         for sigma in sigma_vals:
@@ -211,8 +212,8 @@ for rho in rho_vals:
             Sigma_V_ibar = cov_mat_fun(sigma_ibar,rho_ibar,N)
             sim_results[(N, T, rho, beta, sigma)] = Parallel(n_jobs=num_cores)(delayed(simulate)(N,T,sigma,sigma_i,sigma_ibar,beta,nr_ind,Sigma_V_i, Sigma_V, Sigma_V_ibar, seed=i+1) for i in range(nr_pop))
             print("finished a population run")
-            with open('sim_results.p', 'wb') as fp:
+            with open('sim_results_test.p', 'wb') as fp:
                 pickle.dump(sim_results, fp)
 
-with open('sim_results.p', 'wb') as fp:
+with open('sim_results_test.p', 'wb') as fp:
     pickle.dump(sim_results, fp)
