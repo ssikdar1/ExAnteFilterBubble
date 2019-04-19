@@ -52,7 +52,7 @@ get_stats_rec <- function(rec_data, var){
 
 # https://stackoverflow.com/questions/22309285/how-to-use-a-variable-to-specify-column-name-in-ggplot
 # graph w/ themes
-graph_stats_diversity <- function(df, var){
+graph_stats_diversity <- function(df, var, use_hrbrthemes){
   T_val <- df$T[1]
   N <- df$N[1]
   
@@ -61,11 +61,14 @@ graph_stats_diversity <- function(df, var){
       geom_errorbar(aes(ymin=lower_ci_diversity, ymax=upper_ci_diveristy), width=.02,
                     position=position_dodge(.9)) + 
       labs(x=var, y="diversity",
-           title=paste("N =", N, "T =", T_val, "Diversity",sep=" ")) + theme_ipsum_rc()
+           title=paste("N =", N, "T =", T_val, "Diversity",sep=" "))
+  if(use_hrbrthemes){
+    g <- g + theme_ipsum_rc()
+  }
     return(g)
 }
 
-graph_stats_rec <- function(df, var){
+graph_stats_rec <- function(df, var, use_hrbrthemes){
   T_val <- df$T[1]
   N <- df$N[1]
 
@@ -74,20 +77,25 @@ graph_stats_rec <- function(df, var){
       geom_errorbar(aes(ymin=lower_ci_rec, ymax=upper_ci_rec), width=.02,
                     position=position_dodge(.9)) + 
       labs(x=var, y="diversity",
-           title=paste("N =", N, "T =", T_val, "Follow Rec",sep=" ")) + theme_ipsum_rc()
+           title=paste("N =", N, "T =", T_val, "Follow Rec",sep=" "))
+  if(use_hrbrthemes){
+    g <- g + theme_ipsum_rc()
+  }
     return(g)
 }
 
 # graph w/ themes
-graph_stats_welfare <- function(d, var){
+graph_stats_welfare <- function(d, var, use_hrbrthemes){
   T_val <- d$T[1]
   N <- d$N[1]
   g <- ggplot(d, aes_string(x=var, y="welfare_mean")) +
     geom_line(aes(colour=regime)) +
     geom_errorbar(aes(ymin=lower_ci_welfare, ymax=upper_ci_welfare), width=.02, position=position_dodge(.9)) + 
     labs(x=var, y="welfare",
-         title=paste("N =", N, "T =", T_val, "Welfare",sep=" ")) + theme_ipsum_rc()
-  # theme_ipsum_rc()
+         title=paste("N =", N, "T =", T_val, "Welfare",sep=" ")) 
+  if(use_hrbrthemes){
+    g <- g + theme_ipsum_rc()
+  }
   return(g)
   
 }
@@ -235,5 +243,21 @@ for(metric in metrics){
   }
 }
 
+scatter <- function(df, var_x, var_y, use_hrbrthemes){
+  g <- ggplot(df, aes_string(var_x, var_y)) +
+         stat_summary_bin(fun.y = "mean", geom = "bar")
+    labs(x=var_x, y=var_y,
+         title=paste(var_x," x ",var_y, sep = "") #,
+         #subtitle="A plot that is only useful for demonstration purposes",
+         #caption="Brought to you by the letter 'g'"
+         )
+  if(use_hrbrthemes){
+    g <- g + theme_ipsum_rc()
+  }
+  return(g)
+}
 
-
+ggsave(
+  filename="/Users/ssikdar/Downloads/econ/bubbles/figures/welfare_diversity_scatter_bin.jpeg", 
+  plot=scatter(rec_data, "diversity_score", "welfare", use_hrbrthemes)
+)
