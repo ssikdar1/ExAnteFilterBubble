@@ -50,66 +50,45 @@ get_stats_rec <- function(rec_data, var){
   return(df)
 }
 
-
+# https://stackoverflow.com/questions/22309285/how-to-use-a-variable-to-specify-column-name-in-ggplot
 # graph w/ themes
 graph_stats_diversity <- function(df, var){
   T_val <- df$T[1]
   N <- df$N[1]
-  if (var == "rho") {
-    g <- ggplot(df, aes(x=rho, y=diversity_mean)) +
-      geom_line(aes(colour=regime)) +
-      geom_errorbar(aes(ymin=lower_ci_diversity, ymax=upper_ci_diveristy), width=.02,
-                    position=position_dodge(.9)) + 
-      labs(x="rho", y="diversity",
-           title=paste("N =", N, "T =", T_val, "Diversity",sep=" ")) + theme_ipsum_rc()
-    return(g)
-  } else if (var == "beta") {
-    g <- ggplot(df, aes(x=beta, y=diversity_mean)) +
-      geom_line(aes(colour=regime)) +
-      geom_errorbar(aes(ymin=lower_ci_diversity, ymax=upper_ci_diveristy), width=.02,
-                    position=position_dodge(.9)) + 
-      labs(x="beta", y="diversity",
-           title=paste("N =", N, "T =", T_val, "Diversity",sep=" ")) + theme_ipsum_rc()
-    return(g)
-  } else if (var == "sigma") {
-    g <- ggplot(df, aes(x=sigma, y=diversity_mean)) +
-      geom_line(aes(colour=regime)) +
-      geom_errorbar(aes(ymin=lower_ci_diversity, ymax=upper_ci_diveristy), width=.02,
-                    position=position_dodge(.9)) + 
-      labs(x="sigma", y="diversity",
-           title=paste("N =", N, "T =", T_val, "Diversity",sep=" ")) + theme_ipsum_rc()
-  }
   
+  g <- ggplot(df, aes_string(x=var, y="diversity_mean")) +
+      geom_line(aes(colour=regime)) +
+      geom_errorbar(aes(ymin=lower_ci_diversity, ymax=upper_ci_diveristy), width=.02,
+                    position=position_dodge(.9)) + 
+      labs(x=var, y="diversity",
+           title=paste("N =", N, "T =", T_val, "Diversity",sep=" ")) + theme_ipsum_rc()
+    return(g)
 }
 
 graph_stats_rec <- function(df, var){
   T_val <- df$T[1]
   N <- df$N[1]
-  if (var == "rho") {
-    g <- ggplot(df, aes(x=rho, y=rec_mean)) +
+
+  g <- ggplot(df, aes_string(x=var, y="rec_mean")) +
       geom_line() +
       geom_errorbar(aes(ymin=lower_ci_rec, ymax=upper_ci_rec), width=.02,
                     position=position_dodge(.9)) + 
-      labs(x="rho", y="diversity",
+      labs(x=var, y="diversity",
            title=paste("N =", N, "T =", T_val, "Follow Rec",sep=" ")) + theme_ipsum_rc()
     return(g)
-  } else if (var == "beta") {
-    g <- ggplot(df, aes(x=beta, y=rec_mean)) +
-      geom_line() +
-      geom_errorbar(aes(ymin=lower_ci_rec, ymax=upper_ci_rec), width=.02,
-                    position=position_dodge(.9)) + 
-      labs(x="beta", y="rec",
-           title=paste("N =", N, "T =", T_val, "Follow Rec",sep=" ")) + theme_ipsum_rc()
-    return(g)
-  } else if (var == "sigma") {
-    g <- ggplot(df, aes(x=sigma, y=rec_mean)) +
-      geom_line() +
-      geom_errorbar(aes(ymin=lower_ci_rec, ymax=upper_ci_rec), width=.02,
-                    position=position_dodge(.9)) + 
-      labs(x="sigma", y="rec",
-           title=paste("N =", N, "T =", T_val, "Follow Rec",sep=" ")) + theme_ipsum_rc()
-    return(g)
-  }
+}
+
+# graph w/ themes
+graph_stats_welfare <- function(d, var){
+  T_val <- d$T[1]
+  N <- d$N[1]
+  g <- ggplot(d, aes_string(x=var, y="welfare_mean")) +
+    geom_line(aes(colour=regime)) +
+    geom_errorbar(aes(ymin=lower_ci_welfare, ymax=upper_ci_welfare), width=.02, position=position_dodge(.9)) + 
+    labs(x=var, y="welfare",
+         title=paste("N =", N, "T =", T_val, "Welfare",sep=" ")) + theme_ipsum_rc()
+  # theme_ipsum_rc()
+  return(g)
   
 }
 
@@ -135,36 +114,7 @@ get_stats_welfare <- function(rec_data, var){
   return(df)
 }
 
-# graph w/ themes
-graph_stats_welfare <- function(d, var){
-  T_val <- d$T[1]
-  N <- d$N[1]
-  if (var == "rho") {
-    g <- ggplot(d, aes(x=rho, y=welfare_mean)) +
-      geom_line(aes(colour=regime)) +
-      geom_errorbar(aes(ymin=lower_ci_welfare, ymax=upper_ci_welfare), width=.02, position=position_dodge(.9)) + 
-      labs(x="rho", y="welfare",
-           title=paste("N =", N, "T =", T_val, "Welfare",sep=" ")) + theme_ipsum_rc()
-    # theme_ipsum_rc()
-    return(g)
-  } else if (var == "beta") {
-    g <- ggplot(d, aes(x=beta, y=welfare_mean)) +
-      geom_line(aes(colour=regime)) +
-      geom_errorbar(aes(ymin=lower_ci_welfare, ymax=upper_ci_welfare), width=.02, position=position_dodge(.9)) + 
-      labs(x="beta", y="welfare",
-           title=paste("N =", N, "T =", T_val, "Welfare",sep=" ")) + theme_ipsum_rc()
-    #      theme_ipsum_rc()
-    return(g)
-  }else if (var == "sigma") {
-    g <- ggplot(d, aes(x=sigma, y=welfare_mean)) +
-      geom_line(aes(colour=regime)) +
-      geom_errorbar(aes(ymin=lower_ci_welfare, ymax=upper_ci_welfare), width=.02, position=position_dodge(.9)) + 
-      labs(x="sigma", y="welfare",
-           title=paste("N =", N, "T =", T_val, "Welfare",sep=" ")) + theme_ipsum_rc()
-    #      theme_ipsum_rc()
-    return(g) 
-  }
-}
+
 
 #df2 <- get_stats_diversity(rec_data, 0.9)
 #g <- graph_stats_diversity(df2)
