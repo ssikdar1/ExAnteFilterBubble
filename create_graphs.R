@@ -3,9 +3,6 @@ library(dplyr)
 library(hrbrthemes)
 library(tidyverse)
 
-WORKING_DIR <- "/Users/guyaridor/Desktop/recommender_systems/rec_sys_conf_paper/"
-rec_data <- read.csv(paste(WORKING_DIR, "rec_data_t_15.csv", sep=""))
-
 get_stats_diversity <- function(rec_data, var){
   if (var == "rho") { # there must be a better way
     df <- rec_data %>%
@@ -91,7 +88,7 @@ graph_stats_diversity <- function(df, var){
       geom_errorbar(aes(ymin=lower_ci_diversity, ymax=upper_ci_diveristy), width=.02,
                     position=position_dodge(.9)) + 
       labs(x="rho", y="diversity",
-           title=paste("N =", N, "T =", T_val, "Diversity",sep=" "))
+           title=paste("N =", N, "T =", T_val, "Diversity",sep=" ")) + theme_ipsum_rc()
     return(g)
   } else if (var == "beta") {
     g <- ggplot(df, aes(x=beta, y=diversity_mean)) +
@@ -99,7 +96,7 @@ graph_stats_diversity <- function(df, var){
       geom_errorbar(aes(ymin=lower_ci_diversity, ymax=upper_ci_diveristy), width=.02,
                     position=position_dodge(.9)) + 
       labs(x="beta", y="diversity",
-           title=paste("N =", N, "T =", T_val, "Diversity",sep=" "))
+           title=paste("N =", N, "T =", T_val, "Diversity",sep=" ")) + theme_ipsum_rc()
     return(g)
   } else if (var == "sigma") {
     g <- ggplot(df, aes(x=sigma, y=diversity_mean)) +
@@ -107,7 +104,7 @@ graph_stats_diversity <- function(df, var){
       geom_errorbar(aes(ymin=lower_ci_diversity, ymax=upper_ci_diveristy), width=.02,
                     position=position_dodge(.9)) + 
       labs(x="sigma", y="diversity",
-           title=paste("N =", N, "T =", T_val, "Diversity",sep=" "))
+           title=paste("N =", N, "T =", T_val, "Diversity",sep=" ")) + theme_ipsum_rc()
   }
   
 }
@@ -121,7 +118,7 @@ graph_stats_rec <- function(df, var){
       geom_errorbar(aes(ymin=lower_ci_rec, ymax=upper_ci_rec), width=.02,
                     position=position_dodge(.9)) + 
       labs(x="rho", y="diversity",
-           title=paste("N =", N, "T =", T_val, "Follow Rec",sep=" "))
+           title=paste("N =", N, "T =", T_val, "Follow Rec",sep=" ")) + theme_ipsum_rc()
     return(g)
   } else if (var == "beta") {
     g <- ggplot(df, aes(x=beta, y=rec_mean)) +
@@ -129,7 +126,7 @@ graph_stats_rec <- function(df, var){
       geom_errorbar(aes(ymin=lower_ci_rec, ymax=upper_ci_rec), width=.02,
                     position=position_dodge(.9)) + 
       labs(x="beta", y="rec",
-           title=paste("N =", N, "T =", T_val, "Follow Rec",sep=" "))
+           title=paste("N =", N, "T =", T_val, "Follow Rec",sep=" ")) + theme_ipsum_rc()
     return(g)
   } else if (var == "sigma") {
     g <- ggplot(df, aes(x=sigma, y=rec_mean)) +
@@ -137,7 +134,7 @@ graph_stats_rec <- function(df, var){
       geom_errorbar(aes(ymin=lower_ci_rec, ymax=upper_ci_rec), width=.02,
                     position=position_dodge(.9)) + 
       labs(x="sigma", y="rec",
-           title=paste("N =", N, "T =", T_val, "Follow Rec",sep=" "))
+           title=paste("N =", N, "T =", T_val, "Follow Rec",sep=" ")) + theme_ipsum_rc()
     return(g)
   }
   
@@ -189,7 +186,7 @@ graph_stats_welfare <- function(d, var){
       geom_line(aes(colour=regime)) +
       geom_errorbar(aes(ymin=lower_ci_welfare, ymax=upper_ci_welfare), width=.02, position=position_dodge(.9)) + 
       labs(x="rho", y="welfare",
-           title=paste("N =", N, "T =", T_val, "Welfare",sep=" "))
+           title=paste("N =", N, "T =", T_val, "Welfare",sep=" ")) + theme_ipsum_rc()
     # theme_ipsum_rc()
     return(g)
   } else if (var == "beta") {
@@ -197,7 +194,7 @@ graph_stats_welfare <- function(d, var){
       geom_line(aes(colour=regime)) +
       geom_errorbar(aes(ymin=lower_ci_welfare, ymax=upper_ci_welfare), width=.02, position=position_dodge(.9)) + 
       labs(x="beta", y="welfare",
-           title=paste("N =", N, "T =", T_val, "Welfare",sep=" "))
+           title=paste("N =", N, "T =", T_val, "Welfare",sep=" ")) + theme_ipsum_rc()
     #      theme_ipsum_rc()
     return(g)
   }else if (var == "sigma") {
@@ -205,7 +202,7 @@ graph_stats_welfare <- function(d, var){
       geom_line(aes(colour=regime)) +
       geom_errorbar(aes(ymin=lower_ci_welfare, ymax=upper_ci_welfare), width=.02, position=position_dodge(.9)) + 
       labs(x="sigma", y="welfare",
-           title=paste("N =", N, "T =", T_val, "Welfare",sep=" "))
+           title=paste("N =", N, "T =", T_val, "Welfare",sep=" ")) + theme_ipsum_rc()
     #      theme_ipsum_rc()
     return(g) 
   }
@@ -216,34 +213,6 @@ graph_stats_welfare <- function(d, var){
 #ggsave(filename=paste(WORKING_DIR, "figures/rho_09_diversity.jpeg", sep=""), plot=g)
 
 
-# diversity
-
-g <- graph_stats_diversity(get_stats_diversity(rec_data, "rho"), "rho")
-ggsave(filename=paste(WORKING_DIR, "figures/rho_diversity_t_15.jpeg", sep=""), plot=g)
-
-g <- graph_stats_diversity(get_stats_diversity(rec_data, "beta"), "beta")
-ggsave(filename=paste(WORKING_DIR, "figures/beta_diversity_t_15.jpeg", sep=""), plot=g)
-
-g <- graph_stats_diversity(get_stats_diversity(rec_data, "sigma"), "sigma")
-ggsave(filename=paste(WORKING_DIR, "figures/sigma_diversity_t_15.jpeg", sep=""), plot=g)
-#welfare
-g <- graph_stats_welfare(get_stats_welfare(rec_data, "rho"), "rho")
-ggsave(filename=paste(WORKING_DIR, "figures/rho_welfare_t_15.jpeg", sep=""), plot=g)
-
-g <- graph_stats_welfare(get_stats_welfare(rec_data, "beta"), "beta")
-ggsave(filename=paste(WORKING_DIR, "figures/beta_welfare_t_15.jpeg", sep=""), plot=g)
-
-g <- graph_stats_welfare(get_stats_welfare(rec_data, "sigma"), "sigma")
-ggsave(filename=paste(WORKING_DIR, "figures/sigma_welfare_t_15.jpeg", sep=""), plot=g)
-
-g <- graph_stats_rec(get_stats_rec(filter(rec_data, regime == "partial"), "beta"), "beta")
-ggsave(filename=paste(WORKING_DIR, "figures/beta_rec_t_15.jpeg", sep=""), plot=g)
-
-g <- graph_stats_rec(get_stats_rec(filter(rec_data, regime == "partial"), "rho"), "rho")
-ggsave(filename=paste(WORKING_DIR, "figures/rho_rec_t_15.jpeg", sep=""), plot=g)
-
-g <- graph_stats_rec(get_stats_rec(filter(rec_data, regime == "partial"), "sigma"), "sigma")
-ggsave(filename=paste(WORKING_DIR, "figures/sigma_rec_t_15.jpeg", sep=""), plot=g)
 
 ## HOMOGENEITY DATA
 
@@ -294,7 +263,7 @@ graph_stats_homo <- function(df, var){
       geom_errorbar(aes(ymin=lower_ci_jaccard, ymax=upper_ci_jaccard), width=.02,
                     position=position_dodge(.9)) + 
       labs(x="rho", y="homogeneity",
-           title=paste("N =", N, "T =", T_val, "Homogeneity",sep=" "))
+           title=paste("N =", N, "T =", T_val, "Homogeneity",sep=" ")) + theme_ipsum_rc()
     return(g)
   } else if (var == "beta") {
     g <- ggplot(df, aes(x=beta, y=jaccard_mean)) +
@@ -302,7 +271,7 @@ graph_stats_homo <- function(df, var){
       geom_errorbar(aes(ymin=lower_ci_jaccard, ymax=upper_ci_jaccard), width=.02,
                     position=position_dodge(.9)) + 
       labs(x="beta", y="homogeneity",
-           title=paste("N =", N, "T =", T_val, "Homogeneity",sep=" "))
+           title=paste("N =", N, "T =", T_val, "Homogeneity",sep=" ")) + theme_ipsum_rc()
     return(g)
   } else if (var == "sigma") {
     g <- ggplot(df, aes(x=sigma, y=jaccard_mean)) +
@@ -310,20 +279,53 @@ graph_stats_homo <- function(df, var){
       geom_errorbar(aes(ymin=lower_ci_jaccard, ymax=upper_ci_jaccard), width=.02,
                     position=position_dodge(.9)) + 
       labs(x="sigma", y="homogeneity",
-           title=paste("N =", N, "T =", T_val, "Homogeneity",sep=" "))
+           title=paste("N =", N, "T =", T_val, "Homogeneity",sep=" ")) + theme_ipsum_rc()
     return(g)
   }
 }
 
+#WORKING_DIR <- "/Users/guyaridor/Desktop/recommender_systems/rec_sys_conf_paper/"
+WORKING_DIR <- "/Users/ssikdar/Downloads/econ/bubbles/"
+
+rec_data <- read.csv(paste(WORKING_DIR, "rec_data_t_15.csv", sep=""))
 homogeneity <- read.csv(paste(WORKING_DIR, "homogeneity_data_t_15.csv", sep=""))
 
-g <- graph_stats_homo(get_stats_homogeneity(homogeneity, "rho"), "rho")
-ggsave(filename=paste(WORKING_DIR, "figures/rho_homogeneity_t_15.jpeg", sep=""), plot=g)
 
-g <- graph_stats_homo(get_stats_homogeneity(homogeneity, "beta"), "beta")
-ggsave(filename=paste(WORKING_DIR, "figures/beta_homogeneity_t_15.jpeg", sep=""), plot=g)
+# CREATE GRAPHS
+use_hrbrthemes <- TRUE
+variables=list("rho", "beta", "sigma")
+metrics=list("diversity", "welfare", "homogeneity")
 
-g <- graph_stats_homo(get_stats_homogeneity(homogeneity, "sigma"), "sigma")
-ggsave(filename=paste(WORKING_DIR, "figures/sigma_homogeneity_t_15.jpeg", sep=""), plot=g)
+for(metric in metrics){
+  
+  print(metric)
+  for(variable in variables){
+    print(variable)
+    
+    file_name <- paste(WORKING_DIR,"figures/",variable,"_", metric, "_t_15.jpeg", sep="")
+    print(file_name)
+    
+    if (metric == "diversity"){
+      g <- graph_stats_diversity(get_stats_diversity(rec_data, variable), variable)
+      ggsave(filename=file_name, plot=g)
+    }
+    else if (metric == "welfare"){
+      #welfare
+      g <- graph_stats_welfare(get_stats_welfare(rec_data, variable), variable)
+      ggsave(filename=file_name, plot=g)
+      
+      rec_file_name <- paste(WORKING_DIR, "figures/", variable, "_rec_t_15.jpeg", sep="")
+      print(rec_file_name)
+      g <- graph_stats_rec(get_stats_rec(filter(rec_data, regime == "partial"), variable), variable)
+      ggsave(filename=rec_file_name, plot=g)
+    } 
+    else{
+      # homo
+      g <- graph_stats_homo(get_stats_homogeneity(homogeneity, variable), variable)
+      ggsave(filename=file_name, plot=g)
+    }
+  }
+}
+
 
 
