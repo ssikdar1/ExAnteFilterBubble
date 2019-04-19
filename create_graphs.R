@@ -3,80 +3,53 @@ library(dplyr)
 library(hrbrthemes)
 library(tidyverse)
 
+
 get_stats_diversity <- function(rec_data, var){
-  if (var == "rho") { # there must be a better way
-    df <- rec_data %>%
-      group_by(regime, rho) %>% 
-      mutate(diversity_mean = mean(diversity_score),
-             diversity_sd = sd(diversity_score),
-             diversity_n = n()) %>%
-      mutate(diversity_se =  diversity_sd/ sqrt(diversity_n),
-             lower_ci_diversity = diversity_mean - qt(1 - (0.05 / 2), diversity_n - 1) * diversity_se,
-             upper_ci_diveristy = diversity_mean + qt(1 - (0.05 / 2), diversity_n - 1) * diversity_se) %>% 
-      slice(1)
-    return(df)
+  df <- rec_data
+  if (var == "rho") { 
+    df <- df %>% group_by(regime, rho) 
   } else if (var == "beta") {
-    df <- rec_data %>%
-      group_by(regime, beta) %>% 
-      mutate(diversity_mean = mean(diversity_score),
-             diversity_sd = sd(diversity_score),
-             diversity_n = n()) %>%
-      mutate(diversity_se =  diversity_sd/ sqrt(diversity_n),
-             lower_ci_diversity = diversity_mean - qt(1 - (0.05 / 2), diversity_n - 1) * diversity_se,
-             upper_ci_diveristy = diversity_mean + qt(1 - (0.05 / 2), diversity_n - 1) * diversity_se) %>% 
-      slice(1)
-    return(df)
+    df <- df %>% group_by(regime, beta) 
   } else if (var == "sigma") {
-    df <- rec_data %>%
-      group_by(regime, sigma) %>% 
-      mutate(diversity_mean = mean(diversity_score),
-             diversity_sd = sd(diversity_score),
-             diversity_n = n()) %>%
-      mutate(diversity_se =  diversity_sd/ sqrt(diversity_n),
-             lower_ci_diversity = diversity_mean - qt(1 - (0.05 / 2), diversity_n - 1) * diversity_se,
-             upper_ci_diveristy = diversity_mean + qt(1 - (0.05 / 2), diversity_n - 1) * diversity_se) %>% 
-      slice(1)
-    return(df)
+    df <- rec_data %>% group_by(regime, sigma) 
   }
+  
+  df <- df %>% 
+    mutate(diversity_mean = mean(diversity_score),
+           diversity_sd = sd(diversity_score),
+           diversity_n = n()) %>%
+    mutate(diversity_se =  diversity_sd/ sqrt(diversity_n),
+           lower_ci_diversity = diversity_mean - qt(1 - (0.05 / 2), diversity_n - 1) * diversity_se,
+           upper_ci_diveristy = diversity_mean + qt(1 - (0.05 / 2), diversity_n - 1) * diversity_se) %>% 
+    slice(1)
+  return(df)
+  
 }
 
 get_stats_rec <- function(rec_data, var){
   rec_data$follow_recommendation <- as.numeric(levels(rec_data$follow_recommendation)[rec_data$follow_recommendation])
+  
+  df <- rec_data
+  
   if (var == "rho") { # there must be a better way
-    df <- rec_data %>%
-      group_by(rho) %>% 
-      mutate(rec_mean = mean(follow_recommendation),
-             rec_sd = sd(follow_recommendation),
-             rec_n = n()) %>%
-      mutate(rec_se =  rec_sd/ sqrt(rec_n),
-             lower_ci_rec = rec_mean - qt(1 - (0.05 / 2), rec_n - 1) * rec_se,
-             upper_ci_rec = rec_mean + qt(1 - (0.05 / 2), rec_n - 1) * rec_se) %>% 
-      slice(1)
-    return(df)
+    df <- df %>% group_by(rho) 
   } else if (var == "beta") {
-    df <- rec_data %>%
-      group_by(beta) %>% 
-      mutate(rec_mean = mean(follow_recommendation),
-             rec_sd = sd(follow_recommendation),
-             rec_n = n()) %>%
-      mutate(rec_se =  rec_sd/ sqrt(rec_n),
-             lower_ci_rec = rec_mean - qt(1 - (0.05 / 2), rec_n - 1) * rec_se,
-             upper_ci_rec = rec_mean + qt(1 - (0.05 / 2), rec_n - 1) * rec_se) %>% 
-      slice(1)
-    return(df)
+    df <- df %>% group_by(beta) 
   } else if (var == "sigma") {
-    df <- rec_data %>%
-      group_by(sigma) %>% 
-      mutate(rec_mean = mean(follow_recommendation),
-             rec_sd = sd(follow_recommendation),
-             rec_n = n()) %>%
-      mutate(rec_se =  rec_sd/ sqrt(rec_n),
-             lower_ci_rec = rec_mean - qt(1 - (0.05 / 2), rec_n - 1) * rec_se,
-             upper_ci_rec = rec_mean + qt(1 - (0.05 / 2), rec_n - 1) * rec_se) %>% 
-      slice(1)
-    return(df)
+    df <- df %>% group_by(sigma) 
   }
+  
+  df <- df %>% 
+    mutate(rec_mean = mean(follow_recommendation),
+           rec_sd = sd(follow_recommendation),
+           rec_n = n()) %>%
+    mutate(rec_se =  rec_sd/ sqrt(rec_n),
+           lower_ci_rec = rec_mean - qt(1 - (0.05 / 2), rec_n - 1) * rec_se,
+           upper_ci_rec = rec_mean + qt(1 - (0.05 / 2), rec_n - 1) * rec_se) %>% 
+    slice(1)
+  return(df)
 }
+
 
 # graph w/ themes
 graph_stats_diversity <- function(df, var){
@@ -141,40 +114,25 @@ graph_stats_rec <- function(df, var){
 }
 
 get_stats_welfare <- function(rec_data, var){
+  df <- rec_data
   if (var == "rho") {
-    df <- rec_data %>%
-      group_by(regime, rho) %>%
-      mutate(welfare_mean = mean(welfare),
-             welfare_sd = sd(welfare),
-             welfare_n = n()) %>% 
-      mutate(welfare_se =  welfare_sd/ sqrt(welfare_n),
-             lower_ci_welfare = welfare_mean - qt(1 - (0.05 / 2), welfare_n - 1) * welfare_se,
-             upper_ci_welfare = welfare_mean + qt(1 - (0.05 / 2), welfare_n - 1) * welfare_se) %>%
-      slice(1)
-    return(df)
+    df <- df %>% group_by(regime, rho) 
+    
   } else if (var == "beta") {
-    df <- rec_data %>%
-      group_by(regime, beta) %>%
-      mutate(welfare_mean = mean(welfare),
-             welfare_sd = sd(welfare),
-             welfare_n = n()) %>% 
-      mutate(welfare_se =  welfare_sd/ sqrt(welfare_n),
-             lower_ci_welfare = welfare_mean - qt(1 - (0.05 / 2), welfare_n - 1) * welfare_se,
-             upper_ci_welfare = welfare_mean + qt(1 - (0.05 / 2), welfare_n - 1) * welfare_se) %>%
-      slice(1)
-    return(df)
+    df <- df %>% group_by(regime, beta) 
   } else if (var == "sigma") {
-    df <- rec_data %>%
-      group_by(regime, sigma) %>%
-      mutate(welfare_mean = mean(welfare),
-             welfare_sd = sd(welfare),
-             welfare_n = n()) %>% 
-      mutate(welfare_se =  welfare_sd/ sqrt(welfare_n),
-             lower_ci_welfare = welfare_mean - qt(1 - (0.05 / 2), welfare_n - 1) * welfare_se,
-             upper_ci_welfare = welfare_mean + qt(1 - (0.05 / 2), welfare_n - 1) * welfare_se) %>%
-      slice(1)
-    return(df)
+    df <- df %>% group_by(regime, sigma) 
   }
+  
+  df <- df %>%
+    mutate(welfare_mean = mean(welfare),
+           welfare_sd = sd(welfare),
+           welfare_n = n()) %>% 
+    mutate(welfare_se =  welfare_sd/ sqrt(welfare_n),
+           lower_ci_welfare = welfare_mean - qt(1 - (0.05 / 2), welfare_n - 1) * welfare_se,
+           upper_ci_welfare = welfare_mean + qt(1 - (0.05 / 2), welfare_n - 1) * welfare_se) %>%
+    slice(1)
+  return(df)
 }
 
 # graph w/ themes
