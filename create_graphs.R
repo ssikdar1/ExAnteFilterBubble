@@ -186,8 +186,8 @@ graph_stats_homo <- function(df, var){
   }
 }
 
-#WORKING_DIR <- "/Users/guyaridor/Desktop/recommender_systems/rec_sys_conf_paper/"
-WORKING_DIR <- "/Users/ssikdar/Downloads/econ/bubbles/"
+WORKING_DIR <- "/Users/guyaridor/Desktop/recommender_systems/rec_sys_conf_paper/"
+#WORKING_DIR <- "/Users/ssikdar/Downloads/econ/bubbles/"
 
 rec_data <- read.csv(paste(WORKING_DIR, "rec_data_t_25.csv", sep=""))
 rec_data <- rec_data %>% mutate(formatted_regime = ifelse(regime == "rec", "Omniscient", ifelse(regime == "no_rec", "No Rec", "Partial")))
@@ -297,9 +297,10 @@ xtable(df)
 
 time_dat <- read.csv(paste(WORKING_DIR, "time_path_25.csv", sep=""))
 time_dat <- time_dat %>% mutate(formatted_regime = ifelse(regime == "rec", "Omniscient", ifelse(regime == "no_rec", "No Rec", "Partial")))
-time_dat <- time_dat %>% mutate(local_move = as.numeric(consumption_dist < 10))
+time_dat <- time_dat %>% mutate(local_move = as.numeric(consumption_dist < 5))
+t <- time_dat %>% filter(t > 0) # local move isn't defined at the first time step so drop it to properly have smoothed plots
 
-g <- ggplot(time_dat, aes(x=t, y=local_move)) +
+g <- ggplot(t, aes(x=t, y=local_move)) +
     geom_smooth(aes(colour=formatted_regime)) +
     labs(x="t", y="Fraction of Local Search"
     )
