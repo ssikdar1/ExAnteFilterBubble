@@ -3,46 +3,47 @@ Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
 The top-level auxiliary file: paper.aux
 The style file: plain.bst
 Database file #1: refs.bib
+Warning--I didn't find a database entry for "schotter2014belief"
 Warning--there's a number but no volume in adomavicius2005toward
-You've used 16 entries,
+You've used 17 entries,
             2118 wiz_defined-function locations,
-            595 strings with 7213 characters,
-and the built_in function-call counts, 6717 in all, are:
-= -- 688
-> -- 302
-< -- 9
-+ -- 120
-- -- 102
-* -- 459
-:= -- 1044
-add.period$ -- 55
-call.type$ -- 16
-change.case$ -- 96
+            601 strings with 7461 characters,
+and the built_in function-call counts, 7206 in all, are:
+= -- 739
+> -- 325
+< -- 10
++ -- 129
+- -- 110
+* -- 491
+:= -- 1117
+add.period$ -- 59
+call.type$ -- 17
+change.case$ -- 103
 chr.to.int$ -- 0
-cite$ -- 17
-duplicate$ -- 273
-empty$ -- 525
-format.name$ -- 102
-if$ -- 1468
+cite$ -- 18
+duplicate$ -- 294
+empty$ -- 563
+format.name$ -- 110
+if$ -- 1579
 int.to.chr$ -- 0
-int.to.str$ -- 16
-missing$ -- 18
-newline$ -- 83
-num.names$ -- 32
-pop$ -- 118
+int.to.str$ -- 17
+missing$ -- 19
+newline$ -- 88
+num.names$ -- 34
+pop$ -- 128
 preamble$ -- 1
-purify$ -- 82
+purify$ -- 88
 quote$ -- 0
-skip$ -- 200
+skip$ -- 215
 stack$ -- 0
-substring$ -- 458
-swap$ -- 94
-text.length$ -- 9
+substring$ -- 487
+swap$ -- 103
+text.length$ -- 10
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 60
+type$ -- 64
 warning$ -- 1
-while$ -- 67
-width$ -- 18
-write$ -- 184
-(There was 1 warning)
+while$ -- 72
+width$ -- 19
+write$ -- 196
+(There were 2 warnings)
