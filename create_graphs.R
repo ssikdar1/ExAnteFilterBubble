@@ -295,7 +295,7 @@ df <- merge(df, homo, by="regime")
 library(xtable)
 xtable(df)
 
-time_dat <- read.csv("/Users/guyaridor/Desktop/recommender_systems/rec_sys_conf_paper/time_path_25.csv")
+time_dat <- read.csv(paste(WORKING_DIR, "time_path_25.csv", sep=""))
 time_dat <- time_dat %>% mutate(formatted_regime = ifelse(regime == "rec", "Omniscient", ifelse(regime == "no_rec", "No Rec", "Partial")))
 time_dat <- time_dat %>% mutate(local_move = as.numeric(consumption_dist < 10))
 
