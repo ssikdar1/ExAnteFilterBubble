@@ -3,6 +3,8 @@ library(dplyr)
 library(hrbrthemes)
 library(tidyverse)
 
+library(gridExtra)
+
 
 get_stats_diversity <- function(rec_data, var){
   df <- rec_data
@@ -92,7 +94,7 @@ graph_stats_welfare <- function(d, var, use_hrbrthemes){
     geom_line(aes(colour=formatted_regime)) +
     geom_errorbar(aes(ymin=lower_ci_welfare, ymax=upper_ci_welfare), width=.02, position=position_dodge(.9)) + 
     labs(x=var, y="welfare",
-         title=paste("N =", N, "T =", T_val, "Welfare",sep=" ")) 
+         title=paste( "Welfare",sep=" ")) 
   if(use_hrbrthemes){
     g <- g + theme_ipsum_rc()
   }
@@ -171,7 +173,7 @@ graph_stats_homo <- function(df, var){
       geom_errorbar(aes(ymin=lower_ci_jaccard, ymax=upper_ci_jaccard), width=.02,
                     position=position_dodge(.9)) + 
       labs(x="beta", y="homogeneity",
-           title=paste("N =", N, "T =", T_val, "Homogeneity",sep=" ")) + theme_ipsum_rc()
+           title=paste("Homogeneity",sep=" ")) + theme_ipsum_rc()
     return(g)
   } else if (var == "sigma") {
     g <- ggplot(df, aes(x=sigma, y=jaccard_mean)) +
@@ -184,8 +186,8 @@ graph_stats_homo <- function(df, var){
   }
 }
 
-WORKING_DIR <- "/Users/guyaridor/Desktop/recommender_systems/rec_sys_conf_paper/"
-#WORKING_DIR <- "/Users/ssikdar/Downloads/recommender_systems/rec_sys_conf_paper"
+#WORKING_DIR <- "/Users/guyaridor/Desktop/recommender_systems/rec_sys_conf_paper/"
+WORKING_DIR <- "/Users/ssikdar/Downloads/econ/bubbles/"
 
 rec_data <- read.csv(paste(WORKING_DIR, "rec_data_t_25.csv", sep=""))
 rec_data <- rec_data %>% mutate(formatted_regime = ifelse(regime == "rec", "Omniscient", ifelse(regime == "no_rec", "No Rec", "Partial")))
@@ -293,7 +295,7 @@ df <- merge(df, homo, by="regime")
 library(xtable)
 xtable(df)
 
-time_dat <- read.csv("/Users/guyaridor/Desktop/recommender_systems/rec_sys_conf_paper/time_path_25.csv")
+time_dat <- read.csv(paste(WORKING_DIR, "time_path_25.csv", sep=""))
 time_dat <- time_dat %>% mutate(formatted_regime = ifelse(regime == "rec", "Omniscient", ifelse(regime == "no_rec", "No Rec", "Partial")))
 time_dat <- time_dat %>% mutate(local_move = as.numeric(consumption_dist < 10))
 
@@ -321,6 +323,34 @@ if(use_hrbrthemes){
 ggsave(
   filename=paste(WORKING_DIR, "figures/rec_obedience_25.jpeg", sep=""), 
   plot=g
+)
+
+
+
+g <- graph_stats_welfare(get_stats_welfare(rec_data, 'beta'), 'beta',  TRUE) + theme(legend.position="bottom" ,legend.title = element_blank())
+
+h<- graph_stats_homo(get_stats_homogeneity(homogeneity, 'beta'), 'beta') + theme(legend.position="none" ,legend.title = element_blank())
+
+# https://stackoverflow.com/questions/13649473/add-a-common-legend-for-combined-ggplots
+#extract legend
+#https://github.com/hadley/ggplot2/wiki/Share-a-legend-between-two-ggplot2-graphs
+g_legend<-function(a.gplot){
+  tmp <- ggplot_gtable(ggplot_build(a.gplot))
+  leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
+  legend <- tmp$grobs[[leg]]
+  return(legend)}
+
+mylegend<-g_legend(g)
+
+p3 <- grid.arrange(arrangeGrob(g + theme(legend.position="none"),
+                               h + theme(legend.position="none"),
+                               nrow=1),
+                   mylegend, nrow=2,heights=c(10, 1))
+
+
+ggsave(
+  filename=paste(WORKING_DIR, "figures/welfare_homo_combo.jpeg", sep=""), 
+  plot=p3
 )
 
 
