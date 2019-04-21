@@ -4,6 +4,7 @@
 \settopmatter{printacmref=false}
 \usepackage[T1]{fontenc}
 %\usepackage{lmodern}
+%\usepackage{mathtools}
 \usepackage[font=small]{caption}
 \usepackage{float}
 %
