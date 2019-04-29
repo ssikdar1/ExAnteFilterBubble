@@ -5,7 +5,13 @@ library(tidyverse)
 
 library(gridExtra)
 
-
+#' Calculate diversity mean w/ Confidence Intervals 
+#'
+#' @param rec_data Dataframe
+#' @param var  one of rho | beta | sigma
+#' @return Dataframe w/ mean and confidence intervals
+#' @examples
+#' get_stats_diversity(rec_data, "rho")
 get_stats_diversity <- function(rec_data, var){
   df <- rec_data
   if (var == "rho") { 
@@ -28,6 +34,13 @@ get_stats_diversity <- function(rec_data, var){
   
 }
 
+#' Calculate follow recommendation mean w/ Confidence Intervals 
+#'
+#' @param rec_data Dataframe
+#' @param var  one of rho | beta | sigma
+#' @return Dataframe w/ mean and confidence intervals
+#' @examples
+#' get_stats_rec(rec_data, "rho")
 get_stats_rec <- function(rec_data, var){
   rec_data$follow_recommendation <- as.numeric(levels(rec_data$follow_recommendation)[rec_data$follow_recommendation])
   
@@ -52,56 +65,14 @@ get_stats_rec <- function(rec_data, var){
   return(df)
 }
 
-# https://stackoverflow.com/questions/22309285/how-to-use-a-variable-to-specify-column-name-in-ggplot
-# graph w/ themes
-graph_stats_diversity <- function(df, var, use_hrbrthemes){
-  T_val <- df$T[1]
-  N <- df$N[1]
-  
-  g <- ggplot(df, aes_string(x=var, y="diversity_mean")) +
-      geom_line(aes(colour=formatted_regime)) +
-      geom_errorbar(aes(ymin=lower_ci_diversity, ymax=upper_ci_diveristy), width=.02,
-                    position=position_dodge(.9)) + 
-      labs(x=var, y="diversity",
-           title=paste("N =", N, "T =", T_val, "Diversity",sep=" "))
-  if(use_hrbrthemes){
-    g <- g + theme_ipsum_rc()
-  }
-    return(g)
-}
 
-graph_stats_rec <- function(df, var, use_hrbrthemes){
-  T_val <- df$T[1]
-  N <- df$N[1]
-
-  g <- ggplot(df, aes_string(x=var, y="rec_mean")) +
-      geom_line() +
-      geom_errorbar(aes(ymin=lower_ci_rec, ymax=upper_ci_rec), width=.02,
-                    position=position_dodge(.9)) + 
-      labs(x=var, y="diversity",
-           title=paste("N =", N, "T =", T_val, "Follow Rec",sep=" "))
-  if(use_hrbrthemes){
-    g <- g + theme_ipsum_rc()
-  }
-    return(g)
-}
-
-# graph w/ themes
-graph_stats_welfare <- function(d, var, use_hrbrthemes){
-  T_val <- d$T[1]
-  N <- d$N[1]
-  g <- ggplot(d, aes_string(x=var, y="welfare_mean")) +
-    geom_line(aes(colour=formatted_regime)) +
-    geom_errorbar(aes(ymin=lower_ci_welfare, ymax=upper_ci_welfare), width=.02, position=position_dodge(.9)) + 
-    labs(x=var, y="welfare",
-         title=paste( "Welfare",sep=" ")) 
-  if(use_hrbrthemes){
-    g <- g + theme_ipsum_rc()
-  }
-  return(g)
-  
-}
-
+#' Calculate welfare mean w/ Confidence Intervals 
+#'
+#' @param rec_data Dataframe
+#' @param var  one of rho | beta | sigma
+#' @return Dataframe w/ mean and confidence intervals
+#' @examples
+#' get_stats_welfare(rec_data, "rho")
 get_stats_welfare <- function(rec_data, var){
   df <- rec_data
   if (var == "rho") {
@@ -125,16 +96,15 @@ get_stats_welfare <- function(rec_data, var){
 }
 
 
-
-#df2 <- get_stats_diversity(rec_data, 0.9)
-#g <- graph_stats_diversity(df2)
-#ggsave(filename=paste(WORKING_DIR, "figures/rho_09_diversity.jpeg", sep=""), plot=g)
-
-
-
-## HOMOGENEITY DATA
-
+#' Calculate homogeneity w/ Confidence Intervals 
+#'
+#' @param stats_df Dataframe
+#' @param var  one of rho | beta | sigma
+#' @return Dataframe w/ mean and confidence intervals
+#' @examples
+#' get_stats_homogeneity(stats_df, "rho")
 get_stats_homogeneity <- function(stats_df, var){
+  ## HOMOGENEITY DATA
   df <- stats_df
   if (var == "rho") {
     df <- df %>% group_by(regime, rho) 
@@ -154,7 +124,81 @@ get_stats_homogeneity <- function(stats_df, var){
   return(df)
 }
 
+#' Graph diversity as function of `var`
+#'
+#' @param df Dataframe
+#' @param var  one of rho | beta | sigma
+#' @param use_hrbrthemes bool to toggle hrbrthemes
+#' @return ggplot graph
+graph_stats_diversity <- function(df, var, use_hrbrthemes){
+  # https://stackoverflow.com/questions/22309285/how-to-use-a-variable-to-specify-column-name-in-ggplot
+  # graph w/ themes
+  T_val <- df$T[1]
+  N <- df$N[1]
+  
+  g <- ggplot(df, aes_string(x=var, y="diversity_mean")) +
+      geom_line(aes(colour=formatted_regime)) +
+      geom_errorbar(aes(ymin=lower_ci_diversity, ymax=upper_ci_diveristy), width=.02,
+                    position=position_dodge(.9)) + 
+      labs(x=var, y="diversity",
+           title=paste("N =", N, "T =", T_val, "Diversity",sep=" "))
+  if(use_hrbrthemes){
+    g <- g + theme_ipsum_rc()
+  }
+    return(g)
+}
 
+#' Graph rec mean as function of `var`
+#'
+#' @param df Dataframe
+#' @param var  one of rho | beta | sigma
+#' @param use_hrbrthemes bool to toggle hrbrthemes
+#' @return ggplot graph
+graph_stats_rec <- function(df, var, use_hrbrthemes){
+  T_val <- df$T[1]
+  N <- df$N[1]
+
+  g <- ggplot(df, aes_string(x=var, y="rec_mean")) +
+      geom_line() +
+      geom_errorbar(aes(ymin=lower_ci_rec, ymax=upper_ci_rec), width=.02,
+                    position=position_dodge(.9)) + 
+      labs(x=var, y="diversity",
+           title=paste("N =", N, "T =", T_val, "Follow Rec",sep=" "))
+  if(use_hrbrthemes){
+    g <- g + theme_ipsum_rc()
+  }
+    return(g)
+}
+
+
+#' Graph welfare as function of `var`
+#'
+#' @param df Dataframe
+#' @param var  one of rho | beta | sigma
+#' @param use_hrbrthemes bool to toggle hrbrthemes
+#' @return ggplot graph
+graph_stats_welfare <- function(d, var, use_hrbrthemes){
+  T_val <- d$T[1]
+  N <- d$N[1]
+  g <- ggplot(d, aes_string(x=var, y="welfare_mean")) +
+    geom_line(aes(colour=formatted_regime)) +
+    geom_errorbar(aes(ymin=lower_ci_welfare, ymax=upper_ci_welfare), width=.02, position=position_dodge(.9)) + 
+    labs(x=var, y="welfare",
+         title=paste( "Welfare",sep=" ")) 
+  if(use_hrbrthemes){
+    g <- g + theme_ipsum_rc()
+  }
+  return(g)
+  
+}
+
+
+#' Graph homogeneity as function of `var`
+#'
+#' @param df Dataframe
+#' @param var  one of rho | beta | sigma
+#' @param use_hrbrthemes bool to toggle hrbrthemes
+#' @return ggplot graph
 graph_stats_homo <- function(df, var){
   T_val <- df$T[1]
   N <- df$N[1]
