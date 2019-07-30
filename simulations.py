@@ -235,26 +235,27 @@ rho_vals = [0.1]
 beta_vals = [0.1]
 
 # absolute risk aversion
-alpha = 0
+alpha_vals = [0, 1]
 
 sigma_vals = [0.25]
 
 for rho in rho_vals:
     for beta in beta_vals:
         for sigma in sigma_vals:
-            print("STARTING")
+            for alpha in alpha_vals:
+                print("STARTING")
+                print("ρ: {} β: {} σ: {} α:{} ".format(rho, beta, sigma, alpha))
+                sigma_i = sigma
 
-            sigma_i = sigma
+                Sigma_V_i = cov_mat_fun(sigma_i,rho,N)
+                Sigma_V = cov_mat_fun(sigma,rho,N)
+                Sigma_V_ibar = cov_mat_fun(sigma_ibar,rho_ibar,N)
 
-            Sigma_V_i = cov_mat_fun(sigma_i,rho,N)
-            Sigma_V = cov_mat_fun(sigma,rho,N)
-            Sigma_V_ibar = cov_mat_fun(sigma_ibar,rho_ibar,N)
-
-            simulate(N,T,sigma,sigma_i,sigma_ibar,beta,nr_ind,Sigma_V_i, Sigma_V, Sigma_V_ibar, alpha, seed=1)  
-            #sim_results[(N, T, rho, beta, sigma, alpha)] = Parallel(n_jobs=num_cores)(delayed(simulate)(N,T,sigma,sigma_i,sigma_ibar,beta,nr_ind,Sigma_V_i, Sigma_V, Sigma_V_ibar, alpha, seed=i+1) for i in range(nr_pop))
-            print("finished a population run")
-            #with open('sim_results_test.p', 'wb') as fp:
-            #    pickle.dump(sim_results, fp)
+                simulate(N,T,sigma,sigma_i,sigma_ibar,beta,nr_ind,Sigma_V_i, Sigma_V, Sigma_V_ibar, alpha, seed=1)  
+                #sim_results[(N, T, rho, beta, sigma, alpha)] = Parallel(n_jobs=num_cores)(delayed(simulate)(N,T,sigma,sigma_i,sigma_ibar,beta,nr_ind,Sigma_V_i, Sigma_V, Sigma_V_ibar, alpha, seed=i+1) for i in range(nr_pop))
+                print("finished a population run")
+                #with open('sim_results_test.p', 'wb') as fp:
+                #    pickle.dump(sim_results, fp)
 
 #with open('sim_results_test.p', 'wb') as fp:
 #    pickle.dump(sim_results, fp)
