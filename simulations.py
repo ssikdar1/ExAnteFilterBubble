@@ -229,7 +229,7 @@ num_cores = 1
 sim_results ={}
 
 # Covariance structure
-rho_vals = [0.1]
+rho_vals = [0.1, 0.3, 0.5, 0.7, 0.9]
 
 # utility idiosyncratic degree 
 beta_vals = [0.1]
