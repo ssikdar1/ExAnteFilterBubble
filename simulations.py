@@ -84,7 +84,7 @@ def update_Ui(Cit,Ui,mu_Ui, Sigma_Ui, Nset, alpha):
     
     # γ: uncertainty aversion
     # TODO add this to Cit?
-    gamma = certainty_equivalent(alpha, mu_Ui, Sigma_Ui))
+    gamma = certainty_equivalent(alpha, mu_Ui, Sigma_Ui)
     
     x1 = Cit
     x2 = [n for n in Nset if n not in Cit]
