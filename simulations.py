@@ -10,19 +10,13 @@ import pickle
 import cProfile
 from copy import copy
 
-import itertools
 from scipy import stats
 from scipy.stats import beta
 
-import pandas as pd
-import numpy as np
-import pickle
-import cProfile
 import numba
 
 #from joblib import Parallel, delayed
 
-import itertools
 from scipy import stats
 from scipy.stats import beta
 
@@ -84,27 +78,33 @@ def inv_nla_jit(A):
 def update_Ui(Cit,Ui,mu_Ui, Sigma_Ui, Nset, alpha):
     
     # γ: uncertainty aversion
-    # TODO add this to Cit?
     gamma = certainty_equivalent(alpha, mu_Ui, Sigma_Ui)
     
+    # TODO add this to Cit?
     x1 = Cit
     x2 = [n for n in Nset if n not in Cit]
     Nit = [n for n in Nset if n not in Cit]
+
     mu1 = np.array([mu_Ui[n] for n in x1]).reshape((1,len(x1)))
     mu2 = np.array([mu_Ui[n] for n in x2]).reshape((1,len(x2)))
+
     Sigma11 = np.ones((len(x1),len(x1)))
     Sigma21 = np.ones((len(x2),len(x1)))
+
     for i in range(len(Cit)):
         for j in range(len(Cit)):
-            Sigma11[i,j] = Sigma_Ui[Cit[i],Cit[j]]
+            Sigma11[i,j] = Sigma_Ui[Cit[i],Cit[j]] + gamma[Cit[i],Cit[j]]
+
     for i in range(len(Cit)):
         for j in range(len(Nit)):
-            Sigma21[j,i] = Sigma_Ui[Cit[i], Nit[j]]
+            Sigma21[j,i] = Sigma_Ui[Cit[i], Nit[j]] + gamma[Cit[i], Nit[j]]
+
     a = np.array([Ui[n] for n in x1]).reshape((1,len(x1)))
     inv_mat = inv_nla_jit(Sigma11)
     inner = np.matmul(Sigma21, inv_mat)
     mubar = mu2 + (np.matmul(inner,(a-mu1).T)).T
     mu_new = Ui
+
     for i in range(len(x2)):
         mu_new[x2[i]] = mubar[0,i]
     return mu_new
@@ -217,10 +217,8 @@ OMNI = 'rec'
 PARTIAL = 'partial'
 NO_REC = 'no_rec'
 
-# Number of items to choose from
-N = 20
-
-T = 10
+N = 20      # Number of items to choose from
+T = 10      # total items a consumer consumes / num time periods
 nr_pop = 1
 nr_ind = 5
 sigma_ibar = .1
