@@ -10,9 +10,6 @@ import pickle
 import cProfile
 from copy import copy
 
-from scipy import stats
-from scipy.stats import beta
-
 import numba
 
 #from joblib import Parallel, delayed
@@ -23,7 +20,6 @@ from scipy.stats import beta
 mycolor1 = [0.368417, 0.506779, 0.709798]
 mycolor2 = [0.880722, 0.611041, 0.142051]
 mycolor3 = [0.560181, 0.691569, 0.194885]
-mycolor4 = [0.922526, 0.385626, 0.209179]
 mycolor5 = [0.528488, 0.470624, 0.701351]
 mycolor6 = [0.772079, 0.431554, 0.102387]
 mycolor7 = [0.363898, 0.618501, 0.782349]
@@ -76,11 +72,12 @@ def inv_nla_jit(A):
   return np.linalg.inv(A)
 
 def update_Ui(Cit,Ui,mu_Ui, Sigma_Ui, Nset, alpha):
+    """ Update beliefs using Baysian updating on Normal Distribution
+    """ 
     
-    # γ: uncertainty aversion
-    gamma = certainty_equivalent(alpha, mu_Ui, Sigma_Ui)
-    
-    # TODO add this to Cit?
+    # https://en.wikipedia.org/wiki/Multivariate_normal_distribution#Conditional_distributions
+    # μ_bar = μ_1 + Ε12 Ε22^-1 ( a - μ_2 )  
+
     x1 = Cit
     x2 = [n for n in Nset if n not in Cit]
     Nit = [n for n in Nset if n not in Cit]
@@ -93,11 +90,11 @@ def update_Ui(Cit,Ui,mu_Ui, Sigma_Ui, Nset, alpha):
 
     for i in range(len(Cit)):
         for j in range(len(Cit)):
-            Sigma11[i,j] = Sigma_Ui[Cit[i],Cit[j]] + gamma[Cit[i],Cit[j]]
+            Sigma11[i,j] = Sigma_Ui[Cit[i],Cit[j]] 
 
     for i in range(len(Cit)):
         for j in range(len(Nit)):
-            Sigma21[j,i] = Sigma_Ui[Cit[i], Nit[j]] + gamma[Cit[i], Nit[j]]
+            Sigma21[j,i] = Sigma_Ui[Cit[i], Nit[j]] 
 
     a = np.array([Ui[n] for n in x1]).reshape((1,len(x1)))
     inv_mat = inv_nla_jit(Sigma11)
@@ -177,6 +174,7 @@ def simulate(
     R_pop = { NO_REC: [], OMNI: [], PARTIAL: []}
 
     for it_ind in range(nr_ind):
+
         mu_V_ibar = np.random.multivariate_normal(np.zeros(N), Sigma_V_ibar)
         mu_V_i = copy(mu_V_ibar)
         V_i = np.random.multivariate_normal(mu_V_i, Sigma_V_i)
@@ -184,9 +182,11 @@ def simulate(
         U_i = beta * V_i + (1-beta) * V
         mu_U_i = beta * mu_V_i + (1-beta) * mu_V
 
+
         ##No Rec Case
         Sigma_U_i = beta**2 * Sigma_V_i + (1-beta)**2 * Sigma_V
         C_iT = choice_ind(U_i,copy(mu_U_i), Sigma_U_i,T,N, Nset, alpha)
+        gamma = certainty_equivalent(alpha, mu_U_i, Sigma_U_i) # γ: uncertainty aversion
         C_pop[NO_REC] += [C_iT]
         w_val = w_fun(C_iT,U_i)
         W_pop[NO_REC] += [w_val]
