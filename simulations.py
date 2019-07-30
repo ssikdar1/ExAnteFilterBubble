@@ -1,10 +1,12 @@
+#!/usr/bin/python3
+#coding=utf-8
+# vim: tabstop=8 expandtab shiftwidth=4 softtabstop=4
+
 import pandas as pd
 import numpy as np
 import pickle
 import cProfile
 from copy import copy
-
-from joblib import Parallel, delayed
 
 import itertools
 from scipy import stats
@@ -17,7 +19,7 @@ import pickle
 import cProfile
 import numba
 
-from joblib import Parallel, delayed
+#from joblib import Parallel, delayed
 
 import itertools
 from scipy import stats
@@ -39,14 +41,28 @@ mycolor10 = [0.571589, 0.586483, 0.]
 def d(i,j):
     return min(abs(i-j), abs(j-i), abs(j-i-N), abs(i-j-N))
 
-def cov_mat_fun(sigm, rh, N):
+def cov_mat_fun(sigm, rho, N):
+    """ Create covariance matrix
+    Returns:
+        numpy.ndarray
+    """
     cov_mat = np.ones((N,N))
     for i in range(0,N):
         for j in range(0,N):
-            cov_mat[i,j] = rh**d(i,j)
+            cov_mat[i,j] = rho**d(i,j)
     cov_mat = sigm * cov_mat
     return cov_mat
 
+def certainty_equivalent(alpha, mu, sigma):
+    """ CARA
+    Args:
+        alpha: the coefficient of absolute risk aversion
+        μ and σ2 are the mean and the variance of the distribution F
+    Notes:
+        https://ocw.mit.edu/courses/economics/14-123-microeconomic-theory-iii-spring-2015/lecture-notes-and-slides/MIT14_123S15_Chap3.pdf 
+        pg 21
+    """
+    return mu - (.5 * alpha * sigma**2) 
 
 
 ### Welfare Functions - Statistic Calculation Functions
@@ -64,7 +80,12 @@ def w_fun(CiT,Ui):
 def inv_nla_jit(A):
   return np.linalg.inv(A)
 
-def update_Ui(Cit,Ui,mu_Ui, Sigma_Ui, Nset):
+def update_Ui(Cit,Ui,mu_Ui, Sigma_Ui, Nset, alpha):
+    
+    # γ: uncertainty aversion
+    # TODO add this to Cit?
+    gamma = certainty_equivalent(alpha, mu_Ui, Sigma_Ui))
+    
     x1 = Cit
     x2 = [n for n in Nset if n not in Cit]
     Nit = [n for n in Nset if n not in Cit]
@@ -93,12 +114,12 @@ def choice_helper(Cit,mu, Nset):
     cit = x2[np.argmax([mu[i] for i in x2])]
     return cit
 
-def choice_ind(U_i,mu_U_i, Sigma_U_i,T,N, Nset):
+def choice_ind(U_i,mu_U_i, Sigma_U_i,T,N, Nset, alpha):
     C_iT = []
     for t in range(T):
         mu_Uit = mu_U_i
         if len(C_iT) > 0:
-            mu_Uit = update_Ui(C_iT,U_i,mu_U_i, Sigma_U_i, Nset)
+            mu_Uit = update_Ui(C_iT,U_i,mu_U_i, Sigma_U_i, Nset, alpha)
         c_it = choice_helper(C_iT,mu_Uit, Nset)
         C_iT = C_iT + [c_it]
     return C_iT
@@ -112,13 +133,13 @@ def choice_omni(U_i,T,N, Nset):
     return C_iT
 
 
-def choice_part(V_i, mu_V_i,Sigma_V_i,V,T,N, Nset):
+def choice_part(V_i, mu_V_i,Sigma_V_i,V,T,N, Nset, alpha):
     C_iT = []
     R_iT = []
     for t in range(T):
         mu_Vit = mu_V_i
         if len(C_iT) > 0:
-            mu_Vit = update_Ui(C_iT,V_i,mu_V_i, Sigma_V_i, Nset)
+            mu_Vit = update_Ui(C_iT,V_i,mu_V_i, Sigma_V_i, Nset, alpha)
         mu_Uit = beta*mu_Vit+(1-beta)*V
         c_it = choice_helper(C_iT,mu_Uit, Nset)
         Nit = [n for n in Nset if n not in C_iT]
@@ -139,18 +160,21 @@ def simulate(
     Sigma_V_i,
     Sigma_V,
     Sigma_V_ibar,
+    alpha,
     seed=1.0
 ):
-    print("iteration")
-    print(seed)
+    print("iteration: %s " % seed)
+
     np.random.seed(int(seed))
     Nset = range(0,N)
     mu_V = np.zeros(N)
     V = np.random.multivariate_normal(mu_V, Sigma_V)
     mu_V.reshape((1,N))
+
     C_pop = { NO_REC: [], OMNI: [], PARTIAL: []}
     W_pop = { NO_REC: [], OMNI: [], PARTIAL: []}
     R_pop = { NO_REC: [], OMNI: [], PARTIAL: []}
+
     for it_ind in range(nr_ind):
         mu_V_ibar = np.random.multivariate_normal(np.zeros(N), Sigma_V_ibar)
         mu_V_i = copy(mu_V_ibar)
@@ -161,26 +185,28 @@ def simulate(
 
         ##No Rec Case
         Sigma_U_i = beta**2 * Sigma_V_i + (1-beta)**2 * Sigma_V
-        C_iT = choice_ind(U_i,copy(mu_U_i), Sigma_U_i,T,N, Nset)
+        C_iT = choice_ind(U_i,copy(mu_U_i), Sigma_U_i,T,N, Nset, alpha)
         C_pop[NO_REC] += [C_iT]
         w_val = w_fun(C_iT,U_i)
         W_pop[NO_REC] += [w_val]
         print(C_iT)
+
         ## OMNI CASE
         C_iT = choice_omni(U_i,T,N, Nset)
         C_pop[OMNI] += [C_iT]
         w_val = w_fun(C_iT,U_i)
         W_pop[OMNI] += [w_val]
         print(C_iT)
-        ## PARTIAL REC Case
 
+        ## PARTIAL REC Case
         mu_V_i = copy(mu_V_ibar)
         mu_V_i.reshape((1,N))
-        C_iT, R_iT = choice_part(V_i,mu_V_i, Sigma_V_i,V,T,N, Nset)
+        C_iT, R_iT = choice_part(V_i,mu_V_i, Sigma_V_i,V,T,N, Nset, alpha)
         C_pop[PARTIAL] += [C_iT]
         w_val = w_fun(C_iT,U_i)
         W_pop[PARTIAL] += [w_val]
         R_pop[PARTIAL] += [R_iT]
+
     return { 'Consumption': C_pop, 'Welfare': W_pop, 'Rec': R_pop }
 
 
@@ -190,7 +216,9 @@ OMNI = 'rec'
 PARTIAL = 'partial'
 NO_REC = 'no_rec'
 
-N = 500
+# Number of items to choose from
+N = 20
+
 T = 10
 nr_pop = 1
 nr_ind = 5
@@ -199,21 +227,34 @@ rho_ibar = 0
 
 num_cores = 1
 sim_results ={}
+
+# Covariance structure
 rho_vals = [0.1]
+
+# utility idiosyncratic degree 
 beta_vals = [0.1]
+
+# absolute risk aversion
+alpha = 0
+
 sigma_vals = [0.25]
+
 for rho in rho_vals:
     for beta in beta_vals:
         for sigma in sigma_vals:
             print("STARTING")
+
             sigma_i = sigma
+
             Sigma_V_i = cov_mat_fun(sigma_i,rho,N)
             Sigma_V = cov_mat_fun(sigma,rho,N)
             Sigma_V_ibar = cov_mat_fun(sigma_ibar,rho_ibar,N)
-            sim_results[(N, T, rho, beta, sigma)] = Parallel(n_jobs=num_cores)(delayed(simulate)(N,T,sigma,sigma_i,sigma_ibar,beta,nr_ind,Sigma_V_i, Sigma_V, Sigma_V_ibar, seed=i+1) for i in range(nr_pop))
-            print("finished a population run")
-            with open('sim_results_test.p', 'wb') as fp:
-                pickle.dump(sim_results, fp)
 
-with open('sim_results_test.p', 'wb') as fp:
-    pickle.dump(sim_results, fp)
+            simulate(N,T,sigma,sigma_i,sigma_ibar,beta,nr_ind,Sigma_V_i, Sigma_V, Sigma_V_ibar, alpha, seed=1)  
+            #sim_results[(N, T, rho, beta, sigma, alpha)] = Parallel(n_jobs=num_cores)(delayed(simulate)(N,T,sigma,sigma_i,sigma_ibar,beta,nr_ind,Sigma_V_i, Sigma_V, Sigma_V_ibar, alpha, seed=i+1) for i in range(nr_pop))
+            print("finished a population run")
+            #with open('sim_results_test.p', 'wb') as fp:
+            #    pickle.dump(sim_results, fp)
+
+#with open('sim_results_test.p', 'wb') as fp:
+#    pickle.dump(sim_results, fp)
