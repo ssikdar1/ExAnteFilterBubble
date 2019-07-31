@@ -49,12 +49,16 @@ def certainty_equivalent(alpha, mu, sigma):
     Args:
         alpha: the coefficient of absolute risk aversion
         μ and σ2 are the mean and the variance of the distribution F
+    Returns:
+        (numpy.ndarray) of shape (N,)
     Notes:
         https://ocw.mit.edu/courses/economics/14-123-microeconomic-theory-iii-spring-2015/lecture-notes-and-slides/MIT14_123S15_Chap3.pdf 
         pg 21
     """
-    return mu - (.5 * alpha * sigma**2) 
-
+    new_mu = mu - (.5 * alpha * sigma**2) # takes on the dimensions of sigma (N,N)
+    #print(new_mu[:,1])
+    # TODO does this make sense?
+    return new_mu[0]                      # get the first row dim (N,)
 
 ### Welfare Functions - Statistic Calculation Functions
 
@@ -108,6 +112,12 @@ def update_Ui(Cit,Ui,mu_Ui, Sigma_Ui, Nset, alpha):
 
 ## CHOICE FUNCTIONS
 def choice_helper(Cit,mu, Nset):
+    """
+    Args:
+        Cit (list):
+        mu (numpy.ndarray):
+        Nset (range) :
+    """
     x2 = [n for n in Nset if n not in Cit]
     cit = x2[np.argmax([mu[i] for i in x2])]
     return cit
@@ -117,8 +127,11 @@ def choice_ind(U_i,mu_U_i, Sigma_U_i,T,N, Nset, alpha):
     for t in range(T):
         mu_Uit = mu_U_i
         if len(C_iT) > 0:
+            # update beliefs
             mu_Uit = update_Ui(C_iT,U_i,mu_U_i, Sigma_U_i, Nset, alpha)
-        c_it = choice_helper(C_iT,mu_Uit, Nset)
+        # make choice
+        gamma_mu_Uit = certainty_equivalent(alpha, mu_Uit, Sigma_U_i) # γ: uncertainty aversion
+        c_it = choice_helper(C_iT,gamma_mu_Uit, Nset)
         C_iT = C_iT + [c_it]
     return C_iT
 
@@ -137,9 +150,12 @@ def choice_part(V_i, mu_V_i,Sigma_V_i,V,T,N, Nset, alpha):
     for t in range(T):
         mu_Vit = mu_V_i
         if len(C_iT) > 0:
+            # update beliefs
             mu_Vit = update_Ui(C_iT,V_i,mu_V_i, Sigma_V_i, Nset, alpha)
         mu_Uit = beta*mu_Vit+(1-beta)*V
-        c_it = choice_helper(C_iT,mu_Uit, Nset)
+        # make choice
+        gamma_mu_Uit = certainty_equivalent(alpha, mu_Uit, Sigma_V_i) # γ: uncertainty aversion
+        c_it = choice_helper(C_iT,gamma_mu_Uit, Nset)
         Nit = [n for n in Nset if n not in C_iT]
         r_it = Nit[np.argmax([V[i] for i in Nit])]
         R_iT = R_iT + [r_it]
@@ -164,7 +180,9 @@ def simulate(
     print("iteration: %s " % seed)
 
     np.random.seed(int(seed))
-    Nset = range(0,N)
+
+    Nset = range(0,N)   # set of N items I = {0, 1, ..., N − 1}
+
     mu_V = np.zeros(N)
     V = np.random.multivariate_normal(mu_V, Sigma_V)
     mu_V.reshape((1,N))
@@ -186,7 +204,6 @@ def simulate(
         ##No Rec Case
         Sigma_U_i = beta**2 * Sigma_V_i + (1-beta)**2 * Sigma_V
         C_iT = choice_ind(U_i,copy(mu_U_i), Sigma_U_i,T,N, Nset, alpha)
-        gamma = certainty_equivalent(alpha, mu_U_i, Sigma_U_i) # γ: uncertainty aversion
         C_pop[NO_REC] += [C_iT]
         w_val = w_fun(C_iT,U_i)
         W_pop[NO_REC] += [w_val]
