@@ -46,18 +46,20 @@ def cov_mat_fun(sigm, rho, N):
 def certainty_equivalent(alpha, mu, sigma):
     """ CARA
     Args:
-        alpha: the coefficient of absolute risk aversion
-        μ and σ2 are the mean and the variance of the distribution F
+        alpha (int) :
+        mu (numpy.ndarray): shape (N,)
+        sigma (numpy.ndarray) : shape (N,N)
     Returns:
         (numpy.ndarray) of shape (N,)
     Notes:
+        alpha: the coefficient of absolute risk aversion
+        μ and σ2 are the mean and the variance of the distribution F
         https://ocw.mit.edu/courses/economics/14-123-microeconomic-theory-iii-spring-2015/lecture-notes-and-slides/MIT14_123S15_Chap3.pdf 
         pg 21
     """
-    new_mu = mu - (.5 * alpha * sigma**2) # takes on the dimensions of sigma (N,N)
-    #print(new_mu[:,1])
-    # TODO does this make sense?
-    return new_mu[0]                      # get the first row dim (N,)
+    print(type(sigma))
+    new_mu = mu - (.5 * alpha * sigma.diagonal()**2) 
+    return new_mu
 
 ### Welfare Functions - Statistic Calculation Functions
 
