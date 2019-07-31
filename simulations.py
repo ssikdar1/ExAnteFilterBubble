@@ -75,7 +75,7 @@ def w_fun(CiT,Ui):
 def inv_nla_jit(A):
   return np.linalg.inv(A)
 
-def update_Ui(Cit,Ui,mu_Ui, Sigma_Ui, Nset, alpha):
+def update_Ui(Cit,Ui,mu_Ui, Sigma_Ui, Nset):
     """ Update beliefs using Baysian updating on Normal Distribution
     """ 
     
@@ -128,7 +128,7 @@ def choice_ind(U_i,mu_U_i, Sigma_U_i,T,N, Nset, alpha):
         mu_Uit = mu_U_i
         if len(C_iT) > 0:
             # update beliefs
-            mu_Uit = update_Ui(C_iT,U_i,mu_U_i, Sigma_U_i, Nset, alpha)
+            mu_Uit = update_Ui(C_iT,U_i,mu_U_i, Sigma_U_i, Nset)
         # make choice
         gamma_mu_Uit = certainty_equivalent(alpha, mu_Uit, Sigma_U_i) # γ: uncertainty aversion
         c_it = choice_helper(C_iT,gamma_mu_Uit, Nset)
@@ -151,7 +151,7 @@ def choice_part(V_i, mu_V_i,Sigma_V_i,V,T,N, Nset, alpha):
         mu_Vit = mu_V_i
         if len(C_iT) > 0:
             # update beliefs
-            mu_Vit = update_Ui(C_iT,V_i,mu_V_i, Sigma_V_i, Nset, alpha)
+            mu_Vit = update_Ui(C_iT,V_i,mu_V_i, Sigma_V_i, Nset)
         mu_Uit = beta*mu_Vit+(1-beta)*V
         # make choice
         gamma_mu_Uit = certainty_equivalent(alpha, mu_Uit, Sigma_V_i) # γ: uncertainty aversion
