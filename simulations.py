@@ -12,9 +12,8 @@ from copy import copy
 
 import numba
 
-#from joblib import Parallel, delayed
+from joblib import Parallel, delayed
 
-from scipy import stats
 from scipy.stats import beta
 
 mycolor1 = [0.368417, 0.506779, 0.709798]
@@ -268,11 +267,10 @@ for rho, beta, sigma, alpha in params:
     Sigma_V = cov_mat_fun(sigma,rho,N)
     Sigma_V_ibar = cov_mat_fun(sigma_ibar,rho_ibar,N)
 
-    simulate(N,T,sigma,sigma_i,sigma_ibar,beta,nr_ind,Sigma_V_i, Sigma_V, Sigma_V_ibar, alpha, seed=1)  
-    #sim_results[(N, T, rho, beta, sigma, alpha)] = Parallel(n_jobs=num_cores)(delayed(simulate)(N,T,sigma,sigma_i,sigma_ibar,beta,nr_ind,Sigma_V_i, Sigma_V, Sigma_V_ibar, alpha, seed=i+1) for i in range(nr_pop))
+    sim_results[(N, T, rho, beta, sigma, alpha)] = Parallel(n_jobs=num_cores)(delayed(simulate)(N,T,sigma,sigma_i,sigma_ibar,beta,nr_ind,Sigma_V_i, Sigma_V, Sigma_V_ibar, alpha, seed=i+1) for i in range(nr_pop))
     print("finished a population run")
-    #with open('sim_results_test.p', 'wb') as fp:
-    #    pickle.dump(sim_results, fp)
+    with open('sim_results_test.p', 'wb') as fp:
+        pickle.dump(sim_results, fp)
 
-#with open('sim_results_test.p', 'wb') as fp:
-#    pickle.dump(sim_results, fp)
+with open('sim_results_test.p', 'wb') as fp:
+    pickle.dump(sim_results, fp)

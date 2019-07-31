@@ -1,3 +1,4 @@
 numba
 scipy==1.2.1
 pandas==0.23.4
+joblib
