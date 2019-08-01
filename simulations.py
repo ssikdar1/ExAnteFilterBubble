@@ -181,6 +181,7 @@ def simulate(
     Sigma_V,
     Sigma_V_ibar,
     alpha,
+    epsilon,
     seed=1.0
 ):
     print("iteration: %s " % seed)
@@ -259,22 +260,36 @@ beta_vals = [0.1]
 # absolute risk aversion
 alpha_vals = [0, 1]
 
+# action of the time for random exploration
+epsilon_vals = [0, 1/10, 1/4]
+
 sigma_vals = [0.25]
 
 # itertools.product lists to get all permutations
-vals = [rho_vals, beta_vals, sigma_vals, alpha_vals]
+vals = [rho_vals, beta_vals, sigma_vals, alpha_vals, epsilon_vals]
 params = list(itertools.product(*vals))
 
-for rho, beta, sigma, alpha in params:
+for rho, beta, sigma, alpha, epsilon in params:
     print("STARTING")
-    print("ρ: {} β: {} σ: {} α:{} ".format(rho, beta, sigma, alpha))
+    print("ρ: {} β: {} σ: {} α:{}  ε:{}".format(rho, beta, sigma, alpha, epsilon))
     sigma_i = sigma
 
     Sigma_V_i = cov_mat_fun(sigma_i,rho,N)
     Sigma_V = cov_mat_fun(sigma,rho,N)
     Sigma_V_ibar = cov_mat_fun(sigma_ibar,rho_ibar,N)
 
-    sim_results[(N, T, rho, beta, sigma, alpha)] = Parallel(n_jobs=num_cores)(delayed(simulate)(N,T,sigma,sigma_i,sigma_ibar,beta,nr_ind,Sigma_V_i, Sigma_V, Sigma_V_ibar, alpha, seed=i+1) for i in range(nr_pop))
+    sim_results[(N, T, rho, beta, sigma, alpha, epsilon)] = Parallel(n_jobs=num_cores)(delayed(simulate)(N,
+                                                                T,
+                                                                sigma,
+                                                                sigma_i,
+                                                                sigma_ibar,
+                                                                beta,
+                                                                nr_ind,
+                                                                Sigma_V_i, 
+                                                                Sigma_V, 
+                                                                Sigma_V_ibar, 
+                                                                alpha, 
+                                                                epsilon, seed=i+1) for i in range(nr_pop))
     print("finished a population run")
     with open('sim_results_test.p', 'wb') as fp:
         pickle.dump(sim_results, fp)
