@@ -57,7 +57,6 @@ def certainty_equivalent(alpha, mu, sigma):
         https://ocw.mit.edu/courses/economics/14-123-microeconomic-theory-iii-spring-2015/lecture-notes-and-slides/MIT14_123S15_Chap3.pdf 
         pg 21
     """
-    print(type(sigma))
     new_mu = mu - (.5 * alpha * sigma.diagonal()**2) 
     return new_mu
 
@@ -76,8 +75,14 @@ def w_fun(CiT,Ui):
 def inv_nla_jit(A):
   return np.linalg.inv(A)
 
-def update_Ui(Cit,Ui,mu_Ui, Sigma_Ui, Nset):
+def update_Ui(Cit, Ui, ce_Ui, Sigma_Ui, Nset):
     """ Update beliefs using Baysian updating on Normal Distribution
+    Args:
+        Cit () :
+        Ui () :
+        ce_Ui (numpy.ndarray) : certainty equivelents. previously mu_Ui. Shape (N,)
+        Sigma_Ui () :
+        Nset (range) :
     """ 
     
     # https://en.wikipedia.org/wiki/Multivariate_normal_distribution#Conditional_distributions
@@ -87,8 +92,8 @@ def update_Ui(Cit,Ui,mu_Ui, Sigma_Ui, Nset):
     x2 = [n for n in Nset if n not in Cit]
     Nit = [n for n in Nset if n not in Cit]
 
-    mu1 = np.array([mu_Ui[n] for n in x1]).reshape((1,len(x1)))
-    mu2 = np.array([mu_Ui[n] for n in x2]).reshape((1,len(x2)))
+    mu1 = np.array([ce_Ui[n] for n in x1]).reshape((1,len(x1)))
+    mu2 = np.array([ce_Ui[n] for n in x2]).reshape((1,len(x2)))
 
     Sigma11 = np.ones((len(x1),len(x1)))
     Sigma21 = np.ones((len(x2),len(x1)))
@@ -105,11 +110,11 @@ def update_Ui(Cit,Ui,mu_Ui, Sigma_Ui, Nset):
     inv_mat = inv_nla_jit(Sigma11)
     inner = np.matmul(Sigma21, inv_mat)
     mubar = mu2 + (np.matmul(inner,(a-mu1).T)).T
-    mu_new = Ui
+    ce_new = Ui
 
     for i in range(len(x2)):
-        mu_new[x2[i]] = mubar[0,i]
-    return mu_new
+        ce_new[x2[i]] = mubar[0,i]
+    return ce_new
 
 ## CHOICE FUNCTIONS
 def choice_helper(Cit,mu, Nset):
