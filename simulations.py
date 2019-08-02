@@ -208,10 +208,10 @@ def simulate(
         V_i = np.random.multivariate_normal(mu_V_i, Sigma_V_i)
         mu_V_i.reshape((1,N))
 
-
-        U_i = beta * V_i + (1-beta) * V
+        # Utility in vector form
+        U_i = V_i + 1-beta * V
         mu_U_i = beta * mu_V_i + (1-beta) * mu_V
-
+        Sigma_V = Sigma_V * (1/beta) # scale sigma V by 1/beta
 
         ## NO RECOMMENDATION CASE
         Sigma_U_i = beta**2 * Sigma_V_i + (1-beta)**2 * Sigma_V
