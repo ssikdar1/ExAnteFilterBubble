@@ -128,7 +128,7 @@ def choice_helper(Cit,mu, Nset):
     cit = x2[np.argmax([mu[i] for i in x2])]
     return cit
 
-def choice_ind(U_i,mu_U_i, Sigma_U_i,T,N, Nset, alpha):
+def choice_ind(U_i, mu_U_i, Sigma_U_i, T, N, Nset, alpha):
     C_iT = []
     for t in range(T):
         mu_Uit = mu_U_i
@@ -190,6 +190,8 @@ def simulate(
 
     Nset = range(0,N)   # set of N items I = {0, 1, ..., N − 1}
 
+
+    # V = (v_n) n in I aka: common value component v_n in vector form
     mu_V = np.zeros(N)
     V = np.random.multivariate_normal(mu_V, Sigma_V)
     mu_V.reshape((1,N))
@@ -200,15 +202,18 @@ def simulate(
 
     for it_ind in range(nr_ind):
 
+        # V_i = (v_in) n in I aka: consumer i’s idiosyncratic taste for good n in vector form
         mu_V_ibar = np.random.multivariate_normal(np.zeros(N), Sigma_V_ibar)
         mu_V_i = copy(mu_V_ibar)
         V_i = np.random.multivariate_normal(mu_V_i, Sigma_V_i)
         mu_V_i.reshape((1,N))
+
+
         U_i = beta * V_i + (1-beta) * V
         mu_U_i = beta * mu_V_i + (1-beta) * mu_V
 
 
-        ##No Rec Case
+        ## NO RECOMMENDATION CASE
         Sigma_U_i = beta**2 * Sigma_V_i + (1-beta)**2 * Sigma_V
         C_iT = choice_ind(U_i,copy(mu_U_i), Sigma_U_i,T,N, Nset, alpha)
         C_pop[NO_REC] += [C_iT]
@@ -216,7 +221,7 @@ def simulate(
         W_pop[NO_REC] += [w_val]
         print(C_iT)
 
-        ## OMNI CASE
+        ## OMNISCIENT CASE
         C_iT = choice_omni(U_i,T,N, Nset)
         C_pop[OMNI] += [C_iT]
         w_val = w_fun(C_iT,U_i)
@@ -241,7 +246,7 @@ OMNI = 'rec'
 PARTIAL = 'partial'
 NO_REC = 'no_rec'
 
-N = 20      # Number of items to choose from
+N = 500      # Number of items to choose from
 T = 10      # total items a consumer consumes / num time periods
 nr_pop = 1
 nr_ind = 5
