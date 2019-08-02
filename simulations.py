@@ -209,7 +209,7 @@ def simulate(
         mu_V_i.reshape((1,N))
 
         # Utility in vector form
-        U_i = V_i + 1-beta * V
+        U_i = V_i + (beta * V)
         mu_U_i = beta * mu_V_i + (1-beta) * mu_V
         Sigma_V = Sigma_V * (1/beta) # scale sigma V by 1/beta
 
