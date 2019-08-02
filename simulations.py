@@ -210,11 +210,14 @@ def simulate(
 
         # Utility in vector form
         U_i = V_i + (beta * V)
-        mu_U_i = beta * mu_V_i + (1-beta) * mu_V
-        Sigma_V = Sigma_V * (1/beta) # scale sigma V by 1/beta
-
+        mu_U_i = mu_V_i + beta * mu_V
+        
         ## NO RECOMMENDATION CASE
-        Sigma_U_i = beta**2 * Sigma_V_i + (1-beta)**2 * Sigma_V
+        if beta != 0:
+            Sigma_U_i = Sigma_V_i + beta**2 * ( (1/beta) * Sigma_V )
+        else:
+            Sigma_U_i = Sigma_V_i
+
         C_iT = choice_ind(U_i,copy(mu_U_i), Sigma_U_i,T,N, Nset, alpha)
         C_pop[NO_REC] += [C_iT]
         w_val = w_fun(C_iT,U_i)
@@ -260,7 +263,7 @@ sim_results ={}
 rho_vals = [0.1, 0.3, 0.5, 0.7, 0.9]
 
 # utility idiosyncratic degree 
-beta_vals = [0.1]
+beta_vals = [0, 1, 2, 10]
 
 # absolute risk aversion
 alpha_vals = [0, 1]
