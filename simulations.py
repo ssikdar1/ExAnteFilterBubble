@@ -96,25 +96,35 @@ def update_Ui(Cit, Ui, ce_Ui, Sigma_Ui, Nset):
     mu2 = np.array([ce_Ui[n] for n in x2]).reshape((1,len(x2)))
 
     Sigma11 = np.ones((len(x1),len(x1)))
+    Sigma12 = np.ones((len(x1),len(x2)))
     Sigma21 = np.ones((len(x2),len(x1)))
+    Sigma22 = np.ones((len(x2),len(x2)))
 
     for i in range(len(Cit)):
         for j in range(len(Cit)):
             Sigma11[i,j] = Sigma_Ui[Cit[i],Cit[j]] 
-
-    for i in range(len(Cit)):
         for j in range(len(Nit)):
             Sigma21[j,i] = Sigma_Ui[Cit[i], Nit[j]] 
+
+    for i in range(len(Nit)):
+        for j in range(len(Cit)):
+            Sigma12[j,i] = Sigma_Ui[Nit[i],Cit[j]] 
+        for j in range(len(Nit)):
+            Sigma22[i,j] = Sigma_Ui[Nit[i], Nit[j]]
 
     a = np.array([Ui[n] for n in x1]).reshape((1,len(x1)))
     inv_mat = inv_nla_jit(Sigma11)
     inner = np.matmul(Sigma21, inv_mat)
     mubar = mu2 + (np.matmul(inner,(a-mu1).T)).T
-    ce_new = Ui
+    sigmabar = Sigma22 - np.matmul(inner, Sigma12)
+    mu_new = Ui
+    sigma_new = Sigma_Ui
 
     for i in range(len(x2)):
-        ce_new[x2[i]] = mubar[0,i]
-    return ce_new
+        mu_new[x2[i]] = mubar[0,i]
+        for j in range(len(x2)):
+            sigma_new[x2[i], x2[j]] = sigmabar[i, j]
+    return mu_new, sigma_new
 
 ## CHOICE FUNCTIONS
 def choice_helper(Cit,mu, choice_set):
@@ -131,17 +141,18 @@ def choice_ind(U_i, mu_U_i, Sigma_U_i, T, N, Nset, alpha, epsilon):
     C_iT = []
     for t in range(T):
         mu_Uit = mu_U_i
+        Sigma_Uit = Sigma_U_i
         if len(C_iT) > 0:
             # update beliefs
-            mu_Uit = update_Ui(C_iT,U_i,mu_U_i, Sigma_U_i, Nset)
+            mu_Uit, Sigma_Uit = update_Ui(C_iT,U_i,mu_U_i, Sigma_U_i, Nset)
         # make choice
-        gamma_mu_Uit = certainty_equivalent(alpha, mu_Uit, Sigma_U_i) # γ: uncertainty aversion
+        ce_Uit = certainty_equivalent(alpha, mu_Uit,  Sigma_Uit)
         choice_set = [n for n in Nset if n not in C_iT]
         c_it = None
         if np.random.uniform() < epsilon:
             c_it = np.random.choice(choice_set)
         else:
-            c_it = choice_helper(C_iT,gamma_mu_Uit, choice_set)
+            c_it = choice_helper(C_iT,ce_Uit, choice_set)
         C_iT = C_iT + [c_it]
     return C_iT
 
@@ -149,7 +160,8 @@ def choice_ind(U_i, mu_U_i, Sigma_U_i, T, N, Nset, alpha, epsilon):
 def choice_omni(U_i,T,N, Nset):
     C_iT = []
     for t in range(T):
-        c_it = choice_helper(C_iT,U_i, Nset)
+        choice_set = [n for n in Nset if n not in C_iT]
+        c_it = choice_helper(C_iT,U_i, choice_set)
         C_iT = C_iT + [c_it]
     return C_iT
 
@@ -159,18 +171,19 @@ def choice_part(V_i, mu_V_i,Sigma_V_i,V,T,N, Nset, alpha, epsilon):
     R_iT = []
     for t in range(T):
         mu_Vit = mu_V_i
+        Sigma_Vit = Sigma_V_i
         if len(C_iT) > 0:
             # update beliefs
-            mu_Vit = update_Ui(C_iT,V_i,mu_V_i, Sigma_V_i, Nset)
-        mu_Uit = beta*mu_Vit+(1-beta)*V
+            mu_Vit, Sigma_Vit = update_Ui(C_iT,V_i,mu_V_i, Sigma_V_i, Nset)
+        mu_Uit = mu_Vit + beta * V
         # make choice
-        gamma_mu_Uit = certainty_equivalent(alpha, mu_Uit, Sigma_V_i) # γ: uncertainty aversion
+        ce_Uit = certainty_equivalent(alpha, mu_Uit, Sigma_Vit) # γ: uncertainty aversion
         choice_set = [n for n in Nset if n not in C_iT]
         c_it = None
         if np.random.uniform() < epsilon:
             c_it = np.random.choice(choice_set)
         else:
-            c_it = choice_helper(C_iT,gamma_mu_Uit, choice_set)
+            c_it = choice_helper(C_iT,ce_Uit, choice_set)
         r_it = choice_set[np.argmax([V[i] for i in choice_set])]
         R_iT = R_iT + [r_it]
         C_iT = C_iT + [c_it]
@@ -230,14 +243,12 @@ def simulate(
         C_pop[NO_REC] += [C_iT]
         w_val = w_fun(C_iT,U_i)
         W_pop[NO_REC] += [w_val]
-        print(C_iT)
 
         ## OMNISCIENT CASE
         C_iT = choice_omni(U_i,T,N, Nset)
         C_pop[OMNI] += [C_iT]
         w_val = w_fun(C_iT,U_i)
         W_pop[OMNI] += [w_val]
-        print(C_iT)
 
         ## PARTIAL REC Case
         mu_V_i = copy(mu_V_ibar)
@@ -277,7 +288,7 @@ beta_vals = [0, 1, 2, 10]
 alpha_vals = [0, 1]
 
 # action of the time for random exploration
-epsilon_vals = [0, 1/10, 1/4]
+epsilon_vals = [0]
 
 sigma_vals = [0.25]
 
