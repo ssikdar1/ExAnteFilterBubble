@@ -117,18 +117,17 @@ def update_Ui(Cit, Ui, ce_Ui, Sigma_Ui, Nset):
     return ce_new
 
 ## CHOICE FUNCTIONS
-def choice_helper(Cit,mu, Nset):
+def choice_helper(Cit,mu, choice_set):
     """
     Args:
         Cit (list):
         mu (numpy.ndarray):
-        Nset (range) :
+        choice_set (list) :
     """
-    x2 = [n for n in Nset if n not in Cit]
-    cit = x2[np.argmax([mu[i] for i in x2])]
+    cit = choice_set[np.argmax([mu[i] for i in choice_set])]
     return cit
 
-def choice_ind(U_i, mu_U_i, Sigma_U_i, T, N, Nset, alpha):
+def choice_ind(U_i, mu_U_i, Sigma_U_i, T, N, Nset, alpha, epsilon):
     C_iT = []
     for t in range(T):
         mu_Uit = mu_U_i
@@ -137,7 +136,12 @@ def choice_ind(U_i, mu_U_i, Sigma_U_i, T, N, Nset, alpha):
             mu_Uit = update_Ui(C_iT,U_i,mu_U_i, Sigma_U_i, Nset)
         # make choice
         gamma_mu_Uit = certainty_equivalent(alpha, mu_Uit, Sigma_U_i) # γ: uncertainty aversion
-        c_it = choice_helper(C_iT,gamma_mu_Uit, Nset)
+        choice_set = [n for n in Nset if n not in C_iT]
+        c_it = None
+        if np.random.uniform() < epsilon:
+            c_it = np.random.choice(choice_set)
+        else:
+            c_it = choice_helper(C_iT,gamma_mu_Uit, choice_set)
         C_iT = C_iT + [c_it]
     return C_iT
 
@@ -150,7 +154,7 @@ def choice_omni(U_i,T,N, Nset):
     return C_iT
 
 
-def choice_part(V_i, mu_V_i,Sigma_V_i,V,T,N, Nset, alpha):
+def choice_part(V_i, mu_V_i,Sigma_V_i,V,T,N, Nset, alpha, epsilon):
     C_iT = []
     R_iT = []
     for t in range(T):
@@ -161,9 +165,13 @@ def choice_part(V_i, mu_V_i,Sigma_V_i,V,T,N, Nset, alpha):
         mu_Uit = beta*mu_Vit+(1-beta)*V
         # make choice
         gamma_mu_Uit = certainty_equivalent(alpha, mu_Uit, Sigma_V_i) # γ: uncertainty aversion
-        c_it = choice_helper(C_iT,gamma_mu_Uit, Nset)
-        Nit = [n for n in Nset if n not in C_iT]
-        r_it = Nit[np.argmax([V[i] for i in Nit])]
+        choice_set = [n for n in Nset if n not in C_iT]
+        c_it = None
+        if np.random.uniform() < epsilon:
+            c_it = np.random.choice(choice_set)
+        else:
+            c_it = choice_helper(C_iT,gamma_mu_Uit, choice_set)
+        r_it = choice_set[np.argmax([V[i] for i in choice_set])]
         R_iT = R_iT + [r_it]
         C_iT = C_iT + [c_it]
 
@@ -214,11 +222,11 @@ def simulate(
         
         ## NO RECOMMENDATION CASE
         if beta != 0:
-            Sigma_U_i = Sigma_V_i + beta**2 * ( (1/beta) * Sigma_V )
+            Sigma_U_i = Sigma_V_i + beta**2 * (Sigma_V)
         else:
             Sigma_U_i = Sigma_V_i
 
-        C_iT = choice_ind(U_i,copy(mu_U_i), Sigma_U_i,T,N, Nset, alpha)
+        C_iT = choice_ind(U_i,copy(mu_U_i), Sigma_U_i,T,N, Nset, alpha, epsilon)
         C_pop[NO_REC] += [C_iT]
         w_val = w_fun(C_iT,U_i)
         W_pop[NO_REC] += [w_val]
@@ -234,7 +242,7 @@ def simulate(
         ## PARTIAL REC Case
         mu_V_i = copy(mu_V_ibar)
         mu_V_i.reshape((1,N))
-        C_iT, R_iT = choice_part(V_i,mu_V_i, Sigma_V_i,V,T,N, Nset, alpha)
+        C_iT, R_iT = choice_part(V_i,mu_V_i, Sigma_V_i,V,T,N, Nset, alpha, epsilon)
         C_pop[PARTIAL] += [C_iT]
         w_val = w_fun(C_iT,U_i)
         W_pop[PARTIAL] += [w_val]
@@ -284,6 +292,8 @@ for rho, beta, sigma, alpha, epsilon in params:
 
     Sigma_V_i = cov_mat_fun(sigma_i,rho,N)
     Sigma_V = cov_mat_fun(sigma,rho,N)
+    if beta != 0:
+        Sigma_V = Sigma_V / beta**2
     Sigma_V_ibar = cov_mat_fun(sigma_ibar,rho_ibar,N)
 
     sim_results[(N, T, rho, beta, sigma, alpha, epsilon)] = Parallel(n_jobs=num_cores)(delayed(simulate)(N,
