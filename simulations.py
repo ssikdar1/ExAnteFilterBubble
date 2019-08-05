@@ -320,6 +320,7 @@ if __name__ == '__main__':
         print("N: {}, T: {}, ρ: {} β: {} σ: {} α:{}  ε:{}".format(N, T, rho, beta, sigma, alpha, epsilon))
         sigma_i = sigma
 
+
         Sigma_V_i = cov_mat_fun(sigma_i,rho,N)
         Sigma_V = cov_mat_fun(sigma,rho,N)
         if beta != 0:
