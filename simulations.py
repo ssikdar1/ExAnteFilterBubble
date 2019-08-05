@@ -8,7 +8,6 @@ import pandas as pd
 import numpy as np
 import pickle
 import cProfile
-from copy import copy
 
 import numba
 import multiprocessing
@@ -226,7 +225,7 @@ def simulate(
 
         # V_i = (v_in) n in I aka: consumer i’s idiosyncratic taste for good n in vector form
         mu_V_ibar = np.random.multivariate_normal(np.zeros(N), Sigma_V_ibar)
-        mu_V_i = copy(mu_V_ibar)
+        mu_V_i = np.copy(mu_V_ibar)
         V_i = np.random.multivariate_normal(mu_V_i, Sigma_V_i)
         mu_V_i.reshape((1,N))
 
@@ -240,7 +239,7 @@ def simulate(
         else:
             Sigma_U_i = Sigma_V_i
 
-        C_iT = choice_ind(U_i,copy(mu_U_i), Sigma_U_i,T,N, Nset, alpha, epsilon)
+        C_iT = choice_ind(U_i,np.copy(mu_U_i), Sigma_U_i,T,N, Nset, alpha, epsilon)
         C_pop[NO_REC] += [C_iT]
         w_val = w_fun(C_iT,U_i)
         W_pop[NO_REC] += [w_val]
@@ -252,7 +251,7 @@ def simulate(
         W_pop[OMNI] += [w_val]
 
         ## PARTIAL REC Case
-        mu_V_i = copy(mu_V_ibar)
+        mu_V_i = np.copy(mu_V_ibar)
         mu_V_i.reshape((1,N))
         C_iT, R_iT = choice_part(V_i,mu_V_i, Sigma_V_i,V,T,N, Nset, alpha, epsilon)
         C_pop[PARTIAL] += [C_iT]
