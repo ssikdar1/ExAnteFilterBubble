@@ -2,7 +2,8 @@ import pickle
 import csv
 from copy import copy
 
-from scipy.spatial.distance import jaccard
+from scipy.spatial.distance import jaccard, euclidean 
+from simulations import iota
 
 OMNI = 'rec'
 PARTIAL = 'partial'
@@ -20,7 +21,7 @@ def div_fun(CiT, T, N):
     for i in range(len(CiT)):
         for j in range(len(CiT)):
             if i == j: continue
-            div_score = div_score + d(CiT[i],CiT[j], N)
+            div_score = div_score + euclidean( iota(CiT[i], N), iota(CiT[j], N) )
     return div_score*(1.0/(T*(T-1)))
 
 def homogeneity(C1, C2, type_sim="jaccard"):

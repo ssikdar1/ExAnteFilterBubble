@@ -310,36 +310,37 @@ epsilon_vals = [0, 0.1]
 
 sigma_vals = [0.25, 1]
 
-# itertools.product lists to get all permutations
-vals = [N_vals, T_vals, rho_vals, beta_vals, sigma_vals, alpha_vals, epsilon_vals]
-params = list(itertools.product(*vals))
+if __name__ == '__main__':
+    # itertools.product lists to get all permutations
+    vals = [N_vals, T_vals, rho_vals, beta_vals, sigma_vals, alpha_vals, epsilon_vals]
+    params = list(itertools.product(*vals))
 
-for N, T, rho, beta, sigma, alpha, epsilon in params:
-    print("STARTING")
-    print("N: {}, T: {}, ρ: {} β: {} σ: {} α:{}  ε:{}".format(N, T, rho, beta, sigma, alpha, epsilon))
-    sigma_i = sigma
+    for N, T, rho, beta, sigma, alpha, epsilon in params:
+        print("STARTING")
+        print("N: {}, T: {}, ρ: {} β: {} σ: {} α:{}  ε:{}".format(N, T, rho, beta, sigma, alpha, epsilon))
+        sigma_i = sigma
 
-    Sigma_V_i = cov_mat_fun(sigma_i,rho,N)
-    Sigma_V = cov_mat_fun(sigma,rho,N)
-    if beta != 0:
-        Sigma_V = Sigma_V / beta**2
-    Sigma_V_ibar = cov_mat_fun(sigma_ibar,rho_ibar,N)
+        Sigma_V_i = cov_mat_fun(sigma_i,rho,N)
+        Sigma_V = cov_mat_fun(sigma,rho,N)
+        if beta != 0:
+            Sigma_V = Sigma_V / beta**2
+        Sigma_V_ibar = cov_mat_fun(sigma_ibar,rho_ibar,N)
 
-    sim_results[(N, T, rho, beta, sigma, alpha, epsilon)] = Parallel(n_jobs=num_cores)(delayed(simulate)(N,
-                                                                T,
-                                                                sigma,
-                                                                sigma_i,
-                                                                sigma_ibar,
-                                                                beta,
-                                                                nr_ind,
-                                                                Sigma_V_i, 
-                                                                Sigma_V, 
-                                                                Sigma_V_ibar, 
-                                                                alpha, 
-                                                                epsilon, seed=i+1) for i in range(nr_pop))
-    print("finished a population run")
+        sim_results[(N, T, rho, beta, sigma, alpha, epsilon)] = Parallel(n_jobs=num_cores)(delayed(simulate)(N,
+                                                                    T,
+                                                                    sigma,
+                                                                    sigma_i,
+                                                                    sigma_ibar,
+                                                                    beta,
+                                                                    nr_ind,
+                                                                    Sigma_V_i, 
+                                                                    Sigma_V, 
+                                                                    Sigma_V_ibar, 
+                                                                    alpha, 
+                                                                    epsilon, seed=i+1) for i in range(nr_pop))
+        print("finished a population run")
+        with open('data/sim_results.p', 'wb') as fp:
+            pickle.dump(sim_results, fp)
+
     with open('data/sim_results.p', 'wb') as fp:
         pickle.dump(sim_results, fp)
-
-with open('data/sim_results.p', 'wb') as fp:
-    pickle.dump(sim_results, fp)
