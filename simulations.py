@@ -292,9 +292,9 @@ rho_ibar = 0
 num_cores = multiprocessing.cpu_count() - 1
 sim_results ={}
 
-N_vals = [20]
+N_vals = [2]
 
-T_vals = [20]
+T_vals = [2]
 
 # Covariance structure
 rho_vals = [0.1, 0.3, 0.5, 0.7, 0.9]
