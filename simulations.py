@@ -11,6 +11,7 @@ import cProfile
 from copy import copy
 
 import numba
+import multiprocessing
 
 from joblib import Parallel, delayed
 
@@ -268,15 +269,17 @@ OMNI = 'rec'
 PARTIAL = 'partial'
 NO_REC = 'no_rec'
 
-N = 500      # Number of items to choose from
-T = 10      # total items a consumer consumes / num time periods
-nr_pop = 1
-nr_ind = 5
+nr_pop = 50
+nr_ind = 100
 sigma_ibar = .1
 rho_ibar = 0
 
-num_cores = 1
+num_cores = multiprocessing.cpu_count() - 1
 sim_results ={}
+
+N_vals = [200, 2000]
+
+T_vals = [20]
 
 # Covariance structure
 rho_vals = [0.1, 0.3, 0.5, 0.7, 0.9]
@@ -288,17 +291,17 @@ beta_vals = [0, 1, 2, 10]
 alpha_vals = [0, 1]
 
 # action of the time for random exploration
-epsilon_vals = [0]
+epsilon_vals = [0, 0.1]
 
-sigma_vals = [0.25]
+sigma_vals = [0.25, 1]
 
 # itertools.product lists to get all permutations
-vals = [rho_vals, beta_vals, sigma_vals, alpha_vals, epsilon_vals]
+vals = [N_vals, T_vals, rho_vals, beta_vals, sigma_vals, alpha_vals, epsilon_vals]
 params = list(itertools.product(*vals))
 
-for rho, beta, sigma, alpha, epsilon in params:
+for N, T, rho, beta, sigma, alpha, epsilon in params:
     print("STARTING")
-    print("ρ: {} β: {} σ: {} α:{}  ε:{}".format(rho, beta, sigma, alpha, epsilon))
+    print("N: {}, T: {}, ρ: {} β: {} σ: {} α:{}  ε:{}".format(N, T, rho, beta, sigma, alpha, epsilon))
     sigma_i = sigma
 
     Sigma_V_i = cov_mat_fun(sigma_i,rho,N)
@@ -320,8 +323,8 @@ for rho, beta, sigma, alpha, epsilon in params:
                                                                 alpha, 
                                                                 epsilon, seed=i+1) for i in range(nr_pop))
     print("finished a population run")
-    with open('sim_results_test.p', 'wb') as fp:
+    with open('sim_results.p', 'wb') as fp:
         pickle.dump(sim_results, fp)
 
-with open('sim_results_test.p', 'wb') as fp:
+with open('sim_results.p', 'wb') as fp:
     pickle.dump(sim_results, fp)
