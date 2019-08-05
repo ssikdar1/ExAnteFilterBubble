@@ -15,6 +15,9 @@ import multiprocessing
 from joblib import Parallel, delayed
 
 from scipy.stats import beta
+from scipy import spatial 
+
+import math
 
 mycolor1 = [0.368417, 0.506779, 0.709798]
 mycolor2 = [0.880722, 0.611041, 0.142051]
@@ -28,7 +31,17 @@ mycolor10 = [0.571589, 0.586483, 0.]
 
 
 ###SETUP FUNCTIONS
-def d(i,j):
+
+def iota(n,N):
+    """ ι : N → R 2 associates with each index n a point in
+            the unit circle, evenly spaced, with ι(n) = (cos(N/n) π, sin(N/n) * π)
+    """
+    pi = math.pi
+    return ( math.cos(n/N) * pi, math.sin(n/N) * pi )
+
+def hop_distance(i,j):
+    """ the minimum # of hops from node i to node j
+    """
     return min(abs(i-j), abs(j-i), abs(j-i-N), abs(i-j-N))
 
 def cov_mat_fun(sigm, rho, N):
@@ -39,7 +52,10 @@ def cov_mat_fun(sigm, rho, N):
     cov_mat = np.ones((N,N))
     for i in range(0,N):
         for j in range(0,N):
-            cov_mat[i,j] = rho**d(i,j)
+            iota_i = iota(i,N)
+            iota_j = iota(j,N)
+            dist = spatial.distance.euclidean(iota_i, iota_j)
+            cov_mat[i,j] = rho**dist
     cov_mat = sigm * cov_mat
     return cov_mat
 
@@ -294,36 +310,38 @@ epsilon_vals = [0, 0.1]
 
 sigma_vals = [0.25, 1]
 
-# itertools.product lists to get all permutations
-vals = [N_vals, T_vals, rho_vals, beta_vals, sigma_vals, alpha_vals, epsilon_vals]
-params = list(itertools.product(*vals))
+if __name__ == '__main__':
+    # itertools.product lists to get all permutations
+    vals = [N_vals, T_vals, rho_vals, beta_vals, sigma_vals, alpha_vals, epsilon_vals]
+    params = list(itertools.product(*vals))
 
-for N, T, rho, beta, sigma, alpha, epsilon in params:
-    print("STARTING")
-    print("N: {}, T: {}, ρ: {} β: {} σ: {} α:{}  ε:{}".format(N, T, rho, beta, sigma, alpha, epsilon))
-    sigma_i = sigma
+    for N, T, rho, beta, sigma, alpha, epsilon in params:
+        print("STARTING")
+        print("N: {}, T: {}, ρ: {} β: {} σ: {} α:{}  ε:{}".format(N, T, rho, beta, sigma, alpha, epsilon))
+        sigma_i = sigma
 
-    Sigma_V_i = cov_mat_fun(sigma_i,rho,N)
-    Sigma_V = cov_mat_fun(sigma,rho,N)
-    if beta != 0:
-        Sigma_V = Sigma_V / beta**2
-    Sigma_V_ibar = cov_mat_fun(sigma_ibar,rho_ibar,N)
 
-    sim_results[(N, T, rho, beta, sigma, alpha, epsilon, nr_pop, nr_ind)] = Parallel(n_jobs=num_cores)(delayed(simulate)(N,
-                                                                T,
-                                                                sigma,
-                                                                sigma_i,
-                                                                sigma_ibar,
-                                                                beta,
-                                                                nr_ind,
-                                                                Sigma_V_i, 
-                                                                Sigma_V, 
-                                                                Sigma_V_ibar, 
-                                                                alpha, 
-                                                                epsilon, seed=i+1) for i in range(nr_pop))
-    print("finished a population run")
-    with open('sim_results.p', 'wb') as fp:
+        Sigma_V_i = cov_mat_fun(sigma_i,rho,N)
+        Sigma_V = cov_mat_fun(sigma,rho,N)
+        if beta != 0:
+            Sigma_V = Sigma_V / beta**2
+        Sigma_V_ibar = cov_mat_fun(sigma_ibar,rho_ibar,N)
+
+        sim_results[(N, T, rho, beta, sigma, alpha, epsilon)] = Parallel(n_jobs=num_cores)(delayed(simulate)(N,
+                                                                    T,
+                                                                    sigma,
+                                                                    sigma_i,
+                                                                    sigma_ibar,
+                                                                    beta,
+                                                                    nr_ind,
+                                                                    Sigma_V_i, 
+                                                                    Sigma_V, 
+                                                                    Sigma_V_ibar, 
+                                                                    alpha, 
+                                                                    epsilon, seed=i+1) for i in range(nr_pop))
+        print("finished a population run")
+        with open('data/sim_results.p', 'wb') as fp:
+            pickle.dump(sim_results, fp)
+
+    with open('data/sim_results.p', 'wb') as fp:
         pickle.dump(sim_results, fp)
-
-with open('sim_results.p', 'wb') as fp:
-    pickle.dump(sim_results, fp)

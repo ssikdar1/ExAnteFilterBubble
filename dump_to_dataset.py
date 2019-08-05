@@ -2,13 +2,14 @@ import pickle
 import csv
 from copy import copy
 
-from scipy.spatial.distance import jaccard
+from scipy.spatial.distance import jaccard, euclidean 
+from simulations import iota
 
 OMNI = 'rec'
 PARTIAL = 'partial'
 NO_REC = 'no_rec'
 rec_policy_keys = [OMNI, PARTIAL, NO_REC]
-WORKING_DIR = '/Users/guyaridor/Desktop/recommender_systems/rec_sys_conf_paper/'
+WORKING_DIR = 'data/'
 with open(WORKING_DIR + 'sim_results.p', 'rb') as fp:
     df = pickle.load(fp)
 
@@ -20,7 +21,7 @@ def div_fun(CiT, T, N):
     for i in range(len(CiT)):
         for j in range(len(CiT)):
             if i == j: continue
-            div_score = div_score + d(CiT[i],CiT[j], N)
+            div_score = div_score + euclidean( iota(CiT[i], N), iota(CiT[j], N) )
     return div_score*(1.0/(T*(T-1)))
 
 def homogeneity(C1, C2, type_sim="jaccard"):
@@ -35,23 +36,30 @@ def follow_rec(Ci, Rec, N, T):
             s += 1
     return s / T
 
+def parse_pickle_key(key):
+    print(key)
+    N, T, rho, beta, sigma, alpha, epsilon, nr_pop, nr_ind = key
+    dat = {
+        'N': N,
+        'T': T,
+        'rho': rho,
+        'beta': beta,
+        'sigma': sigma,
+        'alpha': alpha,
+        'epsilon': epsilon,
+        'nr_pop': nr_pop,
+        'nr_ind': nr_ind,
+        'pop_idx': pop_idx
+    }
+    return dat
 
-INDIVIDUAL_FIELD_NAMES =['pop_idx', 'indiv_idx', 'regime', 'welfare', 'diversity_score', 'rho', 'beta', 'follow_recommendation', 'N', 'T', 'sigma']
+INDIVIDUAL_FIELD_NAMES =['pop_idx', 'indiv_idx', 'regime', 'welfare', 'diversity_score', 'rho', 'beta', 'follow_recommendation', 'N', 'T', 'sigma', 'beta', 'alpha', 'epsilon', 'nr_pop', 'nr_ind']
 with open(WORKING_DIR + 'rec_data.csv', 'w') as rec_csv:
     data_writer = csv.DictWriter(rec_csv, fieldnames=INDIVIDUAL_FIELD_NAMES)
     data_writer.writeheader()
     for key, value in df.items():
         for pop_idx in range(len(value)):
-            N = key[0]
-            T = key[1]
-            dat = {
-                'pop_idx': pop_idx,
-                'N': N,
-                'T': T,
-                'rho': key[2],
-                'beta': key[3],
-                'sigma': key[4]
-            }
+            dat = parse_pickle_key(key)
             cur = value[pop_idx]
             welfare = cur['Welfare']
             consumption = cur['Consumption']
@@ -68,22 +76,13 @@ with open(WORKING_DIR + 'rec_data.csv', 'w') as rec_csv:
                     data_writer.writerow(cur_dat)
 
 
-INDIVIDUAL_FIELD_NAMES =['pop_idx', 'regime', 'rho', 'beta', 'N', 'T', 'sigma', 'jaccard']
+INDIVIDUAL_FIELD_NAMES =['pop_idx', 'regime', 'rho', 'beta', 'N', 'T', 'sigma', 'jaccard', 'beta', 'alpha', 'epsilon', 'nr_pop', 'nr_ind']
 with open(WORKING_DIR + 'homogeneity_data.csv', 'w') as rec_csv:
     data_writer = csv.DictWriter(rec_csv, fieldnames=INDIVIDUAL_FIELD_NAMES)
     data_writer.writeheader()
     for key, value in df.items():
         for pop_idx in range(len(value)):
-            N = key[0]
-            T = key[1]
-            dat = {
-                'pop_idx': pop_idx,
-                'N': N,
-                'T': T,
-                'rho': key[2],
-                'beta': key[3],
-                'sigma': key[4]
-            }
+            dat = parse_pickle_key(key)
             cur = value[pop_idx]
             consumption = cur['Consumption']
             for policy in rec_policy_keys:
