@@ -145,9 +145,9 @@ def choice_ind(U_i, mu_U_i, Sigma_U_i, T, N, Nset, alpha, epsilon):
         Sigma_Uit = Sigma_U_i
         if len(C_iT) > 0:
             # update beliefs
-            mu_Uit, Sigma_Uit = update_Ui(C_iT,U_i,mu_U_i, Sigma_U_i, Nset)
+            mu_Uit, Sigma_Uit = update_Ui(C_iT,U_i,mu_U_i, np.copy(Sigma_U_i), Nset)
         # make choice
-        ce_Uit = certainty_equivalent(alpha, mu_Uit,  Sigma_Uit)
+        ce_Uit = certainty_equivalent(alpha, mu_Uit, Sigma_Uit)
         choice_set = [n for n in Nset if n not in C_iT]
         c_it = None
         if np.random.uniform() < epsilon:
@@ -175,7 +175,7 @@ def choice_part(V_i, mu_V_i,Sigma_V_i,V,T,N, Nset, alpha, epsilon):
         Sigma_Vit = Sigma_V_i
         if len(C_iT) > 0:
             # update beliefs
-            mu_Vit, Sigma_Vit = update_Ui(C_iT,V_i,mu_V_i, Sigma_V_i, Nset)
+            mu_Vit, Sigma_Vit = update_Ui(C_iT,V_i,mu_V_i, np.copy(Sigma_V_i), Nset)
         mu_Uit = mu_Vit + beta * V
         # make choice
         ce_Uit = certainty_equivalent(alpha, mu_Uit, Sigma_Vit) # γ: uncertainty aversion
