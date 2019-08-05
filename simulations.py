@@ -309,7 +309,7 @@ for N, T, rho, beta, sigma, alpha, epsilon in params:
         Sigma_V = Sigma_V / beta**2
     Sigma_V_ibar = cov_mat_fun(sigma_ibar,rho_ibar,N)
 
-    sim_results[(N, T, rho, beta, sigma, alpha, epsilon)] = Parallel(n_jobs=num_cores)(delayed(simulate)(N,
+    sim_results[(N, T, rho, beta, sigma, alpha, epsilon, nr_pop, nr_ind)] = Parallel(n_jobs=num_cores)(delayed(simulate)(N,
                                                                 T,
                                                                 sigma,
                                                                 sigma_i,
