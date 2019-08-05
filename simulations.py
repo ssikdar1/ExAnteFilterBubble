@@ -15,6 +15,9 @@ import multiprocessing
 from joblib import Parallel, delayed
 
 from scipy.stats import beta
+from scipy import spatial 
+
+import math
 
 mycolor1 = [0.368417, 0.506779, 0.709798]
 mycolor2 = [0.880722, 0.611041, 0.142051]
@@ -28,7 +31,17 @@ mycolor10 = [0.571589, 0.586483, 0.]
 
 
 ###SETUP FUNCTIONS
-def d(i,j):
+
+def iota(n,N):
+    """ ι : N → R 2 associates with each index n a point in
+            the unit circle, evenly spaced, with ι(n) = (cos(N/n) π, sin(N/n) * π)
+    """
+    pi = math.pi
+    return ( math.cos(n/N) * pi, math.sin(n/N) * pi )
+
+def hop_distance(i,j):
+    """ the minimum # of hops from node i to node j
+    """
     return min(abs(i-j), abs(j-i), abs(j-i-N), abs(i-j-N))
 
 def cov_mat_fun(sigm, rho, N):
@@ -39,7 +52,10 @@ def cov_mat_fun(sigm, rho, N):
     cov_mat = np.ones((N,N))
     for i in range(0,N):
         for j in range(0,N):
-            cov_mat[i,j] = rho**d(i,j)
+            iota_i = iota(i,N)
+            iota_j = iota(j,N)
+            dist = spatial.distance.euclidean(iota_i, iota_j)
+            cov_mat[i,j] = rho**dist
     cov_mat = sigm * cov_mat
     return cov_mat
 
@@ -276,7 +292,7 @@ rho_ibar = 0
 num_cores = multiprocessing.cpu_count() - 1
 sim_results ={}
 
-N_vals = [200, 2000]
+N_vals = [20]
 
 T_vals = [20]
 
@@ -322,8 +338,8 @@ for N, T, rho, beta, sigma, alpha, epsilon in params:
                                                                 alpha, 
                                                                 epsilon, seed=i+1) for i in range(nr_pop))
     print("finished a population run")
-    with open('sim_results.p', 'wb') as fp:
+    with open('data/sim_results.p', 'wb') as fp:
         pickle.dump(sim_results, fp)
 
-with open('sim_results.p', 'wb') as fp:
+with open('data/sim_results.p', 'wb') as fp:
     pickle.dump(sim_results, fp)
