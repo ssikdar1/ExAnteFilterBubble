@@ -18,20 +18,12 @@ from scipy.stats import beta
 from scipy import spatial 
 
 import math
-
-mycolor1 = [0.368417, 0.506779, 0.709798]
-mycolor2 = [0.880722, 0.611041, 0.142051]
-mycolor3 = [0.560181, 0.691569, 0.194885]
-mycolor5 = [0.528488, 0.470624, 0.701351]
-mycolor6 = [0.772079, 0.431554, 0.102387]
-mycolor7 = [0.363898, 0.618501, 0.782349]
-mycolor8 = [1, 0.75, 0]
-mycolor9 = [0.647624, 0.37816, 0.614037]
-mycolor10 = [0.571589, 0.586483, 0.]
+import datetime
 
 
 ###SETUP FUNCTIONS
 
+@numba.jit(nopython=True)
 def iota(n,N):
     """ ι : N → R 2 associates with each index n a point in
             the unit circle, evenly spaced, with ι(n) = (cos(N/n) π, sin(N/n) * π)
@@ -39,6 +31,7 @@ def iota(n,N):
     pi = math.pi
     return ( math.cos(n/N) * pi, math.sin(n/N) * pi )
 
+@numba.jit(nopython=True)
 def hop_distance(i,j):
     """ the minimum # of hops from node i to node j
     """
@@ -50,12 +43,11 @@ def cov_mat_fun(sigm, rho, N):
         numpy.ndarray
     """
     cov_mat = np.ones((N,N))
-    for i in range(0,N):
-        for j in range(0,N):
-            iota_i = iota(i,N)
-            iota_j = iota(j,N)
-            dist = spatial.distance.euclidean(iota_i, iota_j)
-            cov_mat[i,j] = rho**dist
+    for i,j in np.ndindex(cov_mat.shape):
+        iota_i = iota(i,N)
+        iota_j = iota(j,N)
+        dist = spatial.distance.euclidean(iota_i, iota_j)
+        cov_mat[i,j] = rho**dist
     cov_mat = sigm * cov_mat
     return cov_mat
 
@@ -100,7 +92,6 @@ def update_Ui(Cit, Ui, ce_Ui, Sigma_Ui, Nset):
         Sigma_Ui () :
         Nset (range) :
     """ 
-    
     # https://en.wikipedia.org/wiki/Multivariate_normal_distribution#Conditional_distributions
     # μ_bar = μ_1 + Ε12 Ε22^-1 ( a - μ_2 )  
 
@@ -318,6 +309,7 @@ if __name__ == '__main__':
     for N, T, rho, beta, sigma, alpha, epsilon in params:
         print("STARTING")
         print("N: {}, T: {}, ρ: {} β: {} σ: {} α:{}  ε:{}".format(N, T, rho, beta, sigma, alpha, epsilon))
+        print("@ {}".format(datetime.datetime.now()))
         sigma_i = sigma
 
 
@@ -327,7 +319,19 @@ if __name__ == '__main__':
             Sigma_V = Sigma_V / beta**2
         Sigma_V_ibar = cov_mat_fun(sigma_ibar,rho_ibar,N)
 
-        sim_results[(N, T, rho, beta, sigma, alpha, epsilon)] = Parallel(n_jobs=num_cores)(delayed(simulate)(N,
+        #results[(N, T, rho, beta, sigma, alpha, epsilon)] = [ simulate( N,
+        #                                                            T,
+        #                                                            sigma,
+        #                                                            sigma_i,
+        #                                                            sigma_ibar,
+        #                                                            beta,
+        #                                                            nr_ind,
+        #                                                            Sigma_V_i, 
+        #                                                            Sigma_V, 
+        #                                                            Sigma_V_ibar, 
+        #                                                            alpha, 
+        #                                                            epsilon, seed=i+1) for i in range(nr_pop) ]
+        results[(N, T, rho, beta, sigma, alpha, epsilon)] = Parallel(n_jobs=num_cores)(delayed(simulate)(N,
                                                                     T,
                                                                     sigma,
                                                                     sigma_i,
@@ -342,6 +346,5 @@ if __name__ == '__main__':
         print("finished a population run")
         with open('data/sim_results.p', 'wb') as fp:
             pickle.dump(sim_results, fp)
-
     with open('data/sim_results.p', 'wb') as fp:
         pickle.dump(sim_results, fp)
