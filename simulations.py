@@ -3,6 +3,7 @@
 # vim: tabstop=8 expandtab shiftwidth=4 softtabstop=4
 
 import itertools
+import argparse
 
 import pandas as pd
 import numpy as np
@@ -23,7 +24,7 @@ import datetime
 
 ###SETUP FUNCTIONS
 
-@numba.jit(nopython=True)
+#@numba.jit(nopython=True)
 def iota(n,N):
     """ ι : N → R 2 associates with each index n a point in
             the unit circle, evenly spaced, with ι(n) = (cos(N/n) π, sin(N/n) * π)
@@ -284,7 +285,7 @@ rho_ibar = 0
 num_cores = multiprocessing.cpu_count() - 1
 sim_results ={}
 
-N_vals = [200, 2000]
+N_vals = [20]
 
 T_vals = [20]
 
@@ -307,6 +308,11 @@ if __name__ == '__main__':
     vals = [N_vals, T_vals, rho_vals, beta_vals, sigma_vals, alpha_vals, epsilon_vals]
     params = list(itertools.product(*vals))
 
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--no-joblib', dest='no_joblib', action='store_true',  help=' turn off joblib ')
+    args = parser.parse_args()
+    print(args)
+
     for N, T, rho, beta, sigma, alpha, epsilon in params:
         print("STARTING")
         print("N: {}, T: {}, ρ: {} β: {} σ: {} α:{}  ε:{}".format(N, T, rho, beta, sigma, alpha, epsilon))
@@ -320,31 +326,36 @@ if __name__ == '__main__':
             Sigma_V = Sigma_V / beta**2
         Sigma_V_ibar = cov_mat_fun(sigma_ibar,rho_ibar,N)
 
-        #results[(N, T, rho, beta, sigma, alpha, epsilon)] = [ simulate( N,
-        #                                                            T,
-        #                                                            sigma,
-        #                                                            sigma_i,
-        #                                                            sigma_ibar,
-        #                                                            beta,
-        #                                                            nr_ind,
-        #                                                            Sigma_V_i, 
-        #                                                            Sigma_V, 
-        #                                                            Sigma_V_ibar, 
-        #                                                            alpha, 
-        #                                                            epsilon, seed=i+1) for i in range(nr_pop) ]
-        results[(N, T, rho, beta, sigma, alpha, epsilon)] = Parallel(n_jobs=num_cores)(delayed(simulate)(N,
-                                                                    T,
-                                                                    sigma,
-                                                                    sigma_i,
-                                                                    sigma_ibar,
-                                                                    beta,
-                                                                    nr_ind,
-                                                                    Sigma_V_i, 
-                                                                    Sigma_V, 
-                                                                    Sigma_V_ibar, 
-                                                                    alpha, 
-                                                                    epsilon, seed=i+1) for i in range(nr_pop))
+
+        if args.no_joblib:
+            results[(N, T, rho, beta, sigma, alpha, epsilon)] = [ simulate( N,
+                                                                        T,
+                                                                        sigma,
+                                                                        sigma_i,
+                                                                        sigma_ibar,
+                                                                        beta,
+                                                                        nr_ind,
+                                                                        Sigma_V_i, 
+                                                                        Sigma_V, 
+                                                                        Sigma_V_ibar, 
+                                                                        alpha, 
+                                                                        epsilon, seed=i+1) for i in range(1) ]
+        else:
+            results[(N, T, rho, beta, sigma, alpha, epsilon)] = Parallel(n_jobs=num_cores)(delayed(simulate)(N,
+                                                                        T,
+                                                                        sigma,
+                                                                        sigma_i,
+                                                                        sigma_ibar,
+                                                                        beta,
+                                                                        nr_ind,
+                                                                        Sigma_V_i, 
+                                                                        Sigma_V, 
+                                                                        Sigma_V_ibar, 
+                                                                        alpha, 
+                                                                        epsilon, seed=i+1) for i in range(nr_pop))
         print("finished a population run")
+        print("break early")
+        break
         with open('data/sim_results.p', 'wb') as fp:
             pickle.dump(sim_results, fp)
     with open('data/sim_results.p', 'wb') as fp:
