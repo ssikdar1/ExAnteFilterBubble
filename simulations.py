@@ -107,17 +107,18 @@ def update_Ui(Cit, Ui, ce_Ui, Sigma_Ui, Nset):
     Sigma21 = np.ones((len(x2),len(x1)))
     Sigma22 = np.ones((len(x2),len(x2)))
 
-    for i in range(len(Cit)):
-        for j in range(len(Cit)):
-            Sigma11[i,j] = Sigma_Ui[Cit[i],Cit[j]] 
-        for j in range(len(Nit)):
-            Sigma21[j,i] = Sigma_Ui[Cit[i], Nit[j]] 
+    for j,i in np.ndindex(Sigma21.shape):
+        Sigma21[j,i] = Sigma_Ui[Cit[i], Nit[j]] 
+ 
+    for i,j in np.ndindex(Sigma11.shape):
+        Sigma11[i,j] = Sigma_Ui[Cit[i],Cit[j]] 
 
-    for i in range(len(Nit)):
-        for j in range(len(Cit)):
-            Sigma12[j,i] = Sigma_Ui[Nit[i],Cit[j]] 
-        for j in range(len(Nit)):
-            Sigma22[i,j] = Sigma_Ui[Nit[i], Nit[j]]
+    for j,i in np.ndindex(Sigma12.shape):
+        Sigma12[j,i] = Sigma_Ui[Nit[i],Cit[j]] 
+
+    for i,j in np.ndindex(Sigma22.shape):
+        Sigma22[i,j] = Sigma_Ui[Nit[i], Nit[j]]
+    
 
     a = np.array([Ui[n] for n in x1]).reshape((1,len(x1)))
     inv_mat = inv_nla_jit(Sigma11)
