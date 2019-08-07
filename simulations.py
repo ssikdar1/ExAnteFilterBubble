@@ -84,6 +84,36 @@ def w_fun(CiT,Ui):
 def inv_nla_jit(A):
   return np.linalg.inv(A)
 
+def init_sigma(x1,x2,Sigma_Ui, Cit, Nit):
+    Sigma11 = np.ones((len(x1),len(x1)), dtype=np.float64)
+    Sigma12 = np.ones((len(x1),len(x2)), dtype=np.float64)
+    Sigma21 = np.ones((len(x2),len(x1)), dtype=np.float64)
+    Sigma22 = np.ones((len(x2),len(x2)), dtype=np.float64)
+
+    for j,i in np.ndindex(Sigma21.shape):
+        Sigma21[j,i] = Sigma_Ui[Cit[i], Nit[j]] 
+ 
+    for i,j in np.ndindex(Sigma11.shape):
+        Sigma11[i,j] = Sigma_Ui[Cit[i],Cit[j]] 
+
+    for j,i in np.ndindex(Sigma12.shape):
+        Sigma12[j,i] = Sigma_Ui[Nit[i],Cit[j]] 
+
+    for i,j in np.ndindex(Sigma22.shape):
+        Sigma22[i,j] = Sigma_Ui[Nit[i], Nit[j]]
+
+    return Sigma11, Sigma12, Sigma21, Sigma22
+
+def get_mubar_sigmamu(Sigma_Ui, Ui, x1, Sigma11, Sigma12, Sigma21, Sigma22, mu1, mu2):
+    a = np.array([Ui[n] for n in x1]).reshape((1,len(x1)))
+    inv_mat = inv_nla_jit(Sigma11)
+    inner = np.matmul(Sigma21, inv_mat)
+    mubar = mu2 + (np.matmul(inner,(a-mu1).T)).T
+    sigmabar = Sigma22 - np.matmul(inner, Sigma12)
+    mu_new = Ui
+    sigma_new = Sigma_Ui
+    return mu_new, Sigma_Ui, sigmabar, mubar
+
 def update_Ui(Cit, Ui, ce_Ui, Sigma_Ui, Nset):
     """ Update beliefs using Baysian updating on Normal Distribution
     Args:
@@ -100,34 +130,35 @@ def update_Ui(Cit, Ui, ce_Ui, Sigma_Ui, Nset):
     x2 = [n for n in Nset if n not in Cit]
     Nit = [n for n in Nset if n not in Cit]
 
-    mu1 = np.array([ce_Ui[n] for n in x1]).reshape((1,len(x1)))
-    mu2 = np.array([ce_Ui[n] for n in x2]).reshape((1,len(x2)))
-
-    Sigma11 = np.ones((len(x1),len(x1)))
-    Sigma12 = np.ones((len(x1),len(x2)))
-    Sigma21 = np.ones((len(x2),len(x1)))
-    Sigma22 = np.ones((len(x2),len(x2)))
-
-    for j,i in np.ndindex(Sigma21.shape):
-        Sigma21[j,i] = Sigma_Ui[Cit[i], Nit[j]] 
- 
-    for i,j in np.ndindex(Sigma11.shape):
-        Sigma11[i,j] = Sigma_Ui[Cit[i],Cit[j]] 
-
-    for j,i in np.ndindex(Sigma12.shape):
-        Sigma12[j,i] = Sigma_Ui[Nit[i],Cit[j]] 
-
-    for i,j in np.ndindex(Sigma22.shape):
-        Sigma22[i,j] = Sigma_Ui[Nit[i], Nit[j]]
+    mu1 = np.array([ce_Ui[n] for n in x1], dtype=np.float64).reshape((1,len(x1)))
+    mu2 = np.array([ce_Ui[n] for n in x2], dtype=np.float64).reshape((1,len(x2)))
     
+    #Sigma11 = np.ones((len(x1),len(x1)), dtype=np.float64)
+    #Sigma12 = np.ones((len(x1),len(x2)), dtype=np.float64)
+    #Sigma21 = np.ones((len(x2),len(x1)), dtype=np.float64)
+    #Sigma22 = np.ones((len(x2),len(x2)), dtype=np.float64)
 
-    a = np.array([Ui[n] for n in x1]).reshape((1,len(x1)))
-    inv_mat = inv_nla_jit(Sigma11)
-    inner = np.matmul(Sigma21, inv_mat)
-    mubar = mu2 + (np.matmul(inner,(a-mu1).T)).T
-    sigmabar = Sigma22 - np.matmul(inner, Sigma12)
-    mu_new = Ui
-    sigma_new = Sigma_Ui
+    #for j,i in np.ndindex(Sigma21.shape):
+    #    Sigma21[j,i] = Sigma_Ui[Cit[i], Nit[j]] 
+    #
+    #for i,j in np.ndindex(Sigma11.shape):
+    #    Sigma11[i,j] = Sigma_Ui[Cit[i],Cit[j]] 
+    #
+    #for j,i in np.ndindex(Sigma12.shape):
+    #    Sigma12[j,i] = Sigma_Ui[Nit[i],Cit[j]] 
+    #
+    #for i,j in np.ndindex(Sigma22.shape):
+    #    Sigma22[i,j] = Sigma_Ui[Nit[i], Nit[j]]
+    Sigma11, Sigma12, Sigma21, Sigma22 = init_sigma(x1,x2, Sigma_Ui, Cit, Nit)
+    
+    #a = np.array([Ui[n] for n in x1]).reshape((1,len(x1)))
+    #inv_mat = inv_nla_jit(Sigma11)
+    #inner = np.matmul(Sigma21, inv_mat)
+    #mubar = mu2 + (np.matmul(inner,(a-mu1).T)).T
+    #sigmabar = Sigma22 - np.matmul(inner, Sigma12)
+    #mu_new = Ui
+    #sigma_new = Sigma_Ui
+    mu_new, sigma_new, sigmabar, mubar = get_mubar_sigmamu(Sigma_Ui, Ui, x1, Sigma11, Sigma12, Sigma21, Sigma22, mu1, mu2)
 
     for i in range(len(x2)):
         mu_new[x2[i]] = mubar[0,i]
@@ -353,9 +384,6 @@ if __name__ == '__main__':
                                                                         Sigma_V_ibar, 
                                                                         alpha, 
                                                                         epsilon, seed=i+1) for i in range(nr_pop))
-        print("finished a population run")
-        print("break early")
-        break
         with open('data/sim_results.p', 'wb') as fp:
             pickle.dump(sim_results, fp)
     with open('data/sim_results.p', 'wb') as fp:
