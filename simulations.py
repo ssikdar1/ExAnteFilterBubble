@@ -84,6 +84,7 @@ def w_fun(CiT,Ui):
 def inv_nla_jit(A):
   return np.linalg.inv(A)
 
+@numba.jit(nopython=True)
 def init_sigma(x1,x2,Sigma_Ui, Cit, Nit):
     Sigma11 = np.ones((len(x1),len(x1)), dtype=np.float64)
     Sigma12 = np.ones((len(x1),len(x2)), dtype=np.float64)
@@ -114,11 +115,13 @@ def get_mubar_sigmamu(Sigma_Ui, Ui, x1, Sigma11, Sigma12, Sigma21, Sigma22, mu1,
     sigma_new = Sigma_Ui
     return mu_new, Sigma_Ui, sigmabar, mubar
 
-
+    
+@numba.jit(nopython=True)
 def get_sigma_new_mu_new(x2, sigmabar, mu_new, sigma_new, mubar):
-    for i in range(len(x2)):
+    len_x2 = len(x2)
+    for i in range(len_x2):
         mu_new[x2[i]] = mubar[0,i]
-        for j in range(len(x2)):
+        for j in range(len_x2):
             sigma_new[x2[i], x2[j]] = sigmabar[i, j]
     return mu_new, sigma_new
 
