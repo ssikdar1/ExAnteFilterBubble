@@ -114,6 +114,7 @@ def get_mubar_sigmamu(Sigma_Ui, Ui, x1, Sigma11, Sigma12, Sigma21, Sigma22, mu1,
     sigma_new = Sigma_Ui
     return mu_new, Sigma_Ui, sigmabar, mubar
 
+
 def get_sigma_new_mu_new(x2, sigmabar, mu_new, sigma_new, mubar):
     for i in range(len(x2)):
         mu_new[x2[i]] = mubar[0,i]
@@ -140,22 +141,6 @@ def update_Ui(Cit, Ui, ce_Ui, Sigma_Ui, Nset):
     mu1 = np.array([ce_Ui[n] for n in x1], dtype=np.float64).reshape((1,len(x1)))
     mu2 = np.array([ce_Ui[n] for n in x2], dtype=np.float64).reshape((1,len(x2)))
     
-    #Sigma11 = np.ones((len(x1),len(x1)), dtype=np.float64)
-    #Sigma12 = np.ones((len(x1),len(x2)), dtype=np.float64)
-    #Sigma21 = np.ones((len(x2),len(x1)), dtype=np.float64)
-    #Sigma22 = np.ones((len(x2),len(x2)), dtype=np.float64)
-
-    #for j,i in np.ndindex(Sigma21.shape):
-    #    Sigma21[j,i] = Sigma_Ui[Cit[i], Nit[j]] 
-    #
-    #for i,j in np.ndindex(Sigma11.shape):
-    #    Sigma11[i,j] = Sigma_Ui[Cit[i],Cit[j]] 
-    #
-    #for j,i in np.ndindex(Sigma12.shape):
-    #    Sigma12[j,i] = Sigma_Ui[Nit[i],Cit[j]] 
-    #
-    #for i,j in np.ndindex(Sigma22.shape):
-    #    Sigma22[i,j] = Sigma_Ui[Nit[i], Nit[j]]
     Sigma11, Sigma12, Sigma21, Sigma22 = init_sigma(x1,x2, Sigma_Ui, Cit, Nit)
     
     #a = np.array([Ui[n] for n in x1]).reshape((1,len(x1)))
