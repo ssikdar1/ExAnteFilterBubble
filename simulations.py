@@ -3,6 +3,7 @@
 # vim: tabstop=8 expandtab shiftwidth=4 softtabstop=4
 
 import itertools
+import argparse
 
 import pandas as pd
 import numpy as np
@@ -18,20 +19,12 @@ from scipy.stats import beta
 from scipy import spatial 
 
 import math
-
-mycolor1 = [0.368417, 0.506779, 0.709798]
-mycolor2 = [0.880722, 0.611041, 0.142051]
-mycolor3 = [0.560181, 0.691569, 0.194885]
-mycolor5 = [0.528488, 0.470624, 0.701351]
-mycolor6 = [0.772079, 0.431554, 0.102387]
-mycolor7 = [0.363898, 0.618501, 0.782349]
-mycolor8 = [1, 0.75, 0]
-mycolor9 = [0.647624, 0.37816, 0.614037]
-mycolor10 = [0.571589, 0.586483, 0.]
+import datetime
 
 
 ###SETUP FUNCTIONS
 
+#@numba.jit(nopython=True)
 def iota(n,N):
     """ ι : N → R 2 associates with each index n a point in
             the unit circle, evenly spaced, with ι(n) = (cos(N/n) π, sin(N/n) * π)
@@ -39,6 +32,7 @@ def iota(n,N):
     pi = math.pi
     return ( math.cos(n/N) * pi, math.sin(n/N) * pi )
 
+@numba.jit(nopython=True)
 def hop_distance(i,j):
     """ the minimum # of hops from node i to node j
     """
@@ -50,12 +44,11 @@ def cov_mat_fun(sigm, rho, N):
         numpy.ndarray
     """
     cov_mat = np.ones((N,N))
-    for i in range(0,N):
-        for j in range(0,N):
-            iota_i = iota(i,N)
-            iota_j = iota(j,N)
-            dist = spatial.distance.euclidean(iota_i, iota_j)
-            cov_mat[i,j] = rho**dist
+    for i,j in np.ndindex(cov_mat.shape):
+        iota_i = iota(i,N)
+        iota_j = iota(j,N)
+        dist = spatial.distance.euclidean(iota_i, iota_j)
+        cov_mat[i,j] = rho**dist
     cov_mat = sigm * cov_mat
     return cov_mat
 
@@ -91,31 +84,13 @@ def w_fun(CiT,Ui):
 def inv_nla_jit(A):
   return np.linalg.inv(A)
 
-def update_Ui(Cit, Ui, ce_Ui, Sigma_Ui, Nset):
-    """ Update beliefs using Baysian updating on Normal Distribution
-    Args:
-        Cit () :
-        Ui () :
-        ce_Ui (numpy.ndarray) : certainty equivelents. previously mu_Ui. Shape (N,)
-        Sigma_Ui () :
-        Nset (range) :
-    """ 
+@numba.jit(nopython=True)
+def init_sigma(x1,x2,Sigma_Ui, Cit, Nit):
+    Sigma11 = np.ones((len(x1),len(x1)), dtype=np.float64)
+    Sigma12 = np.ones((len(x1),len(x2)), dtype=np.float64)
+    Sigma21 = np.ones((len(x2),len(x1)), dtype=np.float64)
+    Sigma22 = np.ones((len(x2),len(x2)), dtype=np.float64)
     
-    # https://en.wikipedia.org/wiki/Multivariate_normal_distribution#Conditional_distributions
-    # μ_bar = μ_1 + Ε12 Ε22^-1 ( a - μ_2 )  
-
-    x1 = Cit
-    x2 = [n for n in Nset if n not in Cit]
-    Nit = [n for n in Nset if n not in Cit]
-
-    mu1 = np.array([ce_Ui[n] for n in x1]).reshape((1,len(x1)))
-    mu2 = np.array([ce_Ui[n] for n in x2]).reshape((1,len(x2)))
-
-    Sigma11 = np.ones((len(x1),len(x1)))
-    Sigma12 = np.ones((len(x1),len(x2)))
-    Sigma21 = np.ones((len(x2),len(x1)))
-    Sigma22 = np.ones((len(x2),len(x2)))
-
     for i in range(len(Cit)):
         for j in range(len(Cit)):
             Sigma11[i,j] = Sigma_Ui[Cit[i],Cit[j]] 
@@ -128,6 +103,9 @@ def update_Ui(Cit, Ui, ce_Ui, Sigma_Ui, Nset):
         for j in range(len(Nit)):
             Sigma22[i,j] = Sigma_Ui[Nit[i], Nit[j]]
 
+    return Sigma11, Sigma12, Sigma21, Sigma22
+
+def get_mubar_sigmamu(Sigma_Ui, Ui, x1, Sigma11, Sigma12, Sigma21, Sigma22, mu1, mu2):
     a = np.array([Ui[n] for n in x1]).reshape((1,len(x1)))
     inv_mat = inv_nla_jit(Sigma11)
     inner = np.matmul(Sigma21, inv_mat)
@@ -135,11 +113,54 @@ def update_Ui(Cit, Ui, ce_Ui, Sigma_Ui, Nset):
     sigmabar = Sigma22 - np.matmul(inner, Sigma12)
     mu_new = Ui
     sigma_new = Sigma_Ui
+    return mu_new, Sigma_Ui, sigmabar, mubar
 
-    for i in range(len(x2)):
+    
+@numba.jit(nopython=True)
+def get_sigma_new_mu_new(x2, sigmabar, mu_new, sigma_new, mubar):
+    len_x2 = len(x2)
+    for i in range(len_x2):
         mu_new[x2[i]] = mubar[0,i]
-        for j in range(len(x2)):
+        for j in range(len_x2):
             sigma_new[x2[i], x2[j]] = sigmabar[i, j]
+    return mu_new, sigma_new
+
+def update_Ui(Cit, Ui, ce_Ui, Sigma_Ui, Nset):
+    """ Update beliefs using Baysian updating on Normal Distribution
+    Args:
+        Cit () :
+        Ui () :
+        ce_Ui (numpy.ndarray) : certainty equivelents. previously mu_Ui. Shape (N,)
+        Sigma_Ui () :
+        Nset (range) :
+    """ 
+    # https://en.wikipedia.org/wiki/Multivariate_normal_distribution#Conditional_distributions
+    # μ_bar = μ_1 + Ε12 Ε22^-1 ( a - μ_2 )  
+
+    x1 = Cit
+    x2 = [n for n in Nset if n not in Cit]
+    Nit = [n for n in Nset if n not in Cit]
+
+    mu1 = np.array([ce_Ui[n] for n in x1], dtype=np.float64).reshape((1,len(x1)))
+    mu2 = np.array([ce_Ui[n] for n in x2], dtype=np.float64).reshape((1,len(x2)))
+    
+    Sigma11, Sigma12, Sigma21, Sigma22 = init_sigma(x1,x2, Sigma_Ui, Cit, Nit)
+    
+    #a = np.array([Ui[n] for n in x1]).reshape((1,len(x1)))
+    #inv_mat = inv_nla_jit(Sigma11)
+    #inner = np.matmul(Sigma21, inv_mat)
+    #mubar = mu2 + (np.matmul(inner,(a-mu1).T)).T
+    #sigmabar = Sigma22 - np.matmul(inner, Sigma12)
+    #mu_new = Ui
+    #sigma_new = Sigma_Ui
+    mu_new, sigma_new, sigmabar, mubar = get_mubar_sigmamu(Sigma_Ui, Ui, x1, Sigma11, Sigma12, Sigma21, Sigma22, mu1, mu2)
+
+    #for i in range(len(x2)):
+    #    mu_new[x2[i]] = mubar[0,i]
+    #    for j in range(len(x2)):
+    #        sigma_new[x2[i], x2[j]] = sigmabar[i, j]
+
+    mu_new, sigma_new =  get_sigma_new_mu_new(x2, sigmabar, mu_new, sigma_new, mubar)
     return mu_new, sigma_new
 
 ## CHOICE FUNCTIONS
@@ -292,7 +313,7 @@ rho_ibar = 0
 num_cores = multiprocessing.cpu_count() - 1
 sim_results ={}
 
-N_vals = [200, 2000]
+N_vals = [200]
 
 T_vals = [20]
 
@@ -315,9 +336,17 @@ if __name__ == '__main__':
     vals = [N_vals, T_vals, rho_vals, beta_vals, sigma_vals, alpha_vals, epsilon_vals]
     params = list(itertools.product(*vals))
 
+    print(len(params))
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--no-joblib', dest='no_joblib', action='store_true',  help=' turn off joblib ')
+    args = parser.parse_args()
+    print(args)
+
     for N, T, rho, beta, sigma, alpha, epsilon in params:
         print("STARTING")
         print("N: {}, T: {}, ρ: {} β: {} σ: {} α:{}  ε:{}".format(N, T, rho, beta, sigma, alpha, epsilon))
+        print("@ {}".format(datetime.datetime.now()))
         sigma_i = sigma
 
 
@@ -327,21 +356,34 @@ if __name__ == '__main__':
             Sigma_V = Sigma_V / beta**2
         Sigma_V_ibar = cov_mat_fun(sigma_ibar,rho_ibar,N)
 
-        sim_results[(N, T, rho, beta, sigma, alpha, epsilon)] = Parallel(n_jobs=num_cores)(delayed(simulate)(N,
-                                                                    T,
-                                                                    sigma,
-                                                                    sigma_i,
-                                                                    sigma_ibar,
-                                                                    beta,
-                                                                    nr_ind,
-                                                                    Sigma_V_i, 
-                                                                    Sigma_V, 
-                                                                    Sigma_V_ibar, 
-                                                                    alpha, 
-                                                                    epsilon, seed=i+1) for i in range(nr_pop))
-        print("finished a population run")
+
+        if args.no_joblib:
+            sim_results[(N, T, rho, beta, sigma, alpha, epsilon)] = [ simulate( N,
+                                                                        T,
+                                                                        sigma,
+                                                                        sigma_i,
+                                                                        sigma_ibar,
+                                                                        beta,
+                                                                        nr_ind,
+                                                                        Sigma_V_i, 
+                                                                        Sigma_V, 
+                                                                        Sigma_V_ibar, 
+                                                                        alpha, 
+                                                                        epsilon, seed=i+1) for i in range(1) ]
+        else:
+            sim_results[(N, T, rho, beta, sigma, alpha, epsilon)] = Parallel(n_jobs=num_cores)(delayed(simulate)(N,
+                                                                        T,
+                                                                        sigma,
+                                                                        sigma_i,
+                                                                        sigma_ibar,
+                                                                        beta,
+                                                                        nr_ind,
+                                                                        Sigma_V_i, 
+                                                                        Sigma_V, 
+                                                                        Sigma_V_ibar, 
+                                                                        alpha, 
+                                                                        epsilon, seed=i+1) for i in range(nr_pop))
         with open('data/sim_results.p', 'wb') as fp:
             pickle.dump(sim_results, fp)
-
     with open('data/sim_results.p', 'wb') as fp:
         pickle.dump(sim_results, fp)
