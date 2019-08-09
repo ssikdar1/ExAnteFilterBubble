@@ -336,6 +336,8 @@ if __name__ == '__main__':
     vals = [N_vals, T_vals, rho_vals, beta_vals, sigma_vals, alpha_vals, epsilon_vals]
     params = list(itertools.product(*vals))
 
+    print(len(params))
+
     parser = argparse.ArgumentParser()
     parser.add_argument('--no-joblib', dest='no_joblib', action='store_true',  help=' turn off joblib ')
     args = parser.parse_args()
@@ -381,7 +383,6 @@ if __name__ == '__main__':
                                                                         Sigma_V_ibar, 
                                                                         alpha, 
                                                                         epsilon, seed=i+1) for i in range(nr_pop))
-        break
         with open('data/sim_results.p', 'wb') as fp:
             pickle.dump(sim_results, fp)
     with open('data/sim_results.p', 'wb') as fp:
