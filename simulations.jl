@@ -82,15 +82,13 @@ function simulate(N::Int64,
     Nset = [ n for n=0:N]   # set of N items I = {1, ..., N}
 
     # V = (v_n) n in I aka: common value component v_n in vector form
-    #mu_V = np.zeros(N)
-    
 
     # MvNormal(mu, sig) 
     #Construct a multivariate normal distribution with mean mu and covariance represented by sig.
     # https://juliastats.github.io/Distributions.jl/stable/multivariate/#Distributions.MvNormal
     mu_V = zeros(Float64, N)
-    V = MvNormal(mu_V, Sigma_V)
-    #mu_V.reshape((1,N))
+    V = MvNormal(mu_V, Sigma_V).Σ.mat
+    mu_V = mu_V'
 
     C_pop = Dict( "rec"  => [], "omni"  => [], "partial" => [])
     W_pop = Dict( "rec"  => [], "omni"  => [], "partial" => [])
@@ -98,21 +96,28 @@ function simulate(N::Int64,
 
     for it_ind=1:nr_ind
         # V_i = (v_in) n in I aka: consumer i’s idiosyncratic taste for good n in vector form
-        mu_V_ibar = MvNormal(zeros(Float64, N), Sigma_V_ibar)
+        mu_V_ibar = MvNormal(zeros(Float64, N), Sigma_V_ibar).μ # TODO why is this always 0?
         mu_V_i = mu_V_ibar
-        V_i = MvNormal(mu_V_i, Sigma_V_i) # TODO this is not working
-        #mu_V_i.reshape((1,N))
+        V_i = MvNormal(mu_V_i, Sigma_V_i).Σ.mat
+        mu_V_i = mu_V_i'
 
         # Utility in vector form
-        #U_i = V_i + (beta * V)
-        #mu_U_i = mu_V_i + beta * mu_V
+        U_i = V_i + (beta * V)
+        mu_U_i = mu_V_i + beta * mu_V
 
         ## NO RECOMMENDATION CASE
-        #if beta != 0
-        #    Sigma_U_i = Sigma_V_i + beta^2 * (Sigma_V)
-        #else
-        #    Sigma_U_i = Sigma_V_i
-        #end
+        if beta != 0
+            Sigma_U_i = Sigma_V_i + beta^2 * (Sigma_V)
+        else
+            Sigma_U_i = Sigma_V_i
+        end
+
+        # TODO 
+        #C_iT = choice_ind(U_i,np.copy(mu_U_i), Sigma_U_i,T,N, Nset, alpha, epsilon)
+        #C_pop[NO_REC] += [C_iT]
+        #w_val = w_fun(C_iT,U_i)
+        #W_pop[NO_REC] += [w_val]
+
 
         
     
@@ -130,7 +135,7 @@ sigma_ibar = .1
 #
 rho_ibar = 0.0
 
-N_vals = [200]
+N_vals = [20]
 
 T_vals = [20]
 
