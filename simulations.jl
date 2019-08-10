@@ -98,22 +98,21 @@ function simulate(N::Int64,
 
     for it_ind=1:nr_ind
         # V_i = (v_in) n in I aka: consumer i’s idiosyncratic taste for good n in vector form
-        # MvNormal(sig) Construct a multivariate normal distribution with zero mean and covariance represented by sig
-        mu_V_ibar = MvNormal(Sigma_V_ibar)
-        mu_V_i = mu_V_ibar # TODO copy?
-        V_i = MvNormal(mu_V_i, Sigma_V_i)
+        mu_V_ibar = MvNormal(zeros(Float64, N), Sigma_V_ibar)
+        mu_V_i = mu_V_ibar
+        V_i = MvNormal(mu_V_i, Sigma_V_i) # TODO this is not working
         #mu_V_i.reshape((1,N))
 
         # Utility in vector form
-        U_i = V_i + (beta * V)
-        mu_U_i = mu_V_i + beta * mu_V
+        #U_i = V_i + (beta * V)
+        #mu_U_i = mu_V_i + beta * mu_V
 
         ## NO RECOMMENDATION CASE
-        if beta != 0
-            Sigma_U_i = Sigma_V_i + beta^2 * (Sigma_V)
-        else
-            Sigma_U_i = Sigma_V_i
-        end
+        #if beta != 0
+        #    Sigma_U_i = Sigma_V_i + beta^2 * (Sigma_V)
+        #else
+        #    Sigma_U_i = Sigma_V_i
+        #end
 
         
     
