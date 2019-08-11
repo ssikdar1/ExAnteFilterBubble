@@ -3,6 +3,7 @@ using Dates;
 using Distances;
 using Random;
 using Distributions;
+using LinearAlgebra;
 
 """
     iota(n::Int64, N::Int64)
@@ -41,6 +42,113 @@ function cov_mat_fun(sigma::Float64, rho::Float64, N::Int64)
 end
 
 """
+    init_sigma
+init for bayseian update
+
+"""
+function init_sigma(x1::Array{Int64,1},
+            x2::Array{Int64,1},
+            Sigma_Ui::Array{Float64,2}, 
+            Cit::Array{Int64,1}, 
+            Nit::Int64)
+    Sigma11 = ones(Float64, length(x1), length(x1))
+    Sigma12 = ones(Float64, length(x1), length(x2))
+    Sigma21 = ones(Float64, length(x2), length(x1))
+    Sigma22 = ones(Float64, length(x2), length(x2))
+
+    for i in 1:length(Cit)
+        for j in 1:len(Cit)
+            Sigma11[i,j] = Sigma_Ui[Cit[i],Cit[j]] 
+        end
+        for j in range(len(Nit))
+            Sigma21[j,i] = Sigma_Ui[Cit[i], Nit[j]] 
+        end
+    end
+
+    for i in 1:length(Nit)
+        for j in 1:length(Cit)
+            Sigma12[j,i] = Sigma_Ui[Nit[i],Cit[j]] 
+        end
+        for j in length(Nit)
+            Sigma22[i,j] = Sigma_Ui[Nit[i], Nit[j]]
+        end
+    end
+    return Sigma11, Sigma12, Sigma21, Sigma22
+end
+
+"""
+    update_Ui()
+
+Bayesian Update
+
+# Arguments
+
+"""
+function update_Ui(Cit::Array{Any,1}, 
+            Ui::Array{Float64,2}, 
+            ce_Ui::LinearAlgebra.Adjoint{Float64,Array{Float64,1}}, 
+            Sigma_Ui::Array{Float64,2}, 
+            Nset::Array{Int64,1})
+    
+    # https://en.wikipedia.org/wiki/Multivariate_normal_distribution#Conditional_distributions
+    # μ_bar = μ_1 + Ε12 Ε22^-1 ( a - μ_2 )  
+
+    x1 = Cit
+    x2 = [n for n in Nset if n ∉ Cit]
+    Nit = [n for n in Nset if n ∉ Cit]
+
+    mu1 = [ce_Ui[n] for n in x1]'
+    mu2 = [ce_Ui[n] for n in x2]'
+    
+    Sigma11, Sigma12, Sigma21, Sigma22 = init_sigma(x1,x2, Sigma_Ui, Cit, Nit)
+
+    #mu_new, sigma_new, sigmabar, mubar = get_mubar_sigmamu(Sigma_Ui, Ui, x1, Sigma11, Sigma12, Sigma21, Sigma22, mu1, mu2)
+    #mu_new, sigma_new =  get_sigma_new_mu_new(x2, sigmabar, mu_new, sigma_new, mubar)
+    #return mu_new, sigma_new
+end
+
+"""
+    choice_ind()
+
+the no recommendation case
+
+# Arguments
+
+"""
+function choice_ind(U_i::Array{Float64,2}, 
+			mu_U_i::LinearAlgebra.Adjoint{Float64,Array{Float64,1}}, 
+			Sigma_U_i::Array{Float64,2}, 
+			T::Int64, 
+			N::Int64, 
+			Nset, 
+			alpha::Int64, 
+			epsilon::Float64)
+
+    C_iT = []
+    for t=1:T
+        mu_Uit = mu_U_i
+        Sigma_Uit = Sigma_U_i
+        if length(C_iT) > 0
+            # update beliefs
+            mu_Uit, Sigma_Uit = update_Ui(C_iT, U_i, mu_U_i, np.copy(Sigma_U_i), Nset)
+        end
+
+         # make choice
+       # ce_Uit = certainty_equivalent(alpha, mu_Uit, Sigma_Uit)
+       # choice_set = [n for n in Nset if n not in C_iT]
+       # c_it = None
+       # if np.random.uniform() < epsilon:
+       #     c_it = np.random.choice(choice_set)
+       # else:
+       #     c_it = choice_helper(C_iT,ce_Uit, choice_set)
+       # C_iT = C_iT + [c_it]
+    end
+		
+    return C_iT
+end
+
+
+"""
     simulate(
         N::Int64
         T::Int64, 
@@ -76,7 +184,7 @@ function simulate(N::Int64,
     )
 
     
-    println("iteration: $seed")
+    print("iteration: $seed ")
     Random.seed!(seed);
 
     Nset = [ n for n=0:N]   # set of N items I = {1, ..., N}
@@ -118,7 +226,6 @@ function simulate(N::Int64,
         #w_val = w_fun(C_iT,U_i)
         #W_pop[NO_REC] += [w_val]
 
-
         
     
     end
@@ -135,7 +242,7 @@ sigma_ibar = .1
 #
 rho_ibar = 0.0
 
-N_vals = [20]
+N_vals = [200]
 
 T_vals = [20]
 
