@@ -41,6 +41,44 @@ function cov_mat_fun(sigma::Float64, rho::Float64, N::Int64)
     return cov_mat
 end
 
+""" 
+CARA
+# Arguments:
+- alpha (int) :
+- mu (numpy.ndarray): shape (N,)
+- sigma (numpy.ndarray) : shape (N,N)
+# Returns:
+    (numpy.ndarray) of shape (N,)
+# Notes:
+    alpha: the coefficient of absolute risk aversion
+    μ and σ2 are the mean and the variance of the distribution F
+    https://ocw.mit.edu/courses/economics/14-123-microeconomic-theory-iii-spring-2015/lecture-notes-and-slides/MIT14_123S15_Chap3.pdf 
+    pg 21
+"""
+function certainty_equivalent(
+        alpha::Int64, 
+        mu::Adjoint{Float64,Array{Float64,1}}, 
+        sigma::Array{Float64,2}
+    )
+    new_mu = mu' - (.5 * alpha * diag(sigma).^2) 
+    return new_mu
+end
+
+### Welfare Functions - Statistic Calculation Functions
+
+function w_fun(
+        CiT::Array{Int64, 1},
+        Ui::Array{Float64,2}
+    )
+    w_score = 0.0
+    for i in 1:length(CiT)
+        w_score = w_score + Ui[CiT[i]]
+    end
+    return w_score*(T^(-1))
+end
+
+
+
 """
     init_sigma
 init for bayseian update
@@ -51,10 +89,11 @@ function init_sigma(x1::Array{Int64,1},
             Sigma_Ui::Array{Float64,2}, 
             Cit::Array{Int64,1}, 
             Nit::Int64)
-    Sigma11 = ones(Float64, length(x1), length(x1))
-    Sigma12 = ones(Float64, length(x1), length(x2))
-    Sigma21 = ones(Float64, length(x2), length(x1))
-    Sigma22 = ones(Float64, length(x2), length(x2))
+
+    Sigma11::Array{Float64,2} = ones(Float64, length(x1), length(x1))
+    Sigma12::Array{Float64,2} = ones(Float64, length(x1), length(x2))
+    Sigma21::Array{Float64,2} = ones(Float64, length(x2), length(x1))
+    Sigma22::Array{Float64,2} = ones(Float64, length(x2), length(x2))
 
     for i in 1:length(Cit)
         for j in 1:len(Cit)
@@ -76,6 +115,49 @@ function init_sigma(x1::Array{Int64,1},
     return Sigma11, Sigma12, Sigma21, Sigma22
 end
 
+function get_mubar_sigmamu(
+        Sigma_Ui::Array{Float64,2}, 
+        Ui::Array{Float64,2}, 
+        x1::Array{Int64,1}, 
+        Sigma11::Array{Float64,2}, 
+        Sigma12::Array{Float64,2}, 
+        Sigma21::Array{Float64,2}, 
+        Sigma22::Array{Float64,2}, 
+        mu1::Array{Int64,1}, 
+        mu2::Array{Int64,1}
+    )
+    
+    a = [Ui[n] for n in x1]'
+    
+    inv_mat = inv(Sigma11)
+
+    inner = mul!(Sigma21, inv_mat)
+
+    mubar::Array{Float64,1} = mu2 + transpose(transpose(mul!(inner,(a-mu1))))
+    sigmabar::Array{Float64,2} = Sigma22 - mul!(inner, Sigma12)
+
+    mu_new::Array{Float64,1} = Ui
+    sigma_new::Array{Float64,2} = Sigma_Ui
+
+    return mu_new, sigma_new, sigmabar, mubar
+end
+
+function get_sigma_new_mu_new(
+        x2::Array{Int64,1}, 
+        sigmabar::Array{Float64,2}, 
+        mu_new::Array{Float64,1}, 
+        sigma_new::Array{Float64,2}, 
+        mubar::Array{Float64,1}
+    )
+    for i in 1:length(x2)
+        mu_new[x2[i]] = mubar[0,i]
+        for j in 1:length(x2)
+            sigma_new[x2[i], x2[j]] = sigmabar[i, j]
+        end
+    end
+    return mu_new, sigma_new
+end
+
 """
     update_Ui()
 
@@ -84,14 +166,18 @@ Bayesian Update
 # Arguments
 
 """
-function update_Ui(Cit::Array{Any,1}, 
+function update_Ui(
+            Cit::Array{Int64,1}, 
             Ui::Array{Float64,2}, 
             ce_Ui::LinearAlgebra.Adjoint{Float64,Array{Float64,1}}, 
             Sigma_Ui::Array{Float64,2}, 
-            Nset::Array{Int64,1})
+            Nset::Array{Int64,1}
+    )
     
     # https://en.wikipedia.org/wiki/Multivariate_normal_distribution#Conditional_distributions
     # μ_bar = μ_1 + Ε12 Ε22^-1 ( a - μ_2 )  
+
+    println("update Ui")
 
     x1 = Cit
     x2 = [n for n in Nset if n ∉ Cit]
@@ -102,10 +188,19 @@ function update_Ui(Cit::Array{Any,1},
     
     Sigma11, Sigma12, Sigma21, Sigma22 = init_sigma(x1,x2, Sigma_Ui, Cit, Nit)
 
-    #mu_new, sigma_new, sigmabar, mubar = get_mubar_sigmamu(Sigma_Ui, Ui, x1, Sigma11, Sigma12, Sigma21, Sigma22, mu1, mu2)
-    #mu_new, sigma_new =  get_sigma_new_mu_new(x2, sigmabar, mu_new, sigma_new, mubar)
-    #return mu_new, sigma_new
+    mu_new, sigma_new, sigmabar, mubar = get_mubar_sigmamu(Sigma_Ui, Ui, x1, Sigma11, Sigma12, Sigma21, Sigma22, mu1, mu2)
+    mu_new, sigma_new =  get_sigma_new_mu_new(x2, sigmabar, mu_new, sigma_new, mubar)
+    return mu_new, sigma_new
 end
+
+function choice_helper(
+        Cit::Array{Int64, 1},
+        mu::Array{Float64, 1}, 
+        choice_set::Array{Int64, 1}
+    )
+    cit = choice_set[argmax([mu[i] for i in choice_set])]
+    return cit
+end 
 
 """
     choice_ind()
@@ -124,24 +219,27 @@ function choice_ind(U_i::Array{Float64,2},
 			alpha::Int64, 
 			epsilon::Float64)
 
-    C_iT = []
+    println("choice_ind")
+    C_iT::Array{Int64,1} = []
     for t=1:T
         mu_Uit = mu_U_i
         Sigma_Uit = Sigma_U_i
         if length(C_iT) > 0
             # update beliefs
-            mu_Uit, Sigma_Uit = update_Ui(C_iT, U_i, mu_U_i, np.copy(Sigma_U_i), Nset)
+            mu_Uit, Sigma_Uit = update_Ui(C_iT, U_i, mu_U_i, Sigma_U_i, Nset)
         end
+        
 
-         # make choice
-       # ce_Uit = certainty_equivalent(alpha, mu_Uit, Sigma_Uit)
-       # choice_set = [n for n in Nset if n not in C_iT]
-       # c_it = None
-       # if np.random.uniform() < epsilon:
-       #     c_it = np.random.choice(choice_set)
-       # else:
-       #     c_it = choice_helper(C_iT,ce_Uit, choice_set)
-       # C_iT = C_iT + [c_it]
+        # make choice
+        ce_Uit = certainty_equivalent(alpha, mu_Uit, Sigma_Uit)
+        choice_set = [n for n in Nset if n ∉ C_iT]
+        c_it = nothing
+        if rand() < epsilon
+            c_it = rand(choice_set)
+        else
+            c_it = choice_helper(C_iT,ce_Uit, choice_set)
+        end
+        C_iT = append!(C_iT, c_it)
     end
 		
     return C_iT
@@ -187,7 +285,7 @@ function simulate(N::Int64,
     print("iteration: $seed ")
     Random.seed!(seed);
 
-    Nset = [ n for n=0:N]   # set of N items I = {1, ..., N}
+    Nset = [ n for n=1:N]   # set of N items I = {1, ..., N}
 
     # V = (v_n) n in I aka: common value component v_n in vector form
 
@@ -198,9 +296,9 @@ function simulate(N::Int64,
     V = MvNormal(mu_V, Sigma_V).Σ.mat
     mu_V = mu_V'
 
-    C_pop = Dict( "rec"  => [], "omni"  => [], "partial" => [])
-    W_pop = Dict( "rec"  => [], "omni"  => [], "partial" => [])
-    R_pop = Dict( "rec"  => [], "omni"  => [], "partial" => [])
+    C_pop = Dict( "no_rec"  => [], "omni"  => [], "partial" => [])
+    W_pop = Dict( "no_rec"  => [], "omni"  => [], "partial" => [])
+    R_pop = Dict( "no_rec"  => [], "omni"  => [], "partial" => [])
 
     for it_ind=1:nr_ind
         # V_i = (v_in) n in I aka: consumer i’s idiosyncratic taste for good n in vector form
@@ -221,10 +319,10 @@ function simulate(N::Int64,
         end
 
         # TODO 
-        #C_iT = choice_ind(U_i,np.copy(mu_U_i), Sigma_U_i,T,N, Nset, alpha, epsilon)
-        #C_pop[NO_REC] += [C_iT]
-        #w_val = w_fun(C_iT,U_i)
-        #W_pop[NO_REC] += [w_val]
+        C_iT = choice_ind(U_i, mu_U_i, Sigma_U_i,T,N, Nset, alpha, epsilon)
+        append!(C_pop["no_rec"], C_iT)
+        w_val = w_fun(C_iT,U_i)
+        append!(W_pop[NO_REC], w_val)
 
         
     
