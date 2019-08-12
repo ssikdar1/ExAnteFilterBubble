@@ -57,18 +57,9 @@ CARA
 """
 function certainty_equivalent(
         alpha::Int64, 
-        mu::Array{Float64,2}, 
+        mu, 
         sigma::Array{Float64,2}
     )
-    if size(mu) == (200, 200)
-        mu = diag(mu)
-    end 
-
-    if size(mu) == (1, 200)
-        mu = mu'
-    end
-    @show size(mu)
-    @show size (.5 * alpha * diag(sigma).^2)
     new_mu = mu - (.5 * alpha * diag(sigma).^2) 
     return new_mu
 end
@@ -77,7 +68,8 @@ end
 
 function w_fun(
         CiT::Array{Int64, 1},
-        Ui::Array{Float64,2}
+        Ui::Array{Float64,1},
+        T::Int64
     )
     w_score = 0.0
     for i in 1:length(CiT)
@@ -125,8 +117,8 @@ function init_sigma(x1::Array{Int64,1},
 end
 
 function get_mubar_sigmamu(
-        Sigma_Ui::Array{Float64,2}, 
-        Ui::Array{Float64,2}, 
+        Sigma_Ui, 
+        Ui, 
         x1::Array{Int64,1}, 
         Sigma11::Array{Float64,2}, 
         Sigma12::Array{Float64,2}, 
@@ -143,7 +135,7 @@ function get_mubar_sigmamu(
     inner = Sigma21 * inv_mat
 
     #mubar = mu2 + (np.matmul(inner,(a-mu1).T)).T
-    mubar = mu2 + inner * transpose(a-mu1)
+    mubar = mu2 + inner * (a-mu1)
     
     sigmabar = Sigma22 - (inner * Sigma12)
 
@@ -154,20 +146,18 @@ function get_mubar_sigmamu(
 end
 
 function get_sigma_new_mu_new(
-        x2::Array{Int64,1}, 
-        sigmabar::Array{Float64,2}, 
-        mu_new::Array{Float64,2}, 
-        sigma_new::Array{Float64,2}, 
-        mubar::Array{Float64,2}
+        x2, 
+        sigmabar, 
+        mu_new, 
+        sigma_new, 
+        mubar
     )
-    @show size(mu_new)
     for i in 1:length(x2)
         mu_new[x2[i]] = mubar[i,1]
         for j in 1:length(x2)
             sigma_new[x2[i], x2[j]] = sigmabar[i, j]
         end
     end
-    @show mubar
     return mu_new, sigma_new
 end
 
@@ -180,9 +170,9 @@ Bayesian Update
 
 """
 function update_Ui(
-            Cit::Array{Int64,1}, 
-            Ui::Array{Float64,2}, 
-            ce_Ui::LinearAlgebra.Adjoint{Float64,Array{Float64,1}}, 
+            Cit, 
+            Ui, 
+            ce_Ui, 
             Sigma_Ui::Array{Float64,2}, 
             Nset::Array{Int64,1}
     )
@@ -203,14 +193,12 @@ function update_Ui(
 
     mu_new, sigma_new, sigmabar, mubar = get_mubar_sigmamu(Sigma_Ui, Ui, x1, Sigma11, Sigma12, Sigma21, Sigma22, mu1, mu2)
     mu_new, sigma_new =  get_sigma_new_mu_new(x2, sigmabar, mu_new, sigma_new, mubar)
-    println("sjkdakdjhaskjhk")
-    @show size(mu_new)
     return mu_new, sigma_new
 end
 
 function choice_helper(
         Cit::Array{Int64, 1},
-        mu::Array{Float64, 2}, 
+        mu, 
         choice_set::Array{Int64, 1}
     )
     cit = choice_set[argmax([mu[i] for i in choice_set])]
@@ -225,8 +213,8 @@ the no recommendation case
 # Arguments
 
 """
-function choice_ind(U_i::Array{Float64,2}, 
-			mu_U_i::LinearAlgebra.Adjoint{Float64,Array{Float64,1}}, 
+function choice_ind(U_i, 
+			mu_U_i, 
 			Sigma_U_i::Array{Float64,2}, 
 			T::Int64, 
 			N::Int64, 
@@ -237,19 +225,15 @@ function choice_ind(U_i::Array{Float64,2},
     println("choice_ind")
     C_iT::Array{Int64,1} = []
     for t=1:T
-        mu_Uit = mu_U_i
+        println(t)
+        mu_Uit = mu_U_i'
         Sigma_Uit = Sigma_U_i
         if length(C_iT) > 0
-            # update beliefs
             mu_Uit, Sigma_Uit = update_Ui(C_iT, U_i, mu_U_i, Sigma_U_i, Nset)
-            println("ererere")
-            @show size(mu_Uit)
         end
         
         mu_Uit = Array(mu_Uit)
         # make choice
-        @show typeof(Array(mu_Uit))
-        @show size(mu_Uit)
         ce_Uit = certainty_equivalent(alpha, mu_Uit, Sigma_Uit)
         choice_set = [n for n in Nset if n ∉ C_iT]
         c_it = nothing
@@ -258,7 +242,7 @@ function choice_ind(U_i::Array{Float64,2},
         else
             c_it = choice_helper(C_iT,ce_Uit, choice_set)
         end
-        C_iT = append!(C_iT, c_it)
+        append!(C_iT, c_it)
     end
 		
     return C_iT
@@ -312,7 +296,7 @@ function simulate(N::Int64,
     #Construct a multivariate normal distribution with mean mu and covariance represented by sig.
     # https://juliastats.github.io/Distributions.jl/stable/multivariate/#Distributions.MvNormal
     mu_V = zeros(Float64, N)
-    V = MvNormal(mu_V, Sigma_V).Σ.mat
+    V = rand(MvNormal(mu_V, Sigma_V))
     mu_V = mu_V'
 
     C_pop = Dict( "no_rec"  => [], "omni"  => [], "partial" => [])
@@ -320,20 +304,19 @@ function simulate(N::Int64,
     R_pop = Dict( "no_rec"  => [], "omni"  => [], "partial" => [])
 
     for it_ind=1:nr_ind
+        println("nr_ind: $it_ind")
         # V_i = (v_in) n in I aka: consumer i’s idiosyncratic taste for good n in vector form
 
-        mu_V_ibar = MvNormal(zeros(Float64, N), Sigma_V_ibar).μ
+        mu_V_ibar = rand(MvNormal(zeros(Float64, N), Sigma_V_ibar))
         mu_V_i = mu_V_ibar
-        V_i = MvNormal(mu_V_i, Sigma_V_i).Σ.mat
-        mu_V_i = mu_V_i'
+        @show mu_V_i
+        @show Sigma_V_i
+        V_i = rand(MvNormal(mu_V_i, Sigma_V_i))
+
 
         # Utility in vector form
         U_i = V_i + (beta * V)
-        mu_U_i = mu_V_i + beta * mu_V
-        
-        @show size(U_i)
-        @show size(mu_U_i)
-        print(1/0)
+        mu_U_i = mu_V_i' + beta * mu_V
 
         ## NO RECOMMENDATION CASE
         if beta != 0
@@ -345,8 +328,8 @@ function simulate(N::Int64,
         # TODO 
         C_iT = choice_ind(U_i, mu_U_i, Sigma_U_i,T,N, Nset, alpha, epsilon)
         append!(C_pop["no_rec"], C_iT)
-        w_val = w_fun(C_iT,U_i)
-        append!(W_pop[NO_REC], w_val)
+        w_val = w_fun(C_iT,U_i, T)
+        append!(W_pop["no_rec"], w_val)
 
         
     
@@ -364,9 +347,9 @@ sigma_ibar = .1
 #
 rho_ibar = 0.0
 
-N_vals = [200]
+N_vals = [5]
 
-T_vals = [20]
+T_vals = [2]
 
 # Covariance structure
 rho_vals = [0.1, 0.3, 0.5, 0.7, 0.9]
