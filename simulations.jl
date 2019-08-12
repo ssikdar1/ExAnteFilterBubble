@@ -88,7 +88,7 @@ function init_sigma(x1::Array{Int64,1},
             x2::Array{Int64,1},
             Sigma_Ui::Array{Float64,2}, 
             Cit::Array{Int64,1}, 
-            Nit::Int64)
+            Nit::Array{Int64,1})
 
     Sigma11::Array{Float64,2} = ones(Float64, length(x1), length(x1))
     Sigma12::Array{Float64,2} = ones(Float64, length(x1), length(x2))
@@ -96,10 +96,10 @@ function init_sigma(x1::Array{Int64,1},
     Sigma22::Array{Float64,2} = ones(Float64, length(x2), length(x2))
 
     for i in 1:length(Cit)
-        for j in 1:len(Cit)
+        for j in 1:length(Cit)
             Sigma11[i,j] = Sigma_Ui[Cit[i],Cit[j]] 
         end
-        for j in range(len(Nit))
+        for j in 1:length(Nit)
             Sigma21[j,i] = Sigma_Ui[Cit[i], Nit[j]] 
         end
     end
@@ -108,7 +108,7 @@ function init_sigma(x1::Array{Int64,1},
         for j in 1:length(Cit)
             Sigma12[j,i] = Sigma_Ui[Nit[i],Cit[j]] 
         end
-        for j in length(Nit)
+        for j in 1:length(Nit)
             Sigma22[i,j] = Sigma_Ui[Nit[i], Nit[j]]
         end
     end
@@ -123,21 +123,23 @@ function get_mubar_sigmamu(
         Sigma12::Array{Float64,2}, 
         Sigma21::Array{Float64,2}, 
         Sigma22::Array{Float64,2}, 
-        mu1::Array{Int64,1}, 
-        mu2::Array{Int64,1}
+        mu1::Array{Float64,1}, 
+        mu2::Array{Float64,1}
     )
-    
-    a = [Ui[n] for n in x1]'
+   
+    a = [Ui[n] for n in x1]
     
     inv_mat = inv(Sigma11)
 
-    inner = mul!(Sigma21, inv_mat)
+    inner = Sigma21 * inv_mat
 
-    mubar::Array{Float64,1} = mu2 + transpose(transpose(mul!(inner,(a-mu1))))
-    sigmabar::Array{Float64,2} = Sigma22 - mul!(inner, Sigma12)
+    #mubar = mu2 + (np.matmul(inner,(a-mu1).T)).T
+    mubar = mu2 + inner * transpose(a-mu1)
+    
+    sigmabar = Sigma22 - (inner * Sigma12)
 
-    mu_new::Array{Float64,1} = Ui
-    sigma_new::Array{Float64,2} = Sigma_Ui
+    mu_new = Ui
+    sigma_new = Sigma_Ui
 
     return mu_new, sigma_new, sigmabar, mubar
 end
@@ -183,9 +185,9 @@ function update_Ui(
     x2 = [n for n in Nset if n ∉ Cit]
     Nit = [n for n in Nset if n ∉ Cit]
 
-    mu1 = [ce_Ui[n] for n in x1]'
-    mu2 = [ce_Ui[n] for n in x2]'
-    
+    mu1 = convert(Array{Float64,1},[ce_Ui[n] for n in x1])
+    mu2 = convert(Array{Float64,1},[ce_Ui[n] for n in x2])
+   
     Sigma11, Sigma12, Sigma21, Sigma22 = init_sigma(x1,x2, Sigma_Ui, Cit, Nit)
 
     mu_new, sigma_new, sigmabar, mubar = get_mubar_sigmamu(Sigma_Ui, Ui, x1, Sigma11, Sigma12, Sigma21, Sigma22, mu1, mu2)
