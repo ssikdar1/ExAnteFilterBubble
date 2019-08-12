@@ -200,14 +200,46 @@ function choice_helper(
     return cit
 end 
 
-"""
-    choice_ind()
 
-the no recommendation case
+function choice_part(V_i, mu_V_i, Sigma_V_i, V, T, N, Nset, alpha, epsilon, beta)
+    C_iT::Array{Int64,1} = []
+    R_iT::Array{Int64,1} = []
 
-# Arguments
+    for t=1:T
+        mu_Vit = mu_V_i
+        Sigma_Vit = Sigma_V_i
+        if length(C_iT) > 0
+            # update beliefs
+            mu_Vit, Sigma_Vit = update_Ui(C_iT, V_i, mu_V_i, copy(Sigma_V_i), Nset)
+        end
+        mu_Uit = mu_Vit + beta * V
+        # make choice
+        ce_Uit = certainty_equivalent(alpha, mu_Uit, Sigma_Vit) # γ: uncertainty aversion
+        choice_set = [n for n in Nset if n  ∉ C_iT]
+        c_it = nothing
+        if rand() < epsilon
+            c_it = rand(choice_set)
+        else
+            c_it = choice_helper(C_iT,ce_Uit, choice_set)
+        end
+        r_it = choice_set[argmax([V[i] for i in choice_set])]
+        append!(R_iT,r_it)
+        append!(C_iT,c_it)
+    end
 
-"""
+    return C_iT, R_iT
+end
+
+function choice_omni(U_i,T,N, Nset)
+    C_iT::Array{Int64,1} = []
+    for t=1:T
+        choice_set = [n for n in Nset if n ∉ C_iT]
+        c_it = choice_helper(C_iT,U_i, choice_set)
+        append!(C_iT, c_it)
+    end
+    return C_iT
+end
+
 function choice_ind(U_i, 
 			mu_U_i, 
 			Sigma_U_i::Array{Float64,2}, 
@@ -317,10 +349,25 @@ function simulate(N::Int64,
 
         C_iT = choice_ind(U_i, mu_U_i, Sigma_U_i,T,N, Nset, alpha, epsilon)
         append!(C_pop["no_rec"], C_iT)
-        w_val = w_fun(C_iT,U_i, T)
+        w_val = w_fun(C_iT, U_i, T)
         append!(W_pop["no_rec"], w_val)
 
-    
+        
+        ## OMNISCIENT CASE
+        C_iT = choice_omni(U_i,T,N, Nset)
+        append!(C_pop["omni"], C_iT)
+        w_val = w_fun(C_iT, U_i, T)
+        append!(W_pop["omni"],  w_val)
+
+ 
+        ## PARTIAL REC Case
+        C_iT, R_iT = choice_part(V_i, copy(mu_V_i), copy(Sigma_V_i), V, T, N, Nset, alpha, epsilon, beta)
+        append!(C_pop["partial"], C_iT)
+        w_val = w_fun(C_iT, U_i, T)
+        append!(W_pop["partial"], w_val)
+        append!(R_pop["partial"], R_iT)
+  
+ 
     end
 
     return Dict( "Consumption" => C_pop, "Welfare" => W_pop, "Rec" => R_pop )
