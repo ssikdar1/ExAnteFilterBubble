@@ -5,20 +5,15 @@ using Random;
 using Distributions;
 using LinearAlgebra;
 
+""" the minimum # of hops from node i to node j
 """
-    iota(n::Int64, N::Int64)
-ι : N → R 2 associates with each index n a point in
-        the unit circle, evenly spaced, with ι(n) = (cos(n/N) π, sin(n/N) * π)
-# Arguments
-- `n::Int64`: point on circle  
-- `N::Int64`: # of goods so length of circle 
-# Returns
-- the cos and sin components as Array{Float64,1}
-"""
-function iota(n,N)::Array{Float64,1}
-    return [cos(n/N) * pi, sin(n/N) * pi]
+function hop_distance(
+        i::Int64,
+        j::Int64,
+        N::Int64
+    )::Int64
+    return min(abs(i-j), abs(j-i), abs(j-i-N), abs(i-j-N))
 end
-
 
 """
 	cov_mat_fun(sigma::Float64, rho::Float64, N::Int64)
@@ -34,7 +29,7 @@ function cov_mat_fun(sigma::Float64, rho::Float64, N::Int64)::Array{Float64,2}
     cov_mat = zeros(Float64, N, N)
     for i in 1:N 
         for j in 1:N
-            dist = Distances.euclidean( iota(i,N), iota(j,N) )
+            dist = hop_distance( i, j , N)
             cov_mat[i,j] = rho^dist
         end
     end
@@ -180,7 +175,7 @@ function update_Ui(
     # https://en.wikipedia.org/wiki/Multivariate_normal_distribution#Conditional_distributions
     # μ_bar = μ_1 + Ε12 Ε22^-1 ( a - μ_2 )  
 
-    println("update Ui")
+    #println("update Ui")
 
     x1 = Cit
     x2 = [n for n in Nset if n ∉ Cit]
@@ -222,14 +217,15 @@ function choice_ind(U_i,
 			alpha::Int64, 
 			epsilon::Float64)
 
-    println("choice_ind")
+    #println("choice_ind")
     C_iT::Array{Int64,1} = []
     for t=1:T
-        println(t)
-        mu_Uit = mu_U_i'
-        Sigma_Uit = Sigma_U_i
+        #println(t)
         if length(C_iT) > 0
             mu_Uit, Sigma_Uit = update_Ui(C_iT, U_i, mu_U_i, Sigma_U_i, Nset)
+        else
+            mu_Uit = copy(mu_U_i)'
+            Sigma_Uit = copy(Sigma_U_i)
         end
         
         mu_Uit = Array(mu_Uit)
@@ -304,34 +300,26 @@ function simulate(N::Int64,
     R_pop = Dict( "no_rec"  => [], "omni"  => [], "partial" => [])
 
     for it_ind=1:nr_ind
-        println("nr_ind: $it_ind")
+        #println("nr_ind: $it_ind")
         # V_i = (v_in) n in I aka: consumer i’s idiosyncratic taste for good n in vector form
 
-        mu_V_ibar = rand(MvNormal(zeros(Float64, N), Sigma_V_ibar))
-        mu_V_i = mu_V_ibar
-        @show mu_V_i
-        @show Sigma_V_i
+        mu_V_i = mu_V_ibar = rand(MvNormal(zeros(Float64, N), Sigma_V_ibar))
+        #@show mu_V_i
+        #@show Sigma_V_i
         V_i = rand(MvNormal(mu_V_i, Sigma_V_i))
-
 
         # Utility in vector form
         U_i = V_i + (beta * V)
         mu_U_i = mu_V_i' + beta * mu_V
 
         ## NO RECOMMENDATION CASE
-        if beta != 0
-            Sigma_U_i = Sigma_V_i + beta^2 * (Sigma_V)
-        else
-            Sigma_U_i = Sigma_V_i
-        end
+        Sigma_U_i = Sigma_V_i + beta^2 * (Sigma_V)
 
-        # TODO 
         C_iT = choice_ind(U_i, mu_U_i, Sigma_U_i,T,N, Nset, alpha, epsilon)
         append!(C_pop["no_rec"], C_iT)
         w_val = w_fun(C_iT,U_i, T)
         append!(W_pop["no_rec"], w_val)
 
-        
     
     end
 
@@ -347,15 +335,15 @@ sigma_ibar = .1
 #
 rho_ibar = 0.0
 
-N_vals = [5]
+N_vals = [200]
 
-T_vals = [2]
+T_vals = [20]
 
 # Covariance structure
 rho_vals = [0.1, 0.3, 0.5, 0.7, 0.9]
 
 # utility idiosyncratic degree 
-beta_vals = [0, 1, 2, 10]
+beta_vals = [ 0, 2, 10, 0]
 
 # absolute risk aversion
 alpha_vals = [0, 1]
