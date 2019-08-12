@@ -321,7 +321,8 @@ function simulate(N::Int64,
 
     for it_ind=1:nr_ind
         # V_i = (v_in) n in I aka: consumer i’s idiosyncratic taste for good n in vector form
-        mu_V_ibar = MvNormal(zeros(Float64, N), Sigma_V_ibar).μ # TODO why is this always 0?
+
+        mu_V_ibar = MvNormal(zeros(Float64, N), Sigma_V_ibar).μ
         mu_V_i = mu_V_ibar
         V_i = MvNormal(mu_V_i, Sigma_V_i).Σ.mat
         mu_V_i = mu_V_i'
@@ -329,6 +330,10 @@ function simulate(N::Int64,
         # Utility in vector form
         U_i = V_i + (beta * V)
         mu_U_i = mu_V_i + beta * mu_V
+        
+        @show size(U_i)
+        @show size(mu_U_i)
+        print(1/0)
 
         ## NO RECOMMENDATION CASE
         if beta != 0
