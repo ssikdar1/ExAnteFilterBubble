@@ -57,7 +57,7 @@ CARA
 """
 function certainty_equivalent(
         alpha::Int64, 
-        mu::Adjoint{Float64,Array{Float64,1}}, 
+        mu::Array{Float64,2}, 
         sigma::Array{Float64,2}
     )
     new_mu = mu' - (.5 * alpha * diag(sigma).^2) 
@@ -147,16 +147,18 @@ end
 function get_sigma_new_mu_new(
         x2::Array{Int64,1}, 
         sigmabar::Array{Float64,2}, 
-        mu_new::Array{Float64,1}, 
+        mu_new::Array{Float64,2}, 
         sigma_new::Array{Float64,2}, 
-        mubar::Array{Float64,1}
+        mubar::Array{Float64,2}
     )
+    @show size(mu_new)
     for i in 1:length(x2)
-        mu_new[x2[i]] = mubar[0,i]
+        mu_new[x2[i]] = mubar[i,1]
         for j in 1:length(x2)
             sigma_new[x2[i], x2[j]] = sigmabar[i, j]
         end
     end
+    @show mubar
     return mu_new, sigma_new
 end
 
@@ -192,12 +194,14 @@ function update_Ui(
 
     mu_new, sigma_new, sigmabar, mubar = get_mubar_sigmamu(Sigma_Ui, Ui, x1, Sigma11, Sigma12, Sigma21, Sigma22, mu1, mu2)
     mu_new, sigma_new =  get_sigma_new_mu_new(x2, sigmabar, mu_new, sigma_new, mubar)
+    println("sjkdakdjhaskjhk")
+    @show size(mu_new)
     return mu_new, sigma_new
 end
 
 function choice_helper(
         Cit::Array{Int64, 1},
-        mu::Array{Float64, 1}, 
+        mu::Array{Float64, 2}, 
         choice_set::Array{Int64, 1}
     )
     cit = choice_set[argmax([mu[i] for i in choice_set])]
@@ -229,10 +233,14 @@ function choice_ind(U_i::Array{Float64,2},
         if length(C_iT) > 0
             # update beliefs
             mu_Uit, Sigma_Uit = update_Ui(C_iT, U_i, mu_U_i, Sigma_U_i, Nset)
+            println("ererere")
+            @show size(mu_Uit)
         end
         
-
+        mu_Uit = Array(mu_Uit)
         # make choice
+        @show typeof(Array(mu_Uit))
+        @show size(mu_Uit)
         ce_Uit = certainty_equivalent(alpha, mu_Uit, Sigma_Uit)
         choice_set = [n for n in Nset if n ∉ C_iT]
         c_it = nothing
