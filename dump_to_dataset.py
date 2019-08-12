@@ -38,7 +38,7 @@ def follow_rec(Ci, Rec, N, T):
 
 def parse_pickle_key(key):
     print(key)
-    N, T, rho, beta, sigma, alpha, epsilon, nr_pop, nr_ind = key
+    N, T, rho, beta, sigma, alpha, epsilon = key
     dat = {
         'N': N,
         'T': T,
@@ -47,9 +47,9 @@ def parse_pickle_key(key):
         'sigma': sigma,
         'alpha': alpha,
         'epsilon': epsilon,
-        'nr_pop': nr_pop,
-        'nr_ind': nr_ind,
-        'pop_idx': pop_idx
+        #'nr_pop': nr_pop,
+        #'nr_ind': nr_ind,
+        #'pop_idx': pop_idx
     }
     return dat
 
@@ -60,6 +60,8 @@ with open(WORKING_DIR + 'rec_data.csv', 'w') as rec_csv:
     for key, value in df.items():
         for pop_idx in range(len(value)):
             dat = parse_pickle_key(key)
+            T = dat['T']
+            N = dat['N']
             cur = value[pop_idx]
             welfare = cur['Welfare']
             consumption = cur['Consumption']
@@ -83,6 +85,8 @@ with open(WORKING_DIR + 'homogeneity_data.csv', 'w') as rec_csv:
     for key, value in df.items():
         for pop_idx in range(len(value)):
             dat = parse_pickle_key(key)
+            T = dat['T']
+            N = dat['N']
             cur = value[pop_idx]
             consumption = cur['Consumption']
             for policy in rec_policy_keys:
