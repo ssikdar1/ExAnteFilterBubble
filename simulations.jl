@@ -13,9 +13,9 @@ using LinearAlgebra;
 - `n::Int64`: point on circle  
 - `N::Int64`: # of goods so length of circle 
 # Returns
-- the cos and sin components as Array
+- the cos and sin components as Array{Float64,1}
 """
-function iota(n,N)
+function iota(n,N)::Array{Float64,1}
     return [cos(n/N) * pi, sin(n/N) * pi]
 end
 
@@ -28,9 +28,9 @@ Create covariance matrix
 - `rho::Float64`: Covariance coefficient
 - `N::Int`: Number of goods
 # Returns
-- Covariance matrix
+- Covariance matrix 
 """
-function cov_mat_fun(sigma::Float64, rho::Float64, N::Int64)
+function cov_mat_fun(sigma::Float64, rho::Float64, N::Int64)::Array{Float64,2}
     cov_mat = zeros(Float64, N, N)
     for i in 1:N 
         for j in 1:N
@@ -60,7 +60,16 @@ function certainty_equivalent(
         mu::Array{Float64,2}, 
         sigma::Array{Float64,2}
     )
-    new_mu = mu' - (.5 * alpha * diag(sigma).^2) 
+    if size(mu) == (200, 200)
+        mu = diag(mu)
+    end 
+
+    if size(mu) == (1, 200)
+        mu = mu'
+    end
+    @show size(mu)
+    @show size (.5 * alpha * diag(sigma).^2)
+    new_mu = mu - (.5 * alpha * diag(sigma).^2) 
     return new_mu
 end
 
