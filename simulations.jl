@@ -8,6 +8,23 @@ addprocs(7)
 @everywhere using Distributions;
 @everywhere using LinearAlgebra;
 
+
+"""
+iota(n::Int64, N::Int64)
+ι : N → R 2 associates with each index n a point in
+        the unit circle, evenly spaced, with ι(n) = (cos(n/N) π, sin(n/N) * π)
+# Arguments
+- `n::Int64`: point on circle  
+- `N::Int64`: # of goods so length of circle 
+# Returns
+- the cos and sin components as Array{Float64,1}
+"""
+
+@everywhere function iota(n::Int64,N::Int64)::Array{Float64,1}
+    return [cos(n/N) * pi, sin(n/N) * pi]
+end
+
+
 """ the minimum # of hops from node i to node j
 """
 
@@ -35,6 +52,7 @@ Create covariance matrix
     for i in 1:N 
         for j in 1:N
             dist = hop_distance( i, j , N)
+            #dist = Distances.euclidean( iota(i,N), iota(j,N) )
             cov_mat[i,j] = rho^dist
         end
     end
@@ -341,9 +359,9 @@ end
     V = rand(MvNormal(mu_V, Sigma_V))
     mu_V = mu_V
 
-    C_pop = Dict( "no_rec"  => [], "omni"  => [], "partial" => [])
-    W_pop = Dict( "no_rec"  => [], "omni"  => [], "partial" => [])
-    R_pop = Dict( "no_rec"  => [], "omni"  => [], "partial" => [])
+    C_pop = Dict( "no_rec"  => zeros(Int64, nr_ind,T), "omni"  => zeros(Int64, nr_ind,T), "partial" => zeros(Int64, nr_ind,T))
+    W_pop = Dict( "no_rec"  => zeros(nr_ind), "omni"  => zeros(nr_ind), "partial" => zeros(nr_ind))
+    R_pop = Dict( "no_rec"  => zeros(nr_ind,T), "omni"  => zeros(nr_ind,T), "partial" => zeros(nr_ind,T))
 
     for it_ind=1:nr_ind
         #println("nr_ind: $it_ind")
@@ -362,25 +380,25 @@ end
 
         ## NO RECOMMENDATION CASE
         Sigma_U_i = Sigma_V_i + beta^2 * (Sigma_V)
-            C_iT = choice_ind(U_i, mu_U_i, Sigma_U_i,T,N, Nset, alpha, epsilon)
-            append!(C_pop["no_rec"], C_iT)
-            w_val = w_fun(C_iT, U_i, T)
-            append!(W_pop["no_rec"], w_val)
+        C_iT = choice_ind(U_i, mu_U_i, Sigma_U_i,T,N, Nset, alpha, epsilon)
+        C_pop["no_rec"][it_ind,:] = C_iT
+        w_val = w_fun(C_iT, U_i, T)
+        W_pop["no_rec"][it_ind] = w_val
 
-            
-            ## OMNISCIENT CASE
-            C_iT = choice_omni(copy(U_i),T,N, Nset)
-            append!(C_pop["omni"], C_iT)
-            w_val = w_fun(C_iT, U_i, T)
-            append!(W_pop["omni"],  w_val)
+        
+        ## OMNISCIENT CASE
+        C_iT = choice_omni(copy(U_i),T,N, Nset)
+        C_pop["omni"][it_ind,:] = C_iT
+        w_val = w_fun(C_iT, U_i, T)
+        W_pop["omni"][it_ind] = w_val
 
-     
-            ## PARTIAL REC Case
-            C_iT, R_iT = choice_part(copy(V_i), copy(mu_V_i), copy(Sigma_V_i), copy(V), T, N, Nset, alpha, epsilon, beta)
-            append!(C_pop["partial"], C_iT)
-            w_val = w_fun(C_iT, U_i, T)
-            append!(W_pop["partial"], w_val)
-            append!(R_pop["partial"], R_iT)
+ 
+        ## PARTIAL REC Case
+        C_iT, R_iT = choice_part(copy(V_i), copy(mu_V_i), copy(Sigma_V_i), copy(V), T, N, Nset, alpha, epsilon, beta)
+        C_pop["partial"][it_ind,:] = C_iT
+        w_val = w_fun(C_iT, U_i, T)
+        W_pop["partial"][it_ind] = w_val
+        R_pop["partial"][it_ind,:] = R_iT
  
     end
 
@@ -404,7 +422,7 @@ T_vals = [20]
 rho_vals = [0.1, 0.3, 0.51, 0.7, 0.9]
 
 # utility idiosyncratic degree 
-beta_vals = [0, 1, 2, 10]
+beta_vals = [0, 1, 2]
 
 # absolute risk aversion
 alpha_vals = [0, 1]
@@ -424,7 +442,7 @@ for (N, T, rho, beta, sigma, alpha, epsilon) in params
     println("STARTING")
     println("N: $N, T: $T, ρ: $rho β: $beta σ: $sigma α: $alpha  ε: $epsilon")
     println(Dates.now())
-
+    flush(stdout) # so that nohup shows progress
     sigma_i = sigma
 
     Sigma_V_i = cov_mat_fun(sigma, rho, N)
@@ -439,7 +457,6 @@ for (N, T, rho, beta, sigma, alpha, epsilon) in params
     sim_results[(N, T, rho, beta, sigma, alpha, epsilon, nr_pop, nr_ind)] = @sync @distributed vcat for i= 1:nr_pop
         simulate(N, T,sigma, sigma_i, sigma_ibar, beta, nr_ind, Sigma_V_i,  Sigma_V,  Sigma_V_ibar,  alpha, epsilon, i)
     end
-    flush(stdout) # so that nohup logs out responses
 end
 
 #WORKING_DIR = "/Users/guyaridor/Desktop/"

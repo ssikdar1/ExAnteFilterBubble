@@ -1,16 +1,18 @@
 import pickle
 import csv
+import json
 from copy import copy
+
 
 from scipy.spatial.distance import jaccard, euclidean 
 from simulations import iota
 
-OMNI = 'rec'
+OMNI = 'omni'
 PARTIAL = 'partial'
 NO_REC = 'no_rec'
 rec_policy_keys = [OMNI, PARTIAL, NO_REC]
-WORKING_DIR = 'data/'
-with open(WORKING_DIR + 'new_sim.p', 'r') as fp:
+WORKING_DIR = '/Users/guyaridor/Desktop/'
+with open(WORKING_DIR + 'new_sim.json', 'r') as fp:
     df = json.load(fp)
 
 def d(i,j, N):
@@ -21,7 +23,7 @@ def div_fun(CiT, T, N):
     for i in range(len(CiT)):
         for j in range(len(CiT)):
             if i == j: continue
-            div_score = div_score + euclidean( iota(CiT[i], N), iota(CiT[j], N) )
+            div_score = div_score + d(i,j,N)#euclidean( iota(CiT[i], N), iota(CiT[j], N) )
     return div_score*(1.0/(T*(T-1)))
 
 def homogeneity(C1, C2, type_sim="jaccard"):
@@ -37,18 +39,15 @@ def follow_rec(Ci, Rec, N, T):
     return s / T
 
 def parse_pickle_key(key):
-    print(key)
-    N, T, rho, beta, sigma, alpha, epsilon = key
+    key = eval(key)
     dat = {
-        'N': N,
-        'T': T,
-        'rho': rho,
-        'beta': beta,
-        'sigma': sigma,
-        'alpha': alpha,
-        'epsilon': epsilon,
-        #'nr_pop': nr_pop,
-        #'nr_ind': nr_ind,
+        'N': float(key[0]),
+        'T': float(key[1]),
+        'rho': key[2],
+        'beta': key[3],
+        'sigma': key[4],
+        'alpha': key[5],
+        'epsilon': key[6]
         #'pop_idx': pop_idx
     }
     return dat
