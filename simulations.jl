@@ -383,17 +383,17 @@ end
 end
 
 #
-nr_pop = 2
+nr_pop = 50
 #
-nr_ind = 2
+nr_ind = 100
 #
 sigma_ibar = .1
 #
 rho_ibar = 0.0
 
-N_vals = [10]
+N_vals = [200]
 
-T_vals = [5]
+T_vals = [20]
 
 # Covariance structure
 rho_vals = [0.1, 0.3, 0.5, 0.7, 0.9]
@@ -437,8 +437,8 @@ for (N, T, rho, beta, sigma, alpha, epsilon) in params
     break
 end
 
-#WORKING_DIR = "/Users/guyaridor/Desktop/"
-WORKING_DIR = "/home/guyaridor/ExAnteFilterBubble/"
+WORKING_DIR = "/Users/guyaridor/Desktop/"
+#WORKING_DIR = "/home/guyaridor/ExAnteFilterBubble/"
 open(string(WORKING_DIR, "new_sim.json"),"w") do f
     JSON.print(f, sim_results)
 end
