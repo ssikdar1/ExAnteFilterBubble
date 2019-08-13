@@ -1,13 +1,17 @@
-using IterTools;
-using Dates;
-using Distances;
-using Random;
-using Distributions;
-using LinearAlgebra;
+using Distributed
+using JSON
+addprocs(7)
+@everywhere using IterTools;
+@everywhere using Dates;
+@everywhere using Distances;
+@everywhere using Random;
+@everywhere using Distributions;
+@everywhere using LinearAlgebra;
 
 """ the minimum # of hops from node i to node j
 """
-function hop_distance(
+
+@everywhere function hop_distance(
         i::Int64,
         j::Int64,
         N::Int64
@@ -25,7 +29,8 @@ Create covariance matrix
 # Returns
 - Covariance matrix 
 """
-function cov_mat_fun(sigma::Float64, rho::Float64, N::Int64)::Array{Float64,2}
+
+@everywhere function cov_mat_fun(sigma::Float64, rho::Float64, N::Int64)::Array{Float64,2}
     cov_mat = zeros(Float64, N, N)
     for i in 1:N 
         for j in 1:N
@@ -50,7 +55,8 @@ CARA
     https://ocw.mit.edu/courses/economics/14-123-microeconomic-theory-iii-spring-2015/lecture-notes-and-slides/MIT14_123S15_Chap3.pdf 
     pg 21
 """
-function certainty_equivalent(
+
+@everywhere function certainty_equivalent(
         alpha::Int64, 
         mu, 
         sigma::Array{Float64,2}
@@ -61,7 +67,7 @@ end
 
 ### Welfare Functions - Statistic Calculation Functions
 
-function w_fun(
+@everywhere function w_fun(
         CiT::Array{Int64, 1},
         Ui::Array{Float64,1},
         T::Int64
@@ -80,7 +86,8 @@ end
 init for bayseian update
 
 """
-function init_sigma(x1::Array{Int64,1},
+
+@everywhere function init_sigma(x1::Array{Int64,1},
             x2::Array{Int64,1},
             Sigma_Ui::Array{Float64,2}, 
             Cit::Array{Int64,1}, 
@@ -111,7 +118,7 @@ function init_sigma(x1::Array{Int64,1},
     return Sigma11, Sigma12, Sigma21, Sigma22
 end
 
-function get_mubar_sigmamu(
+@everywhere function get_mubar_sigmamu(
         Sigma_Ui, 
         Ui, 
         x1::Array{Int64,1}, 
@@ -140,7 +147,7 @@ function get_mubar_sigmamu(
     return mu_new, sigma_new, sigmabar, mubar
 end
 
-function get_sigma_new_mu_new(
+@everywhere function get_sigma_new_mu_new(
         x2, 
         sigmabar, 
         mu_new, 
@@ -164,7 +171,8 @@ Bayesian Update
 # Arguments
 
 """
-function update_Ui(
+
+@everywhere function update_Ui(
             Cit, 
             Ui, 
             ce_Ui, 
@@ -191,7 +199,7 @@ function update_Ui(
     return mu_new, sigma_new
 end
 
-function choice_helper(
+@everywhere function choice_helper(
         Cit::Array{Int64, 1},
         mu, 
         choice_set::Array{Int64, 1}
@@ -201,7 +209,7 @@ function choice_helper(
 end 
 
 
-function choice_part(V_i, mu_V_i, Sigma_V_i, V, T, N, Nset, alpha, epsilon, beta)
+@everywhere function choice_part(V_i, mu_V_i, Sigma_V_i, V, T, N, Nset, alpha, epsilon, beta)
     C_iT::Array{Int64,1} = []
     R_iT::Array{Int64,1} = []
 
@@ -230,7 +238,7 @@ function choice_part(V_i, mu_V_i, Sigma_V_i, V, T, N, Nset, alpha, epsilon, beta
     return C_iT, R_iT
 end
 
-function choice_omni(U_i,T,N, Nset)
+@everywhere function choice_omni(U_i,T,N, Nset)
     C_iT::Array{Int64,1} = []
     for t=1:T
         choice_set = [n for n in Nset if n ∉ C_iT]
@@ -240,7 +248,7 @@ function choice_omni(U_i,T,N, Nset)
     return C_iT
 end
 
-function choice_ind(U_i, 
+@everywhere function choice_ind(U_i, 
 			mu_U_i, 
 			Sigma_U_i::Array{Float64,2}, 
 			T::Int64, 
@@ -297,7 +305,8 @@ end
 # Arguments
 # Returns
 """
-function simulate(N::Int64,
+
+@everywhere function simulate(N::Int64,
     T::Int64, 
     sigma::Float64,
     sigma_i::Float64, 
@@ -374,17 +383,17 @@ function simulate(N::Int64,
 end
 
 #
-nr_pop = 50
+nr_pop = 2
 #
-nr_ind = 100
+nr_ind = 2
 #
 sigma_ibar = .1
 #
 rho_ibar = 0.0
 
-N_vals = [200]
+N_vals = [10]
 
-T_vals = [20]
+T_vals = [5]
 
 # Covariance structure
 rho_vals = [0.1, 0.3, 0.5, 0.7, 0.9]
@@ -405,7 +414,7 @@ params = Iterators.product(N_vals, T_vals, rho_vals, beta_vals, sigma_vals, alph
 println(length(collect(params)))
 
 
-
+sim_results = Dict()
 for (N, T, rho, beta, sigma, alpha, epsilon) in params
     println("STARTING")
     println("N: $N, T: $T, ρ: $rho β: $beta σ: $sigma α: $alpha  ε: $epsilon")
@@ -422,11 +431,14 @@ for (N, T, rho, beta, sigma, alpha, epsilon) in params
 
     Sigma_V_ibar = cov_mat_fun(sigma_ibar,rho_ibar,N)
 
-    # TODO parallelism?
-    # TODO list comprehension
-    for i= 1:nr_pop
+    sim_results[(N, T, rho, beta, sigma, alpha, epsilon, nr_pop, nr_ind)] = @sync @distributed vcat for i= 1:nr_pop
         simulate(N, T,sigma, sigma_i, sigma_ibar, beta, nr_ind, Sigma_V_i,  Sigma_V,  Sigma_V_ibar,  alpha, epsilon, i)
     end
-
     break
+end
+
+#WORKING_DIR = "/Users/guyaridor/Desktop/"
+WORKING_DIR = "/home/guyaridor/ExAnteFilterBubble/"
+open(string(WORKING_DIR, "new_sim.json"),"w") do f
+    JSON.print(f, sim_results)
 end
