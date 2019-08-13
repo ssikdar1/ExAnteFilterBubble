@@ -437,8 +437,8 @@ for (N, T, rho, beta, sigma, alpha, epsilon) in params
     break
 end
 
-WORKING_DIR = "/Users/guyaridor/Desktop/"
-#WORKING_DIR = "/home/guyaridor/ExAnteFilterBubble/"
+#WORKING_DIR = "/Users/guyaridor/Desktop/"
+WORKING_DIR = "/home/guyaridor/ExAnteFilterBubble/"
 open(string(WORKING_DIR, "new_sim.json"),"w") do f
     JSON.print(f, sim_results)
 end
