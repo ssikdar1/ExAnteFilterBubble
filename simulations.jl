@@ -58,7 +58,7 @@ CARA
 
 @everywhere function certainty_equivalent(
         alpha::Int64, 
-        mu, 
+        mu::Array{Float64,1},
         sigma::Array{Float64,2}
     )
     new_mu = mu - (.5 * alpha * diag(sigma).^2) 
@@ -87,16 +87,14 @@ init for bayseian update
 
 """
 
-@everywhere function init_sigma(x1::Array{Int64,1},
-            x2::Array{Int64,1},
-            Sigma_Ui::Array{Float64,2}, 
-            Cit::Array{Int64,1}, 
-            Nit::Array{Int64,1})
+@everywhere function init_sigma(Cit::Array{Int64,1},
+            Nit::Array{Int64,1},
+            Sigma_Ui::Array{Float64,2})
 
-    Sigma11::Array{Float64,2} = ones(Float64, length(x1), length(x1))
-    Sigma12::Array{Float64,2} = ones(Float64, length(x1), length(x2))
-    Sigma21::Array{Float64,2} = ones(Float64, length(x2), length(x1))
-    Sigma22::Array{Float64,2} = ones(Float64, length(x2), length(x2))
+    Sigma11::Array{Float64,2} = ones(Float64, length(Cit), length(Cit))
+    Sigma12::Array{Float64,2} = ones(Float64, length(Cit), length(Nit))
+    Sigma21::Array{Float64,2} = ones(Float64, length(Nit), length(Cit))
+    Sigma22::Array{Float64,2} = ones(Float64, length(Nit), length(Nit))
 
     for i in 1:length(Cit)
         for j in 1:length(Cit)
@@ -119,8 +117,8 @@ init for bayseian update
 end
 
 @everywhere function get_mubar_sigmamu(
-        Sigma_Ui, 
-        Ui, 
+        Sigma_Ui::Array{Float64,2}, 
+        Ui::Array{Float64,1}, 
         x1::Array{Int64,1}, 
         Sigma11::Array{Float64,2}, 
         Sigma12::Array{Float64,2}, 
@@ -131,12 +129,10 @@ end
     )
    
     a = [Ui[n] for n in x1]
-    
     inv_mat = inv(Sigma11)
 
     inner = Sigma21 * inv_mat
 
-    #mubar = mu2 + (np.matmul(inner,(a-mu1).T)).T
     mubar = mu2 + inner * (a-mu1)
     
     sigmabar = Sigma22 - (inner * Sigma12)
@@ -148,11 +144,11 @@ end
 end
 
 @everywhere function get_sigma_new_mu_new(
-        x2, 
-        sigmabar, 
-        mu_new, 
-        sigma_new, 
-        mubar
+        x2::Array{Int64,1}, 
+        sigmabar::Array{Float64,2}, 
+        mu_new::Array{Float64,1}, 
+        sigma_new::Array{Float64,2}, 
+        mubar::Array{Float64, 1}
     )
     for i in 1:length(x2)
         mu_new[x2[i]] = mubar[i,1]
@@ -173,9 +169,9 @@ Bayesian Update
 """
 
 @everywhere function update_Ui(
-            Cit, 
-            Ui, 
-            ce_Ui, 
+            Cit::Array{Int64,1}, 
+            Ui::Array{Float64,1}, 
+            mu_Ui::Array{Float64,1}, 
             Sigma_Ui::Array{Float64,2}, 
             Nset::Array{Int64,1}
     )
@@ -187,12 +183,11 @@ Bayesian Update
 
     x1 = Cit
     x2 = [n for n in Nset if n ∉ Cit]
-    Nit = [n for n in Nset if n ∉ Cit]
 
-    mu1 = convert(Array{Float64,1},[ce_Ui[n] for n in x1])
-    mu2 = convert(Array{Float64,1},[ce_Ui[n] for n in x2])
+    mu1 = [mu_Ui[n] for n in x1]
+    mu2 = [mu_Ui[n] for n in x2]
    
-    Sigma11, Sigma12, Sigma21, Sigma22 = init_sigma(x1,x2, Sigma_Ui, Cit, Nit)
+    Sigma11, Sigma12, Sigma21, Sigma22 = init_sigma(x1,x2, Sigma_Ui)
 
     mu_new, sigma_new, sigmabar, mubar = get_mubar_sigmamu(Sigma_Ui, Ui, x1, Sigma11, Sigma12, Sigma21, Sigma22, mu1, mu2)
     mu_new, sigma_new =  get_sigma_new_mu_new(x2, sigmabar, mu_new, sigma_new, mubar)
@@ -201,7 +196,7 @@ end
 
 @everywhere function choice_helper(
         Cit::Array{Int64, 1},
-        mu, 
+        mu::Array{Float64,1}, 
         choice_set::Array{Int64, 1}
     )
     cit = choice_set[argmax([mu[i] for i in choice_set])]
@@ -209,16 +204,27 @@ end
 end 
 
 
-@everywhere function choice_part(V_i, mu_V_i, Sigma_V_i, V, T, N, Nset, alpha, epsilon, beta)
+@everywhere function choice_part(
+    V_i::Array{Float64,1}, 
+    mu_V_i::Array{Float64,1},
+    Sigma_V_i::Array{Float64,2},
+    V::Array{Float64,1}, 
+    T::Int64,
+    N::Int64,
+    Nset::Array{Int64,1},
+    alpha::Int64,
+    epsilon::Float64,
+    beta::Int64
+)
     C_iT::Array{Int64,1} = []
     R_iT::Array{Int64,1} = []
 
     for t=1:T
-        mu_Vit = mu_V_i
-        Sigma_Vit = Sigma_V_i
+        mu_Vit = copy(mu_V_i)
+        Sigma_Vit = copy(Sigma_V_i)
         if length(C_iT) > 0
             # update beliefs
-            mu_Vit, Sigma_Vit = update_Ui(C_iT, V_i, mu_V_i, copy(Sigma_V_i), Nset)
+            mu_Vit, Sigma_Vit = update_Ui(C_iT, copy(V_i), mu_Vit, Sigma_Vit, Nset)
         end
         mu_Uit = mu_Vit + beta * V
         # make choice
@@ -238,7 +244,7 @@ end
     return C_iT, R_iT
 end
 
-@everywhere function choice_omni(U_i,T,N, Nset)
+@everywhere function choice_omni(U_i::Array{Float64,1},T::Int64,N::Int64, Nset::Array{Int64, 1})
     C_iT::Array{Int64,1} = []
     for t=1:T
         choice_set = [n for n in Nset if n ∉ C_iT]
@@ -248,31 +254,30 @@ end
     return C_iT
 end
 
-@everywhere function choice_ind(U_i, 
-			mu_U_i, 
+@everywhere function choice_ind(U_i::Array{Float64,1}, 
+			mu_U_i::Array{Float64,1}, 
 			Sigma_U_i::Array{Float64,2}, 
 			T::Int64, 
 			N::Int64, 
-			Nset, 
+			Nset::Array{Int64,1}, 
 			alpha::Int64, 
 			epsilon::Float64)
 
     #println("choice_ind")
     C_iT::Array{Int64,1} = []
     for t=1:T
-        #println(t)
+
         if length(C_iT) > 0
-            mu_Uit, Sigma_Uit = update_Ui(C_iT, U_i, mu_U_i, Sigma_U_i, Nset)
+            mu_Uit, Sigma_Uit = update_Ui(C_iT, copy(U_i), mu_U_i, Sigma_U_i, Nset)
         else
-            mu_Uit = copy(mu_U_i)'
+            mu_Uit = copy(mu_U_i)
             Sigma_Uit = copy(Sigma_U_i)
         end
         
-        mu_Uit = Array(mu_Uit)
         # make choice
         ce_Uit = certainty_equivalent(alpha, mu_Uit, Sigma_Uit)
         choice_set = [n for n in Nset if n ∉ C_iT]
-        c_it = nothing
+        c_it = 0
         if rand() < epsilon
             c_it = rand(choice_set)
         else
@@ -322,7 +327,7 @@ end
     )
 
     
-    print("iteration: $seed ")
+    println("iteration: $seed ")
     Random.seed!(seed);
 
     Nset = [ n for n=1:N]   # set of N items I = {1, ..., N}
@@ -334,7 +339,7 @@ end
     # https://juliastats.github.io/Distributions.jl/stable/multivariate/#Distributions.MvNormal
     mu_V = zeros(Float64, N)
     V = rand(MvNormal(mu_V, Sigma_V))
-    mu_V = mu_V'
+    mu_V = mu_V
 
     C_pop = Dict( "no_rec"  => [], "omni"  => [], "partial" => [])
     W_pop = Dict( "no_rec"  => [], "omni"  => [], "partial" => [])
@@ -351,31 +356,31 @@ end
 
         # Utility in vector form
         U_i = V_i + (beta * V)
-        mu_U_i = mu_V_i' + beta * mu_V
+        mu_U_i = mu_V_i + beta * mu_V
+        mu_U_i = convert(Array{Float64,1}, mu_U_i)
+        mu_V_i = convert(Array{Float64,1}, mu_V_i)
 
         ## NO RECOMMENDATION CASE
         Sigma_U_i = Sigma_V_i + beta^2 * (Sigma_V)
+            C_iT = choice_ind(U_i, mu_U_i, Sigma_U_i,T,N, Nset, alpha, epsilon)
+            append!(C_pop["no_rec"], C_iT)
+            w_val = w_fun(C_iT, U_i, T)
+            append!(W_pop["no_rec"], w_val)
 
-        C_iT = choice_ind(U_i, mu_U_i, Sigma_U_i,T,N, Nset, alpha, epsilon)
-        append!(C_pop["no_rec"], C_iT)
-        w_val = w_fun(C_iT, U_i, T)
-        append!(W_pop["no_rec"], w_val)
+            
+            ## OMNISCIENT CASE
+            C_iT = choice_omni(copy(U_i),T,N, Nset)
+            append!(C_pop["omni"], C_iT)
+            w_val = w_fun(C_iT, U_i, T)
+            append!(W_pop["omni"],  w_val)
 
-        
-        ## OMNISCIENT CASE
-        C_iT = choice_omni(U_i,T,N, Nset)
-        append!(C_pop["omni"], C_iT)
-        w_val = w_fun(C_iT, U_i, T)
-        append!(W_pop["omni"],  w_val)
-
- 
-        ## PARTIAL REC Case
-        C_iT, R_iT = choice_part(V_i, copy(mu_V_i), copy(Sigma_V_i), V, T, N, Nset, alpha, epsilon, beta)
-        append!(C_pop["partial"], C_iT)
-        w_val = w_fun(C_iT, U_i, T)
-        append!(W_pop["partial"], w_val)
-        append!(R_pop["partial"], R_iT)
-  
+     
+            ## PARTIAL REC Case
+            C_iT, R_iT = choice_part(copy(V_i), copy(mu_V_i), copy(Sigma_V_i), copy(V), T, N, Nset, alpha, epsilon, beta)
+            append!(C_pop["partial"], C_iT)
+            w_val = w_fun(C_iT, U_i, T)
+            append!(W_pop["partial"], w_val)
+            append!(R_pop["partial"], R_iT)
  
     end
 
@@ -383,7 +388,7 @@ end
 end
 
 #
-nr_pop = 50
+nr_pop = 100
 #
 nr_ind = 100
 #
@@ -391,15 +396,15 @@ sigma_ibar = .1
 #
 rho_ibar = 0.0
 
-N_vals = [200]
+N_vals = [200, 2000]
 
 T_vals = [20]
 
 # Covariance structure
-rho_vals = [0.1, 0.3, 0.5, 0.7, 0.9]
+rho_vals = [0.1, 0.3, 0.51, 0.7, 0.9]
 
 # utility idiosyncratic degree 
-beta_vals = [ 0, 2, 10, 0]
+beta_vals = [0, 1, 2, 10]
 
 # absolute risk aversion
 alpha_vals = [0, 1]
@@ -407,7 +412,7 @@ alpha_vals = [0, 1]
 # action of the time for random exploration
 epsilon_vals = [0, 0.1]
 
-sigma_vals = [0.25, 1]
+sigma_vals = [0.25, 1.0]
 
 params = Iterators.product(N_vals, T_vals, rho_vals, beta_vals, sigma_vals, alpha_vals, epsilon_vals)
 
@@ -434,7 +439,7 @@ for (N, T, rho, beta, sigma, alpha, epsilon) in params
     sim_results[(N, T, rho, beta, sigma, alpha, epsilon, nr_pop, nr_ind)] = @sync @distributed vcat for i= 1:nr_pop
         simulate(N, T,sigma, sigma_i, sigma_ibar, beta, nr_ind, Sigma_V_i,  Sigma_V,  Sigma_V_ibar,  alpha, epsilon, i)
     end
-    break
+    flush(stdout) # so that nohup logs out responses
 end
 
 #WORKING_DIR = "/Users/guyaridor/Desktop/"

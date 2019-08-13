@@ -10,8 +10,8 @@ PARTIAL = 'partial'
 NO_REC = 'no_rec'
 rec_policy_keys = [OMNI, PARTIAL, NO_REC]
 WORKING_DIR = 'data/'
-with open(WORKING_DIR + 'sim_results.p', 'rb') as fp:
-    df = pickle.load(fp)
+with open(WORKING_DIR + 'new_sim.p', 'r') as fp:
+    df = json.load(fp)
 
 def d(i,j, N):
     return min(abs(i-j), abs(j-i), abs(j-i-N), abs(i-j-N))
