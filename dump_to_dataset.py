@@ -2,6 +2,7 @@ import pickle
 import csv
 import json
 from copy import copy
+import numpy as np
 
 
 from scipy.spatial.distance import jaccard, euclidean 
@@ -11,7 +12,7 @@ OMNI = 'omni'
 PARTIAL = 'partial'
 NO_REC = 'no_rec'
 rec_policy_keys = [OMNI, PARTIAL, NO_REC]
-WORKING_DIR = '/Users/guyaridor/Desktop/'
+WORKING_DIR = '/Users/guyaridor/Desktop/ExAnteFilterBubble/data/'
 with open(WORKING_DIR + 'new_sim.json', 'r') as fp:
     df = json.load(fp)
 
@@ -23,7 +24,7 @@ def div_fun(CiT, T, N):
     for i in range(len(CiT)):
         for j in range(len(CiT)):
             if i == j: continue
-            div_score = div_score + d(i,j,N)#euclidean( iota(CiT[i], N), iota(CiT[j], N) )
+            div_score = div_score + euclidean( iota(CiT[i], N), iota(CiT[j], N) )
     return div_score*(1.0/(T*(T-1)))
 
 def homogeneity(C1, C2, type_sim="jaccard"):
@@ -52,7 +53,7 @@ def parse_pickle_key(key):
     }
     return dat
 
-INDIVIDUAL_FIELD_NAMES =['pop_idx', 'indiv_idx', 'regime', 'welfare', 'diversity_score', 'rho', 'beta', 'follow_recommendation', 'N', 'T', 'sigma', 'beta', 'alpha', 'epsilon', 'nr_pop', 'nr_ind']
+INDIVIDUAL_FIELD_NAMES =['pop_idx', 'indiv_idx', 'regime', 'welfare', 'diversity_score', 'rho', 'beta', 'epsilon', 'follow_recommendation', 'N', 'T', 'sigma', 'beta', 'alpha', 'epsilon', 'nr_pop', 'nr_ind']
 with open(WORKING_DIR + 'rec_data.csv', 'w') as rec_csv:
     data_writer = csv.DictWriter(rec_csv, fieldnames=INDIVIDUAL_FIELD_NAMES)
     data_writer.writeheader()
@@ -69,10 +70,12 @@ with open(WORKING_DIR + 'rec_data.csv', 'w') as rec_csv:
                 for indiv_idx in range(len(welfare[policy])):
                     dat['indiv_idx'] = indiv_idx
                     dat['welfare'] = welfare[policy][indiv_idx]
-                    dat['diversity_score'] = div_fun(consumption[policy][indiv_idx], T, N)
+                    consumption_arr = np.array(consumption[policy])
+                    dat['diversity_score'] = div_fun(consumption_arr[:,indiv_idx], T, N)
                     dat['follow_recommendation'] = False
                     if policy == PARTIAL:
-                        dat['follow_recommendation'] = follow_rec(consumption[policy][indiv_idx], cur['Rec'][policy][indiv_idx], T, N)
+                        follow_rec_arr = np.array(cur['Rec'][policy])
+                        dat['follow_recommendation'] = follow_rec(consumption_arr[:,indiv_idx], follow_rec_arr[:,indiv_idx], T, N)
                     cur_dat = copy(dat)
                     data_writer.writerow(cur_dat)
 
@@ -90,13 +93,14 @@ with open(WORKING_DIR + 'homogeneity_data.csv', 'w') as rec_csv:
             consumption = cur['Consumption']
             for policy in rec_policy_keys:
                 dat['regime'] = policy
-                iter_size = len(consumption[policy])
+                consumption_arr = np.array(consumption[policy])
+                iter_size = len(consumption_arr[0,:])
                 tot = 0.0
                 for indiv_idx1 in range(iter_size):
                     for indiv_idx2 in range(iter_size):
                         if indiv_idx1 == indiv_idx2: continue
-                        c1 = consumption[policy][indiv_idx1]
-                        c2 = consumption[policy][indiv_idx2]
+                        c1 = consumption_ar[:,indiv_idx1]
+                        c2 = consumption_arr[:,indiv_idx2]
                         dist = homogeneity(c1, c2, "jaccard")
                         tot += dist
                 tot /= (iter_size * (iter_size - 1))
