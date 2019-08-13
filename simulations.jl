@@ -414,7 +414,7 @@ sigma_ibar = .1
 #
 rho_ibar = 0.0
 
-N_vals = [200, 2000]
+N_vals = [200]
 
 T_vals = [20]
 
