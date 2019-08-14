@@ -12,7 +12,8 @@ OMNI = 'omni'
 PARTIAL = 'partial'
 NO_REC = 'no_rec'
 rec_policy_keys = [OMNI, PARTIAL, NO_REC]
-WORKING_DIR = '/Users/guyaridor/Desktop/ExAnteFilterBubble/data/'
+#WORKING_DIR = '/Users/guyaridor/Desktop/ExAnteFilterBubble/data/'
+WORKING_DIR = '/home/guyaridor/ExAnteFilterBubble/data/'
 with open(WORKING_DIR + 'new_sim.json', 'r') as fp:
     df = json.load(fp)
 
