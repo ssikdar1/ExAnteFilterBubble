@@ -30,7 +30,7 @@ def div_fun(CiT, T, N):
 
 def homogeneity(C1, C2, type_sim="jaccard"):
     if type_sim == "jaccard":
-        return jaccard(C1, C2)
+        return 1 - jaccard(C1, C2)
     return None
 
 def follow_rec(Ci, Rec, N, T):
@@ -55,6 +55,38 @@ def parse_pickle_key(key):
     return dat
 
 
+
+INDIVIDUAL_FIELD_NAMES =['pop_idx', 'regime', 'rho', 'beta', 'N', 'T', 'sigma', 'jaccard', 'beta', 'alpha', 'epsilon', 'nr_pop', 'nr_ind']
+with open(WORKING_DIR + 'homogeneity_data.csv', 'w') as rec_csv:
+    data_writer = csv.DictWriter(rec_csv, fieldnames=INDIVIDUAL_FIELD_NAMES)
+    data_writer.writeheader()
+    for key, value in df.items():
+        for pop_idx in range(len(value)):
+            dat = parse_pickle_key(key)
+            T = dat['T']
+            N = dat['N']
+            cur = value[pop_idx]
+            consumption = cur['Consumption']
+            for policy in rec_policy_keys:
+                dat['regime'] = policy
+                consumption_arr = np.array(consumption[policy])
+                iter_size = len(consumption_arr[0,:])
+                tot = 0.0
+                for indiv_idx1 in range(iter_size):
+                    for indiv_idx2 in range(iter_size):
+                        if indiv_idx1 == indiv_idx2: continue
+                        c1 = consumption_arr[:,indiv_idx1]
+                        print(c1)
+                        c2 = consumption_arr[:,indiv_idx2]
+                        print(c2)
+                        dist = homogeneity(c1, c2, "jaccard")
+                        tot += dist
+                tot /= (iter_size * (iter_size - 1))
+                dat['jaccard'] = tot
+                cur_dat = copy(dat)
+                data_writer.writerow(cur_dat)
+
+'''
 INDIVIDUAL_FIELD_NAMES =['pop_idx', 'regime', 'rho', 'beta', 'epsilon', 'alpha', 'N', 'T', 'sigma', 't', 'follow_recommendation', 'consumption_dist']
 with open(WORKING_DIR + 'time_path.csv', 'w') as rec_csv:
     data_writer = csv.DictWriter(rec_csv, fieldnames=INDIVIDUAL_FIELD_NAMES)
@@ -115,32 +147,4 @@ with open(WORKING_DIR + 'rec_data.csv', 'w') as rec_csv:
                         dat['follow_recommendation'] = follow_rec(consumption_arr[:,indiv_idx], follow_rec_arr[:,indiv_idx], T, N)
                     cur_dat = copy(dat)
                     data_writer.writerow(cur_dat)
-
-
-INDIVIDUAL_FIELD_NAMES =['pop_idx', 'regime', 'rho', 'beta', 'N', 'T', 'sigma', 'jaccard', 'beta', 'alpha', 'epsilon', 'nr_pop', 'nr_ind']
-with open(WORKING_DIR + 'homogeneity_data.csv', 'w') as rec_csv:
-    data_writer = csv.DictWriter(rec_csv, fieldnames=INDIVIDUAL_FIELD_NAMES)
-    data_writer.writeheader()
-    for key, value in df.items():
-        for pop_idx in range(len(value)):
-            dat = parse_pickle_key(key)
-            T = dat['T']
-            N = dat['N']
-            cur = value[pop_idx]
-            consumption = cur['Consumption']
-            for policy in rec_policy_keys:
-                dat['regime'] = policy
-                consumption_arr = np.array(consumption[policy])
-                iter_size = len(consumption_arr[0,:])
-                tot = 0.0
-                for indiv_idx1 in range(iter_size):
-                    for indiv_idx2 in range(iter_size):
-                        if indiv_idx1 == indiv_idx2: continue
-                        c1 = consumption_arr[:,indiv_idx1]
-                        c2 = consumption_arr[:,indiv_idx2]
-                        dist = homogeneity(c1, c2, "jaccard")
-                        tot += dist
-                tot /= (iter_size * (iter_size - 1))
-                dat['jaccard'] = tot
-                cur_dat = copy(dat)
-                data_writer.writerow(cur_dat)
+'''
