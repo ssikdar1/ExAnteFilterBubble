@@ -61,7 +61,6 @@ with open(WORKING_DIR + 'rec_data.csv', 'w') as rec_csv:
     for key, value in df.items():
         for pop_idx in range(len(value)):
             dat = parse_pickle_key(key)
-            print(dat)
             T = dat['T']
             N = dat['N']
             dat['pop_idx'] = pop_idx
@@ -102,9 +101,7 @@ with open(WORKING_DIR + 'homogeneity_data.csv', 'w') as rec_csv:
                     for indiv_idx2 in range(iter_size):
                         if indiv_idx1 == indiv_idx2: continue
                         c1 = consumption_arr[:,indiv_idx1]
-                        print(c1)
                         c2 = consumption_arr[:,indiv_idx2]
-                        print(c2)
                         dist = homogeneity(c1, c2, "jaccard")
                         tot += dist
                 tot /= (iter_size * (iter_size - 1))
