@@ -380,23 +380,23 @@ end
 end
 
 #
-nr_pop = 1
+nr_pop = 50
 #
-nr_ind = 1
+nr_ind = 50
 #
 sigma_ibar = .1
 #
 rho_ibar = 0.0
 
-N_vals = [5]
+N_vals = [200]
 
-T_vals = [3]
+T_vals = [20]
 
 # Covariance structure
 rho_vals = [0.1, 0.5, 0.9]
 
 # utility idiosyncratic degree 
-beta_vals = [10, 1, 5, 10]
+beta_vals = [0, 1, 5, 10]
 
 # absolute risk aversion
 alpha_vals = [0, 1, 5, 10]
@@ -434,9 +434,9 @@ for (N, T, rho, beta, sigma, alpha, epsilon) in params
     break
 end
 
-WORKING_DIR = "/Users/guyaridor/Desktop/ExAnteFilterBubble/data/"
-#WORKING_DIR = "/home/guyaridor/ExAnteFilterBubble/"
-open(string(WORKING_DIR, "new_sim_testing.json"),"w") do f
+#WORKING_DIR = "/Users/guyaridor/Desktop/ExAnteFilterBubble/data/"
+WORKING_DIR = "/home/guyaridor/ExAnteFilterBubble/"
+open(string(WORKING_DIR, "new_sim.json"),"w") do f
     JSON.print(f, sim_results)
 end
 
