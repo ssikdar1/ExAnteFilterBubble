@@ -431,7 +431,6 @@ for (N, T, rho, beta, sigma, alpha, epsilon) in params
     sim_results[(N, T, rho, beta, sigma, alpha, epsilon, nr_pop, nr_ind)] = @sync @distributed vcat for i= 1:nr_pop
         simulate(N, T,sigma, sigma_i, sigma_ibar, beta, nr_ind, Sigma_V_i,  Sigma_V,  Sigma_V_ibar,  alpha, epsilon, i)
     end
-    break
 end
 
 #WORKING_DIR = "/Users/guyaridor/Desktop/ExAnteFilterBubble/data/"
