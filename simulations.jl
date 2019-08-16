@@ -1,6 +1,6 @@
 using Distributed
 using JSON
-addprocs(7)
+#addprocs(7)
 @everywhere using IterTools;
 @everywhere using Dates;
 @everywhere using Distances;
@@ -53,7 +53,7 @@ Create covariance matrix
         for j in 1:N
             dist = hop_distance( i, j , N)
             #dist = Distances.euclidean( iota(i,N), iota(j,N) )
-            cov_mat[i,j] = rho^dist
+            cov_mat[i,j] = sigma * rho^dist
         end
     end
     return cov_mat
@@ -77,9 +77,9 @@ CARA
 @everywhere function certainty_equivalent(
         alpha::Int64, 
         mu::Array{Float64,1},
-        sigma::Array{Float64,2}
+        sig::Array{Float64,2}
     )
-    new_mu = mu - (.5 * alpha * diag(sigma).^2) 
+    new_mu = mu - (.5 * alpha * diag(sig)) 
     return new_mu
 end
 
@@ -101,7 +101,7 @@ end
 
 """
     init_sigma
-init for bayseian update
+init for bayesian update
 
 """
 
@@ -155,26 +155,7 @@ end
     
     sigmabar = Sigma22 - (inner * Sigma12)
 
-    mu_new = Ui
-    sigma_new = Sigma_Ui
-
-    return mu_new, sigma_new, sigmabar, mubar
-end
-
-@everywhere function get_sigma_new_mu_new(
-        x2::Array{Int64,1}, 
-        sigmabar::Array{Float64,2}, 
-        mu_new::Array{Float64,1}, 
-        sigma_new::Array{Float64,2}, 
-        mubar::Array{Float64, 1}
-    )
-    for i in 1:length(x2)
-        mu_new[x2[i]] = mubar[i,1]
-        for j in 1:length(x2)
-            sigma_new[x2[i], x2[j]] = sigmabar[i, j]
-        end
-    end
-    return mu_new, sigma_new
+    return mubar, sigmabar
 end
 
 """
@@ -197,8 +178,6 @@ Bayesian Update
     # https://en.wikipedia.org/wiki/Multivariate_normal_distribution#Conditional_distributions
     # μ_bar = μ_1 + Ε12 Ε22^-1 ( a - μ_2 )  
 
-    #println("update Ui")
-
     x1 = Cit
     x2 = [n for n in Nset if n ∉ Cit]
 
@@ -207,17 +186,15 @@ Bayesian Update
    
     Sigma11, Sigma12, Sigma21, Sigma22 = init_sigma(x1,x2, Sigma_Ui)
 
-    mu_new, sigma_new, sigmabar, mubar = get_mubar_sigmamu(Sigma_Ui, Ui, x1, Sigma11, Sigma12, Sigma21, Sigma22, mu1, mu2)
-    mu_new, sigma_new =  get_sigma_new_mu_new(x2, sigmabar, mu_new, sigma_new, mubar)
-    return mu_new, sigma_new
+    mubar, sigmabar = get_mubar_sigmamu(Sigma_Ui, Ui, x1, Sigma11, Sigma12, Sigma21, Sigma22, mu1, mu2)
+    return mubar, sigmabar
 end
 
 @everywhere function choice_helper(
-        Cit::Array{Int64, 1},
-        mu::Array{Float64,1}, 
+        ce::Array{Float64,1}, 
         choice_set::Array{Int64, 1}
     )
-    cit = choice_set[argmax([mu[i] for i in choice_set])]
+    cit = choice_set[argmax(ce)]
     return cit
 end 
 
@@ -236,23 +213,25 @@ end
 )
     C_iT::Array{Int64,1} = []
     R_iT::Array{Int64,1} = []
+    cur_V = copy(V)
 
     for t=1:T
+        choice_set = [n for n in Nset if n  ∉ C_iT]
         mu_Vit = copy(mu_V_i)
         Sigma_Vit = copy(Sigma_V_i)
         if length(C_iT) > 0
             # update beliefs
-            mu_Vit, Sigma_Vit = update_Ui(C_iT, copy(V_i), mu_Vit, Sigma_Vit, Nset)
+            mu_Vit, Sigma_Vit = update_Ui(C_iT, copy(V_i), copy(mu_Vit), copy(Sigma_Vit), Nset)
+            cur_V = [V[i] for i in Nset if i ∉ C_iT]
         end
-        mu_Uit = mu_Vit + beta * V
+        mu_Uit = mu_Vit + beta * cur_V
         # make choice
         ce_Uit = certainty_equivalent(alpha, mu_Uit, Sigma_Vit) # γ: uncertainty aversion
-        choice_set = [n for n in Nset if n  ∉ C_iT]
         c_it = nothing
         if rand() < epsilon
             c_it = rand(choice_set)
         else
-            c_it = choice_helper(C_iT,ce_Uit, choice_set)
+            c_it = choice_helper(ce_Uit, choice_set)
         end
         r_it = choice_set[argmax([V[i] for i in choice_set])]
         append!(R_iT,r_it)
@@ -266,7 +245,8 @@ end
     C_iT::Array{Int64,1} = []
     for t=1:T
         choice_set = [n for n in Nset if n ∉ C_iT]
-        c_it = choice_helper(C_iT,U_i, choice_set)
+        sub_U_i = [U_i[n] for n in choice_set]
+        c_it = choice_helper(sub_U_i, choice_set)
         append!(C_iT, c_it)
     end
     return C_iT
@@ -281,12 +261,10 @@ end
 			alpha::Int64, 
 			epsilon::Float64)
 
-    #println("choice_ind")
     C_iT::Array{Int64,1} = []
     for t=1:T
-
         if length(C_iT) > 0
-            mu_Uit, Sigma_Uit = update_Ui(C_iT, copy(U_i), mu_U_i, Sigma_U_i, Nset)
+            mu_Uit, Sigma_Uit = update_Ui(C_iT, copy(U_i), copy(mu_U_i), copy(Sigma_U_i), Nset)
         else
             mu_Uit = copy(mu_U_i)
             Sigma_Uit = copy(Sigma_U_i)
@@ -299,7 +277,7 @@ end
         if rand() < epsilon
             c_it = rand(choice_set)
         else
-            c_it = choice_helper(C_iT,ce_Uit, choice_set)
+            c_it = choice_helper(ce_Uit, choice_set)
         end
         append!(C_iT, c_it)
     end
@@ -350,6 +328,10 @@ end
 
     Nset = [ n for n=1:N]   # set of N items I = {1, ..., N}
 
+    C_pop = Dict( "no_rec"  => zeros(Int64, nr_ind,T), "omni"  => zeros(Int64, nr_ind,T), "partial" => zeros(Int64, nr_ind,T))
+    W_pop = Dict( "no_rec"  => zeros(nr_ind), "omni"  => zeros(nr_ind), "partial" => zeros(nr_ind))
+    R_pop = Dict( "no_rec"  => zeros(nr_ind,T), "omni"  => zeros(nr_ind,T), "partial" => zeros(nr_ind,T))
+
     # V = (v_n) n in I aka: common value component v_n in vector form
 
     # MvNormal(mu, sig) 
@@ -357,19 +339,12 @@ end
     # https://juliastats.github.io/Distributions.jl/stable/multivariate/#Distributions.MvNormal
     mu_V = zeros(Float64, N)
     V = rand(MvNormal(mu_V, Sigma_V))
-    mu_V = mu_V
 
-    C_pop = Dict( "no_rec"  => zeros(Int64, nr_ind,T), "omni"  => zeros(Int64, nr_ind,T), "partial" => zeros(Int64, nr_ind,T))
-    W_pop = Dict( "no_rec"  => zeros(nr_ind), "omni"  => zeros(nr_ind), "partial" => zeros(nr_ind))
-    R_pop = Dict( "no_rec"  => zeros(nr_ind,T), "omni"  => zeros(nr_ind,T), "partial" => zeros(nr_ind,T))
 
     for it_ind=1:nr_ind
-        #println("nr_ind: $it_ind")
         # V_i = (v_in) n in I aka: consumer i’s idiosyncratic taste for good n in vector form
 
         mu_V_i = mu_V_ibar = rand(MvNormal(zeros(Float64, N), Sigma_V_ibar))
-        #@show mu_V_i
-        #@show Sigma_V_i
         V_i = rand(MvNormal(mu_V_i, Sigma_V_i))
 
         # Utility in vector form
@@ -380,57 +355,56 @@ end
 
         ## NO RECOMMENDATION CASE
         Sigma_U_i = Sigma_V_i + beta^2 * (Sigma_V)
-        C_iT = choice_ind(U_i, mu_U_i, Sigma_U_i,T,N, Nset, alpha, epsilon)
-        C_pop["no_rec"][it_ind,:] = C_iT
-        w_val = w_fun(C_iT, U_i, T)
+        C_iT_no_rec = choice_ind(copy(U_i), copy(mu_U_i), copy(Sigma_U_i),T,N, Nset, alpha, epsilon)
+        C_pop["no_rec"][it_ind,:] = C_iT_no_rec
+        w_val = w_fun(C_iT_no_rec, U_i, T)
         W_pop["no_rec"][it_ind] = w_val
 
         
         ## OMNISCIENT CASE
         C_iT = choice_omni(copy(U_i),T,N, Nset)
-        C_pop["omni"][it_ind,:] = C_iT
+        C_pop["omni"][it_ind,:] = copy(C_iT)
         w_val = w_fun(C_iT, U_i, T)
         W_pop["omni"][it_ind] = w_val
 
  
         ## PARTIAL REC Case
-        C_iT, R_iT = choice_part(copy(V_i), copy(mu_V_i), copy(Sigma_V_i), copy(V), T, N, Nset, alpha, epsilon, beta)
-        C_pop["partial"][it_ind,:] = C_iT
-        w_val = w_fun(C_iT, U_i, T)
+        C_iT_partial, R_iT = choice_part(copy(V_i), copy(mu_V_i), copy(Sigma_V_i), copy(V), T, N, Nset, alpha, epsilon, beta)
+        C_pop["partial"][it_ind,:] = C_iT_partial
+        w_val = w_fun(C_iT_partial, U_i, T)
         W_pop["partial"][it_ind] = w_val
         R_pop["partial"][it_ind,:] = R_iT
- 
     end
 
     return Dict( "Consumption" => C_pop, "Welfare" => W_pop, "Rec" => R_pop )
 end
 
 #
-nr_pop = 100
+nr_pop = 1
 #
-nr_ind = 100
+nr_ind = 1
 #
 sigma_ibar = .1
 #
 rho_ibar = 0.0
 
-N_vals = [200]
+N_vals = [5]
 
-T_vals = [20]
+T_vals = [3]
 
 # Covariance structure
-rho_vals = [0.1, 0.3, 0.51, 0.7, 0.9]
+rho_vals = [0.1, 0.5, 0.9]
 
 # utility idiosyncratic degree 
-beta_vals = [0, 1, 2]
+beta_vals = [10, 1, 5, 10]
 
 # absolute risk aversion
-alpha_vals = [0, 1]
+alpha_vals = [0, 1, 5, 10]
 
 # action of the time for random exploration
-epsilon_vals = [0, 0.1]
+epsilon_vals = [0.0]
 
-sigma_vals = [0.25, 1.0]
+sigma_vals = [0.25, 1.0, 4.0]
 
 params = Iterators.product(N_vals, T_vals, rho_vals, beta_vals, sigma_vals, alpha_vals, epsilon_vals)
 
@@ -457,10 +431,12 @@ for (N, T, rho, beta, sigma, alpha, epsilon) in params
     sim_results[(N, T, rho, beta, sigma, alpha, epsilon, nr_pop, nr_ind)] = @sync @distributed vcat for i= 1:nr_pop
         simulate(N, T,sigma, sigma_i, sigma_ibar, beta, nr_ind, Sigma_V_i,  Sigma_V,  Sigma_V_ibar,  alpha, epsilon, i)
     end
+    break
 end
 
-#WORKING_DIR = "/Users/guyaridor/Desktop/"
-WORKING_DIR = "/home/guyaridor/ExAnteFilterBubble/"
-open(string(WORKING_DIR, "new_sim.json"),"w") do f
+WORKING_DIR = "/Users/guyaridor/Desktop/ExAnteFilterBubble/data/"
+#WORKING_DIR = "/home/guyaridor/ExAnteFilterBubble/"
+open(string(WORKING_DIR, "new_sim_testing.json"),"w") do f
     JSON.print(f, sim_results)
 end
+
