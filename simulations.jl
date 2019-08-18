@@ -1,6 +1,7 @@
 using Distributed
 using JSON
-addprocs(7)
+addprocs(10)
+@everywhere using ToeplitzMatrices
 @everywhere using IterTools;
 @everywhere using Dates;
 @everywhere using Distances;
@@ -56,7 +57,7 @@ Create covariance matrix
             cov_mat[i,j] = sigma * rho^dist
         end
     end
-    return cov_mat
+    return Circulant(cov_mat)
 end
 
 """ 
@@ -109,6 +110,7 @@ init for bayesian update
             Nit::Array{Int64,1},
             Sigma_Ui::Array{Float64,2})
 
+    Sigma11 = Circulant(Cit)
     Sigma11::Array{Float64,2} = ones(Float64, length(Cit), length(Cit))
     Sigma12::Array{Float64,2} = ones(Float64, length(Cit), length(Nit))
     Sigma21::Array{Float64,2} = ones(Float64, length(Nit), length(Cit))
@@ -147,7 +149,12 @@ end
     )
    
     a = [Ui[n] for n in x1]
+
+    if length(x1) < 30
     inv_mat = inv(Sigma11)
+    else
+    inv_mat = inv(Circulant(Sigma11))
+    end
 
     inner = Sigma21 * inv_mat
 
@@ -380,15 +387,15 @@ end
 end
 
 #
-nr_pop = 50
+nr_pop = 10
 #
-nr_ind = 50
+nr_ind = 10
 #
 sigma_ibar = .1
 #
 rho_ibar = 0.0
 
-N_vals = [200]
+N_vals = [2000]
 
 T_vals = [20]
 
@@ -433,8 +440,8 @@ for (N, T, rho, beta, sigma, alpha, epsilon) in params
     end
 end
 
-#WORKING_DIR = "/Users/guyaridor/Desktop/ExAnteFilterBubble/data/"
-WORKING_DIR = "/home/guyaridor/ExAnteFilterBubble/"
+WORKING_DIR = "/Users/guyaridor/Desktop/ExAnteFilterBubble/data/"
+#WORKING_DIR = "/home/guyaridor/ExAnteFilterBubble/"
 open(string(WORKING_DIR, "new_sim.json"),"w") do f
     JSON.print(f, sim_results)
 end
