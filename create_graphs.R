@@ -20,6 +20,8 @@ get_stats_diversity <- function(rec_data, var){
     df <- df %>% group_by(regime, beta) 
   } else if (var == "sigma") {
     df <- rec_data %>% group_by(regime, sigma) 
+  } else if (var == "alpha") {
+    df <- rec_data %>% group_by(regime, alpha)
   }
   
   df <- df %>% 
@@ -52,6 +54,8 @@ get_stats_rec <- function(rec_data, var){
     df <- df %>% group_by(beta) 
   } else if (var == "sigma") {
     df <- df %>% group_by(sigma) 
+  } else if (var == "alpha") {
+    df <- df %>% group_by(regime, alpha)
   }
   
   df <- df %>% 
@@ -77,11 +81,12 @@ get_stats_welfare <- function(rec_data, var){
   df <- rec_data
   if (var == "rho") {
     df <- df %>% group_by(regime, rho) 
-    
   } else if (var == "beta") {
     df <- df %>% group_by(regime, beta) 
   } else if (var == "sigma") {
     df <- df %>% group_by(regime, sigma) 
+  } else if (var == "alpha") {
+    df <- df %>% group_by(regime, alpha)
   }
   
   df <- df %>%
@@ -112,6 +117,8 @@ get_stats_homogeneity <- function(stats_df, var){
     df <- df %>% group_by(regime, beta) 
   } else if (var == "sigma") {
     df <- df %>% group_by(regime, sigma) 
+  } else if (var == "alpha") {
+    df <- df %>% group_by(regime, alpha)
   }
   df <- df %>%
       mutate(jaccard_mean = mean(jaccard),
@@ -227,22 +234,30 @@ graph_stats_homo <- function(df, var){
       labs(x="sigma", y="homogeneity",
            title=paste("N =", N, "T =", T_val, "Homogeneity",sep=" ")) + theme_ipsum_rc()
     return(g)
+  } else if (var == "alpha") {
+    g <- ggplot(df, aes(x=alpha, y=jaccard_mean)) +
+      geom_line(aes(colour=formatted_regime)) +
+      geom_errorbar(aes(ymin=lower_ci_jaccard, ymax=upper_ci_jaccard), width=.02,
+                    position=position_dodge(.9)) + 
+      labs(x="alpha", y="homogeneity",
+           title=paste("N =", N, "T =", T_val, "Homogeneity",sep=" ")) + theme_ipsum_rc()
+    return(g)
   }
 }
 
 #WORKING_DIR <- "/Users/guyaridor/Desktop/recommender_systems/rec_sys_conf_paper/"
 WORKING_DIR <- "/Users/ssikdar/Downloads/econ/bubbles/"
 
-rec_data <- read.csv(paste(WORKING_DIR, "rec_data_t_25.csv", sep=""))
-rec_data <- rec_data %>% mutate(formatted_regime = ifelse(regime == "rec", "Omniscient", ifelse(regime == "no_rec", "No Rec", "Partial")))
+rec_data <- read.csv(paste(WORKING_DIR, "rec_data.csv", sep=""))
+rec_data <- rec_data %>% mutate(formatted_regime = ifelse(regime == "omni", "Omniscient", ifelse(regime == "no_rec", "No Rec", "Partial")))
 
-homogeneity <- read.csv(paste(WORKING_DIR, "homogeneity_data_t_25.csv", sep=""))
-homogeneity <- homogeneity%>% mutate(formatted_regime = ifelse(regime == "rec", "Omniscient", ifelse(regime == "no_rec", "No Rec", "Partial")))
+homogeneity <- read.csv(paste(WORKING_DIR, "homogeneity_data.csv", sep=""))
+homogeneity <- homogeneity%>% mutate(formatted_regime = ifelse(regime == "omni", "Omniscient", ifelse(regime == "no_rec", "No Rec", "Partial")))
 
 
 # CREATE GRAPHS
 use_hrbrthemes <- TRUE
-variables=list("rho", "beta", "sigma")
+variables=list("rho", "beta", "sigma", "alpha")
 metrics=list("diversity", "welfare", "homogeneity")
 
 for(metric in metrics){
@@ -263,7 +278,7 @@ for(metric in metrics){
       g <- graph_stats_welfare(get_stats_welfare(rec_data, variable), variable,  use_hrbrthemes)
       ggsave(filename=file_name, plot=g)
       
-      rec_file_name <- paste(WORKING_DIR, "figures/", variable, "_rec_t_25.jpeg", sep="")
+      rec_file_name <- paste(WORKING_DIR, "figures/", variable, "_rec.jpeg", sep="")
       print(rec_file_name)
       g <- graph_stats_rec(get_stats_rec(filter(rec_data, regime == "partial"), variable), variable,  use_hrbrthemes)
       ggsave(filename=rec_file_name, plot=g)
@@ -339,9 +354,9 @@ df <- merge(df, homo, by="regime")
 library(xtable)
 xtable(df)
 
-time_dat <- read.csv(paste(WORKING_DIR, "time_path_25.csv", sep=""))
-time_dat <- time_dat %>% mutate(formatted_regime = ifelse(regime == "rec", "Omniscient", ifelse(regime == "no_rec", "No Rec", "Partial")))
-time_dat <- time_dat %>% mutate(local_move = as.numeric(consumption_dist < 5))
+time_dat <- read.csv(paste(WORKING_DIR, "time_path.csv", sep=""))
+time_dat <- time_dat %>% mutate(formatted_regime = ifelse(regime == "omni", "Omniscient", ifelse(regime == "no_rec", "No Rec", "Partial")))
+time_dat <- time_dat %>% mutate(local_move = as.numeric(consumption_dist < (N* 0.05)))
 t <- time_dat %>% filter(t > 0) # local move isn't defined at the first time step so drop it to properly have smoothed plots
 
 # https://stackoverflow.com/questions/21066077/remove-fill-around-legend-key-in-ggplot
@@ -354,7 +369,7 @@ if(use_hrbrthemes){
 }
 g <- g + theme(legend.position="bottom", legend.title = element_blank())  + guides(color=guide_legend(override.aes=list(fill=NA)))
 ggsave(
-  filename=paste(WORKING_DIR, "figures/local_moves_25.jpeg", sep=""), 
+  filename=paste(WORKING_DIR, "figures/local_moves.jpeg", sep=""), 
   plot=g
 )
 
