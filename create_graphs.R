@@ -246,12 +246,12 @@ graph_stats_homo <- function(df, var){
 }
 
 #WORKING_DIR <- "/Users/guyaridor/Desktop/recommender_systems/rec_sys_conf_paper/"
-WORKING_DIR <- "/Users/ssikdar/Downloads/econ/bubbles/"
-
-rec_data <- read.csv(paste(WORKING_DIR, "rec_data.csv", sep=""))
+#WORKING_DIR <- "/Users/ssikdar/Downloads/econ/bubbles/"
+WORKING_DIR <- "/Users/guyaridor/Desktop/ExAnteFilterBubble/"
+rec_data <- read.csv(paste(WORKING_DIR, "data/rec_data.csv", sep=""))
 rec_data <- rec_data %>% mutate(formatted_regime = ifelse(regime == "omni", "Omniscient", ifelse(regime == "no_rec", "No Rec", "Partial")))
 
-homogeneity <- read.csv(paste(WORKING_DIR, "homogeneity_data.csv", sep=""))
+homogeneity <- read.csv(paste(WORKING_DIR, "data/homogeneity_data.csv", sep=""))
 homogeneity <- homogeneity%>% mutate(formatted_regime = ifelse(regime == "omni", "Omniscient", ifelse(regime == "no_rec", "No Rec", "Partial")))
 
 
@@ -266,7 +266,7 @@ for(metric in metrics){
   for(variable in variables){
     print(variable)
     
-    file_name <- paste(WORKING_DIR,"figures/",variable,"_", metric, "_t_25.jpeg", sep="")
+    file_name <- paste(WORKING_DIR,"figures/",variable,"_", metric, ".jpeg", sep="")
     print(file_name)
     
     if (metric == "diversity"){
@@ -354,7 +354,7 @@ df <- merge(df, homo, by="regime")
 library(xtable)
 xtable(df)
 
-time_dat <- read.csv(paste(WORKING_DIR, "time_path.csv", sep=""))
+time_dat <- read.csv(paste(WORKING_DIR, "data/time_path.csv", sep=""))
 time_dat <- time_dat %>% mutate(formatted_regime = ifelse(regime == "omni", "Omniscient", ifelse(regime == "no_rec", "No Rec", "Partial")))
 time_dat <- time_dat %>% mutate(local_move = as.numeric(consumption_dist < (N* 0.05)))
 t <- time_dat %>% filter(t > 0) # local move isn't defined at the first time step so drop it to properly have smoothed plots
@@ -383,7 +383,7 @@ if(use_hrbrthemes){
   g <- g + theme_ipsum_rc(plot_title_size = 24, axis_title_size = 14)
 }
 ggsave(
-  filename=paste(WORKING_DIR, "figures/rec_obedience_25.jpeg", sep=""), 
+  filename=paste(WORKING_DIR, "figures/rec_obedience.jpeg", sep=""), 
   plot=g
 )
 

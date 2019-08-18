@@ -1,7 +1,6 @@
 using Distributed
 using JSON
 addprocs(10)
-@everywhere using ToeplitzMatrices
 @everywhere using IterTools;
 @everywhere using Dates;
 @everywhere using Distances;
@@ -57,7 +56,7 @@ Create covariance matrix
             cov_mat[i,j] = sigma * rho^dist
         end
     end
-    return Circulant(cov_mat)
+    return cov_mat
 end
 
 """ 
@@ -110,7 +109,6 @@ init for bayesian update
             Nit::Array{Int64,1},
             Sigma_Ui::Array{Float64,2})
 
-    Sigma11 = Circulant(Cit)
     Sigma11::Array{Float64,2} = ones(Float64, length(Cit), length(Cit))
     Sigma12::Array{Float64,2} = ones(Float64, length(Cit), length(Nit))
     Sigma21::Array{Float64,2} = ones(Float64, length(Nit), length(Cit))
@@ -150,11 +148,7 @@ end
    
     a = [Ui[n] for n in x1]
 
-    if length(x1) < 30
     inv_mat = inv(Sigma11)
-    else
-    inv_mat = inv(Circulant(Sigma11))
-    end
 
     inner = Sigma21 * inv_mat
 
