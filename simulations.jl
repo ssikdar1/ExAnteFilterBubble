@@ -434,8 +434,8 @@ for (N, T, rho, beta, sigma, alpha, epsilon) in params
     end
 end
 
-WORKING_DIR = "/Users/guyaridor/Desktop/ExAnteFilterBubble/data/"
-#WORKING_DIR = "/home/guyaridor/ExAnteFilterBubble/"
+#WORKING_DIR = "/Users/guyaridor/Desktop/ExAnteFilterBubble/data/"
+WORKING_DIR = "/home/guyaridor/ExAnteFilterBubble/data/"
 open(string(WORKING_DIR, "new_sim.json"),"w") do f
     JSON.print(f, sim_results)
 end
