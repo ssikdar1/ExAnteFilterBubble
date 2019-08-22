@@ -278,6 +278,149 @@ get_stats_consumption_diversity_time_path <- function(stats_df, var){
   return(df)
 }
 
+scatter <- function(df, var_x, var_y, use_hrbrthemes, title){
+  g <- ggplot(df, aes_string(var_x, var_y)) +
+    geom_smooth() + #stat_summary_bin(fun.y = "mean", geom="point", bins = 10) +
+    labs(x=var_x, y=var_y
+         #subtitle="A plot that is only useful for demonstration purposes",
+         #caption="Brought to you by the letter 'g'"
+    )
+  if(use_hrbrthemes){
+    g <- g + theme_ipsum_rc(axis_title_size = 14,plot_title_size = 24)
+  }
+  return(g)
+}
+
+
+process_rec_homo_data <- function(N, T, use_hrbrthemes){
+  
+  rec_data <- read.csv(paste(WORKING_DIR, "data/rec_data_N_",N,"_t_20.csv", sep=""))
+  rec_data <- rec_data %>% mutate(formatted_regime = ifelse(regime == "omni", "Omniscient", ifelse(regime == "no_rec", "No Rec", "Partial")))
+  
+  homogeneity <- read.csv(paste(WORKING_DIR, "data/homogeneity_data_N_",N,"_t_20.csv", sep=""))
+  homogeneity <- homogeneity %>% mutate(formatted_regime = ifelse(regime == "omni", "Omniscient", ifelse(regime == "no_rec", "No Rec", "Partial")))
+  
+  # Calculate the marginal variables
+  variables=list("rho", "beta", "sigma", "alpha")
+  metrics=list("diversity", "welfare", "homogeneity")
+  
+  for(metric in metrics){
+    
+    print(metric)
+    for(variable in variables){
+      print(variable)
+      
+      file_name <- paste(WORKING_DIR,"figures/",variable,"_", metric,"_N_", N, "_T_", T, ".jpeg", sep="")
+      print(file_name)
+      
+      if (metric == "diversity"){
+        g <- graph_stats_diversity(get_stats_diversity(rec_data, variable), variable, use_hrbrthemes)
+        ggsave(filename=file_name, plot=g)
+      }
+      else if (metric == "welfare"){
+        #welfare
+        g <- graph_stats_welfare(get_stats_welfare(rec_data, variable), variable,  use_hrbrthemes)
+        ggsave(filename=file_name, plot=g)
+        
+        rec_file_name <- paste(WORKING_DIR, "figures/", variable, "_rec.jpeg", sep="")
+        print(rec_file_name)
+        g <- graph_stats_rec(get_stats_rec(filter(rec_data, regime == "partial"), variable), variable,  use_hrbrthemes)
+        ggsave(filename=rec_file_name, plot=g)
+      } 
+      else{
+        # homo
+        g <- graph_stats_homo(get_stats_homogeneity(homogeneity, variable), variable)
+        ggsave(filename=file_name, plot=g)
+      }
+    } # END for(variable in variables)
+    
+    
+  }
+  
+  
+  g <- graph_stats_welfare(get_stats_welfare(rec_data, 'beta'), 'beta',  TRUE) + theme(legend.position="bottom" ,legend.title = element_blank())
+  
+  h<- graph_stats_homo(get_stats_homogeneity(homogeneity, 'beta'), 'beta') + theme(legend.position="none" ,legend.title = element_blank())
+  
+  # https://stackoverflow.com/questions/13649473/add-a-common-legend-for-combined-ggplots
+  #extract legend
+  #https://github.com/hadley/ggplot2/wiki/Share-a-legend-between-two-ggplot2-graphs
+  g_legend<-function(a.gplot){
+    tmp <- ggplot_gtable(ggplot_build(a.gplot))
+    leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
+    legend <- tmp$grobs[[leg]]
+    return(legend)}
+  
+  mylegend<-g_legend(g)
+  
+  p3 <- grid.arrange(arrangeGrob(g + theme(legend.position="none"),
+                                 h + theme(legend.position="none"),
+                                 nrow=1),
+                     mylegend, nrow=2,heights=c(10, 1))
+  
+  
+  ggsave(
+    filename=paste(WORKING_DIR, "figures/welfare_homo_combo.jpeg", sep=""), 
+    plot=p3
+  )
+  
+  
+  rec_abbrv_to_name <- function(abbrv) {
+    if (abbrv == "rec") {
+      return("Omniscient")
+    } else if (abbrv == "no_rec") {
+      return("No Recommendation")
+    } else if (abbrv == "partial") {
+      return("Partial")
+    }
+  }
+  
+  rec_policies <- c("rec", "no_rec", "partial")
+  for (rec_policy in rec_policies) {
+    title <- paste("Diversity_vs_Welfare_N_",N, "_T_",T,"_", rec_abbrv_to_name(rec_policy), sep="")
+    ggsave(
+      filename=paste(WORKING_DIR, "figures/", title, ".jpeg", sep=""), 
+      plot=scatter(filter(rec_data, regime == rec_policy), "diversity_score", "welfare", use_hrbrthemes, title)
+    )
+  }
+  
+  df <- rec_data %>% group_by(regime) %>%
+    mutate(welfare_mean = mean(welfare),
+           welfare_sd = sd(welfare),
+           welfare_n = n(),
+           diversity_mean = mean(diversity_score),
+           diversity_sd = sd(diversity_score),
+           diversity_n = n()) %>% 
+    mutate(welfare_se =  welfare_sd/ sqrt(welfare_n),
+           welfare_mul = qt(1 - (0.05 / 2), welfare_n - 1) * welfare_se,
+           welfare_str = paste(round(welfare_mean, 2), "\\pm", round(welfare_mul, 4))) %>%
+    mutate(diversity_se  =  diversity_sd/ sqrt(diversity_n),
+           diversity_mul = qt(1 - (0.05 / 2), diversity_n - 1) * diversity_se,
+           diversity_str = paste(round(diversity_mean, 2), "\\pm", round(diversity_mul, 4))) %>%
+    slice(1)
+  
+  df <- df[,c("regime", "welfare_str", "diversity_str")]
+  
+  homo <- homogeneity %>% group_by(regime) %>%
+    mutate(jaccard_mean = mean(jaccard),
+           jaccard_sd = sd(jaccard),
+           jaccard_n = n()) %>%
+    mutate(jaccard_se  =  jaccard_sd/ sqrt(jaccard_n),
+           jaccard_mul = qt(1 - (0.05 / 2), jaccard_n - 1) * jaccard_se,
+           jaccard_str = paste(round(jaccard_mean, 3), "\\pm", round(jaccard_mul, 4))) %>%
+    slice(1)
+  homo <- homo[,c("regime", "jaccard_str")]
+  
+  df <- merge(df, homo, by="regime")
+  xtable(df)
+  
+} # END process_rec__homo_data
+
+
+
+
+
+
 ### MAIN
 
 USER <- Sys.getenv( "USER" )
@@ -285,187 +428,105 @@ WORKING_DIR <- paste("/Users/",USER, "/ExAnteFilterBubble/", sep="")
 setwd(WORKING_DIR)
 use_hrbrthemes <- FALSE
 
-rec_data <- read.csv(paste(WORKING_DIR, "data/rec_data.csv", sep=""))
-rec_data <- rec_data %>% mutate(formatted_regime = ifelse(regime == "omni", "Omniscient", ifelse(regime == "no_rec", "No Rec", "Partial")))
+N_s <- list(2000, 200)
 
-homogeneity <- read.csv(paste(WORKING_DIR, "data/homogeneity_data.csv", sep=""))
-homogeneity <- homogeneity %>% mutate(formatted_regime = ifelse(regime == "omni", "Omniscient", ifelse(regime == "no_rec", "No Rec", "Partial")))
-
-
-# CREATE GRAPHS
-
-variables=list("rho", "beta", "sigma", "alpha")
-metrics=list("diversity", "welfare", "homogeneity")
-
-for(metric in metrics){
-  
-  print(metric)
-  for(variable in variables){
-    print(variable)
-    
-    file_name <- paste(WORKING_DIR,"figures/",variable,"_", metric, ".jpeg", sep="")
-    print(file_name)
-    
-    if (metric == "diversity"){
-      g <- graph_stats_diversity(get_stats_diversity(rec_data, variable), variable, use_hrbrthemes)
-      ggsave(filename=file_name, plot=g)
-    }
-    else if (metric == "welfare"){
-      #welfare
-      g <- graph_stats_welfare(get_stats_welfare(rec_data, variable), variable,  use_hrbrthemes)
-      ggsave(filename=file_name, plot=g)
-      
-      rec_file_name <- paste(WORKING_DIR, "figures/", variable, "_rec.jpeg", sep="")
-      print(rec_file_name)
-      g <- graph_stats_rec(get_stats_rec(filter(rec_data, regime == "partial"), variable), variable,  use_hrbrthemes)
-      ggsave(filename=rec_file_name, plot=g)
-    } 
-    else{
-      # homo
-      g <- graph_stats_homo(get_stats_homogeneity(homogeneity, variable), variable)
-      ggsave(filename=file_name, plot=g)
-    }
-  }
+for(N in N_s){
+  process_rec_homo_data(N, 20, use_hrbrthemes)
 }
 
-scatter <- function(df, var_x, var_y, use_hrbrthemes, title){
-  g <- ggplot(df, aes_string(var_x, var_y)) +
-         geom_smooth() + #stat_summary_bin(fun.y = "mean", geom="point", bins = 10) +
-    labs(x=var_x, y=var_y
-         #subtitle="A plot that is only useful for demonstration purposes",
-         #caption="Brought to you by the letter 'g'"
-         )
-  if(use_hrbrthemes){
-    g <- g + theme_ipsum_rc(axis_title_size = 14,plot_title_size = 24)
-  }
-  return(g)
-}
 
-rec_abbrv_to_name <- function(abbrv) {
-  if (abbrv == "rec") {
-    return("Omniscient")
-  } else if (abbrv == "no_rec") {
-    return("No Recommendation")
-  } else if (abbrv == "partial") {
-    return("Partial")
-  }
-}
-
-rec_policies <- c("rec", "no_rec", "partial")
-for (rec_policy in rec_policies) {
-  title <- paste("Diversity vs Welfare -", rec_abbrv_to_name(rec_policy))
-  ggsave(
-    filename=paste(WORKING_DIR, "figures/", title, ".jpeg", sep=""), 
-    plot=scatter(filter(rec_data, regime == rec_policy), "diversity_score", "welfare", use_hrbrthemes, title)
-  )
-}
-
-df <- rec_data %>% group_by(regime) %>%
-  mutate(welfare_mean = mean(welfare),
-         welfare_sd = sd(welfare),
-         welfare_n = n(),
-         diversity_mean = mean(diversity_score),
-         diversity_sd = sd(diversity_score),
-         diversity_n = n()) %>% 
-  mutate(welfare_se =  welfare_sd/ sqrt(welfare_n),
-         welfare_mul = qt(1 - (0.05 / 2), welfare_n - 1) * welfare_se,
-         welfare_str = paste(round(welfare_mean, 2), "\\pm", round(welfare_mul, 4))) %>%
-  mutate(diversity_se  =  diversity_sd/ sqrt(diversity_n),
-          diversity_mul = qt(1 - (0.05 / 2), diversity_n - 1) * diversity_se,
-          diversity_str = paste(round(diversity_mean, 2), "\\pm", round(diversity_mul, 4))) %>%
-  slice(1)
-
-df <- df[,c("regime", "welfare_str", "diversity_str")]
-
-homo <- homogeneity %>% group_by(regime) %>%
-  mutate(jaccard_mean = mean(jaccard),
-         jaccard_sd = sd(jaccard),
-         jaccard_n = n()) %>%
-  mutate(jaccard_se  =  jaccard_sd/ sqrt(jaccard_n),
-         jaccard_mul = qt(1 - (0.05 / 2), jaccard_n - 1) * jaccard_se,
-         jaccard_str = paste(round(jaccard_mean, 3), "\\pm", round(jaccard_mul, 4))) %>%
-  slice(1)
-homo <- homo[,c("regime", "jaccard_str")]
-
-df <- merge(df, homo, by="regime")
-xtable(df)
 
 
 ### Consumption Diversity
 
-time_dat <- read.csv(paste(WORKING_DIR, "data/time_path_n_2000_t_20.csv", sep=""))
-time_dat <- time_dat %>% mutate(formatted_regime = ifelse(regime == "omni", "Omniscient", ifelse(regime == "no_rec", "No Rec", "Partial")))
-time_dat <- time_dat %>% mutate(local_move = as.numeric(consumption_dist < (N* 0.05)))
+#' Graph consumption_diversity_time_pathas function of `var`
+#'
+#' @param df Dataframe
+#' @param var  one of rho | beta | sigma
+#' @param N
+#' @param T_val T in sim
+#' @param use_hrbrthemes bool to toggle hrbrthemes
+#' @return ggplot graph
+graph_stats_consumption_diversity_time_path <- function(df, var, N, T_val){
+  
+  g <- ggplot(df, aes_string(x=var, y="local_move_mean")) +
+    geom_line() +
+    geom_errorbar(aes(
+      ymin=lower_ci_local_move, 
+      ymax=upper_ci_local_move), width=.02,
+      position=position_dodge(.9)) + 
+    labs(x=var, y="local_move_mean",
+         title=paste("N =", N, "T =", T_val, "local_move_mean",sep=" "))
+  if(use_hrbrthemes){
+    g <- g + theme_ipsum_rc()
+  }
+  return(g)
+}
 
-# Look at consumption distribution held over all parameters
-t <- time_dat %>% filter(t > 0) # local move isn't defined at the first time step so drop it to properly have smoothed plots
 
-# https://stackoverflow.com/questions/21066077/remove-fill-around-legend-key-in-ggplot
-g <- ggplot(t, aes(x=t, y=local_move)) +
-    geom_smooth(aes(colour=formatted_regime)) +
-    labs(x="t", y="Fraction of Local Search"
+process_time_path <- function(use_hrbrthemes){
+  
+  T_val <- 20
+  for(N in N_s){
+    N = 2000
+    # define the metric for consumption distribution
+    time_dat <- read.csv(paste(WORKING_DIR, "data/time_path_n_",N,"_t_20.csv", sep=""))
+    time_dat <- time_dat %>% mutate(formatted_regime = ifelse(regime == "omni", "Omniscient", ifelse(regime == "no_rec", "No Rec", "Partial")))
+    time_dat <- time_dat %>% mutate(local_move = as.numeric(consumption_dist < (N* 0.05)))
+    
+    # Look at consumption distribution held over all parameters
+    t <- time_dat %>% filter(t > 0) # local move isn't defined at the first time step so drop it to properly have smoothed plots
+    
+    # 
+    # https://stackoverflow.com/questions/21066077/remove-fill-around-legend-key-in-ggplot
+    g <- ggplot(t, aes(x=t, y=local_move)) +
+      geom_smooth(aes(colour=formatted_regime)) +
+      labs(x="t", 
+           y="Fraction of Local Search",
+           title = paste("N =", N, "T =", T_val, "Diversity",sep=" ")
+      )
+    if(use_hrbrthemes){
+      g <- g + theme_ipsum_rc()
+    }
+    g <- g + theme(legend.position="bottom", legend.title = element_blank())  + 
+      guides(color=guide_legend(override.aes=list(fill=NA)))
+    #ggsave(
+    #  filename= paste(WORKING_DIR, "figures/local_moves_N_", N,"T_", T_val,".jpeg", sep=""), 
+    #  plot=g
+    #)
+  
+    ## Now look at the marginals of local_move over "rho", "beta", "sigma", "alpha"
+    variables=list("rho", "beta", "sigma", "alpha")
+    for(variable in variables){
+      tmp <- get_stats_consumption_diversity_time_path(t, variable)
+      g <- graph_stats_consumption_diversity_time_path(tmp, variable, N, T_val)
+      file_name <- paste(WORKING_DIR, "figures/", variable, "_time_path_local_search.jpeg", sep="")
+      #ggsave(filename=file_name, plot=g)
+    }
+    
+    ## TODO try different combinations of variables like rho and beta
+    ## See how the fractional search changes
+    
+  }
+  
+  partial <- filter(time_dat, regime == "partial")
+  partial$follow_recommendation <- as.numeric(partial$follow_recommendation) - 1
+  g <- ggplot(partial, aes(x=t, y=follow_recommendation)) +
+    geom_smooth() +
+    labs(x="t", y="Fraction Following Recommendation"#, title="Recommendation Effectiveness"
     )
-if(use_hrbrthemes){
-  g <- g + theme_ipsum_rc()
-}
-g <- g + theme(legend.position="bottom", legend.title = element_blank())  + 
-  guides(color=guide_legend(override.aes=list(fill=NA)))
-ggsave(
-  filename=paste(WORKING_DIR, "figures/local_moves.jpeg", sep=""), 
-  plot=g
-)
-
-## Now look at the marginals of local_move over "rho", "beta", "sigma", "alpha"
-variables=list("rho", "beta", "sigma", "alpha")
-for(variable in variables){
-    tmp <- get_stats_consumption_diversity_time_path(t, variable)
-    g <- graph_stats_diversity(get_stats_diversity(rec_data, variable), variable, use_hrbrthemes)
-    ggsave(filename=file_name, plot=g)
-}
-
-## TODO try different combinations of variables like rho and beta
-## See how the fractional search changes
-
-partial <- filter(time_dat, regime == "partial")
-partial$follow_recommendation <- as.numeric(partial$follow_recommendation) - 1
-g <- ggplot(partial, aes(x=t, y=follow_recommendation)) +
-  geom_smooth() +
-  labs(x="t", y="Fraction Following Recommendation"#, title="Recommendation Effectiveness"
+  if(use_hrbrthemes){
+    g <- g + theme_ipsum_rc(plot_title_size = 24, axis_title_size = 14)
+  }
+  ggsave(
+    filename=paste(WORKING_DIR, "figures/rec_obedience.jpeg", sep=""), 
+    plot=g
   )
-if(use_hrbrthemes){
-  g <- g + theme_ipsum_rc(plot_title_size = 24, axis_title_size = 14)
+  
 }
-ggsave(
-  filename=paste(WORKING_DIR, "figures/rec_obedience.jpeg", sep=""), 
-  plot=g
-)
 
 
+process_time_path(use_hrbrthemes)
 
-g <- graph_stats_welfare(get_stats_welfare(rec_data, 'beta'), 'beta',  TRUE) + theme(legend.position="bottom" ,legend.title = element_blank())
-
-h<- graph_stats_homo(get_stats_homogeneity(homogeneity, 'beta'), 'beta') + theme(legend.position="none" ,legend.title = element_blank())
-
-# https://stackoverflow.com/questions/13649473/add-a-common-legend-for-combined-ggplots
-#extract legend
-#https://github.com/hadley/ggplot2/wiki/Share-a-legend-between-two-ggplot2-graphs
-g_legend<-function(a.gplot){
-  tmp <- ggplot_gtable(ggplot_build(a.gplot))
-  leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
-  legend <- tmp$grobs[[leg]]
-  return(legend)}
-
-mylegend<-g_legend(g)
-
-p3 <- grid.arrange(arrangeGrob(g + theme(legend.position="none"),
-                               h + theme(legend.position="none"),
-                               nrow=1),
-                   mylegend, nrow=2,heights=c(10, 1))
-
-
-ggsave(
-  filename=paste(WORKING_DIR, "figures/welfare_homo_combo.jpeg", sep=""), 
-  plot=p3
-)
 
 
