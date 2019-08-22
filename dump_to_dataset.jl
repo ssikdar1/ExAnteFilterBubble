@@ -18,6 +18,19 @@ function load()
 end
 
 
+function iota(n::Int64,N::Float64)::Array{Float64,1}
+    return [cos(n/N) * pi, sin(n/N) * pi]
+end
+
+function hop_distance(
+        i::Int64,
+        j::Int64,
+        N::Int64
+    )::Int64
+    return min(abs(i-j), abs(j-i), abs(j-i-N), abs(i-j-N))
+end
+
+
 function div_fun(CiT, T, N)
     div_score = 0.0
     for i in 1:length(CiT)

@@ -2,8 +2,9 @@ library(ggplot2)
 library(dplyr)
 library(hrbrthemes)
 library(tidyverse)
-
+library(xtable)
 library(gridExtra)
+
 
 #' Calculate diversity mean w/ Confidence Intervals 
 #'
@@ -245,18 +246,54 @@ graph_stats_homo <- function(df, var){
   }
 }
 
-#WORKING_DIR <- "/Users/guyaridor/Desktop/recommender_systems/rec_sys_conf_paper/"
-#WORKING_DIR <- "/Users/ssikdar/Downloads/econ/bubbles/"
-WORKING_DIR <- "/Users/guyaridor/Desktop/ExAnteFilterBubble/"
+
+#' Calculate consumption diversity w/ Confidence Intervals derived from time_path
+#'
+#' @param stats_df Dataframe from time_path
+#' @param var  one of rho | beta | sigma | alpha
+#' @return Dataframe w/ mean and confidence intervals
+#' @examples
+#' get_stats_consumption_diversity(stats_df, "rho")
+get_stats_consumption_diversity_time_path <- function(stats_df, var){
+
+  df <- stats_df
+  
+  if (var == "rho") {
+    df <- df %>% group_by(regime, rho) 
+  } else if (var == "beta") {
+    df <- df %>% group_by(regime, beta) 
+  } else if (var == "sigma") {
+    df <- df %>% group_by(regime, sigma) 
+  } else if (var == "alpha") {
+    df <- df %>% group_by(regime, alpha)
+  }
+  df <- df %>%
+    mutate(local_move_mean = mean(local_move),
+           local_move_sd = sd(local_move),
+           local_move_n = n()) %>%
+    mutate(local_move_se =  local_move_mean/ sqrt(local_move_sd),
+           lower_ci_local_move = local_move_mean - qt(1 - (0.05 / 2), local_move_n - 1) * local_move_se,
+           upper_ci_local_move = local_move_mean + qt(1 - (0.05 / 2), local_move_n - 1) * local_move_se) %>% 
+    slice(1)
+  return(df)
+}
+
+### MAIN
+
+USER <- Sys.getenv( "USER" )
+WORKING_DIR <- paste("/Users/",USER, "/ExAnteFilterBubble/", sep="")
+setwd(WORKING_DIR)
+use_hrbrthemes <- FALSE
+
 rec_data <- read.csv(paste(WORKING_DIR, "data/rec_data.csv", sep=""))
 rec_data <- rec_data %>% mutate(formatted_regime = ifelse(regime == "omni", "Omniscient", ifelse(regime == "no_rec", "No Rec", "Partial")))
 
 homogeneity <- read.csv(paste(WORKING_DIR, "data/homogeneity_data.csv", sep=""))
-homogeneity <- homogeneity%>% mutate(formatted_regime = ifelse(regime == "omni", "Omniscient", ifelse(regime == "no_rec", "No Rec", "Partial")))
+homogeneity <- homogeneity %>% mutate(formatted_regime = ifelse(regime == "omni", "Omniscient", ifelse(regime == "no_rec", "No Rec", "Partial")))
 
 
 # CREATE GRAPHS
-use_hrbrthemes <- TRUE
+
 variables=list("rho", "beta", "sigma", "alpha")
 metrics=list("diversity", "welfare", "homogeneity")
 
@@ -351,12 +388,16 @@ homo <- homogeneity %>% group_by(regime) %>%
 homo <- homo[,c("regime", "jaccard_str")]
 
 df <- merge(df, homo, by="regime")
-library(xtable)
 xtable(df)
 
-time_dat <- read.csv(paste(WORKING_DIR, "data/time_path.csv", sep=""))
+
+### Consumption Diversity
+
+time_dat <- read.csv(paste(WORKING_DIR, "data/time_path_n_2000_t_20.csv", sep=""))
 time_dat <- time_dat %>% mutate(formatted_regime = ifelse(regime == "omni", "Omniscient", ifelse(regime == "no_rec", "No Rec", "Partial")))
 time_dat <- time_dat %>% mutate(local_move = as.numeric(consumption_dist < (N* 0.05)))
+
+# Look at consumption distribution held over all parameters
 t <- time_dat %>% filter(t > 0) # local move isn't defined at the first time step so drop it to properly have smoothed plots
 
 # https://stackoverflow.com/questions/21066077/remove-fill-around-legend-key-in-ggplot
@@ -367,11 +408,23 @@ g <- ggplot(t, aes(x=t, y=local_move)) +
 if(use_hrbrthemes){
   g <- g + theme_ipsum_rc()
 }
-g <- g + theme(legend.position="bottom", legend.title = element_blank())  + guides(color=guide_legend(override.aes=list(fill=NA)))
+g <- g + theme(legend.position="bottom", legend.title = element_blank())  + 
+  guides(color=guide_legend(override.aes=list(fill=NA)))
 ggsave(
   filename=paste(WORKING_DIR, "figures/local_moves.jpeg", sep=""), 
   plot=g
 )
+
+## Now look at the marginals of local_move over "rho", "beta", "sigma", "alpha"
+variables=list("rho", "beta", "sigma", "alpha")
+for(variable in variables){
+    tmp <- get_stats_consumption_diversity_time_path(t, variable)
+    g <- graph_stats_diversity(get_stats_diversity(rec_data, variable), variable, use_hrbrthemes)
+    ggsave(filename=file_name, plot=g)
+}
+
+## TODO try different combinations of variables like rho and beta
+## See how the fractional search changes
 
 partial <- filter(time_dat, regime == "partial")
 partial$follow_recommendation <- as.numeric(partial$follow_recommendation) - 1
