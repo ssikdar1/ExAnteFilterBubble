@@ -427,7 +427,9 @@ process_rec_homo_data <- function(N, T, use_hrbrthemes){
 #' @param T_val T in sim
 #' @param use_hrbrthemes bool to toggle hrbrthemes
 #' @return ggplot graph
-graph_stats_consumption_diversity_time_path <- function(df, var, N, T_val){
+graph_stats_consumption_diversity_time_path <- function(df, var){
+  T_val <- df$T[1]
+  N <- df$N[1]
   
   g <- ggplot(df, aes_string(x=var, y="local_move_mean")) +
     geom_line() +
@@ -475,15 +477,15 @@ process_time_path <- function(N, T, use_hrbrthemes){
   variables=list("rho", "beta", "sigma", "alpha")
   for(variable in variables){
     tmp <- get_stats_consumption_diversity_time_path(t, variable)
-    g <- graph_stats_consumption_diversity_time_path(tmp, variable, N, T_val)
-    file_name <- paste(WORKING_DIR, "figures/", variable, "_time_path_local_search.jpeg", sep="")
-    #ggsave(filename=file_name, plot=g)
+    g <- graph_stats_consumption_diversity_time_path(tmp, variable)
+    file_name <- paste(WORKING_DIR, "figures/", variable, "_time_path_local_search_N_", N,"T_", T,".jpeg", sep="")
+    ggsave(filename=file_name, plot=g)
   }
   
   ## TODO try different combinations of variables like rho and beta
   ## See how the fractional search changes
   
-  partial <- filter(time_dat, regime == "partial")
+  partial <- filter(time_data, regime == "partial")
   partial$follow_recommendation <- as.numeric(partial$follow_recommendation) - 1
   g <- ggplot(partial, aes(x=t, y=follow_recommendation)) +
     geom_smooth() +
@@ -512,7 +514,7 @@ use_hrbrthemes <- FALSE
 N_s <- list(2000, 200)
 
 for(N in N_s){
-  #process_rec_homo_data(N, 20, use_hrbrthemes)
+  process_rec_homo_data(N, 20, use_hrbrthemes)
   process_time_path(N, 20, use_hrbrthemes)
 }
 
