@@ -380,7 +380,7 @@ process_rec_homo_data <- function(N, T, use_hrbrthemes){
     title <- paste("Diversity_vs_Welfare_N_",N, "_T_",T,"_", rec_abbrv_to_name(rec_policy), sep="")
     ggsave(
       filename=paste(WORKING_DIR, "figures/", title, ".jpeg", sep=""), 
-      plot=scatter(filter(rec_data, regime == rec_policy), "diversity_score", "welfare", use_hrbrthemes, title)
+      plot=scatter(filter(rec_data, regime == rec_policy), "diversity_score", "welfare", use_hrbrthemes, title) 
     )
   }
   
@@ -417,26 +417,6 @@ process_rec_homo_data <- function(N, T, use_hrbrthemes){
 } # END process_rec__homo_data
 
 
-
-
-
-
-### MAIN
-
-USER <- Sys.getenv( "USER" )
-WORKING_DIR <- paste("/Users/",USER, "/ExAnteFilterBubble/", sep="")
-setwd(WORKING_DIR)
-use_hrbrthemes <- FALSE
-
-N_s <- list(2000, 200)
-
-for(N in N_s){
-  process_rec_homo_data(N, 20, use_hrbrthemes)
-}
-
-
-
-
 ### Consumption Diversity
 
 #' Graph consumption_diversity_time_pathas function of `var`
@@ -463,51 +443,45 @@ graph_stats_consumption_diversity_time_path <- function(df, var, N, T_val){
   return(g)
 }
 
+process_time_path <- function(N, T, use_hrbrthemes){
+  
+  # define the metric for consumption distribution
+  time_data <- read.csv(paste(WORKING_DIR, "data/time_path_n_",N,"_t_", T, ".csv", sep=""))
+  time_data <- time_data %>% mutate(formatted_regime = ifelse(regime == "omni", "Omniscient", ifelse(regime == "no_rec", "No Rec", "Partial")))
+  time_data <- time_data %>% mutate(local_move = as.numeric(consumption_dist < (N* 0.05)))
 
-process_time_path <- function(use_hrbrthemes){
+  # Look at consumption distribution held over all parameters
+  t <- time_data %>% filter(t > 0) # local move isn't defined at the first time step so drop it to properly have smoothed plots
   
-  T_val <- 20
-  for(N in N_s){
-    N = 2000
-    # define the metric for consumption distribution
-    time_dat <- read.csv(paste(WORKING_DIR, "data/time_path_n_",N,"_t_20.csv", sep=""))
-    time_dat <- time_dat %>% mutate(formatted_regime = ifelse(regime == "omni", "Omniscient", ifelse(regime == "no_rec", "No Rec", "Partial")))
-    time_dat <- time_dat %>% mutate(local_move = as.numeric(consumption_dist < (N* 0.05)))
-    
-    # Look at consumption distribution held over all parameters
-    t <- time_dat %>% filter(t > 0) # local move isn't defined at the first time step so drop it to properly have smoothed plots
-    
-    # 
-    # https://stackoverflow.com/questions/21066077/remove-fill-around-legend-key-in-ggplot
-    g <- ggplot(t, aes(x=t, y=local_move)) +
-      geom_smooth(aes(colour=formatted_regime)) +
-      labs(x="t", 
-           y="Fraction of Local Search",
-           title = paste("N =", N, "T =", T_val, "Diversity",sep=" ")
-      )
-    if(use_hrbrthemes){
-      g <- g + theme_ipsum_rc()
-    }
-    g <- g + theme(legend.position="bottom", legend.title = element_blank())  + 
-      guides(color=guide_legend(override.aes=list(fill=NA)))
-    #ggsave(
-    #  filename= paste(WORKING_DIR, "figures/local_moves_N_", N,"T_", T_val,".jpeg", sep=""), 
-    #  plot=g
-    #)
-  
-    ## Now look at the marginals of local_move over "rho", "beta", "sigma", "alpha"
-    variables=list("rho", "beta", "sigma", "alpha")
-    for(variable in variables){
-      tmp <- get_stats_consumption_diversity_time_path(t, variable)
-      g <- graph_stats_consumption_diversity_time_path(tmp, variable, N, T_val)
-      file_name <- paste(WORKING_DIR, "figures/", variable, "_time_path_local_search.jpeg", sep="")
-      #ggsave(filename=file_name, plot=g)
-    }
-    
-    ## TODO try different combinations of variables like rho and beta
-    ## See how the fractional search changes
-    
+  # 
+  # https://stackoverflow.com/questions/21066077/remove-fill-around-legend-key-in-ggplot
+  g <- ggplot(t, aes(x=t, y=local_move)) +
+    geom_smooth(aes(colour=formatted_regime)) +
+    labs(x="t", 
+         y="Fraction of Local Search",
+         title = paste("N =", N, "T =", T, "Diversity",sep=" ")
+    )
+  if(use_hrbrthemes){
+    g <- g + theme_ipsum_rc()
   }
+  g <- g + theme(legend.position="bottom", legend.title = element_blank())  + 
+    guides(color=guide_legend(override.aes=list(fill=NA)))
+  ggsave(
+    filename= paste(WORKING_DIR, "figures/local_moves_N_", N,"T_", T,".jpeg", sep=""), 
+    plot=g
+  )
+  
+  ## Now look at the marginals of local_move over "rho", "beta", "sigma", "alpha"
+  variables=list("rho", "beta", "sigma", "alpha")
+  for(variable in variables){
+    tmp <- get_stats_consumption_diversity_time_path(t, variable)
+    g <- graph_stats_consumption_diversity_time_path(tmp, variable, N, T_val)
+    file_name <- paste(WORKING_DIR, "figures/", variable, "_time_path_local_search.jpeg", sep="")
+    #ggsave(filename=file_name, plot=g)
+  }
+  
+  ## TODO try different combinations of variables like rho and beta
+  ## See how the fractional search changes
   
   partial <- filter(time_dat, regime == "partial")
   partial$follow_recommendation <- as.numeric(partial$follow_recommendation) - 1
@@ -519,14 +493,35 @@ process_time_path <- function(use_hrbrthemes){
     g <- g + theme_ipsum_rc(plot_title_size = 24, axis_title_size = 14)
   }
   ggsave(
-    filename=paste(WORKING_DIR, "figures/rec_obedience.jpeg", sep=""), 
+    filename=paste(WORKING_DIR, "figures/rec_obedience_N_", N, "_T_", T, ".jpeg", sep=""), 
     plot=g
   )
+    
   
 }
 
 
-process_time_path(use_hrbrthemes)
+
+### MAIN
+
+USER <- Sys.getenv( "USER" )
+WORKING_DIR <- paste("/Users/",USER, "/ExAnteFilterBubble/", sep="")
+setwd(WORKING_DIR)
+use_hrbrthemes <- FALSE
+
+N_s <- list(2000, 200)
+
+for(N in N_s){
+  #process_rec_homo_data(N, 20, use_hrbrthemes)
+  process_time_path(N, 20, use_hrbrthemes)
+}
+
+
+
+
+
+
+
 
 
 
