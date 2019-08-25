@@ -503,7 +503,7 @@ N_s <- list(2000, 200)
 
 for(N in N_s){
   process_rec_homo_data(N, 20, use_hrbrthemes)
-  #process_time_path(N, 20, use_hrbrthemes)
+  process_time_path(N, 20, use_hrbrthemes)
 }
 
 
