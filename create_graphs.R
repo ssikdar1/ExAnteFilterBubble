@@ -247,36 +247,7 @@ graph_stats_homo <- function(df, var){
 }
 
 
-#' Calculate consumption diversity w/ Confidence Intervals derived from time_path
-#'
-#' @param stats_df Dataframe from time_path
-#' @param var  one of rho | beta | sigma | alpha
-#' @return Dataframe w/ mean and confidence intervals
-#' @examples
-#' get_stats_consumption_diversity(stats_df, "rho")
-get_stats_consumption_diversity_time_path <- function(stats_df, var){
 
-  df <- stats_df
-  
-  if (var == "rho") {
-    df <- df %>% group_by(regime, rho) 
-  } else if (var == "beta") {
-    df <- df %>% group_by(regime, beta) 
-  } else if (var == "sigma") {
-    df <- df %>% group_by(regime, sigma) 
-  } else if (var == "alpha") {
-    df <- df %>% group_by(regime, alpha)
-  }
-  df <- df %>%
-    mutate(local_move_mean = mean(local_move),
-           local_move_sd = sd(local_move),
-           local_move_n = n()) %>%
-    mutate(local_move_se =  local_move_mean/ sqrt(local_move_sd),
-           lower_ci_local_move = local_move_mean - qt(1 - (0.05 / 2), local_move_n - 1) * local_move_se,
-           upper_ci_local_move = local_move_mean + qt(1 - (0.05 / 2), local_move_n - 1) * local_move_se) %>% 
-    slice(1)
-  return(df)
-}
 
 scatter <- function(df, var_x, var_y, use_hrbrthemes, title){
   g <- ggplot(df, aes_string(var_x, var_y)) +
@@ -322,7 +293,7 @@ process_rec_homo_data <- function(N, T, use_hrbrthemes){
         g <- graph_stats_welfare(get_stats_welfare(rec_data, variable), variable,  use_hrbrthemes)
         ggsave(filename=file_name, plot=g)
         
-        rec_file_name <- paste(WORKING_DIR, "figures/", variable, "_rec.jpeg", sep="")
+        rec_file_name <- paste(WORKING_DIR, "figures/", variable,"_", metric,"_N_", N, "_T_", T, "_rec.jpeg", sep="")
         print(rec_file_name)
         g <- graph_stats_rec(get_stats_rec(filter(rec_data, regime == "partial"), variable), variable,  use_hrbrthemes)
         ggsave(filename=rec_file_name, plot=g)
@@ -419,14 +390,31 @@ process_rec_homo_data <- function(N, T, use_hrbrthemes){
 
 ### Consumption Diversity
 
-#' Graph consumption_diversity_time_pathas function of `var`
-#'
-#' @param df Dataframe
-#' @param var  one of rho | beta | sigma
-#' @param N
-#' @param T_val T in sim
-#' @param use_hrbrthemes bool to toggle hrbrthemes
-#' @return ggplot graph
+
+get_stats_consumption_diversity_time_path <- function(stats_df, var){
+  
+  df <- stats_df
+  
+  if (var == "rho") {
+    df <- df %>% group_by(regime, rho) 
+  } else if (var == "beta") {
+    df <- df %>% group_by(regime, beta) 
+  } else if (var == "sigma") {
+    df <- df %>% group_by(regime, sigma) 
+  } else if (var == "alpha") {
+    df <- df %>% group_by(regime, alpha)
+  }
+  df <- df %>%
+    mutate(local_move_mean = mean(local_move),
+           local_move_sd = sd(local_move),
+           local_move_n = n()) %>%
+    mutate(local_move_se =  local_move_mean/ sqrt(local_move_sd),
+           lower_ci_local_move = local_move_mean - qt(1 - (0.05 / 2), local_move_n - 1) * local_move_se,
+           upper_ci_local_move = local_move_mean + qt(1 - (0.05 / 2), local_move_n - 1) * local_move_se) %>% 
+    slice(1)
+  return(df)
+}
+
 graph_stats_consumption_diversity_time_path <- function(df, var){
   T_val <- df$T[1]
   N <- df$N[1]
@@ -515,7 +503,7 @@ N_s <- list(2000, 200)
 
 for(N in N_s){
   process_rec_homo_data(N, 20, use_hrbrthemes)
-  process_time_path(N, 20, use_hrbrthemes)
+  #process_time_path(N, 20, use_hrbrthemes)
 }
 
 
