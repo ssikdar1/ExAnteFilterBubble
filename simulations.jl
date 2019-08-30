@@ -210,7 +210,7 @@ end
     Nset::Array{Int64,1},
     alpha::Float64,
     epsilon::Float64,
-    beta::Int64
+    beta::Float64
 )
     C_iT::Array{Int64,1} = []
     R_iT::Array{Int64,1} = []
@@ -294,7 +294,7 @@ end
         sigma::Float64,
         sigma_i::Float64, 
         sigma_ibar::Float64,
-        beta::Int64, 
+        beta::Float64, 
         nr_ind::Int64,
         Sigma_V_i::Array{Float64,2},
         Sigma_V::Array{Float64,2},
@@ -313,7 +313,7 @@ end
     sigma::Float64,
     sigma_i::Float64, 
     sigma_ibar::Float64,
-    beta::Int64, 
+    beta::Float64, 
     nr_ind::Int64,
     Sigma_V_i::Array{Float64,2},
     Sigma_V::Array{Float64,2},
