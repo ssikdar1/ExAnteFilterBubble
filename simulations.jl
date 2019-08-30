@@ -394,7 +394,7 @@ N_vals = [200]
 T_vals = [20]
 
 # Covariance structure
-rho_vals = [0.1, 0.3, 0.5, 0.7, 0.9]
+rho_vals = [0, 0.1, 0.3, 0.5, 0.7, 0.9]
 
 # utility idiosyncratic degree 
 beta_vals = [0, 0.4, 0.8, 1, 2, 5]
