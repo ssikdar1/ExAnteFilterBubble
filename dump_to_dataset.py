@@ -26,7 +26,7 @@ def div_fun(CiT, T, N):
         for j in range(len(CiT)):
             if i == j: continue
             div_score = div_score + d(CiT[i],CiT[j], N)#euclidean( iota(CiT[i], N), iota(CiT[j], N) )
-    return div_score*(1.0/(T*(T-1)))
+    return div_score*(1.0/(T*(T-1))) / N
 
 def homogeneity(C1, C2, type_sim="jaccard"):
     if type_sim == "jaccard":
@@ -54,6 +54,50 @@ def parse_pickle_key(key):
     }
     return dat
 
+
+INDIVIDUAL_FIELD_NAMES =['pop_idx', 'regime', 'rho', 'beta', 'epsilon', 'alpha', 'N', 'T', 'sigma', 't', 'follow_recommendation', 'consumption_dist', 'cur_utility', 'cumulative_utility', 'utility_difference']
+with open(WORKING_DIR + 'time_path.csv', 'w') as rec_csv:
+    data_writer = csv.DictWriter(rec_csv, fieldnames=INDIVIDUAL_FIELD_NAMES)
+    data_writer.writeheader()
+    for key, value in df.items():
+        for pop_idx in range(len(value)):
+            dat = parse_pickle_key(key)
+            N = dat['N']
+            dat['pop_idx'] = pop_idx
+            cur = value[pop_idx]
+            consumption = cur['Consumption']
+            welfare = cur['Welfare']
+            for policy in rec_policy_keys:
+                consumption_arr = np.array(consumption[policy])
+                welfare_arr = np.array(welfare[policy])
+                dat['regime'] = policy
+                if policy == PARTIAL:
+                    follow_rec_arr = np.array(cur['Rec'][policy])
+                for indiv_idx in range(len(consumption_arr[0,:])):
+                    c1 = consumption_arr[:,indiv_idx]
+                    welf = welfare_arr[:,indiv_idx]
+                    prev_consumption = None
+                    prev_welfare = None
+                    rec = None
+                    if policy == PARTIAL:
+                        rec = follow_rec_arr[:,indiv_idx]
+                    cumulative_welfare = 0.0
+                    for t in range(len(c1)):
+                        dat['t'] = t
+                        dat['cur_utility'] = welf[t]
+                        cumulative_welfare += welf[t]
+                        dat['cumulative_utility'] = cumulative_welfare
+                        if prev_consumption != None:
+                            dat['consumption_dist'] = d(prev_consumption, c1[t], N)
+                            dat['welfare_difference'] = welf[t] - prev_welfare
+                        prev_consumption = c1[t]
+                        prev_welfare = welf[t]
+                        dat['follow_recommendation'] = False
+                        if policy == PARTIAL:
+                            dat['follow_recommendation'] = c1[t] == rec[t]
+                        cur_dat = copy(dat)
+                        data_writer.writerow(cur_dat)
+
 INDIVIDUAL_FIELD_NAMES =['pop_idx', 'indiv_idx', 'regime', 'welfare', 'diversity_score', 'rho', 'beta', 'epsilon', 'follow_recommendation', 'N', 'T', 'sigma', 'alpha', 'nr_pop', 'nr_ind']
 with open(WORKING_DIR + 'rec_data.csv', 'w') as rec_csv:
     data_writer = csv.DictWriter(rec_csv, fieldnames=INDIVIDUAL_FIELD_NAMES)
@@ -71,7 +115,7 @@ with open(WORKING_DIR + 'rec_data.csv', 'w') as rec_csv:
                 dat['regime'] = policy
                 for indiv_idx in range(len(welfare[policy])):
                     dat['indiv_idx'] = indiv_idx
-                    dat['welfare'] = welfare[policy][indiv_idx]
+                    dat['welfare'] = sum(welfare[policy][:,indiv_idx]) / T
                     consumption_arr = np.array(consumption[policy])
                     dat['diversity_score'] = div_fun(consumption_arr[:,indiv_idx], T, N)
                     dat['follow_recommendation'] = False
@@ -109,36 +153,3 @@ with open(WORKING_DIR + 'homogeneity_data.csv', 'w') as rec_csv:
                 cur_dat = copy(dat)
                 data_writer.writerow(cur_dat)
 
-
-INDIVIDUAL_FIELD_NAMES =['pop_idx', 'regime', 'rho', 'beta', 'epsilon', 'alpha', 'N', 'T', 'sigma', 't', 'follow_recommendation', 'consumption_dist']
-with open(WORKING_DIR + 'time_path.csv', 'w') as rec_csv:
-    data_writer = csv.DictWriter(rec_csv, fieldnames=INDIVIDUAL_FIELD_NAMES)
-    data_writer.writeheader()
-    for key, value in df.items():
-        for pop_idx in range(len(value)):
-            dat = parse_pickle_key(key)
-            N = dat['N']
-            dat['pop_idx'] = pop_idx
-            cur = value[pop_idx]
-            consumption = cur['Consumption']
-            for policy in rec_policy_keys:
-                consumption_arr = np.array(consumption[policy])
-                dat['regime'] = policy
-                if policy == PARTIAL:
-                    follow_rec_arr = np.array(cur['Rec'][policy])
-                for indiv_idx in range(len(consumption_arr[0,:])):
-                    c1 = consumption_arr[:,indiv_idx]
-                    prev_consumption = None
-                    rec = None
-                    if policy == PARTIAL:
-                        rec = follow_rec_arr[:,indiv_idx]
-                    for t in range(len(c1)):
-                        dat['t'] = t
-                        if prev_consumption != None:
-                            dat['consumption_dist'] = d(prev_consumption, c1[t], N)
-                        prev_consumption = c1[t]
-                        dat['follow_recommendation'] = False
-                        if policy == PARTIAL:
-                            dat['follow_recommendation'] = c1[t] == rec[t]
-                        cur_dat = copy(dat)
-                        data_writer.writerow(cur_dat)
