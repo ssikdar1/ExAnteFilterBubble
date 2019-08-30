@@ -381,31 +381,31 @@ end
 end
 
 #
-nr_pop = 50
+nr_pop = 100
 #
-nr_ind = 25
+nr_ind = 100
 #
 sigma_ibar = .1
 #
 rho_ibar = 0.0
 
-N_vals = [2000]
+N_vals = [200]
 
 T_vals = [20]
 
 # Covariance structure
-rho_vals = [0.1, 0.5, 0.9]
+rho_vals = [0.1, 0.3, 0.5, 0.7, 0.9]
 
 # utility idiosyncratic degree 
-beta_vals = [0, 1, 5, 10]
+beta_vals = [0, 0.4, 0.8, 1, 2, 5]
 
 # absolute risk aversion
-alpha_vals = [0, 1, 5, 10]
+alpha_vals = [0, 0.3, 0.6, 1, 5]
 
 # action of the time for random exploration
 epsilon_vals = [0.0]
 
-sigma_vals = [0.25, 1.0, 4.0]
+sigma_vals = [0.25, 0.5, 1.0, 2.0, 4.0]
 
 params = Iterators.product(N_vals, T_vals, rho_vals, beta_vals, sigma_vals, alpha_vals, epsilon_vals)
 
