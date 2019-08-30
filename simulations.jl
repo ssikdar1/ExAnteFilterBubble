@@ -75,7 +75,7 @@ CARA
 """
 
 @everywhere function certainty_equivalent(
-        alpha::Int64, 
+        alpha::Float64, 
         mu::Array{Float64,1},
         sig::Array{Float64,2}
     )
@@ -208,7 +208,7 @@ end
     T::Int64,
     N::Int64,
     Nset::Array{Int64,1},
-    alpha::Int64,
+    alpha::Float64,
     epsilon::Float64,
     beta::Int64
 )
@@ -259,7 +259,7 @@ end
 			T::Int64, 
 			N::Int64, 
 			Nset::Array{Int64,1}, 
-			alpha::Int64, 
+			alpha::Float64, 
 			epsilon::Float64)
 
     C_iT::Array{Int64,1} = []
@@ -299,7 +299,7 @@ end
         Sigma_V_i::Array{Float64,2},
         Sigma_V::Array{Float64,2},
         Sigma_V_ibar::Array{Float64,2},
-        alpha::Int64,
+        alpha::Float64,
         epsilon::Float64,
         seed::Float64
     )
@@ -318,7 +318,7 @@ end
     Sigma_V_i::Array{Float64,2},
     Sigma_V::Array{Float64,2},
     Sigma_V_ibar::Array{Float64,2},
-    alpha::Int64,
+    alpha::Float64,
     epsilon::Float64,
     seed::Int64
     )
@@ -394,13 +394,13 @@ N_vals = [200]
 T_vals = [20]
 
 # Covariance structure
-rho_vals = [0, 0.1, 0.3, 0.5, 0.7, 0.9]
+rho_vals = [0., 0.1, 0.3, 0.5, 0.7, 0.9]
 
 # utility idiosyncratic degree 
-beta_vals = [0, 0.4, 0.8, 1, 2, 5]
+beta_vals = [0., 0.4, 0.8, 1., 2., 5.]
 
 # absolute risk aversion
-alpha_vals = [0, 0.3, 0.6, 1, 5]
+alpha_vals = [0., 0.3, 0.6, 1., 5.]
 
 # action of the time for random exploration
 epsilon_vals = [0.0]
