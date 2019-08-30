@@ -374,7 +374,7 @@ end
         R_pop["partial"][it_ind,:] = R_iT
     end
 
-    return Dict( "Consumption" => C_pop, "Welfare" => W_pop, "Welfare" "Rec" => R_pop )
+    return Dict( "Consumption" => C_pop, "Welfare" => W_pop, "Rec" => R_pop )
 end
 
 #
