@@ -1,17 +1,5 @@
 \begin{thebibliography}{10}
 
-\bibitem{adomavicius2005toward}
-Gediminas Adomavicius and Alexander Tuzhilin.
-\newblock Toward the next generation of recommender systems: A survey of the
-  state-of-the-art and possible extensions.
-\newblock {\em IEEE Transactions on Knowledge \& Data Engineering},
-  (6):734--749, 2005.
-
-\bibitem{bergemann2019information}
-Dirk Bergemann and Stephen Morris.
-\newblock Information design: A unified perspective.
-\newblock {\em Journal of Economic Literature}, 57(1):44--95, 2019.
-
 \bibitem{chaney2018algorithmic}
 Allison~JB Chaney, Brandon~M Stewart, and Barbara~E Engelhardt.
 \newblock How algorithmic confounding in recommendation systems increases
@@ -61,13 +49,6 @@ Andreu Mas-Colell, Michael~Dennis Whinston, Jerry~R Green, et~al.
 \newblock {\em Microeconomic theory}, volume~1.
 \newblock Oxford university press New York, 1995.
 
-\bibitem{mcnee2006being}
-Sean~M McNee, John Riedl, and Joseph~A Konstan.
-\newblock Being accurate is not enough: how accuracy metrics have hurt
-  recommender systems.
-\newblock In {\em CHI'06 extended abstracts on Human factors in computing
-  systems}, pages 1097--1101. ACM, 2006.
-
 \bibitem{murphy2014recommendation}
 Emerson Murphy-Hill and Gail~C Murphy.
 \newblock Recommendation delivery.
@@ -93,20 +74,6 @@ Paula Saavedra, Pablo Barreiro, Roi Duran, Rosa Crujeiras, Mar{\'\i}a Loureiro,
   and Eduardo~S{\'a}nchez Vila.
 \newblock Choice-based recommender systems.
 \newblock In {\em RecTour@ RecSys}, pages 38--46, 2016.
-
-\bibitem{vargas2011rank}
-Sa{\'u}l Vargas and Pablo Castells.
-\newblock Rank and relevance in novelty and diversity metrics for recommender
-  systems.
-\newblock In {\em Proceedings of the fifth ACM conference on Recommender
-  systems}, pages 109--116. ACM, 2011.
-
-\bibitem{zhao2018interpreting}
-Qian Zhao, Martijn~C Willemsen, Gediminas Adomavicius, F~Maxwell Harper, and
-  Joseph~A Konstan.
-\newblock Interpreting user inaction in recommender systems.
-\newblock In {\em Proceedings of the 12th ACM Conference on Recommender
-  Systems}, pages 40--48. ACM, 2018.
 
 \bibitem{ziegler2005improving}
 Cai-Nicolas Ziegler, Sean~M McNee, Joseph~A Konstan, and Georg Lausen.

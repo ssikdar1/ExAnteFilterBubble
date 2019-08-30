@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  27 AUG 2019 23:30
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  29 AUG 2019 21:20
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1085,110 +1085,89 @@ LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
 (Font)              scaled to size 9.0pt on input line 83.
 
 Package natbib Warning: Citation `schulz2019structured' on page 1 undefined on 
-input line 89.
+input line 87.
 
-
-Underfull \vbox (badness 1087) has occurred while \output is active []
-
- [1.1{/usr/local/texlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
+[1.1{/usr/local/texlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
 ]
-Underfull \vbox (badness 2253) has occurred while \output is active []
-
-
 
 Package natbib Warning: Citation `schulz2019structured' on page 2 undefined on 
-input line 121.
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
+input line 129.
 
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
-(Font)              scaled to size 9.0pt on input line 137.
- [2.2]
+(Font)              scaled to size 9.0pt on input line 145.
+[2.2]
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 8.0pt on input line 150.
+(Font)              scaled to size 8.0pt on input line 160.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/b/n' will be
-(Font)              scaled to size 8.0pt on input line 150.
+(Font)              scaled to size 8.0pt on input line 160.
 LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 8.0pt on input line 150.
+(Font)              scaled to size 8.0pt on input line 160.
 LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 6.2pt on input line 150.
+(Font)              scaled to size 6.2pt on input line 160.
 
-Underfull \hbox (badness 1616) in paragraph at lines 150--150
+Underfull \hbox (badness 1616) in paragraph at lines 160--160
 []\T1/LinuxLibertineT-TLF/b/n/8 Table 1: |Mean Wel-fare, Di-ver-sity, and Ho-mo
 -gene-ity for $\OML/nxlmi/m/it/8 N \U/ntxmia/m/it/8 =
  []
 
-<local_moves_25.jpeg, id=83, 2241.37375pt x 1722.435pt>
+<local_moves_25.jpeg, id=87, 2241.37375pt x 1722.435pt>
 File: local_moves_25.jpeg Graphic file (type jpg)
 <use local_moves_25.jpeg>
-Package pdftex.def Info: local_moves_25.jpeg  used on input line 157.
+Package pdftex.def Info: local_moves_25.jpeg  used on input line 167.
 (pdftex.def)             Requested size: 227.80997pt x 108.38782pt.
-<welfare_homo_combo.jpeg, id=84, 2241.37375pt x 1722.435pt>
+<welfare_homo_combo.jpeg, id=88, 2241.37375pt x 1722.435pt>
 File: welfare_homo_combo.jpeg Graphic file (type jpg)
 <use welfare_homo_combo.jpeg>
-Package pdftex.def Info: welfare_homo_combo.jpeg  used on input line 164.
+Package pdftex.def Info: welfare_homo_combo.jpeg  used on input line 174.
 (pdftex.def)             Requested size: 227.80997pt x 108.38782pt.
 
-Overfull \hbox (1.50029pt too wide) in paragraph at lines 155--168
+Overfull \hbox (1.50029pt too wide) in paragraph at lines 165--178
  [][] [] 
  []
 
-<rec_obedience_25.jpeg, id=85, 2241.37375pt x 1722.435pt>
+<rec_obedience_25.jpeg, id=89, 2241.37375pt x 1722.435pt>
 File: rec_obedience_25.jpeg Graphic file (type jpg)
 <use rec_obedience_25.jpeg>
-Package pdftex.def Info: rec_obedience_25.jpeg  used on input line 171.
+Package pdftex.def Info: rec_obedience_25.jpeg  used on input line 181.
 (pdftex.def)             Requested size: 218.71262pt x 108.38782pt.
-<Diversity_vs_Welfare_No_Recommendation.jpeg, id=86, 2241.37375pt x 1722.435pt>
+<Diversity_vs_Welfare_No_Recommendation.jpeg, id=90, 2241.37375pt x 1722.435pt>
 
 File: Diversity_vs_Welfare_No_Recommendation.jpeg Graphic file (type jpg)
 <use Diversity_vs_Welfare_No_Recommendation.jpeg>
 Package pdftex.def Info: Diversity_vs_Welfare_No_Recommendation.jpeg  used on i
-nput line 177.
+nput line 187.
 (pdftex.def)             Requested size: 218.71262pt x 108.38782pt.
 
 Underfull \vbox (badness 2698) has occurred while \output is active []
 
  [3.3]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [4.4 <./local_moves_25.jpeg> <./welfare_homo_combo.jpeg> <./rec_obedience_25.j
-peg> <./Diversity_vs_Welfare_No_Recommendation.jpeg>] (./ex_ante_rec_sys.bbl)
+[4.4 <./local_moves_25.jpeg> <./welfare_homo_combo.jpeg> <./rec_obedience_25.jp
+eg> <./Diversity_vs_Welfare_No_Recommendation.jpeg>] (./ex_ante_rec_sys.bbl)
 
 Package natbib Warning: There were undefined citations.
 
 [5.5]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 221.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 221.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 234.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 234.
  (./ex_ante_rec_sys.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 221.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 221.
-
-
-Package rerunfilecheck Warning: File `ex_ante_rec_sys.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `ex_ante_rec_sys.out':
-(rerunfilecheck)             Before: A425BCB9C1BBE85EC26006D44FC06239;1046
-(rerunfilecheck)             After:  0893D39A54DD09D9D8756F375BC7E961;1046.
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 234.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 234.
+Package rerunfilecheck Info: File `ex_ante_rec_sys.out' has not changed.
+(rerunfilecheck)             Checksum: DDF7C913043B30413BD161B2FB1C1DD1;1291.
  ) 
 Here is how much of TeX's memory you used:
- 18093 strings out of 492649
- 274579 string characters out of 6129622
- 394490 words of memory out of 5000000
- 21062 multiletter control sequences out of 15000+600000
- 161949 words of font info for 365 fonts, out of 8000000 for 9000
+ 18077 strings out of 492649
+ 274144 string characters out of 6129622
+ 392364 words of memory out of 5000000
+ 21048 multiletter control sequences out of 15000+600000
+ 161192 words of font info for 363 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
- 60i,12n,94p,1809b,503s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 60i,11n,94p,1809b,505s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2018/texmf-dist/fonts/enc/dvips/newtx/libertinealt.enc}{/
-usr/local/texlive/2018/texmf-dist/fonts/enc/dvips/libertine/lbtn_oexx6f.enc}{/u
-sr/local/texlive/2018/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/local/texliv
-e/2018/texmf-dist/fonts/enc/dvips/libertine/lbtn_25tcsq.enc}{/usr/local/texlive
+usr/local/texlive/2018/texmf-dist/fonts/enc/dvips/libertine/lbtn_25tcsq.enc}{/u
+sr/local/texlive/2018/texmf-dist/fonts/enc/dvips/libertine/lbtn_oexx6f.enc}{/us
+r/local/texlive/2018/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/local/texlive
 /2018/texmf-dist/fonts/enc/dvips/libertine/lbtn_naooyc.enc}{/usr/local/texlive/
 2018/texmf-dist/fonts/enc/dvips/libertine/lbtn_7grukw.enc}{/usr/local/texlive/2
 018/texmf-dist/fonts/enc/dvips/libertine/lbtn_76gpa5.enc}{/usr/local/texlive/20
@@ -1204,15 +1183,14 @@ usr/local/texlive/2018/texmf-dist/fonts/type1/public/newtx/fxlri-5letters.pfb><
 local/texlive/2018/texmf-dist/fonts/type1/public/newtx/rtxmi7.pfb></usr/local/t
 exlive/2018/texmf-dist/fonts/type1/public/txfonts/rtxr.pfb></usr/local/texlive/
 2018/texmf-dist/fonts/type1/public/newtx/txexs.pfb></usr/local/texlive/2018/tex
-mf-dist/fonts/type1/public/txfonts/txsyb.pfb></usr/local/texlive/2018/texmf-dis
-t/fonts/type1/public/txfonts/txsyc.pfb></usr/local/texlive/2018/texmf-dist/font
-s/type1/public/newtx/txsys.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/
-public/newtx/zxlr.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/ne
-wtx/zxlri.pfb>
-Output written on ex_ante_rec_sys.pdf (5 pages, 1545949 bytes).
+mf-dist/fonts/type1/public/txfonts/txsyc.pfb></usr/local/texlive/2018/texmf-dis
+t/fonts/type1/public/newtx/txsys.pfb></usr/local/texlive/2018/texmf-dist/fonts/
+type1/public/newtx/zxlr.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/pub
+lic/newtx/zxlri.pfb>
+Output written on ex_ante_rec_sys.pdf (5 pages, 1539615 bytes).
 PDF statistics:
- 241 PDF objects out of 1000 (max. 8388607)
+ 239 PDF objects out of 1000 (max. 8388607)
  189 compressed objects within 2 object streams
- 43 named destinations out of 1000 (max. 500000)
- 39513 words of extra memory for PDF output out of 42996 (max. 10000000)
+ 42 named destinations out of 1000 (max. 500000)
+ 39529 words of extra memory for PDF output out of 42996 (max. 10000000)
 
