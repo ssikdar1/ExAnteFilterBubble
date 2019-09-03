@@ -408,8 +408,9 @@ params = Iterators.product(N_vals, T_vals, rho_vals, beta_vals, sigma_vals, alph
 
 println(length(collect(params)))
 
+#WORKING_DIR = "/Users/guyaridor/Desktop/ExAnteFilterBubble/data/sim_results/"
+WORKING_DIR = "./data/sim_results/"
 
-sim_results = Dict()
 for (N, T, rho, beta, sigma, alpha, epsilon) in params
     println("STARTING")
     println("N: $N, T: $T, ρ: $rho β: $beta σ: $sigma α: $alpha  ε: $epsilon")
@@ -426,14 +427,16 @@ for (N, T, rho, beta, sigma, alpha, epsilon) in params
 
     Sigma_V_ibar = cov_mat_fun(sigma_ibar,rho_ibar,N)
 
+    sim_results = Dict()
+
     sim_results[(N, T, rho, beta, sigma, alpha, epsilon, nr_pop, nr_ind)] = @sync @distributed vcat for i= 1:nr_pop
         simulate(N, T,sigma, sigma_i, sigma_ibar, beta, nr_ind, Sigma_V_i,  Sigma_V,  Sigma_V_ibar,  alpha, epsilon, i)
     end
-end
 
-#WORKING_DIR = "/Users/guyaridor/Desktop/ExAnteFilterBubble/data/"
-WORKING_DIR = "/home/guyaridor/ExAnteFilterBubble/data/"
-open(string(WORKING_DIR, "new_sim.json"),"w") do f
-    JSON.print(f, sim_results)
+    file_name = string("new_sim_",N,"_",T,"_",rho,"_",beta,"_",sigma,"_",alpha,"_",epsilon,".json")
+    open(string(WORKING_DIR, file_name,"w") do f
+        JSON.print(f, sim_results)
+    end
+
 end
 
