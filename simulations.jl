@@ -434,9 +434,8 @@ for (N, T, rho, beta, sigma, alpha, epsilon) in params
     end
 
     file_name = string("new_sim_",N,"_",T,"_",rho,"_",beta,"_",sigma,"_",alpha,"_",epsilon,".json")
-    open(string(WORKING_DIR, file_name,"w") do f
+    open(string(WORKING_DIR, file_name),"w") do f
         JSON.print(f, sim_results)
     end
-
 end
 
