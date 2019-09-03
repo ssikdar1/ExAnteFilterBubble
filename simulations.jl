@@ -330,7 +330,7 @@ end
     Nset = [ n for n=1:N]   # set of N items I = {1, ..., N}
 
     C_pop = Dict( "no_rec"  => zeros(Int64, nr_ind,T), "omni"  => zeros(Int64, nr_ind,T), "partial" => zeros(Int64, nr_ind,T))
-    W_pop = Dict( "no_rec"  => zeros(nr_ind), "omni"  => zeros(nr_ind), "partial" => zeros(nr_ind))
+    W_pop = Dict( "no_rec"  => zeros(nr_ind,T), "omni"  => zeros(nr_ind,T), "partial" => zeros(nr_ind,T))
     R_pop = Dict( "no_rec"  => zeros(nr_ind,T), "omni"  => zeros(nr_ind,T), "partial" => zeros(nr_ind,T))
 
     # V = (v_n) n in I aka: common value component v_n in vector form
@@ -358,19 +358,19 @@ end
         Sigma_U_i = Sigma_V_i + beta^2 * (Sigma_V)
         C_iT_no_rec = choice_ind(copy(U_i), copy(mu_U_i), copy(Sigma_U_i),T,N, Nset, alpha, epsilon)
         C_pop["no_rec"][it_ind,:] = C_iT_no_rec
-        W_pop["no_rec"][it_ind] = w_fun(C_iT_no_rec, U_i, T)
+        W_pop["no_rec"][it_ind,:] = U_i[C_iT_no_rec]
 
         
         ## OMNISCIENT CASE
         C_iT = choice_omni(copy(U_i),T,N, Nset)
         C_pop["omni"][it_ind,:] = C_iT
-        W_pop["omni"][it_ind] = w_fun(C_iT, U_i, T)
+        W_pop["omni"][it_ind,:] = U_i[C_iT]
 
  
         ## PARTIAL REC Case
         C_iT_partial, R_iT = choice_part(copy(V_i), copy(mu_V_i), copy(Sigma_V_i), copy(V), T, N, Nset, alpha, epsilon, beta)
         C_pop["partial"][it_ind,:] = C_iT_partial
-        W_pop["partial"][it_ind] = w_fun(C_iT_partial, U_i, T)
+        W_pop["partial"][it_ind,:] = copy(U_i[C_iT_partial])
         R_pop["partial"][it_ind,:] = R_iT
     end
 
@@ -409,7 +409,7 @@ params = Iterators.product(N_vals, T_vals, rho_vals, beta_vals, sigma_vals, alph
 println(length(collect(params)))
 
 #WORKING_DIR = "/Users/guyaridor/Desktop/ExAnteFilterBubble/data/sim_results/"
-WORKING_DIR = "./data/sim_results/"
+WORKING_DIR = "/media/IntentMedia/rec_data/sim_results/"
 
 for (N, T, rho, beta, sigma, alpha, epsilon) in params
     println("STARTING")
