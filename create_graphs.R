@@ -15,19 +15,20 @@ library(gridExtra)
 #' get_stats_diversity(rec_data, "rho")
 get_stats_diversity <- function(rec_data, var){
   df <- rec_data
+  df <- df %>% group_by(pop_idx, regime, rho, beta, sigma, alpha) %>% mutate(pop_avg_diversity = mean(diversity_score)) %>% slice(1)
   if (var == "rho") { 
     df <- df %>% group_by(regime, rho) 
   } else if (var == "beta") {
     df <- df %>% group_by(regime, beta) 
   } else if (var == "sigma") {
-    df <- rec_data %>% group_by(regime, sigma) 
+    df <- df %>% group_by(regime, sigma) 
   } else if (var == "alpha") {
-    df <- rec_data %>% group_by(regime, alpha)
+    df <- df %>% group_by(regime, alpha)
   }
   
   df <- df %>% 
-    mutate(diversity_mean = mean(diversity_score),
-           diversity_sd = sd(diversity_score),
+    mutate(diversity_mean = mean(pop_avg_diversity),
+           diversity_sd = sd(pop_avg_diversity),
            diversity_n = n()) %>%
     mutate(diversity_se =  diversity_sd/ sqrt(diversity_n),
            lower_ci_diversity = diversity_mean - qt(1 - (0.05 / 2), diversity_n - 1) * diversity_se,
@@ -48,6 +49,7 @@ get_stats_rec <- function(rec_data, var){
   rec_data$follow_recommendation <- as.numeric(levels(rec_data$follow_recommendation)[rec_data$follow_recommendation])
   
   df <- rec_data
+  df <- df %>% group_by(pop_idx, regime, rho, beta, sigma, alpha) %>% mutate(pop_follow_rec_avg = mean(follow_recommendation)) %>% slice(1)
   
   if (var == "rho") { # there must be a better way
     df <- df %>% group_by(rho) 
@@ -60,8 +62,8 @@ get_stats_rec <- function(rec_data, var){
   }
   
   df <- df %>% 
-    mutate(rec_mean = mean(follow_recommendation),
-           rec_sd = sd(follow_recommendation),
+    mutate(rec_mean = mean(pop_follow_rec_avg),
+           rec_sd = sd(pop_follow_rec_avg),
            rec_n = n()) %>%
     mutate(rec_se =  rec_sd/ sqrt(rec_n),
            lower_ci_rec = rec_mean - qt(1 - (0.05 / 2), rec_n - 1) * rec_se,
@@ -80,6 +82,8 @@ get_stats_rec <- function(rec_data, var){
 #' get_stats_welfare(rec_data, "rho")
 get_stats_welfare <- function(rec_data, var){
   df <- rec_data
+  df <- df %>% group_by(pop_idx, regime, rho, beta, sigma, alpha) %>% mutate(pop_welfare_avg = mean(welfare)) %>% slice(1)
+  
   if (var == "rho") {
     df <- df %>% group_by(regime, rho) 
   } else if (var == "beta") {
@@ -91,8 +95,8 @@ get_stats_welfare <- function(rec_data, var){
   }
   
   df <- df %>%
-    mutate(welfare_mean = mean(welfare),
-           welfare_sd = sd(welfare),
+    mutate(welfare_mean = mean(pop_welfare_avg),
+           welfare_sd = sd(pop_welfare_avg),
            welfare_n = n()) %>% 
     mutate(welfare_se =  welfare_sd/ sqrt(welfare_n),
            lower_ci_welfare = welfare_mean - qt(1 - (0.05 / 2), welfare_n - 1) * welfare_se,
@@ -138,11 +142,9 @@ get_stats_homogeneity <- function(stats_df, var){
 #' @param var  one of rho | beta | sigma
 #' @param use_hrbrthemes bool to toggle hrbrthemes
 #' @return ggplot graph
-graph_stats_diversity <- function(df, var, use_hrbrthemes){
+graph_stats_diversity <- function(df, var, N, T_val, use_hrbrthemes){
   # https://stackoverflow.com/questions/22309285/how-to-use-a-variable-to-specify-column-name-in-ggplot
   # graph w/ themes
-  T_val <- df$T[1]
-  N <- df$N[1]
   
   g <- ggplot(df, aes_string(x=var, y="diversity_mean")) +
       geom_line(aes(colour=formatted_regime)) +
@@ -162,10 +164,7 @@ graph_stats_diversity <- function(df, var, use_hrbrthemes){
 #' @param var  one of rho | beta | sigma
 #' @param use_hrbrthemes bool to toggle hrbrthemes
 #' @return ggplot graph
-graph_stats_rec <- function(df, var, use_hrbrthemes){
-  T_val <- df$T[1]
-  N <- df$N[1]
-
+graph_stats_rec <- function(df, var, N, T_val, use_hrbrthemes){
   g <- ggplot(df, aes_string(x=var, y="rec_mean")) +
       geom_line() +
       geom_errorbar(aes(ymin=lower_ci_rec, ymax=upper_ci_rec), width=.02,
@@ -185,9 +184,7 @@ graph_stats_rec <- function(df, var, use_hrbrthemes){
 #' @param var  one of rho | beta | sigma
 #' @param use_hrbrthemes bool to toggle hrbrthemes
 #' @return ggplot graph
-graph_stats_welfare <- function(d, var, use_hrbrthemes){
-  T_val <- d$T[1]
-  N <- d$N[1]
+graph_stats_welfare <- function(d, var, N, T_val, use_hrbrthemes){
   g <- ggplot(d, aes_string(x=var, y="welfare_mean")) +
     geom_line(aes(colour=formatted_regime)) +
     geom_errorbar(aes(ymin=lower_ci_welfare, ymax=upper_ci_welfare), width=.02, position=position_dodge(.9)) + 
@@ -207,9 +204,7 @@ graph_stats_welfare <- function(d, var, use_hrbrthemes){
 #' @param var  one of rho | beta | sigma
 #' @param use_hrbrthemes bool to toggle hrbrthemes
 #' @return ggplot graph
-graph_stats_homo <- function(df, var){
-  T_val <- df$T[1]
-  N <- df$N[1]
+graph_stats_homo <- function(df, var, N, T_val){
   
   if (var == "rho") {
     g <- ggplot(df, aes(x=rho, y=jaccard_mean)) +
@@ -263,44 +258,44 @@ scatter <- function(df, var_x, var_y, use_hrbrthemes, title){
 }
 
 
-process_rec_homo_data <- function(N, T, use_hrbrthemes){
+process_rec_homo_data <- function(N, t, use_hrbrthemes){
   
-  rec_data <- read.csv(paste(WORKING_DIR, "data/rec_data_N_",N,"_t_20.csv", sep=""))
+  rec_data <- read.csv(paste(WORKING_DIR, "data/rec_data_N_",N,"_t_",t,".csv", sep=""))
   rec_data <- rec_data %>% mutate(formatted_regime = ifelse(regime == "omni", "Omniscient", ifelse(regime == "no_rec", "No Rec", "Partial")))
-  
-  homogeneity <- read.csv(paste(WORKING_DIR, "data/homogeneity_data_N_",N,"_t_20.csv", sep=""))
-  homogeneity <- homogeneity %>% mutate(formatted_regime = ifelse(regime == "omni", "Omniscient", ifelse(regime == "no_rec", "No Rec", "Partial")))
+ 
+  #homogeneity <- read.csv(paste(WORKING_DIR, "data/homogeneity_data_N_",N,"_t_",t,".csv", sep=""))
+  #homogeneity <- homogeneity %>% mutate(formatted_regime = ifelse(regime == "omni", "Omniscient", ifelse(regime == "no_rec", "No Rec", "Partial")))
   
   # Calculate the marginal variables
   variables=list("rho", "beta", "sigma", "alpha")
-  metrics=list("diversity", "welfare", "homogeneity")
+  metrics=list("diversity", "welfare")
   
-  for(metric in metrics){
+  for (metric in metrics){
     
     print(metric)
     for(variable in variables){
       print(variable)
       
-      file_name <- paste(WORKING_DIR,"figures/",variable,"_", metric,"_N_", N, "_T_", T, ".jpeg", sep="")
+      file_name <- paste(WORKING_DIR,"figures/",variable,"_", metric,"_N_", N, "_T_", t, ".jpeg", sep="")
       print(file_name)
       
       if (metric == "diversity"){
-        g <- graph_stats_diversity(get_stats_diversity(rec_data, variable), variable, use_hrbrthemes)
+        g <- graph_stats_diversity(get_stats_diversity(rec_data, variable), variable, N, t, use_hrbrthemes)
         ggsave(filename=file_name, plot=g)
       }
       else if (metric == "welfare"){
         #welfare
-        g <- graph_stats_welfare(get_stats_welfare(rec_data, variable), variable,  use_hrbrthemes)
+        g <- graph_stats_welfare(get_stats_welfare(rec_data, variable), variable, N, t, use_hrbrthemes)
         ggsave(filename=file_name, plot=g)
         
-        rec_file_name <- paste(WORKING_DIR, "figures/", variable,"_", metric,"_N_", N, "_T_", T, "_rec.jpeg", sep="")
+        rec_file_name <- paste(WORKING_DIR, "figures/", variable,"_", metric,"_N_", N, "_T_", t, "_rec.jpeg", sep="")
         print(rec_file_name)
-        g <- graph_stats_rec(get_stats_rec(filter(rec_data, regime == "partial"), variable), variable,  use_hrbrthemes)
+        g <- graph_stats_rec(get_stats_rec(filter(rec_data, regime == "partial"), variable), variable, N, t,use_hrbrthemes)
         ggsave(filename=rec_file_name, plot=g)
       } 
       else{
         # homo
-        g <- graph_stats_homo(get_stats_homogeneity(homogeneity, variable), variable)
+        g <- graph_stats_homo(get_stats_homogeneity(homogeneity, variable, N, t), variable)
         ggsave(filename=file_name, plot=g)
       }
     } # END for(variable in variables)
@@ -346,6 +341,8 @@ process_rec_homo_data <- function(N, T, use_hrbrthemes){
     }
   }
   
+ rec_data <- rec_data %>% group_by(pop_idx, regime, rho, beta, sigma, alpha) %>% mutate(pop_welfare_avg = mean(welfare), pop_diversity_avg = mean(diversity_score)) %>% slice(1)
+
   rec_policies <- c("rec", "no_rec", "partial")
   for (rec_policy in rec_policies) {
     title <- paste("Diversity_vs_Welfare_N_",N, "_T_",T,"_", rec_abbrv_to_name(rec_policy), sep="")
@@ -356,11 +353,11 @@ process_rec_homo_data <- function(N, T, use_hrbrthemes){
   }
   
   df <- rec_data %>% group_by(regime) %>%
-    mutate(welfare_mean = mean(welfare),
-           welfare_sd = sd(welfare),
+    mutate(welfare_mean = mean(pop_welfare_avg),
+           welfare_sd = sd(pop_welfare_avg),
            welfare_n = n(),
-           diversity_mean = mean(diversity_score),
-           diversity_sd = sd(diversity_score),
+           diversity_mean = mean(pop_diversity_avg),
+           diversity_sd = sd(pop_diversity_avg),
            diversity_n = n()) %>% 
     mutate(welfare_se =  welfare_sd/ sqrt(welfare_n),
            welfare_mul = qt(1 - (0.05 / 2), welfare_n - 1) * welfare_se,
@@ -415,9 +412,7 @@ get_stats_consumption_diversity_time_path <- function(stats_df, var){
   return(df)
 }
 
-graph_stats_consumption_diversity_time_path <- function(df, var){
-  T_val <- df$T[1]
-  N <- df$N[1]
+graph_stats_consumption_diversity_time_path <- function(df, var, N, T_val){
   
   g <- ggplot(df, aes_string(x=var, y="local_move_mean")) +
     geom_line() +
@@ -433,10 +428,10 @@ graph_stats_consumption_diversity_time_path <- function(df, var){
   return(g)
 }
 
-process_time_path <- function(N, T, use_hrbrthemes){
+process_time_path <- function(N, t, use_hrbrthemes){
   
   # define the metric for consumption distribution
-  time_data <- read.csv(paste(WORKING_DIR, "data/time_path_n_",N,"_t_", T, ".csv", sep=""))
+  time_data <- read.csv(paste(WORKING_DIR, "data/time_path_n_",N,"_t_", t, ".csv", sep=""))
   time_data <- time_data %>% mutate(formatted_regime = ifelse(regime == "omni", "Omniscient", ifelse(regime == "no_rec", "No Rec", "Partial")))
   time_data <- time_data %>% mutate(local_move = as.numeric(consumption_dist < (N* 0.05)))
 
@@ -465,8 +460,8 @@ process_time_path <- function(N, T, use_hrbrthemes){
   variables=list("rho", "beta", "sigma", "alpha")
   for(variable in variables){
     tmp <- get_stats_consumption_diversity_time_path(t, variable)
-    g <- graph_stats_consumption_diversity_time_path(tmp, variable)
-    file_name <- paste(WORKING_DIR, "figures/", variable, "_time_path_local_search_N_", N,"T_", T,".jpeg", sep="")
+    g <- graph_stats_consumption_diversity_time_path(tmp, variable, N, t)
+    file_name <- paste(WORKING_DIR, "figures/", variable, "_time_path_local_search_N_", N,"T_", t,".jpeg", sep="")
     ggsave(filename=file_name, plot=g)
   }
   
@@ -486,8 +481,6 @@ process_time_path <- function(N, T, use_hrbrthemes){
     filename=paste(WORKING_DIR, "figures/rec_obedience_N_", N, "_T_", T, ".jpeg", sep=""), 
     plot=g
   )
-    
-  
 }
 
 
@@ -495,23 +488,13 @@ process_time_path <- function(N, T, use_hrbrthemes){
 ### MAIN
 
 USER <- Sys.getenv( "USER" )
-WORKING_DIR <- paste("/Users/",USER, "/ExAnteFilterBubble/", sep="")
+WORKING_DIR <- paste("/Users/",USER, "/Desktop/ExAnteFilterBubble/", sep="")
 setwd(WORKING_DIR)
 use_hrbrthemes <- FALSE
 
-N_s <- list(2000, 200)
+N_s <- list(200, 2000)
 
 for(N in N_s){
   process_rec_homo_data(N, 20, use_hrbrthemes)
-  process_time_path(N, 20, use_hrbrthemes)
+  #process_time_path(N, 20, use_hrbrthemes)
 }
-
-
-
-
-
-
-
-
-
-

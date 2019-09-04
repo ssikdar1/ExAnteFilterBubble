@@ -1,6 +1,6 @@
 using Distributed
 using JSON
-addprocs(17)
+#addprocs(1)
 @everywhere using IterTools;
 @everywhere using Dates;
 @everywhere using Distances;
@@ -365,6 +365,7 @@ end
         C_iT = choice_omni(copy(U_i),T,N, Nset)
         C_pop["omni"][it_ind,:] = C_iT
         W_pop["omni"][it_ind,:] = U_i[C_iT]
+        print(W_pop["omni"][it_ind,:])
 
  
         ## PARTIAL REC Case
@@ -411,6 +412,10 @@ println(length(collect(params)))
 #WORKING_DIR = "/Users/guyaridor/Desktop/ExAnteFilterBubble/data/sim_results/"
 WORKING_DIR = "/media/IntentMedia/rec_data/sim_results/"
 
+NUM_SIMS_TO_WRITE = 25
+total_count = 0
+file_idx = 1
+sim_results = Dict()
 for (N, T, rho, beta, sigma, alpha, epsilon) in params
     println("STARTING")
     println("N: $N, T: $T, ρ: $rho β: $beta σ: $sigma α: $alpha  ε: $epsilon")
@@ -426,16 +431,18 @@ for (N, T, rho, beta, sigma, alpha, epsilon) in params
     end
 
     Sigma_V_ibar = cov_mat_fun(sigma_ibar,rho_ibar,N)
-
-    sim_results = Dict()
-
     sim_results[(N, T, rho, beta, sigma, alpha, epsilon, nr_pop, nr_ind)] = @sync @distributed vcat for i= 1:nr_pop
         simulate(N, T,sigma, sigma_i, sigma_ibar, beta, nr_ind, Sigma_V_i,  Sigma_V,  Sigma_V_ibar,  alpha, epsilon, i)
     end
-
-    file_name = string("new_sim_",N,"_",T,"_",rho,"_",beta,"_",sigma,"_",alpha,"_",epsilon,".json")
-    open(string(WORKING_DIR, file_name),"w") do f
-        JSON.print(f, sim_results)
+    if total_count > NUM_SIMS_TO_WRITE
+        file_name = string("new_sim_",N,"_",T,"_",file_idx,".json")
+        open(string(WORKING_DIR, file_name),"w") do f
+            JSON.print(f, sim_results)
+        end
+        file_idx = file_idx + 1
+        total_count = 0
+    else
+        total_count = total_count + 1
     end
 end
 
