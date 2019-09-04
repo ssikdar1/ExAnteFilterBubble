@@ -77,7 +77,6 @@ with open(WORKING_DIR + 'rec_data.csv', 'w') as rec_csv:
 
         for key, value in df.items():
             for pop_idx in range(len(value)):
-                print(pop_idx)
                 dat = parse_pickle_key(key)
                 T = dat['T']
                 N = dat['N']
