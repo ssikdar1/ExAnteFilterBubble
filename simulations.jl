@@ -1,6 +1,6 @@
 using Distributed
 using JSON
-#addprocs(17)
+addprocs(17)
 @everywhere using IterTools;
 @everywhere using Dates;
 @everywhere using Distances;
@@ -378,9 +378,9 @@ end
 end
 
 #
-nr_pop = 5
+nr_pop = 100
 #
-nr_ind = 5
+nr_ind = 100
 #
 sigma_ibar = .1
 #
@@ -408,13 +408,13 @@ params = Iterators.product(N_vals, T_vals, rho_vals, beta_vals, sigma_vals, alph
 
 println(length(collect(params)))
 
-WORKING_DIR = "/Users/guyaridor/Desktop/ExAnteFilterBubble/data/sim_results/"
-#WORKING_DIR = "/media/IntentMedia/rec_data/sim_results/"
+#WORKING_DIR = "/Users/guyaridor/Desktop/ExAnteFilterBubble/data/sim_results/"
+WORKING_DIR = "/media/IntentMedia/rec_data/sim_results/"
 
-NUM_SIMS_TO_WRITE = 25
-file_idx = 1
-sim_results = Dict()
-total_num = 0
+global NUM_SIMS_TO_WRITE = 25
+global file_idx = 1
+global sim_results = Dict()
+global total_num = 0
 
 for (N, T, rho, beta, sigma, alpha, epsilon) in params
     println("STARTING")
@@ -430,25 +430,26 @@ for (N, T, rho, beta, sigma, alpha, epsilon) in params
         Sigma_V = Sigma_V / beta^2
     end
     Sigma_V_ibar = cov_mat_fun(sigma_ibar,rho_ibar,N)
-    sim_results[(N, T, rho, beta, sigma, alpha, epsilon, nr_pop, nr_ind)] = @sync @distributed vcat for i= 1:nr_pop
+    global sim_results[(N, T, rho, beta, sigma, alpha, epsilon, nr_pop, nr_ind)] = @sync @distributed vcat for i= 1:nr_pop
         simulate(N, T,sigma, sigma_i, sigma_ibar, beta, nr_ind, Sigma_V_i,  Sigma_V,  Sigma_V_ibar,  alpha, epsilon, i)
     end
+    total_num = total_num
     if total_num > NUM_SIMS_TO_WRITE
-        file_name = string("new_sim_",N,"_",T,"_",file_idx,".json")
+        file_name = string("new_sim_",file_idx,".json")
         open(string(WORKING_DIR, file_name),"w") do f
             JSON.print(f, sim_results)
         end
-        file_idx = file_idx + 1
-        total_num = 0
-        sim_results = Dict()
+        global file_idx = file_idx + 1
+        global total_num = 0
+        global sim_results = Dict()
     else
         #print(NUM_SIMS_TO_WRITE)
         #print(total_num)
-        total_num  = total_num + 1
+        global total_num  = total_num + 1
     end
 end
 
-file_name = string("new_sim_",N,"_",T,"_",file_idx,".json")
+file_name = string("new_sim_",file_idx,".json")
 open(string(WORKING_DIR, file_name),"w") do f
     JSON.print(f, sim_results)
 end
