@@ -91,7 +91,7 @@ with open(WORKING_DIR + 'rec_data.csv', 'w') as rec_csv:
                     for indiv_idx in range(len(welfare[policy])):
                         dat['indiv_idx'] = indiv_idx
                         welfare_arr = np.array(welfare[policy])
-                        dat['welfare'] = np.sum(welfare_arr) / T
+                        dat['welfare'] = np.sum(welfare_arr[:,indiv_idx]) / T
                         consumption_arr = np.array(consumption[policy])
                         dat['diversity_score'] = div_fun(consumption_arr[:,indiv_idx], T, N)
                         dat['follow_recommendation'] = False
