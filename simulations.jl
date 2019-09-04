@@ -365,7 +365,6 @@ end
         C_iT = choice_omni(copy(U_i),T,N, Nset)
         C_pop["omni"][it_ind,:] = C_iT
         W_pop["omni"][it_ind,:] = U_i[C_iT]
-        print(W_pop["omni"][it_ind,:])
 
  
         ## PARTIAL REC Case
