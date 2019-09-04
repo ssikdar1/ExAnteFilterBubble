@@ -13,7 +13,7 @@ def get_files(root_path):
   dat_files = set()
   for (root, dirs, files) in os.walk(root_path, topdown=True):
     for file in files:
-        dat_files.add(root_path + '/' + file)
+        dat_files.add(root_path + file)
 
   dat_files = list(dat_files)
   return dat_files
