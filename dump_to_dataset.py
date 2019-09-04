@@ -71,6 +71,7 @@ with open(WORKING_DIR + 'rec_data.csv', 'w') as rec_csv:
     data_writer = csv.DictWriter(rec_csv, fieldnames=INDIVIDUAL_FIELD_NAMES)
     data_writer.writeheader()
     for file in data_files:
+        print(file)
         df = None
         with open(file, 'r') as fp:
             df = json.load(fp)
@@ -98,11 +99,13 @@ with open(WORKING_DIR + 'rec_data.csv', 'w') as rec_csv:
                             dat['follow_recommendation'] = follow_rec(consumption_arr[:,indiv_idx], follow_rec_arr[:,indiv_idx], T, N)
                         data_writer.writerow(copy(dat))
 
+print("STARTING HOMOGENEITY")
 INDIVIDUAL_FIELD_NAMES =['pop_idx', 'regime', 'rho', 'beta', 'N', 'T', 'sigma', 'jaccard', 'beta', 'alpha', 'epsilon', 'nr_pop', 'nr_ind']
 with open(WORKING_DIR + 'homogeneity_data.csv', 'w') as rec_csv:
     data_writer = csv.DictWriter(rec_csv, fieldnames=INDIVIDUAL_FIELD_NAMES)
     data_writer.writeheader()
     for file in data_files:
+        print(file)
         df = None
         with open(file, 'r') as fp:
             df = json.load(fp)
@@ -130,11 +133,13 @@ with open(WORKING_DIR + 'homogeneity_data.csv', 'w') as rec_csv:
                     cur_dat = copy(dat)
                     data_writer.writerow(cur_dat)
 
+print("STARTING TIME PATH")
 INDIVIDUAL_FIELD_NAMES =['pop_idx', 'regime', 'rho', 'beta', 'epsilon', 'alpha', 'N', 'T', 'sigma', 't', 'follow_recommendation', 'consumption_dist', 'cur_utility', 'cumulative_utility', 'utility_difference']
 with open(WORKING_DIR + 'time_path.csv', 'w') as rec_csv:
     data_writer = csv.DictWriter(rec_csv, fieldnames=INDIVIDUAL_FIELD_NAMES)
     data_writer.writeheader()
     for file in data_files:
+        print(file)
         df = None
         with open(file, 'r') as fp:
             df = json.load(fp)
