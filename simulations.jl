@@ -433,19 +433,18 @@ for (N, T, rho, beta, sigma, alpha, epsilon) in params
     sim_results[(N, T, rho, beta, sigma, alpha, epsilon, nr_pop, nr_ind)] = @sync @distributed vcat for i= 1:nr_pop
         simulate(N, T,sigma, sigma_i, sigma_ibar, beta, nr_ind, Sigma_V_i,  Sigma_V,  Sigma_V_ibar,  alpha, epsilon, i)
     end
-    print(total_num)
-    if 2 > 1
+    if total_num > NUM_SIMS_TO_WRITE
         file_name = string("new_sim_",N,"_",T,"_",file_idx,".json")
         open(string(WORKING_DIR, file_name),"w") do f
             JSON.print(f, sim_results)
         end
-        #file_idx = file_idx + 1
-        #total_num = 0
-        #sim_results = Dict()
+        file_idx = file_idx + 1
+        total_num = 0
+        sim_results = Dict()
     else
-        print(NUM_SIMS_TO_WRITE)
+        #print(NUM_SIMS_TO_WRITE)
         #print(total_num)
-        #total_num += 1
+        total_num  = total_num + 1
     end
 end
 
