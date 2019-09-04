@@ -441,8 +441,14 @@ for (N, T, rho, beta, sigma, alpha, epsilon) in params
         end
         file_idx = file_idx + 1
         total_count = 0
+        sim_results = Dict()
     else
         total_count = total_count + 1
     end
+end
+
+file_name = string("new_sim_",N,"_",T,"_",file_idx,".json")
+open(string(WORKING_DIR, file_name),"w") do f
+    JSON.print(f, sim_results)
 end
 
