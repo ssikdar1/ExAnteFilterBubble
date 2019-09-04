@@ -5,7 +5,7 @@ import json
 from copy import copy
 import numpy as np
 
-
+import datetime
 from scipy.spatial.distance import jaccard, euclidean 
 from simulations import iota
 
@@ -72,6 +72,7 @@ with open(WORKING_DIR + 'rec_data.csv', 'w') as rec_csv:
     data_writer.writeheader()
     for file in data_files:
         print(file)
+        print("@ {}".format(datetime.datetime.now()))
         df = None
         with open(file, 'r') as fp:
             df = json.load(fp)
@@ -106,6 +107,7 @@ with open(WORKING_DIR + 'homogeneity_data.csv', 'w') as rec_csv:
     data_writer.writeheader()
     for file in data_files:
         print(file)
+        print("@ {}".format(datetime.datetime.now()))
         df = None
         with open(file, 'r') as fp:
             df = json.load(fp)
@@ -140,6 +142,7 @@ with open(WORKING_DIR + 'time_path.csv', 'w') as rec_csv:
     data_writer.writeheader()
     for file in data_files:
         print(file)
+        print("@ {}".format(datetime.datetime.now()))
         df = None
         with open(file, 'r') as fp:
             df = json.load(fp)
