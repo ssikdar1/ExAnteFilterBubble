@@ -136,7 +136,7 @@ def parse_pickle_key(key):
 #                    data_writer.writerow(cur_dat)
 
 print("STARTING TIME PATH")
-INDIVIDUAL_FIELD_NAMES =['pop_idx', 'regime', 'rho', 'beta', 'epsilon', 'alpha', 'N', 'T', 'sigma', 't', 'follow_recommendation', 'consumption_dist', 'cur_utility', 'average_cumulative_utility', 'utility_difference']
+INDIVIDUAL_FIELD_NAMES =['pop_idx', 'regime', 'rho', 'beta', 'epsilon', 'alpha', 'N', 'T', 'sigma', 't', 'follow_recommendation', 'consumption_dist', 'cur_utility', 'average_cumulative_utility', 'utility_difference', 'local_move']
 with open(WORKING_DIR + 'time_path.csv', 'w') as rec_csv:
     data_writer = csv.DictWriter(rec_csv, fieldnames=INDIVIDUAL_FIELD_NAMES)
     data_writer.writeheader()
@@ -179,30 +179,7 @@ with open(WORKING_DIR + 'time_path.csv', 'w') as rec_csv:
                         # instantaneous (at time t) welfare avg
 
                         # local move avg 
-
+                        dat['local_move'] =  int(dat['consumption_dist'] < (dat['N'] * 0.05))
+                        
                         cur_dat = copy(dat)
                         data_writer.writerow(cur_dat)
-
-                    #for indiv_idx in range(len(consumption_arr[0,:])): 
-                    #    c1 = consumption_arr[:,indiv_idx]
-                    #    prev_consumption = None
-                    #    prev_welfare = None
-                    #    rec = None
-                    #    if policy == PARTIAL:
-                    #        rec = follow_rec_arr[:,indiv_idx]
-                    #    cumulative_welfare = 0.0
-                    #    for t in range(len(c1)):
-                    #        dat['t'] = t
-                    #        dat['cur_utility'] = welf[t]
-                    #        cumulative_welfare += welf[t]
-                    #        dat['cumulative_utility'] = cumulative_welfare
-                    #        if prev_consumption != None:
-                    #            dat['consumption_dist'] = d(prev_consumption, c1[t], N)
-                    #            dat['utility_difference'] = welf[t] - prev_welfare
-                    #        prev_consumption = c1[t]
-                    #        prev_welfare = welf[t]
-                    #        dat['follow_recommendation'] = False
-                    #        if policy == PARTIAL:
-                    #            dat['follow_recommendation'] = c1[t] == rec[t]
-                    #        cur_dat = copy(dat)
-                    #        data_writer.writerow(cur_dat)
