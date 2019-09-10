@@ -136,7 +136,7 @@ with open(WORKING_DIR + 'homogeneity_data.csv', 'w') as rec_csv:
                     data_writer.writerow(cur_dat)
 
 print("STARTING TIME PATH")
-INDIVIDUAL_FIELD_NAMES =['pop_idx', 'regime', 'rho', 'beta', 'epsilon', 'alpha', 'N', 'T', 'sigma', 't', 'follow_recommendation', 'consumption_dist', 'cur_utility', 'average_cumulative_utility', 'utility_difference', 'local_move']
+INDIVIDUAL_FIELD_NAMES =['pop_idx', 'regime', 'rho', 'beta', 'epsilon', 'alpha', 'N', 'T', 'sigma', 't', 'follow_recommendation', 'consumption_dist', 'cur_utility', 'average_cumulative_utility', 'utility_difference', 'local_move', 'instantaneous_welfare_average']
 with open(WORKING_DIR + 'time_path.csv', 'w') as rec_csv:
     data_writer = csv.DictWriter(rec_csv, fieldnames=INDIVIDUAL_FIELD_NAMES)
     data_writer.writeheader()
@@ -162,6 +162,7 @@ with open(WORKING_DIR + 'time_path.csv', 'w') as rec_csv:
                     if policy == PARTIAL:
                         follow_rec_arr = np.array(cur['Rec'][policy])
                     
+                    cum_welfare = 0
                     for t in range(int(dat['T'])) :
                         dat['t'] = t
 
@@ -177,6 +178,8 @@ with open(WORKING_DIR + 'time_path.csv', 'w') as rec_csv:
                         dat['average_cumulative_utility'] = np.mean(welfare_arr[t, :])
 
                         # instantaneous (at time t) welfare avg
+                        cum_welfare += np.mean(welfare_arr[t, :])
+                        dat['instantaneous_welfare_average'] = float(cum_welfare)/dat['T']
 
                         # local move avg 
                         dat['local_move'] =  int(dat['consumption_dist'] < (dat['N'] * 0.05))
