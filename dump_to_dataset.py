@@ -66,74 +66,74 @@ def parse_pickle_key(key):
     return dat
 
 
-#INDIVIDUAL_FIELD_NAMES =['pop_idx', 'indiv_idx', 'regime', 'welfare', 'diversity_score', 'rho', 'beta', 'epsilon', 'follow_recommendation', 'N', 'T', 'sigma', 'alpha', 'nr_pop', 'nr_ind']
-#with open(WORKING_DIR + 'rec_data.csv', 'w') as rec_csv:
-#    data_writer = csv.DictWriter(rec_csv, fieldnames=INDIVIDUAL_FIELD_NAMES)
-#    data_writer.writeheader()
-#    for file in data_files:
-#        print(file)
-#        print("@ {}".format(datetime.datetime.now()))
-#        df = None
-#        with open(file, 'r') as fp:
-#            df = json.load(fp)
-#
-#        for key, value in df.items():
-#            for pop_idx in range(len(value)):
-#                dat = parse_pickle_key(key)
-#                T = dat['T']
-#                N = dat['N']
-#                dat['pop_idx'] = pop_idx
-#                cur = value[pop_idx]
-#                welfare = cur['Welfare']
-#                consumption = cur['Consumption']
-#                for policy in rec_policy_keys:
-#                    dat['regime'] = policy
-#                    for indiv_idx in range(len(welfare[policy])):
-#                        dat['indiv_idx'] = indiv_idx
-#                        welfare_arr = np.array(welfare[policy])
-#                        dat['welfare'] = np.sum(welfare_arr[:,indiv_idx]) / T
-#                        consumption_arr = np.array(consumption[policy])
-#                        dat['diversity_score'] = div_fun(consumption_arr[:,indiv_idx], T, N)
-#                        dat['follow_recommendation'] = False
-#                        if policy == PARTIAL:
-#                            follow_rec_arr = np.array(cur['Rec'][policy])
-#                            dat['follow_recommendation'] = follow_rec(consumption_arr[:,indiv_idx], follow_rec_arr[:,indiv_idx], T, N)
-#                        data_writer.writerow(copy(dat))
-#
-#print("STARTING HOMOGENEITY")
-#INDIVIDUAL_FIELD_NAMES =['pop_idx', 'regime', 'rho', 'beta', 'N', 'T', 'sigma', 'jaccard', 'beta', 'alpha', 'epsilon', 'nr_pop', 'nr_ind']
-#with open(WORKING_DIR + 'homogeneity_data.csv', 'w') as rec_csv:
-#    data_writer = csv.DictWriter(rec_csv, fieldnames=INDIVIDUAL_FIELD_NAMES)
-#    data_writer.writeheader()
-#    for file in data_files:
-#        print(file)
-#        print("@ {}".format(datetime.datetime.now()))
-#        df = None
-#        with open(file, 'r') as fp:
-#            df = json.load(fp)
-#        for key, value in df.items():
-#            for pop_idx in range(len(value)):
-#                dat = parse_pickle_key(key)
-#                T = dat['T']
-#                N = dat['N']
-#                cur = value[pop_idx]
-#                consumption = cur['Consumption']
-#                for policy in rec_policy_keys:
-#                    dat['regime'] = policy
-#                    consumption_arr = np.array(consumption[policy])
-#                    iter_size = len(consumption_arr[0,:])
-#                    tot = 0.0
-#                    for indiv_idx1 in range(iter_size):
-#                        for indiv_idx2 in range(iter_size):
-#                            if indiv_idx1 == indiv_idx2: continue
-#                            c1 = consumption_arr[:,indiv_idx1]
-#                            c2 = consumption_arr[:,indiv_idx2]
-#                            dist = homogeneity(c1, c2, "jaccard")
-#                            tot += dist
-#                    tot /= (iter_size * (iter_size - 1))
-#                    dat['jaccard'] = tot
-#                    cur_dat = copy(dat)
-#                    data_writer.writerow(cur_dat)
+INDIVIDUAL_FIELD_NAMES =['pop_idx', 'indiv_idx', 'regime', 'welfare', 'diversity_score', 'rho', 'beta', 'epsilon', 'follow_recommendation', 'N', 'T', 'sigma', 'alpha', 'nr_pop', 'nr_ind']
+with open(WORKING_DIR + 'rec_data.csv', 'w') as rec_csv:
+    data_writer = csv.DictWriter(rec_csv, fieldnames=INDIVIDUAL_FIELD_NAMES)
+    data_writer.writeheader()
+    for file in data_files:
+        print(file)
+        print("@ {}".format(datetime.datetime.now()))
+        df = None
+        with open(file, 'r') as fp:
+            df = json.load(fp)
+
+        for key, value in df.items():
+            for pop_idx in range(len(value)):
+                dat = parse_pickle_key(key)
+                T = dat['T']
+                N = dat['N']
+                dat['pop_idx'] = pop_idx
+                cur = value[pop_idx]
+                welfare = cur['Welfare']
+                consumption = cur['Consumption']
+                for policy in rec_policy_keys:
+                    dat['regime'] = policy
+                    for indiv_idx in range(len(welfare[policy])):
+                        dat['indiv_idx'] = indiv_idx
+                        welfare_arr = np.array(welfare[policy])
+                        dat['welfare'] = np.sum(welfare_arr[:,indiv_idx]) / T
+                        consumption_arr = np.array(consumption[policy])
+                        dat['diversity_score'] = div_fun(consumption_arr[:,indiv_idx], T, N)
+                        dat['follow_recommendation'] = False
+                        if policy == PARTIAL:
+                            follow_rec_arr = np.array(cur['Rec'][policy])
+                            dat['follow_recommendation'] = follow_rec(consumption_arr[:,indiv_idx], follow_rec_arr[:,indiv_idx], T, N)
+                        data_writer.writerow(copy(dat))
+
+print("STARTING HOMOGENEITY")
+INDIVIDUAL_FIELD_NAMES =['pop_idx', 'regime', 'rho', 'beta', 'N', 'T', 'sigma', 'jaccard', 'beta', 'alpha', 'epsilon', 'nr_pop', 'nr_ind']
+with open(WORKING_DIR + 'homogeneity_data.csv', 'w') as rec_csv:
+    data_writer = csv.DictWriter(rec_csv, fieldnames=INDIVIDUAL_FIELD_NAMES)
+    data_writer.writeheader()
+    for file in data_files:
+        print(file)
+        print("@ {}".format(datetime.datetime.now()))
+        df = None
+        with open(file, 'r') as fp:
+            df = json.load(fp)
+        for key, value in df.items():
+            for pop_idx in range(len(value)):
+                dat = parse_pickle_key(key)
+                T = dat['T']
+                N = dat['N']
+                cur = value[pop_idx]
+                consumption = cur['Consumption']
+                for policy in rec_policy_keys:
+                    dat['regime'] = policy
+                    consumption_arr = np.array(consumption[policy])
+                    iter_size = len(consumption_arr[0,:])
+                    tot = 0.0
+                    for indiv_idx1 in range(iter_size):
+                        for indiv_idx2 in range(iter_size):
+                            if indiv_idx1 == indiv_idx2: continue
+                            c1 = consumption_arr[:,indiv_idx1]
+                            c2 = consumption_arr[:,indiv_idx2]
+                            dist = homogeneity(c1, c2, "jaccard")
+                            tot += dist
+                    tot /= (iter_size * (iter_size - 1))
+                    dat['jaccard'] = tot
+                    cur_dat = copy(dat)
+                    data_writer.writerow(cur_dat)
 
 print("STARTING TIME PATH")
 INDIVIDUAL_FIELD_NAMES =['pop_idx', 'regime', 'rho', 'beta', 'epsilon', 'alpha', 'N', 'T', 'sigma', 't', 'follow_recommendation', 'consumption_dist', 'cur_utility', 'average_cumulative_utility', 'utility_difference', 'local_move']
