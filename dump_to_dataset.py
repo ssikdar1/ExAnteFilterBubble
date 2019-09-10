@@ -166,9 +166,17 @@ with open(WORKING_DIR + 'time_path.csv', 'w') as rec_csv:
                         dat['t'] = t
 
                         # consumption dist average    
+                        c1 =  np.mean(consumption_arr[t, :])
+                        if t != 0:
+                            c2 = np.mean(consumption_arr[t-1, :]) 
+                            dat['consumption_dist'] = d(c2, c1, N)
+                        else:
+                            dat['consumption_dist'] = 0
                         
                         # cumulative welfare avg
                         dat['average_cumulative_utility'] = np.mean(welfare_arr[t, :])
+
+                        # instantaneous (at time t) welfare avg
 
                         # local move avg 
 
