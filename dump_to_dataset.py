@@ -136,10 +136,11 @@ with open(WORKING_DIR + 'homogeneity_data.csv', 'w') as rec_csv:
                     data_writer.writerow(cur_dat)
 
 print("STARTING TIME PATH")
-INDIVIDUAL_FIELD_NAMES =['pop_idx', 'regime', 'rho', 'beta', 'epsilon', 'alpha', 'N', 'T', 'sigma', 't', 'follow_recommendation', 'consumption_dist', 'cur_utility', 'cumulative_utility', 'utility_difference']
+INDIVIDUAL_FIELD_NAMES =['pop_idx', 'regime', 'rho', 'beta', 'epsilon', 'alpha', 'N', 'T', 'sigma', 't', 'follow_recommendation', 'consumption_dist', 'cur_utility', 'average_cumulative_utility', 'utility_difference', 'local_move', 'instantaneous_welfare_average']
 with open(WORKING_DIR + 'time_path.csv', 'w') as rec_csv:
     data_writer = csv.DictWriter(rec_csv, fieldnames=INDIVIDUAL_FIELD_NAMES)
     data_writer.writeheader()
+    data_files = ["/media/IntentMedia/rec_data/sim_results/new_sim_34.json"]
     for file in data_files:
         print(file)
         print("@ {}".format(datetime.datetime.now()))
@@ -160,27 +161,28 @@ with open(WORKING_DIR + 'time_path.csv', 'w') as rec_csv:
                     dat['regime'] = policy
                     if policy == PARTIAL:
                         follow_rec_arr = np.array(cur['Rec'][policy])
-                    for indiv_idx in range(len(consumption_arr[0,:])):
-                        c1 = consumption_arr[:,indiv_idx]
-                        welf = welfare_arr[:,indiv_idx]
-                        prev_consumption = None
-                        prev_welfare = None
-                        rec = None
-                        if policy == PARTIAL:
-                            rec = follow_rec_arr[:,indiv_idx]
-                        cumulative_welfare = 0.0
-                        for t in range(len(c1)):
-                            dat['t'] = t
-                            dat['cur_utility'] = welf[t]
-                            cumulative_welfare += welf[t]
-                            dat['cumulative_utility'] = cumulative_welfare
-                            if prev_consumption != None:
-                                dat['consumption_dist'] = d(prev_consumption, c1[t], N)
-                                dat['utility_difference'] = welf[t] - prev_welfare
-                            prev_consumption = c1[t]
-                            prev_welfare = welf[t]
-                            dat['follow_recommendation'] = False
-                            if policy == PARTIAL:
-                                dat['follow_recommendation'] = c1[t] == rec[t]
-                            cur_dat = copy(dat)
-                            data_writer.writerow(cur_dat)
+                    
+                    cum_welfare = 0
+                    for t in range(int(dat['T'])) :
+                        dat['t'] = t
+
+                        # consumption dist average    
+                        c1 =  np.mean(consumption_arr[t, :])
+                        if t != 0:
+                            c2 = np.mean(consumption_arr[t-1, :]) 
+                            dat['consumption_dist'] = d(c2, c1, N)
+                        else:
+                            dat['consumption_dist'] = 0
+                        
+                        # cumulative welfare avg
+                        dat['average_cumulative_utility'] = np.mean(welfare_arr[t, :])
+
+                        # instantaneous (at time t) welfare avg
+                        cum_welfare += np.mean(welfare_arr[t, :])
+                        dat['instantaneous_welfare_average'] = float(cum_welfare)/dat['T']
+
+                        # local move avg 
+                        dat['local_move'] =  int(dat['consumption_dist'] < (dat['N'] * 0.05))
+                        
+                        cur_dat = copy(dat)
+                        data_writer.writerow(cur_dat)
