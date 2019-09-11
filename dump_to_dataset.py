@@ -65,7 +65,7 @@ def parse_pickle_key(key):
     }
     return dat
 
-
+'''
 INDIVIDUAL_FIELD_NAMES =['pop_idx', 'indiv_idx', 'regime', 'welfare', 'diversity_score', 'rho', 'beta', 'epsilon', 'follow_recommendation', 'N', 'T', 'sigma', 'alpha', 'nr_pop', 'nr_ind']
 with open(WORKING_DIR + 'rec_data.csv', 'w') as rec_csv:
     data_writer = csv.DictWriter(rec_csv, fieldnames=INDIVIDUAL_FIELD_NAMES)
@@ -134,13 +134,12 @@ with open(WORKING_DIR + 'homogeneity_data.csv', 'w') as rec_csv:
                     dat['jaccard'] = tot
                     cur_dat = copy(dat)
                     data_writer.writerow(cur_dat)
-
+'''
 print("STARTING TIME PATH")
-INDIVIDUAL_FIELD_NAMES =['pop_idx', 'regime', 'rho', 'beta', 'epsilon', 'alpha', 'N', 'T', 'sigma', 't', 'follow_recommendation', 'consumption_dist', 'cur_utility', 'average_cumulative_utility', 'utility_difference', 'local_move', 'instantaneous_welfare_average']
+INDIVIDUAL_FIELD_NAMES =['pop_idx', 'regime', 'rho', 'beta', 'epsilon', 'alpha', 'N', 'T', 'sigma', 't', 'follow_recommendation', 'consumption_dist', 'cur_utility', 'average_cumulative_utility', 'utility_difference', 'local_move_05', 'local_move_025', 'local_move_10', 'instantaneous_welfare_average']
 with open(WORKING_DIR + 'time_path.csv', 'w') as rec_csv:
     data_writer = csv.DictWriter(rec_csv, fieldnames=INDIVIDUAL_FIELD_NAMES)
     data_writer.writeheader()
-    data_files = ["/media/IntentMedia/rec_data/sim_results/new_sim_34.json"]
     for file in data_files:
         print(file)
         print("@ {}".format(datetime.datetime.now()))
@@ -166,23 +165,25 @@ with open(WORKING_DIR + 'time_path.csv', 'w') as rec_csv:
                     for t in range(int(dat['T'])) :
                         dat['t'] = t
 
-                        # consumption dist average    
-                        c1 =  np.mean(consumption_arr[t, :])
+                        # consumption dist average
+                        l = len(consumption_arr[t, :])
                         if t != 0:
-                            c2 = np.mean(consumption_arr[t-1, :]) 
-                            dat['consumption_dist'] = d(c2, c1, N)
+                            distance = [d(consumption_arr[t, cur], consumption_arr[t-1, cur], N) for cur in range(l)]
+                            dat['consumption_dist'] = np.mean(distance)
                         else:
                             dat['consumption_dist'] = 0
                         
                         # cumulative welfare avg
-                        dat['average_cumulative_utility'] = np.mean(welfare_arr[t, :])
+                        dat['instantaneous_welfare_average'] = np.mean(welfare_arr[t, :])
 
                         # instantaneous (at time t) welfare avg
                         cum_welfare += np.mean(welfare_arr[t, :])
-                        dat['instantaneous_welfare_average'] = float(cum_welfare)/dat['T']
+                        dat['average_cumulative_utility'] = float(cum_welfare)/dat['T']
 
                         # local move avg 
-                        dat['local_move'] =  int(dat['consumption_dist'] < (dat['N'] * 0.05))
+                        dat['local_move_05'] =  int(dat['consumption_dist'] < (dat['N'] * 0.05))
+                        dat['local_move_025'] =  int(dat['consumption_dist'] < (dat['N'] * 0.025))
+                        dat['local_move_10'] =  int(dat['consumption_dist'] < (dat['N'] * 0.1))
                         
                         cur_dat = copy(dat)
                         data_writer.writerow(cur_dat)
