@@ -13,22 +13,20 @@ library(gridExtra)
 #' @return Dataframe w/ mean and confidence intervals
 #' @examples
 #' get_stats_diversity(rec_data, "rho")
-get_stats_diversity <- function(rec_data, var){
-  df <- rec_data
-  df <- df %>% group_by(pop_idx, regime, rho, beta, sigma, alpha) %>% mutate(pop_avg_diversity = mean(diversity_score)) %>% slice(1)
+get_stats_diversity <- function(df, var){
   if (var == "rho") { 
-    df <- df %>% group_by(regime, rho) 
+    df <- df %>% group_by(formatted_regime, rho) 
   } else if (var == "beta") {
-    df <- df %>% group_by(regime, beta) 
+    df <- df %>% group_by(formatted_regime, beta) 
   } else if (var == "sigma") {
-    df <- df %>% group_by(regime, sigma) 
+    df <- df %>% group_by(formatted_regime, sigma) 
   } else if (var == "alpha") {
-    df <- df %>% group_by(regime, alpha)
+    df <- df %>% group_by(formatted_regime, alpha)
   }
   
   df <- df %>% 
-    mutate(diversity_mean = mean(pop_avg_diversity),
-           diversity_sd = sd(pop_avg_diversity),
+    mutate(diversity_mean = mean(pop_diversity_avg),
+           diversity_sd = sd(pop_diversity_avg),
            diversity_n = n()) %>%
     mutate(diversity_se =  diversity_sd/ sqrt(diversity_n),
            lower_ci_diversity = diversity_mean - qt(1 - (0.05 / 2), diversity_n - 1) * diversity_se,
@@ -45,20 +43,15 @@ get_stats_diversity <- function(rec_data, var){
 #' @return Dataframe w/ mean and confidence intervals
 #' @examples
 #' get_stats_rec(rec_data, "rho")
-get_stats_rec <- function(rec_data, var){
-  rec_data$follow_recommendation <- as.numeric(levels(rec_data$follow_recommendation)[rec_data$follow_recommendation])
-  
-  df <- rec_data
-  df <- df %>% group_by(pop_idx, regime, rho, beta, sigma, alpha) %>% mutate(pop_follow_rec_avg = mean(follow_recommendation)) %>% slice(1)
-  
+get_stats_rec <- function(df, var){
   if (var == "rho") { # there must be a better way
-    df <- df %>% group_by(rho) 
+    df <- df %>% group_by(formatted_regime, rho) 
   } else if (var == "beta") {
-    df <- df %>% group_by(beta) 
+    df <- df %>% group_by(formatted_regime, beta) 
   } else if (var == "sigma") {
-    df <- df %>% group_by(sigma) 
+    df <- df %>% group_by(formatted_regime, sigma) 
   } else if (var == "alpha") {
-    df <- df %>% group_by(regime, alpha)
+    df <- df %>% group_by(formatted_regime, alpha)
   }
   
   df <- df %>% 
@@ -80,18 +73,15 @@ get_stats_rec <- function(rec_data, var){
 #' @return Dataframe w/ mean and confidence intervals
 #' @examples
 #' get_stats_welfare(rec_data, "rho")
-get_stats_welfare <- function(rec_data, var){
-  df <- rec_data
-  df <- df %>% group_by(pop_idx, regime, rho, beta, sigma, alpha) %>% mutate(pop_welfare_avg = mean(welfare)) %>% slice(1)
-  
+get_stats_welfare <- function(df, var){
   if (var == "rho") {
-    df <- df %>% group_by(regime, rho) 
+    df <- df %>% group_by(formatted_regime, rho) 
   } else if (var == "beta") {
-    df <- df %>% group_by(regime, beta) 
+    df <- df %>% group_by(formatted_regime, beta) 
   } else if (var == "sigma") {
-    df <- df %>% group_by(regime, sigma) 
+    df <- df %>% group_by(formatted_regime, sigma) 
   } else if (var == "alpha") {
-    df <- df %>% group_by(regime, alpha)
+    df <- df %>% group_by(formatted_regime, alpha)
   }
   
   df <- df %>%
@@ -113,21 +103,20 @@ get_stats_welfare <- function(rec_data, var){
 #' @return Dataframe w/ mean and confidence intervals
 #' @examples
 #' get_stats_homogeneity(stats_df, "rho")
-get_stats_homogeneity <- function(stats_df, var){
+get_stats_homogeneity <- function(df, var){
   ## HOMOGENEITY DATA
-  df <- stats_df
   if (var == "rho") {
-    df <- df %>% group_by(regime, rho) 
+    df <- df %>% group_by(formatted_regime, rho) 
   } else if (var == "beta") {
-    df <- df %>% group_by(regime, beta) 
+    df <- df %>% group_by(formatted_regime, beta) 
   } else if (var == "sigma") {
-    df <- df %>% group_by(regime, sigma) 
+    df <- df %>% group_by(formatted_regime, sigma) 
   } else if (var == "alpha") {
-    df <- df %>% group_by(regime, alpha)
+    df <- df %>% group_by(formatted_regime, alpha)
   }
   df <- df %>%
-      mutate(jaccard_mean = mean(jaccard),
-             jaccard_sd = sd(jaccard),
+      mutate(jaccard_mean = mean(pop_jaccard_avg),
+             jaccard_sd = sd(pop_jaccard_avg),
              jaccard_n = n()) %>%
       mutate(jaccard_se =  jaccard_sd/ sqrt(jaccard_n),
              lower_ci_jaccard = jaccard_mean - qt(1 - (0.05 / 2), jaccard_n - 1) * jaccard_se,
@@ -243,7 +232,6 @@ graph_stats_homo <- function(df, var, N, T_val){
 
 
 
-
 scatter <- function(df, var_x, var_y, use_hrbrthemes, title){
   g <- ggplot(df, aes_string(var_x, var_y)) +
     geom_smooth() + #stat_summary_bin(fun.y = "mean", geom="point", bins = 10) +
@@ -262,13 +250,16 @@ process_rec_homo_data <- function(N, t, use_hrbrthemes){
   
   rec_data <- read.csv(paste(WORKING_DIR, "data/rec_data_N_",N,"_t_",t,".csv", sep=""))
   rec_data <- rec_data %>% mutate(formatted_regime = ifelse(regime == "omni", "Omniscient", ifelse(regime == "no_rec", "No Rec", "Partial")))
- 
-  #homogeneity <- read.csv(paste(WORKING_DIR, "data/homogeneity_data_N_",N,"_t_",t,".csv", sep=""))
-  #homogeneity <- homogeneity %>% mutate(formatted_regime = ifelse(regime == "omni", "Omniscient", ifelse(regime == "no_rec", "No Rec", "Partial")))
+  rec_data$follow_recommendation <- as.numeric(levels(rec_data$follow_recommendation)[rec_data$follow_recommendation])
+  rec_data <- rec_data %>% group_by(pop_idx, formatted_regime, rho, beta, sigma, alpha) %>% summarize(pop_welfare_avg = mean(welfare), pop_diversity_avg = mean(diversity_score), pop_follow_rec_avg = mean(follow_recommendation))
+  
+  homogeneity <- read.csv(paste(WORKING_DIR, "data/homogeneity_data_N_",N,"_t_",t,".csv", sep=""))
+  homogeneity <- homogeneity %>% mutate(formatted_regime = ifelse(regime == "omni", "Omniscient", ifelse(regime == "no_rec", "No Rec", "Partial")))
+  homogeneity <- homogeneity %>% group_by(pop_idx, formatted_regime, rho, beta, sigma, alpha) %>% summarize(pop_jaccard_avg = mean(jaccard))
   
   # Calculate the marginal variables
   variables=list("rho", "beta", "sigma", "alpha")
-  metrics=list("diversity", "welfare")
+  metrics=list("diversity", "welfare", "homogeneity")
   
   for (metric in metrics){
     
@@ -290,69 +281,38 @@ process_rec_homo_data <- function(N, t, use_hrbrthemes){
         
         rec_file_name <- paste(WORKING_DIR, "figures/", variable,"_", metric,"_N_", N, "_T_", t, "_rec.jpeg", sep="")
         print(rec_file_name)
-        g <- graph_stats_rec(get_stats_rec(filter(rec_data, regime == "partial"), variable), variable, N, t,use_hrbrthemes)
+        g <- graph_stats_rec(get_stats_rec(filter(rec_data, formatted_regime == "Partial"), variable), variable, N, t,use_hrbrthemes)
         ggsave(filename=rec_file_name, plot=g)
       } 
       else{
         # homo
-        g <- graph_stats_homo(get_stats_homogeneity(homogeneity, variable, N, t), variable)
+        g <- graph_stats_homo(get_stats_homogeneity(homogeneity, variable), variable, N, t)
         ggsave(filename=file_name, plot=g)
       }
     } # END for(variable in variables)
     
     
   }
-  
-  
-  g <- graph_stats_welfare(get_stats_welfare(rec_data, 'beta'), 'beta',  TRUE) + theme(legend.position="bottom" ,legend.title = element_blank())
-  
-  h<- graph_stats_homo(get_stats_homogeneity(homogeneity, 'beta'), 'beta') + theme(legend.position="none" ,legend.title = element_blank())
-  
-  # https://stackoverflow.com/questions/13649473/add-a-common-legend-for-combined-ggplots
-  #extract legend
-  #https://github.com/hadley/ggplot2/wiki/Share-a-legend-between-two-ggplot2-graphs
-  g_legend<-function(a.gplot){
-    tmp <- ggplot_gtable(ggplot_build(a.gplot))
-    leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
-    legend <- tmp$grobs[[leg]]
-    return(legend)}
-  
-  mylegend<-g_legend(g)
-  
-  p3 <- grid.arrange(arrangeGrob(g + theme(legend.position="none"),
-                                 h + theme(legend.position="none"),
-                                 nrow=1),
-                     mylegend, nrow=2,heights=c(10, 1))
-  
-  
-  ggsave(
-    filename=paste(WORKING_DIR, "figures/welfare_homo_combo.jpeg", sep=""), 
-    plot=p3
-  )
-  
-  
   rec_abbrv_to_name <- function(abbrv) {
-    if (abbrv == "rec") {
+    if (abbrv == "Omniscient") {
       return("Omniscient")
-    } else if (abbrv == "no_rec") {
+    } else if (abbrv == "No Rec") {
       return("No Recommendation")
-    } else if (abbrv == "partial") {
+    } else if (abbrv == "Partial") {
       return("Partial")
     }
   }
   
- rec_data <- rec_data %>% group_by(pop_idx, regime, rho, beta, sigma, alpha) %>% mutate(pop_welfare_avg = mean(welfare), pop_diversity_avg = mean(diversity_score)) %>% slice(1)
-
-  rec_policies <- c("rec", "no_rec", "partial")
+  rec_policies <- c("Omniscient", "No Rec", "Partial")
   for (rec_policy in rec_policies) {
     title <- paste("Diversity_vs_Welfare_N_",N, "_T_",T,"_", rec_abbrv_to_name(rec_policy), sep="")
     ggsave(
       filename=paste(WORKING_DIR, "figures/", title, ".jpeg", sep=""), 
-      plot=scatter(filter(rec_data, regime == rec_policy), "diversity_score", "welfare", use_hrbrthemes, title) 
+      plot=scatter(filter(rec_data, formatted_regime == rec_policy), "pop_diversity_avg", "pop_welfare_avg", use_hrbrthemes, title) 
     )
   }
   
-  df <- rec_data %>% group_by(regime) %>%
+  df <- rec_data %>% group_by(formatted_regime) %>%
     mutate(welfare_mean = mean(pop_welfare_avg),
            welfare_sd = sd(pop_welfare_avg),
            welfare_n = n(),
@@ -367,19 +327,19 @@ process_rec_homo_data <- function(N, t, use_hrbrthemes){
            diversity_str = paste(round(diversity_mean, 2), "\\pm", round(diversity_mul, 4))) %>%
     slice(1)
   
-  df <- df[,c("regime", "welfare_str", "diversity_str")]
+  df <- df[,c("formatted_regime", "welfare_str", "diversity_str")]
   
-  homo <- homogeneity %>% group_by(regime) %>%
-    mutate(jaccard_mean = mean(jaccard),
-           jaccard_sd = sd(jaccard),
+  homo <- homogeneity %>% group_by(formatted_regime) %>%
+    mutate(jaccard_mean = mean(pop_jaccard_avg),
+           jaccard_sd = sd(pop_jaccard_avg),
            jaccard_n = n()) %>%
     mutate(jaccard_se  =  jaccard_sd/ sqrt(jaccard_n),
            jaccard_mul = qt(1 - (0.05 / 2), jaccard_n - 1) * jaccard_se,
            jaccard_str = paste(round(jaccard_mean, 3), "\\pm", round(jaccard_mul, 4))) %>%
     slice(1)
-  homo <- homo[,c("regime", "jaccard_str")]
+  homo <- homo[,c("formatted_regime", "jaccard_str")]
   
-  df <- merge(df, homo, by="regime")
+  df <- merge(df, homo, by="formatted_regime")
   xtable(df)
   
 } # END process_rec__homo_data
@@ -388,22 +348,19 @@ process_rec_homo_data <- function(N, t, use_hrbrthemes){
 ### Consumption Diversity
 
 
-get_stats_consumption_diversity_time_path <- function(stats_df, var){
-  
-  df <- stats_df
-  
+get_stats_consumption_diversity_time_path <- function(df, var){
   if (var == "rho") {
-    df <- df %>% group_by(regime, rho) 
+    df <- df %>% group_by(formatted_regime, rho) 
   } else if (var == "beta") {
-    df <- df %>% group_by(regime, beta) 
+    df <- df %>% group_by(formatted_regime, beta) 
   } else if (var == "sigma") {
-    df <- df %>% group_by(regime, sigma) 
+    df <- df %>% group_by(formatted_regime, sigma) 
   } else if (var == "alpha") {
-    df <- df %>% group_by(regime, alpha)
+    df <- df %>% group_by(formatted_regime, alpha)
   }
   df <- df %>%
-    mutate(local_move_mean = mean(local_move),
-           local_move_sd = sd(local_move),
+    mutate(local_move_mean = mean(local_move_05),
+           local_move_sd = sd(local_move_05),
            local_move_n = n()) %>%
     mutate(local_move_se =  local_move_mean/ sqrt(local_move_sd),
            lower_ci_local_move = local_move_mean - qt(1 - (0.05 / 2), local_move_n - 1) * local_move_se,
@@ -428,23 +385,21 @@ graph_stats_consumption_diversity_time_path <- function(df, var, N, T_val){
   return(g)
 }
 
-process_time_path <- function(N, t, use_hrbrthemes){
+process_time_path <- function(N, T_val, use_hrbrthemes){
   
   # define the metric for consumption distribution
-  time_data <- read.csv(paste(WORKING_DIR, "data/time_path_n_",N,"_t_", t, ".csv", sep=""))
+  time_data <- read.csv(paste(WORKING_DIR, "data/time_path_n_",N,"_t_", T_val, ".csv", sep=""))
   time_data <- time_data %>% mutate(formatted_regime = ifelse(regime == "omni", "Omniscient", ifelse(regime == "no_rec", "No Rec", "Partial")))
-  time_data <- time_data %>% mutate(local_move = as.numeric(consumption_dist < (N* 0.05)))
-
   # Look at consumption distribution held over all parameters
-  t <- time_data %>% filter(t > 0) # local move isn't defined at the first time step so drop it to properly have smoothed plots
+  time_data <- time_data %>% filter(t > 0) # local move isn't defined at the first time step so drop it to properly have smoothed plots
   
   # 
   # https://stackoverflow.com/questions/21066077/remove-fill-around-legend-key-in-ggplot
-  g <- ggplot(t, aes(x=t, y=local_move)) +
+  g <- ggplot(no_rho_or_alpha, aes(x=t, y=local_move_05)) +
     geom_smooth(aes(colour=formatted_regime)) +
     labs(x="t", 
          y="Fraction of Local Search",
-         title = paste("N =", N, "T =", T, "Diversity",sep=" ")
+         title = paste("N =", N, "T =", t, "Diversity",sep=" ")
     )
   if(use_hrbrthemes){
     g <- g + theme_ipsum_rc()
@@ -452,7 +407,7 @@ process_time_path <- function(N, t, use_hrbrthemes){
   g <- g + theme(legend.position="bottom", legend.title = element_blank())  + 
     guides(color=guide_legend(override.aes=list(fill=NA)))
   ggsave(
-    filename= paste(WORKING_DIR, "figures/local_moves_N_", N,"T_", T,".jpeg", sep=""), 
+    filename= paste(WORKING_DIR, "figures/local_moves_N_", N,"T_", t,".jpeg", sep=""), 
     plot=g
   )
   
@@ -468,7 +423,7 @@ process_time_path <- function(N, t, use_hrbrthemes){
   ## TODO try different combinations of variables like rho and beta
   ## See how the fractional search changes
   
-  partial <- filter(time_data, regime == "partial")
+  partial <- filter(time_data, formatted_regime == "Partial")
   partial$follow_recommendation <- as.numeric(partial$follow_recommendation) - 1
   g <- ggplot(partial, aes(x=t, y=follow_recommendation)) +
     geom_smooth() +
@@ -492,9 +447,9 @@ WORKING_DIR <- paste("/Users/",USER, "/Desktop/ExAnteFilterBubble/", sep="")
 setwd(WORKING_DIR)
 use_hrbrthemes <- FALSE
 
-N_s <- list(200, 2000)
+N_s <- list(200)
 
 for(N in N_s){
-  process_rec_homo_data(N, 20, use_hrbrthemes)
-  #process_time_path(N, 20, use_hrbrthemes)
+  #process_rec_homo_data(N, 20, use_hrbrthemes)
+  process_time_path(N, 20, use_hrbrthemes)
 }

@@ -170,8 +170,9 @@ with open(WORKING_DIR + 'time_path.csv', 'w') as rec_csv:
                         if t != 0:
                             distance = [d(consumption_arr[t, cur], consumption_arr[t-1, cur], N) for cur in range(l)]
                             dat['consumption_dist'] = np.mean(distance)
-                        else:
-                            dat['consumption_dist'] = 0
+                            dat['local_move_05'] =  np.mean([dist < (dat['N'] * 0.05)  for dist in distance])
+                            dat['local_move_025'] = np.mean([dist < (dat['N'] * 0.025)  for dist in distance])
+                            dat['local_move_10'] =  np.mean([dist < (dat['N'] * 0.1)  for dist in distance])
                         
                         # cumulative welfare avg
                         dat['instantaneous_welfare_average'] = np.mean(welfare_arr[t, :])
@@ -179,11 +180,6 @@ with open(WORKING_DIR + 'time_path.csv', 'w') as rec_csv:
                         # instantaneous (at time t) welfare avg
                         cum_welfare += np.mean(welfare_arr[t, :])
                         dat['average_cumulative_utility'] = float(cum_welfare)/dat['T']
-
-                        # local move avg 
-                        dat['local_move_05'] =  int(dat['consumption_dist'] < (dat['N'] * 0.05))
-                        dat['local_move_025'] =  int(dat['consumption_dist'] < (dat['N'] * 0.025))
-                        dat['local_move_10'] =  int(dat['consumption_dist'] < (dat['N'] * 0.1))
                         
                         cur_dat = copy(dat)
                         data_writer.writerow(cur_dat)
