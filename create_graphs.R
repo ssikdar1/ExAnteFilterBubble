@@ -115,13 +115,13 @@ get_stats_homogeneity <- function(df, var){
     df <- df %>% group_by(formatted_regime, alpha)
   }
   df <- df %>%
-      mutate(jaccard_mean = mean(pop_jaccard_avg),
-             jaccard_sd = sd(pop_jaccard_avg),
-             jaccard_n = n()) %>%
-      mutate(jaccard_se =  jaccard_sd/ sqrt(jaccard_n),
-             lower_ci_jaccard = jaccard_mean - qt(1 - (0.05 / 2), jaccard_n - 1) * jaccard_se,
-             upper_ci_jaccard = jaccard_mean + qt(1 - (0.05 / 2), jaccard_n - 1) * jaccard_se) %>% 
-      slice(1)
+    mutate(jaccard_mean = mean(pop_jaccard_avg),
+           jaccard_sd = sd(pop_jaccard_avg),
+           jaccard_n = n()) %>%
+    mutate(jaccard_se =  jaccard_sd/ sqrt(jaccard_n),
+           lower_ci_jaccard = jaccard_mean - qt(1 - (0.05 / 2), jaccard_n - 1) * jaccard_se,
+           upper_ci_jaccard = jaccard_mean + qt(1 - (0.05 / 2), jaccard_n - 1) * jaccard_se) %>% 
+    slice(1)
   return(df)
 }
 
@@ -136,15 +136,15 @@ graph_stats_diversity <- function(df, var, N, T_val, use_hrbrthemes){
   # graph w/ themes
   
   g <- ggplot(df, aes_string(x=var, y="diversity_mean")) +
-      geom_line(aes(colour=formatted_regime)) +
-      geom_errorbar(aes(ymin=lower_ci_diversity, ymax=upper_ci_diveristy), width=.02,
-                    position=position_dodge(.9)) + 
-      labs(x=var, y="diversity",
-           title=paste("N =", N, "T =", T_val, "Diversity",sep=" "))
+    geom_line(aes(colour=formatted_regime)) +
+    geom_errorbar(aes(ymin=lower_ci_diversity, ymax=upper_ci_diveristy), width=.02,
+                  position=position_dodge(.9)) + 
+    labs(x=var, y="diversity",
+         title=paste("N =", N, "T =", T_val, "Diversity",sep=" "))
   if(use_hrbrthemes){
     g <- g + theme_ipsum_rc()
   }
-    return(g)
+  return(g)
 }
 
 #' Graph rec mean as function of `var`
@@ -155,15 +155,15 @@ graph_stats_diversity <- function(df, var, N, T_val, use_hrbrthemes){
 #' @return ggplot graph
 graph_stats_rec <- function(df, var, N, T_val, use_hrbrthemes){
   g <- ggplot(df, aes_string(x=var, y="rec_mean")) +
-      geom_line() +
-      geom_errorbar(aes(ymin=lower_ci_rec, ymax=upper_ci_rec), width=.02,
-                    position=position_dodge(.9)) + 
-      labs(x=var, y="diversity",
-           title=paste("N =", N, "T =", T_val, "Follow Rec",sep=" "))
+    geom_line() +
+    geom_errorbar(aes(ymin=lower_ci_rec, ymax=upper_ci_rec), width=.02,
+                  position=position_dodge(.9)) + 
+    labs(x=var, y="diversity",
+         title=paste("N =", N, "T =", T_val, "Follow Rec",sep=" "))
   if(use_hrbrthemes){
     g <- g + theme_ipsum_rc()
   }
-    return(g)
+  return(g)
 }
 
 
@@ -395,22 +395,117 @@ process_time_path <- function(N, T_val, use_hrbrthemes){
   
   # 
   # https://stackoverflow.com/questions/21066077/remove-fill-around-legend-key-in-ggplot
-  g <- ggplot(no_rho_or_alpha, aes(x=t, y=local_move_05)) +
-    geom_smooth(aes(colour=formatted_regime)) +
-    labs(x="t", 
-         y="Fraction of Local Search",
-         title = paste("N =", N, "T =", t, "Diversity",sep=" ")
-    )
-  if(use_hrbrthemes){
-    g <- g + theme_ipsum_rc()
-  }
+  
+  no_rho_or_alpha <- filter(time_data, rho == 0.0 & alpha == 0.0)
+  no_rho <- filter(time_data, rho == 0.0 & alpha > 0.0)
+  no_alpha <- filter(time_data, alpha == 0.0 & rho > 0.0)
+  g <- ggplot(no_rho_or_alpha, aes(x=t, y=consumption_dist)) +
+    geom_smooth(aes(colour=formatted_regime)) + theme_bw() +
+    ggtitle(paste("Consumption Distance, No Correlation or Risk Aversion")) + xlab("t") + ylab("Average Consumption Distance")
   g <- g + theme(legend.position="bottom", legend.title = element_blank())  + 
     guides(color=guide_legend(override.aes=list(fill=NA)))
   ggsave(
-    filename= paste(WORKING_DIR, "figures/local_moves_N_", N,"T_", t,".jpeg", sep=""), 
+    filename= paste(WORKING_DIR, "figures/consumption_dist_N_", N,"T_", T_val,"no_correlation_risk_aversion.jpeg", sep=""), 
     plot=g
   )
   
+  g <- ggplot(no_rho, aes(x=t, y=consumption_dist)) +
+    geom_smooth(aes(colour=formatted_regime)) + theme_bw() +
+    ggtitle(paste("Consumption Distance, No Correlation")) + xlab("t") + ylab("Average Consumption Distance")
+  g <- g + theme(legend.position="bottom", legend.title = element_blank())  + 
+    guides(color=guide_legend(override.aes=list(fill=NA)))
+  ggsave(
+    filename= paste(WORKING_DIR, "figures/consumption_dist_N_", N,"T_", T_val,"no_correlation.jpeg", sep=""), 
+    plot=g
+  )
+  
+  g <- ggplot(no_alpha, aes(x=t, y=consumption_dist)) +
+    geom_smooth(aes(colour=formatted_regime)) + theme_bw() +
+    ggtitle(paste("Consumption Distance, No Risk Aversion")) + xlab("t") + ylab("Average Consumption Distance")
+  g <- g + theme(legend.position="bottom", legend.title = element_blank())  + 
+    guides(color=guide_legend(override.aes=list(fill=NA)))
+  ggsave(
+    filename= paste(WORKING_DIR, "figures/consumption_dist_N_", N,"T_", T_val,"no_risk_aversion.jpeg", sep=""), 
+    plot=g
+  )
+  
+  g <- ggplot(time_data, aes(x=t, y=instantaneous_welfare_average)) +
+    geom_smooth(aes(colour=formatted_regime)) + theme_bw() +
+    ggtitle(paste("Welfare")) + xlab("t") + ylab("Average Welfare")
+  g <- g + theme(legend.position="bottom", legend.title = element_blank())  + 
+    guides(color=guide_legend(override.aes=list(fill=NA)))
+  ggsave(
+    filename= paste(WORKING_DIR, "figures/welfare_N_", N,"T_", T_val,".jpeg", sep=""), 
+    plot=g
+  )
+  
+  no_rec <- filter(time_data, formatted_regime == "No Rec" & beta == 0.4)
+  g <- ggplot(no_rec, aes(x=t, y=consumption_dist)) +
+    geom_smooth(aes(colour=as.factor(alpha))) + theme_bw() +
+    ggtitle(paste("No Recommendation Consumption Distance")) + xlab("t") + ylab("Average Consumption Distance")
+  g <- g + theme(legend.position="bottom")  + 
+    guides(color=guide_legend(override.aes=list(fill=NA), title="Risk Aversion"))
+  ggsave(
+    filename= paste(WORKING_DIR, "figures/consumption_dist_N_", N,"T_", T_val,"_no_rec_ra.jpeg", sep=""), 
+    plot=g
+  )
+  
+  no_rec <- filter(time_data, formatted_regime == "No Rec")
+  g <- ggplot(partial_rec, aes(x=t, y=consumption_dist)) +
+    geom_smooth(aes(colour=as.factor(beta))) + theme_bw() +
+    ggtitle(paste("No Rec Recommendation Consumption Distance")) + xlab("t") + ylab("Average Consumption Distance")
+  g <- g + theme(legend.position="bottom")  + 
+    guides(color=guide_legend(override.aes=list(fill=NA), title="Beta"))
+  ggsave(
+    filename= paste(WORKING_DIR, "figures/consumption_dist_N_", N,"T_", T_val,"_partial_rec_ra.jpeg", sep=""), 
+    plot=g
+  )
+  
+  omni_rec <- filter(time_data, formatted_regime == "Omniscient"  & beta == 0.4)
+  g <- ggplot(omni_rec, aes(x=t, y=consumption_dist)) +
+    geom_smooth(aes(colour=as.factor(alpha))) + theme_bw() +
+    ggtitle(paste("Omniscient Recommendation Consumption Distance")) + xlab("t") + ylab("Average Consumption Distance")
+  g <- g + theme(legend.position="bottom")  + 
+    guides(color=guide_legend(override.aes=list(fill=NA), title="Risk Aversion"))
+  ggsave(
+    filename= paste(WORKING_DIR, "figures/consumption_dist_N_", N,"T_", T_val,"_omni_rec_ra.jpeg", sep=""), 
+    plot=g
+  )
+  
+  # vary alpha
+  
+  no_rec <- filter(time_data, formatted_regime == "No Rec" & rho > 0.0 & beta == 0.4)
+  g <- ggplot(no_rec, aes(x=t, y=consumption_dist)) +
+    geom_smooth(aes(colour=as.factor(alpha))) + theme_bw() +
+    ggtitle(paste("No Recommendation Consumption Distance")) + xlab("t") + ylab("Average Consumption Distance")
+  g <- g + theme(legend.position="bottom")  + 
+    guides(color=guide_legend(override.aes=list(fill=NA), title="Risk Aversion"))
+  ggsave(
+    filename= paste(WORKING_DIR, "figures/consumption_dist_N_", N,"T_", T_val,"_no_rec_ra.jpeg", sep=""), 
+    plot=g
+  )
+  
+  partial_rec <- filter(time_data, formatted_regime == "Partial" & rho > 0.0 & beta == 0.4)
+  g <- ggplot(partial_rec, aes(x=t, y=consumption_dist)) +
+    geom_smooth(aes(colour=as.factor(alpha))) + theme_bw() +
+    ggtitle(paste("Partial Recommendation Consumption Distance")) + xlab("t") + ylab("Average Consumption Distance")
+  g <- g + theme(legend.position="bottom")  + 
+    guides(color=guide_legend(override.aes=list(fill=NA), title="Risk Aversion"))
+  ggsave(
+    filename= paste(WORKING_DIR, "figures/consumption_dist_N_", N,"T_", T_val,"_partial_rec_ra.jpeg", sep=""), 
+    plot=g
+  )
+  
+  omni_rec <- filter(time_data, formatted_regime == "Omniscient" & rho > 0.0)
+  g <- ggplot(omni_rec, aes(x=t, y=consumption_dist)) +
+    geom_smooth(aes(colour=as.factor(beta))) + theme_bw() +
+    ggtitle(paste("Omniscient Recommendation Consumption Distance")) + xlab("t") + ylab("Average Consumption Distance")
+  g <- g + theme(legend.position="bottom")  + 
+    guides(color=guide_legend(override.aes=list(fill=NA), title="Risk Aversion"))
+  ggsave(
+    filename= paste(WORKING_DIR, "figures/consumption_dist_N_", N,"T_", T_val,"_omni_rec_ra.jpeg", sep=""), 
+    plot=g
+  )
   ## Now look at the marginals of local_move over "rho", "beta", "sigma", "alpha"
   variables=list("rho", "beta", "sigma", "alpha")
   for(variable in variables){

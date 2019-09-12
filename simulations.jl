@@ -426,9 +426,6 @@ for (N, T, rho, beta, sigma, alpha, epsilon) in params
     Sigma_V_i = cov_mat_fun(sigma, rho, N)
     Sigma_V = cov_mat_fun(sigma,rho,N)
 
-    if beta != 0
-        Sigma_V = Sigma_V / beta^2
-    end
     Sigma_V_ibar = cov_mat_fun(sigma_ibar,rho_ibar,N)
     global sim_results[(N, T, rho, beta, sigma, alpha, epsilon, nr_pop, nr_ind)] = @sync @distributed vcat for i= 1:nr_pop
         simulate(N, T,sigma, sigma_i, sigma_ibar, beta, nr_ind, Sigma_V_i,  Sigma_V,  Sigma_V_ibar,  alpha, epsilon, i)
