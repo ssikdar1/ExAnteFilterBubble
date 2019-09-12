@@ -52,7 +52,6 @@ def follow_rec(Ci, Rec, N, T):
     return s / T
 
 def parse_pickle_key(key):
-    print(key)
     key = eval(key)
     dat = {
         'N': float(key[0]),
