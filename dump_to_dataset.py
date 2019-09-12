@@ -52,6 +52,7 @@ def follow_rec(Ci, Rec, N, T):
     return s / T
 
 def parse_pickle_key(key):
+    print(key)
     key = eval(key)
     dat = {
         'N': float(key[0]),
@@ -64,8 +65,59 @@ def parse_pickle_key(key):
         #'pop_idx': pop_idx
     }
     return dat
+             
+print("STARTING TIME PATH")
+INDIVIDUAL_FIELD_NAMES =['pop_idx', 'regime', 'rho', 'beta', 'epsilon', 'alpha', 'N', 'T', 'sigma', 't', 'follow_recommendation', 'consumption_dist', 'cur_utility', 'average_cumulative_utility', 'utility_difference', 'local_move_05', 'local_move_025', 'local_move_10', 'instantaneous_welfare_average']
+with open(WORKING_DIR + 'time_path.csv', 'w') as rec_csv:
+    data_writer = csv.DictWriter(rec_csv, fieldnames=INDIVIDUAL_FIELD_NAMES)
+    data_writer.writeheader()
+    for file in data_files:
+        print(file)
+        print("@ {}".format(datetime.datetime.now()))
+        df = None
+        with open(file, 'r') as fp:
+            df = json.load(fp)
+        for key, value in df.items():
+            for pop_idx in range(len(value)):
+                dat = parse_pickle_key(key)
+                N = dat['N']
+                dat['pop_idx'] = pop_idx
+                cur = value[pop_idx]
+                consumption = cur['Consumption']
+                welfare = cur['Welfare']
+                for policy in rec_policy_keys:
+                    consumption_arr = np.array(consumption[policy])
+                    welfare_arr = np.array(welfare[policy])
+                    dat['regime'] = policy
+                    if policy == PARTIAL:
+                        follow_rec_arr = np.array(cur['Rec'][policy])
+                    
+                    cum_welfare = 0
+                    for t in range(int(dat['T'])) :
+                        dat['t'] = t
 
-'''
+                        # consumption dist average
+                        l = len(consumption_arr[t, :])
+                        if t != 0:
+                            distance = [d(consumption_arr[t, cur], consumption_arr[t-1, cur], N) for cur in range(l)]
+                            dat['mean_consumption_dist'] = np.mean(distance)
+                            dat['median_consumption_dist'] = np.median(distance)
+                            dat['sd_consumption_dist'] = np.std(distance)
+                            dat['local_move_05'] =  np.mean([dist < (dat['N'] * 0.05)  for dist in distance])
+                            dat['local_move_025'] = np.mean([dist < (dat['N'] * 0.025)  for dist in distance])
+                            dat['local_move_10'] =  np.mean([dist < (dat['N'] * 0.1)  for dist in distance])
+                        
+                        # cumulative welfare avg
+                        dat['instantaneous_welfare_average'] = np.mean(welfare_arr[t, :])
+
+                        # instantaneous (at time t) welfare avg
+                        cum_welfare += np.mean(welfare_arr[t, :])
+                        dat['average_cumulative_utility'] = float(cum_welfare)/dat['T']
+                        
+                        cur_dat = copy(dat)
+                        data_writer.writerow(cur_dat)
+
+
 INDIVIDUAL_FIELD_NAMES =['pop_idx', 'indiv_idx', 'regime', 'welfare', 'diversity_score', 'rho', 'beta', 'epsilon', 'follow_recommendation', 'N', 'T', 'sigma', 'alpha', 'nr_pop', 'nr_ind']
 with open(WORKING_DIR + 'rec_data.csv', 'w') as rec_csv:
     data_writer = csv.DictWriter(rec_csv, fieldnames=INDIVIDUAL_FIELD_NAMES)
@@ -134,52 +186,3 @@ with open(WORKING_DIR + 'homogeneity_data.csv', 'w') as rec_csv:
                     dat['jaccard'] = tot
                     cur_dat = copy(dat)
                     data_writer.writerow(cur_dat)
-'''
-print("STARTING TIME PATH")
-INDIVIDUAL_FIELD_NAMES =['pop_idx', 'regime', 'rho', 'beta', 'epsilon', 'alpha', 'N', 'T', 'sigma', 't', 'follow_recommendation', 'consumption_dist', 'cur_utility', 'average_cumulative_utility', 'utility_difference', 'local_move_05', 'local_move_025', 'local_move_10', 'instantaneous_welfare_average']
-with open(WORKING_DIR + 'time_path.csv', 'w') as rec_csv:
-    data_writer = csv.DictWriter(rec_csv, fieldnames=INDIVIDUAL_FIELD_NAMES)
-    data_writer.writeheader()
-    for file in data_files:
-        print(file)
-        print("@ {}".format(datetime.datetime.now()))
-        df = None
-        with open(file, 'r') as fp:
-            df = json.load(fp)
-        for key, value in df.items():
-            for pop_idx in range(len(value)):
-                dat = parse_pickle_key(key)
-                N = dat['N']
-                dat['pop_idx'] = pop_idx
-                cur = value[pop_idx]
-                consumption = cur['Consumption']
-                welfare = cur['Welfare']
-                for policy in rec_policy_keys:
-                    consumption_arr = np.array(consumption[policy])
-                    welfare_arr = np.array(welfare[policy])
-                    dat['regime'] = policy
-                    if policy == PARTIAL:
-                        follow_rec_arr = np.array(cur['Rec'][policy])
-                    
-                    cum_welfare = 0
-                    for t in range(int(dat['T'])) :
-                        dat['t'] = t
-
-                        # consumption dist average
-                        l = len(consumption_arr[t, :])
-                        if t != 0:
-                            distance = [d(consumption_arr[t, cur], consumption_arr[t-1, cur], N) for cur in range(l)]
-                            dat['consumption_dist'] = np.mean(distance)
-                            dat['local_move_05'] =  np.mean([dist < (dat['N'] * 0.05)  for dist in distance])
-                            dat['local_move_025'] = np.mean([dist < (dat['N'] * 0.025)  for dist in distance])
-                            dat['local_move_10'] =  np.mean([dist < (dat['N'] * 0.1)  for dist in distance])
-                        
-                        # cumulative welfare avg
-                        dat['instantaneous_welfare_average'] = np.mean(welfare_arr[t, :])
-
-                        # instantaneous (at time t) welfare avg
-                        cum_welfare += np.mean(welfare_arr[t, :])
-                        dat['average_cumulative_utility'] = float(cum_welfare)/dat['T']
-                        
-                        cur_dat = copy(dat)
-                        data_writer.writerow(cur_dat)
