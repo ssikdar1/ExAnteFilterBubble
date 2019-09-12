@@ -67,7 +67,7 @@ def parse_pickle_key(key):
     return dat
              
 print("STARTING TIME PATH")
-INDIVIDUAL_FIELD_NAMES =['pop_idx', 'regime', 'rho', 'beta', 'epsilon', 'alpha', 'N', 'T', 'sigma', 't', 'follow_recommendation', 'consumption_dist', 'cur_utility', 'average_cumulative_utility', 'utility_difference', 'local_move_05', 'local_move_025', 'local_move_10', 'instantaneous_welfare_average']
+INDIVIDUAL_FIELD_NAMES =['pop_idx', 'regime', 'rho', 'beta', 'epsilon', 'alpha', 'N', 'T', 'sigma', 't', 'follow_recommendation', 'mean_consumption_dist', 'median_consumption_dist', 'sd_consumption_dist', 'cur_utility', 'average_cumulative_utility', 'utility_difference', 'local_move_05', 'local_move_025', 'local_move_10', 'instantaneous_welfare_average']
 with open(WORKING_DIR + 'time_path.csv', 'w') as rec_csv:
     data_writer = csv.DictWriter(rec_csv, fieldnames=INDIVIDUAL_FIELD_NAMES)
     data_writer.writeheader()
