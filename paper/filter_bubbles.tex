@@ -4,6 +4,10 @@
 %\usepackage{lmodern}
 \usepackage[font=small]{caption}
 \usepackage{float}
+\newtheorem{finding}{Finding}
+
+\usepackage{xspace}
+\newcommand{\OMIT}[1]{}
 %
 % defining the \BibTeX command - from Oren Patashnik's original BibTeX documentation.
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08emT\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
@@ -147,45 +151,144 @@ We further consider two cases that serve primarily as benchmarks. The first is \
 
 \section{User Behavior}
 
-\subsection{Local Search}
+\subsection{Local Consumption}
 
-We explore the degree to which users engage in \textit{local} consumption and how this varies with recommendation. We isolate the two main mechanisms in our model that can generate local search without recommendation. The first is by exploiting the correlation structure
+\begin{figure}
+\includegraphics[scale=0.4]{figures/consumption_dist_N_200T_20no_correlation}
+\caption{Consumption path with no correlation between utilities}
+\label{fig:no_correlation_consumption_path}
+\end{figure}
 
-\subsection{User Welfare}
+\begin{figure}
+\includegraphics[scale=0.1]{figures/consumption_dist_N_200T_20_overall}
+\caption{Consumption path between Recommendation Regimes}
+\label{fig:consumption_path_between_regimes}
+\end{figure}
 
-\subsection{Diversity}
+We characterize ``filter bubble" effects in our model as the degree to which consumers engage in \textit{local consumption}. We define local consumption in terms of the average consumption distance between the items consumed by the representative consumer at time $t-1$ and $t$. We compare the average movement within the product space across different recommendation regimes and associate lower average distance with more local consumption.
 
-\subsection{Homogenization}
+\begin{finding}\label{finding_local_consumption}
+The impact of recommendation on local consumption:
+\begin{enumerate}
+\item When $\rho = 0$, there is no difference in consumption distance between the three recommendation regimes.
+\item When $\rho > 0$, no recommendation induces more local consumption than both partial and omniscient recommendation. This effect is amplified as $\rho$ increases as well as when consumers are more risk averse ($\gamma$ increases)
+\end{enumerate}
+\end{finding}
+
+First, Figure \ref{fig:no_correlation_consumption_path} shows that, when $\rho = 0$, there is no difference in consumption distance between the three regimes. This is due to the fact that when $\rho = 0$, there is no reason that items that are close in the product space should have similar utilities and so the optimal consumption path does not depend on the similarity of the items. However this also means that consumers in the no recommendation regime do not learn anything about neighboring goods and so there is limited path-dependence in consumption.
+
+Figure \ref{fig:consumption_path_between_regimes} shows that, when $\rho > 0$, both partial and no recommendation lead to increasingly local consumption compared to the benchmark omniscient case. Further, the average consumption path between periods is \textit{decreasing} for the no recommendation case whereas it is \textit{increasing} for the omniscient case. Partial recommendation decreases the degree of local consumption but not as much as the omniscient benchmark. Due to the correlation of utilities, the omniscient consumption path exploits this and leads to the consumption of more similar products than in the case when $\rho = 0$. However, since these spillovers also impact consumer learning in the no recommendation case, consumers \textit{over-exploit} this and increasingly consume products similar to good products that they have consumed before. This is further illustrated by Figure \ref{fig:local_consumption_across_rho} which shows how the consumption paths between omniscient and no recommendation vary as $\rho$ increases.
+
+Finally, this effect is further amplified as the level of risk aversion, $\gamma$, increases. Figure \ref{fig:no_rec_risk_aversion} shows how drastically the degree of local consumption increases as $\gamma$ increases. This is due to the fact that the spillovers not only affect the mean expected belief about quality but also the degree of uncertainty. Local consumption therefore leads to consumers to have less uncertainty about certain areas of the product space and risk aversion may lead them to increasingly consume these products.
+
+\begin{figure*}
+\includegraphics[scale=0.1]{figures/consumption_dist_N_200T_20_no_rec_rho}
+\includegraphics[scale=0.1]{figures/consumption_dist_N_200T_20_omni_rho}
+\caption{Extent of Local Consumption for No Recommendation (Left) and Omniscient Recommendation (Right)}
+\label{fig:local_consumption_across_rho}
+\end{figure*}
+
+\begin{figure}
+\includegraphics[scale=0.1]{figures/consumption_dist_N_200T_20_no_rec_alpha}
+\caption{The Effect of Risk Aversion on Local Consumption}
+\label{fig:no_rec_risk_aversion}
+\end{figure}
+
+\subsection{User Welfare and Product Diversity}
+
+In this section we primarily focus on the impact of recommendation on the welfare on consumers as well as the overall diversity of the items that they consume.
+Consumer's \textit{ex-post} welfare is the average of realized utilities, to control for the effect of $T$, and is defined as follows:
+\begin{align*}
+W_i=\frac{1}{T}\sum_{n \in C_i^T} u_{in}
+\end{align*}
+While in the previous section we looked at the distance between consecutive goods, we also define a diversity measure that is defined over the entire consumed set. We utilize a diversity metric common in the literature (e.g. \cite{ziegler2005improving}) which is the average normalized pairwise distance between the consumed products:
+\begin{align*}
+D_i =\frac{1}{N} \frac{1}{T (T-1)}\sum_{n,m \in C_i^T: n \ne m} d(n,m)
+\end{align*}
+
+\begin{finding}\label{finding_diversity}
+The impact of recommendation on product diversity:
+\begin{enumerate}
+\item When $\rho = 0$, product diversity is the same across all three recommendation regimes.
+\item When $\rho > 0$, product diversity decreases across all recommendation regimes but decreases the most in the no recommendation regime. This effect is amplified as $\rho$ increases as well as when consumers become more risk-averse.
+\end{enumerate}
+\end{finding}
+
+As before, when there is no correlation between utilities product diversity is the same across different recommendation regimes. The over-exploitation of the learning spillovers when $\rho > 0$ leads to product diversity being lowest in the no recommendation regime. Figure \ref{fig:diversity_correlation} shows how diversity varies across recommendation regimes and the level of $\rho$ and Figure \ref{fig:risk_aversion_diversity} shows how diversity varies as risk aversion levels change. 
+
+\begin{finding}
+The welfare gap between no recommendation and partial recommendation as well as no recommendation and omniscient recommendation is decreasing in $\rho$.
+\end{finding}
+However, interestingly, the decrease in diversity is \textit{not} associated with a decline in welfare. In fact, welfare stays roughly the same in the omniscient case and slightly increases for the partial recommendation case. The welfare gap between the no recommendation case and the other two cases \textit{decreases} as the diversity gap increases.
+
+\begin{finding}
+Without recommendation, diversity and welfare are:
+\begin{enumerate}
+\item Negatively correlated when consumers have no risk-aversion
+\item Uncorrelated when consumers have high levels of risk-aversion
+\end{enumerate}
+\end{finding}
+
+Figure \ref{fig:diversity_welfare_ra} shows how diversity and welfare correlate for the no recommendation case. When there is no risk-aversion then there is a negative correlation between welfare and diversity. This is since, with no risk-aversion, in a given period a consumer will select the good that they currently believe has the highest expected value. High product diversity in this case can arise from a consumer who consumes a bad item and updates her beliefs about nearby items negatively. As a result, in the next period she will pick an item far away in the product space from the item that she consumed previously. If the item that she had consumed was ``good", then she is more likely to pick a nearby item. The learning spillovers therefore lead to high product diversity being negatively correlated with welfare.
+
+\begin{figure}
+\includegraphics[scale=0.1]{figures/gamma_diversity_N_200_T_20}
+\caption{Risk Aversion and Diversity}
+\label{fig:risk_aversion_diversity}
+\end{figure}
+
+This only happens since $\gamma = 0$ leads to consumers only caring about the expected value of the good. However, as we saw in Findings \ref{finding_local_consumption} and \ref{finding_diversity}, increasing $\gamma$ can lead to lower diversity and increasingly local consumption due to the fact that the degree of uncertainty now impacts consumers' choices. This weakens the negative relationship between diversity and welfare since both negative and positive experiences with a good reduce uncertainty about surrounding goods. This leads to the inverted-U shape found in Figure \ref{fig:diversity_welfare_ra} when $\gamma$ is relatively large (e.g $\gamma = 5$).
+
+\begin{figure*}
+\includegraphics[scale=0.1]{figures/rho_diversity_N_200_T_20}
+\includegraphics[scale=0.1]{figures/rho_welfare_N_200_T_20}
+\caption{Welfare, Diversity, and Correlation}
+\label{fig:diversity_correlation}
+\end{figure*}
+
+\begin{figure*}
+\includegraphics[scale=0.3]{figures/diversity_welfare_no_risk_aversion}
+\includegraphics[scale=0.3]{figures/diversity_welfare_high_ra}
+\caption{Diversity vs. Welfare, $\gamma = 0$ (Left), Diversity vs. Welfare, $\gamma = 5$ (Right)}
+\label{fig:diversity_welfare_ra}
+\end{figure*}
+
+\subsection{User Homogenization}
+
+In this section we focus on across user comparisons and investigate how the consumed set of items across consumers varies across different recommendation regimes and parameter values. In particular we look at the degree of \textit{homogenization} between consumers. Similar to \cite{chaney2018algorithmic} we use the Jaccard index between the consumption sets of consumers to measure homogeneity:
+\begin{align*}
+H:=\frac{1}{|I|(|I|-1)}\sum_{i,j \in I: i \ne j}d_J(C_i^T,C_j^T)
+\end{align*}
+where $d_J$ denotes the Jaccard index and $H \in [0,1]$.
+\begin{finding}
+Homogeneity is:
+\begin{enumerate}
+\item Highest under partial recommendation and lowest under no recommendation
+\item Increasing in $\beta$, or the weight of the common-value component
+\item Decreasing in $\rho$ for partial recommendation, but weakly increasing in $\rho$ for no recommendation
+\end{enumerate}
+\end{finding}
+
+Figure \ref{fig:beta_homo} shows that as the weight of the common-value component, $\beta$, increases consumers consume increasingly similar sets of items. The homogenization effect is strongest under partial recommendation since the revelation of the common-value component induces consumers to consume products in similar areas of the product space. However, as $\beta$ increases, some amount of homogenization is optimal as can be seen from the omniscient recommendation case. In the no recommendation case since consumers do not know the common-value component they engage in local consumption in different areas of the product space which leads to less than optimal homogeneity.
+
+Figure \ref{fig:cor_homo} shows that the degree of homogeneity in the partial recommendation case however is \textit{decreasing} as $\rho$ increases. As was discussed in Findings \ref{finding_local_consumption} and \ref{finding_diversity}, the degree of local consumption increases with $\rho$. Even though the revelation of the common-value component induces them to search in similar parts of the product space, their idiosyncratic components induce them to consume products in a more localized area of the product space as $\rho$ increases which leads to a decline in homogeneity.
+
+\begin{figure}
+\includegraphics[scale=0.1]{figures/beta_homogeneity_N_200_T_20}
+\caption{Strength of Recommendation and Homogeneity}
+\label{fig:beta_homo}
+\end{figure}
+
+\begin{figure}
+\includegraphics[scale=0.1]{figures/rho_homogeneity_N_200_T_20}
+\caption{Correlation and Homogeneity}
+\label{fig:cor_homo}
+\end{figure}
+
+
 
 \subsection{Effectiveness of Recommendation}
 
-\begin{table}[bt]
-\centering
-\begin{tabular}{rlll}
-  \hline
-Rec Policy & Welfare & Diversity & Homogeneity \\ 
-  \hline
-No Rec & 0.42 $\pm$ 0.002 & 0.19 $\pm$ 0.0003 & 0.001 $\pm$ 0 \\ 
-Partial Rec & 1.25 $\pm$ 0.005 & 0.22 $\pm$ 0.0002 & 0.174 $\pm$ 0.004 \\ 
-Omniscient Rec & 2.24 $\pm$ 0.006 & 0.24 $\pm$ 0.0001 & 0.035 $\pm$ 0.002 \\ 
-   \hline
-\end{tabular}
-\caption{Mean Welfare, Diversity, and Homogeneity for $N = 1000, T = 25, I = 50, S = 50$. Reported intervals are 95\% confidence intervals.}
-\label{table:agg_results}
-\end{table}
-
-We are going to analyze three outcomes: how diverse consumer choices are, how similar are the choices that different individuals make and the resulting welfare. The first will be measured by $D_i =\frac{1}{N} \frac{1}{T (T-1)}\sum_{n,m \in C_i^T: n \ne m} d(n,m)$, the average normalized pairwise distance between the consumed products, a natural measure of diversity in this environment that is utilized in the literature \cite{ziegler2005improving}. The second will be measured by a consumer homogeneity index $H:=\frac{1}{|I|(|I|-1)}\sum_{i,j \in I: i \ne j}d_J(C_i^T,C_j^T) $, where $d_J$ denotes the Jaccard index and $H \in [0,1]$ which is similar to the approach to measuring homogeneity utilized in \cite{chaney2018algorithmic}. Note that a higher $H$ indicates more homogeneity. Consumer $i$'s welfare will just be the average of realized utilities, to control for the effect of $T$, $W_i=\frac{1}{T}\sum_{n \in C_i^T} u_{in}$.
-\par
-\par
-\noindent \textbf{Results}. Table \ref{table:agg_results} shows aggregate results for welfare, diversity, and homogeneity. The omniscient recommendation case leads to the optimal consumption path for a consumer since she consumes the $T$ items with the highest utility. Compared to this case, both partial recommendation and no recommendation not only lead to lower welfare but also have lower diversity. In fact, the no recommendation case leads to the lowest levels of consumption diversity since users do not explore the space of products sufficiently and do excessive amounts of local search as can be seen in Figure \ref{fig:local_consumption}. Figure \ref{fig:local_consumption} shows how ``local" consumption choices are by looking at what fraction of consecutive consumption choices are close to each other with the definition of close being less than distance of 10.  The partial recommendation case leads to higher consumption diversity and higher welfare, but also significantly higher homogeneity.
-
-In our model, filter bubble effects occur simply because of the correlation structure between the utility and beliefs of products. It highlights the fact that the correlation structure induces users to consume increasingly narrow content when they get no guidance from recommendation whereas the ``optimal" consumption path given by the omniscient policy does not exhibit this. The results of our model are consistent with the empirical results found in \cite{nguyen2014exploring} who show that filter bubble effects can arise even amongst users who do not utilize recommendations.
-\par
-Furthermore, \cite{nguyen2014exploring} also find that recommendation can lead to an increase in consumption diversity. As Table \ref{table:agg_results} shows, our model is consistent with this effect but it depends on the nature of recommendation. If recommendations only provides information on the common-value component (partially informed recommender) then welfare and consumption diversity increase when contrasted to the no recommendation case, but homogenization increases dramatically. Knowing the common-value component leads users to have more information on where to explore in the product space. However, the fact that this information is about the common-value component and the same across all individuals leads them to explore the same sections of the product space and leads to substantially higher homogeneity among users. If recommendation takes into account user beliefs on the idiosyncratic component of utility (omniscient recommender), then welfare and consumption diversity can further increase and homogeneity will decrease.
-\par
-Low consumption diversity is not necessarily bad by itself. Figure \ref{fig:diversity_welfare_no_rec} shows that, in the no recommendation case, welfare and consumption diversity are negatively correlated. This is primarily because content diversity in the no recommendation case can arise from the fact that the user consumes a bad product and is forced to jump around the product space looking for ``good" products. However, if a user finds a high utility product right away, then staying in this neighborhood may yield higher utility due to the correlation of utilities. The problem is that, even when the user finds a ``good" product, this may only be ``locally" good and the user will then excessively consume items around it due to having more information about these than more ``different'' ones, i.e. farther away.
-\par
-Finally, the value of recommendation in the partial recommendation case decreases over time as users learn more about the idiosyncratic component of their own preferences (i.e. as $t$ increases). Figure \ref{fig:rec_obey} shows that recommendation compliance decreases as $t$ increases. Additionally, Figure \ref{fig:beta_vary} shows how homogeneity and welfare change as $\beta$ increases. Most interestingly, when $\beta$ is high so that the common-value component is small, recommendation can be harmful to users. The information from recommendation still leads to large user homogeneity even though the optimum would be for there to be almost none and leads to lower welfare than under no recommendation.
 
 \section{The Value of the Ex-Ante View}
 

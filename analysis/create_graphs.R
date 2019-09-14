@@ -431,13 +431,13 @@ process_time_path <- function(N, T_val, use_hrbrthemes){
   no_rho_or_gamma <- filter(time_data, rho == 0.0 & gamma == 0.0)
   no_rho <- filter(time_data, rho == 0.0 & gamma > 0.0)
   no_gamma <- filter(time_data, gamma == 0.0 & rho > 0.0)
-  g <- ggplot(no_rho_or_gamma, aes(x=t, y=mean_consumption_dist)) +
-    geom_smooth(aes(colour=formatted_regime)) + theme_bw() +
-    ggtitle(paste("Consumption Distance, No Correlation or Risk Aversion")) + xlab("t") + ylab("Average Consumption Distance")
+  g <- ggplot(no_rho, aes(x=t, y=mean_consumption_dist)) +
+    geom_smooth(aes(colour=formatted_regime)) + theme_bw() + ylim(c(30, 60)) +
+    ggtitle(paste("Consumption Distance, No Correlation")) + xlab("t") + ylab("Average Consumption Distance")
   g <- g + theme(legend.position="bottom", legend.title = element_blank())  + 
     guides(color=guide_legend(override.aes=list(fill=NA)))
   ggsave(
-    filename= paste(WORKING_DIR, "all_figures/consumption_dist_N_", N,"T_", T_val,"no_correlation_risk_aversion.jpeg", sep=""), 
+    filename= paste(WORKING_DIR, "all_figures/consumption_dist_N_", N,"T_", T_val,"no_correlation", sep=""), 
     plot=g
   )
   
