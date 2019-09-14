@@ -1,6 +1,6 @@
 using Distributed
 using JSON
-addprocs(17)
+addprocs(30)
 @everywhere using IterTools;
 @everywhere using Dates;
 @everywhere using Distances;
@@ -380,7 +380,7 @@ end
 #
 nr_pop = 100
 #
-nr_ind = 100
+nr_ind = 25
 #
 sigma_ibar = .1
 #
