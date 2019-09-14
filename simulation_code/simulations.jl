@@ -1,6 +1,6 @@
 using Distributed
 using JSON
-addprocs(30)
+addprocs(25)
 @everywhere using IterTools;
 @everywhere using Dates;
 @everywhere using Distances;
