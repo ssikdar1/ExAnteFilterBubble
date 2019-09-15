@@ -263,13 +263,4 @@
   publisher = {ACM},
 }
 
-@Article{schulz2019structured,
-  author    = {Schulz, Eric and Bhui, Rahul and Love, Bradley C and Brier, Bastien and Todd, Michael T and Gershman, Samuel J},
-  title     = {Structured, uncertainty-driven exploration in real-world consumer choice},
-  journal   = {Proceedings of the National Academy of Sciences},
-  year      = {2019},
-  pages     = {201821028},
-  publisher = {National Acad Sciences},
-}
-
 @Comment{jabref-meta: databaseType:bibtex;}

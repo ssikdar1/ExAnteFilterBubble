@@ -216,12 +216,12 @@ The impact of recommendation on product diversity:
 
 As before, when there is no correlation between utilities product diversity is the same across different recommendation regimes. The over-exploitation of the learning spillovers when $\rho > 0$ leads to product diversity being lowest in the no recommendation regime. Figure \ref{fig:diversity_correlation} shows how diversity varies across recommendation regimes and the level of $\rho$ and Figure \ref{fig:risk_aversion_diversity} shows how diversity varies as risk aversion levels change. 
 
-\begin{finding}
+\begin{finding}\label{finding_welfare_gap}
 The welfare gap between no recommendation and partial recommendation as well as no recommendation and omniscient recommendation is decreasing in $\rho$.
 \end{finding}
 However, interestingly, the decrease in diversity is \textit{not} associated with a decline in welfare. In fact, welfare stays roughly the same in the omniscient case and slightly increases for the partial recommendation case. The welfare gap between the no recommendation case and the other two cases \textit{decreases} as the diversity gap increases.
 
-\begin{finding}
+\begin{finding}\label{finding_diversity_welfare_corr}
 Without recommendation, diversity and welfare are:
 \begin{enumerate}
 \item Negatively correlated when consumers have no risk-aversion
@@ -260,7 +260,7 @@ In this section we focus on across user comparisons and investigate how the cons
 H:=\frac{1}{|I|(|I|-1)}\sum_{i,j \in I: i \ne j}d_J(C_i^T,C_j^T)
 \end{align*}
 where $d_J$ denotes the Jaccard index and $H \in [0,1]$.
-\begin{finding}
+\begin{finding}\label{finding_homogeneity}
 Homogeneity is:
 \begin{enumerate}
 \item Highest under partial recommendation and lowest under no recommendation
@@ -285,33 +285,37 @@ Figure \ref{fig:cor_homo} shows that the degree of homogeneity in the partial re
 \label{fig:cor_homo}
 \end{figure}
 
+\section{Recommender System Evaluation}
 
+In this section we discuss how the insights from our model of user decision-making can be used to inform the evaluation and design of recommender systems.
 
-\subsection{Effectiveness of Recommendation}
+The classic approach to recommender system evaluation is to predict user ratings for items and compare how accurate this prediction is to recorded ratings data, either explicitly given by users or inferred from behavioral data. Further, given this predicted rating, the recommender system should recommend to consumers the items with the highest predicted rating \cite{adomavicius2005toward}.
 
+There has been a recent movement away from such evaluation measures due to the observation that accurate recommendations are not necessarily useful recommendations \cite{mcnee2006being}. Our model illustrates why this could be the case. Consider the domain of movie recommendation and suppose a user has just watched the movie \textit{John Wick} and rated it highly. A recommender system attempting to predict user ratings may then predict that this user is very likely to enjoy the sequel, \textit{John Wick: Chapter Two}, as well. However, the user themselves may also have made this inference since the two movies are very similar to each other and, after enjoying \textit{John Wick}, the user will update her beliefs about \textit{John Wick: Chapter Two}. Thus, if the recommender system recommends this movie to the user then this recommendation is not useful since the recommendation gives the user little information that they did not already know. As a result, the user may watch \textit{John Wick: Chapter Two} even without recommendation and the value of the recommendation was small.
 
-\section{The Value of the Ex-Ante View}
+To counteract this problem, alternative recommendation evaluation metrics have been proposed such as serendipity
+\cite{kotkov2016survey, kotkov2016challenges}. Ideally, serendipitous recommendations ``have the quality of being both unexpected and useful" \cite{maksai2015predicting}. \cite{iaquinta2010can} defines serendipitous recommendations as follows:
+\begin{quote}
+\textit{A serendipitous recommendation helps the
+user to find a surprisingly interesting item that
+she might not have otherwise discovered (or it
+would have been really hard to discover). [...]
+Serendipity cannot happen if the user already
+knows what is recommended to her, because a
+serendipitous happening is by definition something new. Thus the lower is the probability that user knows an item, the higher is the
+probability that a specific item could result
+in a serendipitous recommendation}.
+\end{quote}
 
-In this section we illustrate the differences between the ex-post and ex-ante view and show how it is useful for thinking about the design of RS. Our first point is trivial to state - since users do not know the true consumption values of the items, without any further information they may make \textit{ex-post} sub-optimal consumption decisions, but \textit{ex-ante} optimal given the information available to them at the moment of choice. Consider the following stylized example. The choice set of the individual is $\Omega= \{x_1, x_2, x_3 \}$ and the ex-post utility values are given by
-$u(x_1) = 1$, $u(x_2) = 2$, $u(x_3) = 3$. 
-\par
-However, when users are making decisions they have unobservable \textit{beliefs} about the ex-post utility value of the items and make decisions given these beliefs. As users obtain more information, their beliefs converge to the ex-post utility values but, generally, users do not have enough information and so have beliefs over the space of possible ex-post utility values. In this example we suppose these beliefs are simple so that users view each good as simple lotteries: for $n=1,2,3$, $u(x_n) = n + \varepsilon_n$, $\varepsilon_1 \sim \mathcal N (2, 1)$, $\varepsilon_2 \sim \mathcal N (0, 1)$, $\varepsilon_3 \sim \mathcal N (-5, 2)$.
-\par
-After uncertainty is unresolved, the user would consume $x_3$, but an expected utility maximizing consumer (without further information) would choose $x_1$.\footnote{We ignore an important component of decision-making under uncertainty, risk attitudes, by focusing on risk-neutral consumers. A \textit{risk-averse} user may choose to consume a good with lower expected \textit{ex-post} payoff but lower ex-ante variance compared to another good. While risk-aversion is important for decision-making under uncertainty, especially in the context of RS, it is not our main focus here.}
-\par
-This observation, while seemingly trivial, has important implications. The fact that the user would choose $C$ over $A$ reveals that $C$ prefers $A$ given her current beliefs\footnote{This is a statement of \textit{revealed preference} which has been studied heavily in economic decision theory (see e.g. \cite[]{mas1995microeconomic}).} and allows the system designer to get some information about a user's beliefs. Why are user beliefs important objects for designers of RS to understand and utilize?
-\par
-Beliefs are useful for understanding how users interact and get value from RS. In particular, users use RS to get \textit{information} about the set of items and update their beliefs about the value of the items. For instance, in the example, a RS could recommend to a user $x_3$ over $x_2$ and $x_1$ and that user will use this to update her beliefs about $x_3$. It is an empirical question that we leave for future work precisely how and to what extent users update their beliefs from recommendation and what factors of RS deisgn influence this.\footnote{There has been some work in this direction in understanding when recommendations are persuasive \cite{cremonesi2012investigating, gretzel2006persuasion} as well as the effect of their delivery on effectiveness \cite{murphy2014recommendation}.}
-\par
-Better understanding user beliefs is important for improving the performance of RS that optimize for metrics that move away from accuracy such as serendipity \cite{kotkov2016survey}. Serendipity-based RS attempt to provide recommendations that ``have the quality of being both unexpected and useful" \cite{maksai2015predicting} but it is hard to know what items are both unexpected and useful \cite{kotkov2016survey}. Understanding \textit{why} a user has not consumed a good depends on the beliefs that the user has and this is important for designing serendipitious recommendations. For instance, in the example, the user does not consume $x_3$ because she expects the good to turn out worse than the other two. However, if given more information, she would prefer to consume it over $x_1$ and $x_2$. Moreover, when the user can use her known valuation of an item to make inferences on how good another item is, consumption is path-dependent, as beliefs guide consumption and consumption affects beliefs about other goods. For instance, learning the value of $x_1$ says something about how good $x_2$ is. %When considering risk-averse individuals, when the user has alternatives with a known value,The consumer may have also consumed Another reason why the user may not . The user may have an alternative with a known value -- say going for a walk around the neighborhood -- which she could always prefer to watching a given movie that has uncertain value but that the consumer thinks is always lower than the value of the walk.\footnote{An additional reason this could be useful is if one considers a risk-averse individual, then it may be that a user has not consumed an item because she has a high perceived variance for the item's quality.}
-As a result, understanding the beliefs of users helps us understand why users have not consumed certain items and, in particular, which items a user may find useful given more information about it. This poses an important problem: designing systems that elicit not only ex-post valuations but also ex-ante beliefs about valuations, as only by knowing these can RS be effective in steering users' choices. In particular, choice has to be perceived as guided by ex-ante utility, whereas ratings by the ex-post realized utility.
-\par
-Understanding the choices that individuals will make in addition to what they will end up liking are complementary problems but require different viewpoints. \cite{jiang2014choice, saavedra2016choice} argue that choice-based approaches alone can help in designing better RS, though they argue for these approaches because they do a better job at providing more accurate recommendations. We argue that the two problems should be considered separately -- though they may interact in interesting and useful ways.\footnote{In particular, some results in \cite{jiang2014choice, saavedra2016choice} may be driven by the fact that user choice embeds ratings information that may not have been observed by the recommender but is observed by the user. Ratings, reviews, friends, there are many sources of information affecting a person's beliefs and choices that are unobservable by RS. Other consumption choices, e.g. movies seen in the cinema, change beliefs about for instance how good a director is, which affect beliefs about other movies and guide choices on a streaming platform that is unable to observe these data.} 
-\par
-RS are designed to give users \textit{information} that is useful to help them make decisions. On the one hand, predicting a user's ex-post preferences is useful to know what items the user would like to consume. On the other hand, predicting what items a user will actually consume (without recommendation) can help reason about what information may actually be useful to give her. Furthermore, in designing RS to avoid filter bubble and homogenization effects, having accurate choice predictions allows mitigating such adverse effects to become a first-order component of design. In particular, by predicting both choice and ratings, RS can provide information to users that leads them to useful items but prevents them from falling into a filter bubble. 
-\par
-Solving this choice prediction problem requires data on the choices that individuals make and the sets that they choose them from in addition to the traditional ratings or behavioral data that is collected. In the example given previously the fact that the consumer chooses $x_1$ from the set $\{x_1, x_2, x_3 \}$ would be the data that is useful for the choice prediction problem, as would the consumer's ex-ante beliefs about her valuation of the goods.
+All approaches to serendipity to our knowledge, however, do not take into account the \textit{beliefs} that users have over the valuations for the items. For instance, \cite{vargas2011rank, kaminskas2014measuring} propose a unexpectedness metric that looks at the dissimilarity of the recommended items to what the recommender already knows the user likes either via a content-based approach or a collaborative-based approach. \cite{adamopoulos2015unexpectedness} use an expected utility approach but measure unexpectedness in terms of deviations from their ``expected set of items."
 
+We propose a definition of serendipity based on \textit{unexpectedness} and \textit{usefulness} which have have clear definitions in the context of our model of user decision-making. Users have \textit{beliefs} over the valuations for the items and thus \textit{unexpected} recommendations are given by items that consumers have low expected utility for, either due to the fact that their mean belief is low or the degree of uncertainty is high. Recall from Findings \ref{finding_local_consumption} and \ref{finding_diversity_welfare_corr} that, particularly if users are risk-averse, they will consume content in increasingly narrow portions of the product space and this may be detrimental to their realized welfare. As a result, identifying the portions of the product space where users may have significant uncertainty and utilizing recommendation to reduce this uncertainty can be welfare-enhancing for consumers. This motivates a definition of \textit{useful} recommendations as recommendations that give consumers information that would \textit{change the item they consume relative to no recommendation}.
+
+Operationalizing this approach requires the collection of data that is not traditionally collected for recommender system design. In particular, it becomes important to understand what choices users would make \textit{without recommendation} and to collect data on user beliefs. \cite{jiang2014choice, saavedra2016choice} argue that choice-based approaches alone can help in designing better RS, though they argue for these approaches because they do a better job at providing more accurate recommendations. However, we argue that choice-based approaches are useful not as recommendations but as a baseline for what recommendations would be useful.\footnote{Furthermore, user beliefs and user choices contain information that may not have been observed by the recommender but is observed by the user. Ratings, reviews, friends, there are many sources of information affecting a person's beliefs and choices that are unobservable by recommender systems. Other consumption choices, e.g. movies seen in the cinema, change beliefs about for instance how good a director is, which affect beliefs about other movies and guide choices on a streaming platform that is unable to observe these data. However, this information can be inferred by the platform by collecting both beliefs and consumption choices.}
+
+Furthermore, our model shows the importance of understanding the underlying user preferences and the nature of the product space in the setting in which a recommender system is deployed since that will change the consumption patterns of consumers. For instance, understanding the degree of correlation of utilities and the level of risk-aversion become crucial in understanding how users will make consumption choices without recommendation and what kind of recommendation would be useful for users.
+
+\section{Discussion}
 
 \section{Conclusion}
 
