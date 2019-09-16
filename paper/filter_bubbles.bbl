@@ -14,12 +14,24 @@ Gediminas Adomavicius and Alexander Tuzhilin.
 \newblock {\em IEEE Transactions on Knowledge \& Data Engineering},
   (6):734--749, 2005.
 
+\bibitem{bergemann2018design}
+Dirk Bergemann, Alessandro Bonatti, and Alex Smolin.
+\newblock The design and price of information.
+\newblock {\em American Economic Review}, 108(1):1--48, 2018.
+
 \bibitem{chaney2018algorithmic}
 Allison~JB Chaney, Brandon~M Stewart, and Barbara~E Engelhardt.
 \newblock How algorithmic confounding in recommendation systems increases
   homogeneity and decreases utility.
 \newblock In {\em Proceedings of the 12th ACM Conference on Recommender
   Systems}, pages 224--232. ACM, 2018.
+
+\bibitem{ge2010beyond}
+Mouzhi Ge, Carla Delgado-Battenfeld, and Dietmar Jannach.
+\newblock Beyond accuracy: evaluating recommender systems by coverage and
+  serendipity.
+\newblock In {\em Proceedings of the fourth ACM conference on Recommender
+  systems}, pages 257--260. ACM, 2010.
 
 \bibitem{hosanagar2013will}
 Kartik Hosanagar, Daniel Fleder, Dokyun Lee, and Andreas Buja.
@@ -45,13 +57,6 @@ Marius Kaminskas and Derek Bridge.
 \newblock In {\em Proceedings of the workshop on recommender systems
   evaluation: dimensions and design (Workshop programme of the 8th ACM
   conference on recommender systems)}. Citeseer, 2014.
-
-\bibitem{kotkov2016challenges}
-Denis Kotkov, Jari Veijalainen, and Shuaiqiang Wang.
-\newblock Challenges of serendipity in recommender systems.
-\newblock In {\em WEBIST 2016: Proceedings of the 12th International conference
-  on web information systems and technologies. Volume 2, ISBN
-  978-989-758-186-1}. SCITEPRESS, 2016.
 
 \bibitem{kotkov2016survey}
 Denis Kotkov, Shuaiqiang Wang, and Jari Veijalainen.

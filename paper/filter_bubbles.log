@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  15 SEP 2019 23:09
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  16 SEP 2019 01:24
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1195,25 +1195,28 @@ iversity_N_200_T_20.jpeg> <./figures/rho_welfare_N_200_T_20.jpeg> <./figures/di
 versity_welfare_no_risk_aversion.png> <./figures/diversity_welfare_high_ra.png>
  <./figures/beta_homogeneity_N_200_T_20.jpeg> <./figures/rho_homogeneity_N_200_
 T_20.jpeg>]
-(./filter_bubbles.bbl [7.7]) [8.8
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [7.7]
+(./filter_bubbles.bbl) [8.8
 
 ]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 357.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 357.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 360.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 360.
  (./filter_bubbles.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 357.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 357.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 360.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 360.
 Package rerunfilecheck Info: File `filter_bubbles.out' has not changed.
 (rerunfilecheck)             Checksum: EF5E7274559D53EBE4B968FBA93EB2E9;2249.
  ) 
 Here is how much of TeX's memory you used:
- 18272 strings out of 492649
- 279462 string characters out of 6129622
- 393281 words of memory out of 5000000
- 21135 multiletter control sequences out of 15000+600000
- 172784 words of font info for 404 fonts, out of 8000000 for 9000
+ 18277 strings out of 492649
+ 279546 string characters out of 6129622
+ 394297 words of memory out of 5000000
+ 21138 multiletter control sequences out of 15000+600000
+ 172686 words of font info for 404 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
- 60i,12n,94p,1418b,562s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 60i,12n,94p,1409b,490s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2018/texmf-dist/fonts/enc/dvips/newtx/libertinealt.enc}{/
 usr/local/texlive/2018/texmf-dist/fonts/enc/dvips/libertine/lbtn_ncsllp.enc}{/u
 sr/local/texlive/2018/texmf-dist/fonts/enc/dvips/libertine/lbtn_25tcsq.enc}{/us
@@ -1239,10 +1242,10 @@ f-dist/fonts/type1/public/txfonts/txsyb.pfb></usr/local/texlive/2018/texmf-dist
 /type1/public/newtx/txsys.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/p
 ublic/newtx/zxlr.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/new
 tx/zxlri.pfb>
-Output written on filter_bubbles.pdf (8 pages, 2687558 bytes).
+Output written on filter_bubbles.pdf (8 pages, 2688304 bytes).
 PDF statistics:
- 336 PDF objects out of 1000 (max. 8388607)
- 268 compressed objects within 3 object streams
- 76 named destinations out of 1000 (max. 500000)
+ 341 PDF objects out of 1000 (max. 8388607)
+ 273 compressed objects within 3 object streams
+ 78 named destinations out of 1000 (max. 500000)
  43705 words of extra memory for PDF output out of 51595 (max. 10000000)
 
