@@ -18,8 +18,8 @@
 % the commands and values with those provided to you when you complete the rights form.
 %
 % These commands are for a PROCEEDINGS abstract or paper.
-\copyrightyear{2018}
-\acmYear{2018}
+\copyrightyear{2019}
+\acmYear{2019}
 \setcopyright{acmlicensed}
 \acmConference[WWW '20]{Recomme '18: ACM Symposium on Neural Gaze Detection}{April 20--24, 2020}{Taipei, Taiwan}
 \acmBooktitle{WWW '20: ACM Conference on Neural Gaze Detection, June 03--05, 2018, Woodstock, NY}
@@ -160,6 +160,8 @@ We further consider two cases that serve primarily as benchmarks. The first is \
 \noindent \textbf{Simulation Details}. We analyze our model using numerical simulation since the sequential decision-making component of our model paired with the rich covariance structure between the items make it difficult to characterize optimal consumer behavior analytically. The Gaussian assumption allows for closed form Bayesian-updating which enables us to simulate our model but does not provide much help in analytical characterizations.
 
 We explore how consumption patterns differ as we consider different recommendation regimes and report representative results from our simulations. We simulate our model over $100$ populations of users with $100$ users per population. For every population and every statistic we calculate, we average over the users in the population to get a representative statistic for this population. A given set of parameters and a population are a single data point in our dataset.
+
+We simulate over a grid of $\gamma, \sigma, \rho, \beta$. When we consider results varying a single parameter, we group the results over the other parameters and consider the differences in value only varying the parameter of interest. We report results for a relatively small $T$. Unless otherwise reported, our results are robust to varying $N$.
 
 \subsection{Discussion of Assumptions}
 
@@ -322,7 +324,7 @@ The classic approach to recommender system evaluation is to predict user ratings
 
 There has been a recent movement away from such evaluation measures due to the observation that accurate recommendations are not necessarily useful recommendations \cite{mcnee2006being}. Our model illustrates why this could be the case. Consider the domain of movie recommendation and suppose a user has just watched the movie \textit{John Wick} and rated it highly. A recommender system attempting to predict user ratings may then predict that this user is very likely to enjoy the sequel, \textit{John Wick: Chapter Two}, as well. However, the user themselves may also have made this inference since the two movies are very similar to each other and, after enjoying \textit{John Wick}, the user will update her beliefs about \textit{John Wick: Chapter Two}. Thus, if the recommender system recommends this movie to the user then this recommendation is not useful since the recommendation gives the user little information that they did not already know. As a result, the user may watch \textit{John Wick: Chapter Two} even without recommendation and the value of the recommendation was small.
 
-To counteract this problem, alternative recommendation evaluation metrics have been proposed such as serendipity
+As a result, there is a need to define alternative recommendation evaluation metrics that result in recommender systems that are more useful for users. One recent alternative has been proposed such as serendipity
 \cite{kotkov2016survey, kotkov2016challenges}. Ideally, serendipitous recommendations ``have the quality of being both unexpected and useful" \cite{maksai2015predicting}. \cite{iaquinta2010can} defines serendipitous recommendations as follows:
 \begin{quote}
 \textit{A serendipitous recommendation helps the
