@@ -380,7 +380,7 @@ end
 #
 nr_pop = 100
 #
-nr_ind = 25
+nr_ind = 60
 #
 sigma_ibar = .1
 #
