@@ -6,6 +6,7 @@
 \usepackage{float}
 \newtheorem{finding}{Finding}
 
+\usepackage{color-edits}
 \usepackage{xspace}
 \newcommand{\OMIT}[1]{}
 %
@@ -121,10 +122,10 @@ We stack the idiosyncratic and common-value components as $V_i ={\left(v_{in}\ri
 \noindent \textbf{user Beliefs} We assume that users do not know the realized utilities of the goods before consuming an item.  Formally, user $i$ starts with some beliefs about $U_i$, namely that the idiosyncratic and common-value parts of the utilities are independent -- $V_i \perp \!\!\! \perp V$ -- and that each is multivariate normal. The idiosyncratic utility and common-value utility are distributed as follows:
 \begin{enumerate}
 \item $V_i \sim \mathcal N (\overline V_i, \Sigma_i)$ 
-\item $V \sim \mathcal N(\overline V, \Sigma)$ with $\overline V =0$
+\item $V \sim \mathcal N(\overline V, \Sigma)$ with \ssedit{$\overline V =0}{red}$
 \end{enumerate}
 
-We impose the normality assumption for two reasons. The first is that users update their beliefs using Bayesian updating and recall that the normal distribution forms a conjugate family, which allows for simple posterior updates. The second is that it allows us to incorporate an easily interpretable correlation structure between the items.
+We impose the normality assumption for two reasons. \ssedit{The first is that users update their beliefs using Bayesian updating and recall that the normal distribution forms a conjugate family, which allows for simple posterior updates.}{red} The second is that it allows us to incorporate an easily interpretable correlation structure between the items.
 
 Keeping with the assumption that $V_i$ represents idiosyncratic deviations from $V$, we assume that, on the population level, prior beliefs $\overline V_i=\left(\overline v_{in}\right)_{n \in \mathcal{N}}$ are drawn independently from a jointly normal distribution, where $\overline v_{in} \sim \mathcal N (0, \overline \sigma^2)$ are i.i.d. These $\overline v_{in}$ denote the prior belief that $i$ holds about the her valuation over good $n$. As people are exposed to different backgrounds, their beliefs about what is good for them also varies and $\overline v_{in}$ denotes this idiosyncrasy at the level of prior beliefs.
 \par
