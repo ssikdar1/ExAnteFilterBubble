@@ -21,8 +21,8 @@
 \copyrightyear{2018}
 \acmYear{2018}
 \setcopyright{acmlicensed}
-\acmConference[RecSys '19]{Recomme '18: ACM Symposium on Neural Gaze Detection}{September 16--20, 2019}{Copenhagen, Denmark}
-\acmBooktitle{RecSys '19: ACM Conference on Neural Gaze Detection, June 03--05, 2018, Woodstock, NY}
+\acmConference[WWW '20]{Recomme '18: ACM Symposium on Neural Gaze Detection}{April 20--24, 2020}{Taipei, Taiwan}
+\acmBooktitle{WWW '20: ACM Conference on Neural Gaze Detection, June 03--05, 2018, Woodstock, NY}
 \acmPrice{15.00}
 \acmDOI{10.1145/1122445.1122456}
 \acmISBN{978-1-4503-9999-9/18/06}
@@ -99,57 +99,86 @@ Recommender Systems
 
 \section{Our Model and Preliminaries}
 
-\subsection{Preliminaries and Illustrative Example}
-[Duarte can do this] \\
-\noindent \textbf{Expected Utility Theory} First, we review basic economic decision theory. 
+\subsection{Preliminary on Expected Utility Theory}
+[Duarte can do this]
 
-\noindent \textbf{Illustrative Example}
-
-\subsection{Model}
+\subsection{Model Setup}
 \par
 \noindent \textbf{Consumers} We consider a set of consumers $I$ where each individual $i \in I$ faces the same finite set of $N$ items $\mathcal{N} = \left\{0,1,...,N-1\right\}$. For simplicity, we assume that individuals only derive pleasure from item $n \in \mathcal{N}$ the first time they consume it.
 
-We denote by $u_{in}$ individual $i$'s realized utility from consuming item $n$. By realized utility we In particular, we consider that the realized utility derived from a given item can be decomposed in the following manner: $u_{in}= v_{in} + \beta v_n$, where $v_{in}$ denotes an idiosyncratic component -- i.e. consumer $i$'s idiosyncratic taste for good $n$ --  and $v_{n}$, a common-value component. One can interpret $v_n$ as a measure of how much good $n$ is valued in society in general and, in a sense, $v_{in}$ denotes how $i$ diverges from this overall ranking. The scalar $\beta \in [0,1]$ denotes the degree to which utilities are idiosyncratic to each individual or common across individuals. If $\beta=0$, it is impossible to generate meaningful predictions of any one's individual preferences based on others, while if $\beta \rightarrow \infty$, every individual has the same preferences.
+We denote by $u_{in}$ individual $i$'s realized utility from consuming item $n$. By realized utility we In particular, we consider that the realized utility derived from a given item can be decomposed in the following manner:
+\begin{align*}
+u_{in}= v_{in} + \beta v_n
+\end{align*}
+where $v_{in}$ denotes an idiosyncratic component -- i.e. consumer $i$'s idiosyncratic taste for good $n$ --  and $v_{n}$, a common-value component. One can interpret $v_n$ as a measure of how much good $n$ is valued in society in general and, in a sense, $v_{in}$ denotes how $i$ diverges from this overall ranking. The scalar $\beta \in \mathbb{R}_{+}$ denotes the degree to which utilities are idiosyncratic to each individual or common across individuals. If $\beta=0$, it is impossible to generate meaningful predictions of any one's individual preferences based on others, while if $\beta \rightarrow \infty$, every individual has the same preferences. [include some discussion of what this implies about the predictability of a user's preferences]
 
-Stacking utilities in vector-form, we get ${\left(u_{in}\right)}_{n \in \mathcal{N}}=:U_i=V_i+ \beta V $, the vector of utilities associated with each good, where $V_i ={\left(v_{in}\right)}_{n \in \mathcal{N}}$ and $V={\left(v_{n}\right)}_{n \in \mathcal{N}}$.
+Stacking utilities in vector-form, we get:
+\begin{align*}
+{\left(u_{in}\right)}_{n \in \mathcal{N}}=:U_i=V_i+ \beta V
+\end{align*}
+We stack the idiosyncratic and common-value components as $V_i ={\left(v_{in}\right)}_{n \in \mathcal{N}}$ and $V={\left(v_{n}\right)}_{n \in \mathcal{N}}$.
 \par
-\noindent \textbf{Consumer Beliefs} We assume that consumers do not know the realized utilities of the goods before consuming an item. We make this assumption as our model pertains to markets where the goods are experience goods and modeling consumers as being uncertain over their preferences in these environments  is common in the economics literature [add citations]. Even though consumers have access to online reviews for goods in many of the markets where recommender systems are deployed, it is prohibitively costly for consumers to acquire information on all of the goods in their choice set. Even if they did so, this information would be helpful for reducing uncertainty on the common-value component of their utility and not the idiosyncratic component. While we do not explicitly incorporate this into our model, we use it to motivate that consumers make consumption decisions under some degree of uncertainty.
-
-Formally, consumer $i$ starts with some beliefs about $U_i$, namely that the idiosyncratic and common-value parts of the utilities are independent -- $V_i \perp \!\!\! \perp V$ -- and that each is multivariate normal
-\begin{definition} The idiosyncratic utility and common-value utility are distributed as follows:
-\begin{center}
+\noindent \textbf{Consumer Beliefs} We assume that consumers do not know the realized utilities of the goods before consuming an item.  Formally, consumer $i$ starts with some beliefs about $U_i$, namely that the idiosyncratic and common-value parts of the utilities are independent -- $V_i \perp \!\!\! \perp V$ -- and that each is multivariate normal. The idiosyncratic utility and common-value utility are distributed as follows:
 \begin{enumerate}
 \item $V_i \sim \mathcal N (\overline V_i, \Sigma_i)$ 
 \item $V \sim \mathcal N(\overline V, \Sigma)$ with $\overline V =0$
 \end{enumerate}
-\end{center}
-\end{definition}
 
 We impose the normality assumption for two reasons. The first is that consumers update their beliefs using Bayesian updating and recall that the normal distribution forms a conjugate family, which allows for simple posterior updates. The second is that it allows us to incorporate an easily interpretable correlation structure between the items.
 
 Keeping with the assumption that $V_i$ represents idiosyncratic deviations from $V$, we assume that, on the population level, prior beliefs $\overline V_i=\left(\overline v_{in}\right)_{n \in \mathcal{N}}$ are drawn independently from a jointly normal distribution, where $\overline v_{in} \sim \mathcal N (0, \overline \sigma^2)$ are i.i.d. These $\overline v_{in}$ denote the prior belief that $i$ holds about the her valuation over good $n$. As people are exposed to different backgrounds, their beliefs about what is good for them also varies and $\overline v_{in}$ denotes this idiosyncrasy at the level of prior beliefs.
 \par
 \noindent \textbf{Consumer Learning}
-When a consumer consumes a good $n$ they learn the realized utility for that good. In our model we incorporate the idea that learning the utility of good $n$ gives a consumer information about similar items. This is drawn from recent empirical evidence in \cite{schulz2019structured} that consumers learn how to navigate large choice sets using similarity-based generalization. We assume that learning about the utility of good $n$ reveals more about the utility associated to items that are closer to it, which captures the idea that trying a product provides more information about similar products than about dissimilar ones.
+When a consumer consumes a good $n$ they learn the realized utility for that good. In our model we incorporate the idea that learning the utility of good $n$ gives a consumer information about similar items. We assume that learning about the utility of good $n$ reveals more about the utility associated to items that are closer to it, which captures the idea that trying a product provides more information about similar products than about dissimilar ones.
 
-In order to have a well-defined notion of similarity we need to define a distance function between goods, which we define as $d(n,m):=\min\{ \lvert m - n \rvert ,N - \lvert m - n \rvert \}$ where $m$ and $n$ are the index of the items in $\mathcal{N}$. We consider that the entry of $n$-th row and the ($m$)-th column of $\Sigma_i$ is given by $\sigma_i^2 \rho^{d(n,m)}$, and that of $\Sigma$ is given by $\sigma^2 \rho^{d(n,m)}$. The scalar $\rho \in [0,1]$ therefore impacts the covariance structure: a higher $\rho$ implies that learning the utility of $n$ is more informative about products nearby. Informativeness, for any $\rho \in (0,1)$, is decreasing in distance. The particular distance function that we utilize leads to this covariance structure being simple, where the $(n,n+1)$-th entry in the covariance matrix is $\rho$ , $(n,n+2)$-th entry is $\rho^2$, etc. This spill-over process is represented in Figure [insert fig].
+In order to have a well-defined notion of similarity we need to define a distance function between goods, which we define as:
+\begin{align*}
+d(n,m):=\min\{ \lvert m - n \rvert ,N - \lvert m - n \rvert \}
+\end{align*}
+ $m$ and $n$ are the indices of the items in $\mathcal{N}$. We consider that the entry of $n$-th row and the ($m$)-th column of $\Sigma_i$ is given by $\sigma_i^2 \rho^{d(n,m)}$, and that of $\Sigma$ is given by $\sigma^2 \rho^{d(n,m)}$. The scalar $\rho \in [0,1]$ therefore impacts the covariance structure: a higher $\rho$ implies that learning the utility of $n$ is more informative about products nearby. Informativeness, for any $\rho \in (0,1)$, is decreasing in distance. The particular distance function that we utilize leads to this covariance structure being simple, where the $(n,n+1)$-th entry in the covariance matrix is $\rho$ , $(n,n+2)$-th entry is $\rho^2$, etc.
 \par
 \textbf{Consumer Decision-Making}
-We assume the user makes $T$ choices and therefore can only consume up to $T$ items, where $T$ is but a small fraction of $N$. This captures the idea that users are faced with an immense choice set but that ultimately they end up experiencing (and learning) about just a small fraction of it. Since this is a sequential decision-making problem under uncertainty, in principle consumers face an exploration-exploitation trade-off. However, for tractability, we impose that consumers are myopic and every period consume the product that they have not yet tried ($n_i^t$) that gives them the highest expected utility given the information from past consumption offers ($C_i^{t-1}=(n_i^1,...,n_i^{t-1})$) and their initial beliefs. Any ties are broken uniformly at random. This assumption is critical not only for tractability but also in order to have easily defined benchmarks.
+We assume the user makes $T$ choices and therefore can only consume up to $T$ items, where $T$ is but a small fraction of $N$. This captures the idea that users are faced with an immense choice set but that ultimately they end up experiencing (and learning) about just a small fraction of it. For tractability we impose that consumers are myopic and every period consume the product that they have not yet tried ($n_i^t$) that gives them the highest expected utility given the information from past consumption offers ($C_i^{t-1}=(n_i^1,...,n_i^{t-1})$) and their initial beliefs. Any ties are broken uniformly at random. This assumption is critical not only for tractability but also in order to have easily defined benchmarks.
 \par
 \noindent \textbf{Recommendation}
 Our model of recommendation is stylized in order to provide qualitative insights into how recommendation shapes behavior, instead of looking at realistic implementations of recommender systems. We model recommendation as giving consumers information about the utility of the goods.
 
-We will consider three cases. The case of primary interest is \textit{partial recommendation} where the recommender observes utilities accrued, but does not know consumer $i$'s starting beliefs $\overline U_i$. In this case, the recommender knows $V$ but does not know neither $V_i$ nor, crucially, users' beliefs $\overline V_i$. The recommendation will be that the consumer $i$ chooses $r_{it} \in \arg \max_{n \in \mathcal{N} \backslash C_i^T} u_n$, but we assume the recommender provides full information about $V$. For instance, the recommender could display the whole distribution of utilities reported by other users or even its average, which is a good proxy for the common value component.\footnote{
+We will consider three recommendation regimes:
+\begin{enumerate}
+\item Partial Recommendation
+\item No Recommendation
+\item Omniscient Recommendation
+\end{enumerate}
+The case of primary interest is \textit{partial recommendation} where the recommender observes utilities accrued, but does not know consumer $i$'s starting beliefs $\overline U_i$. In this case, the recommender knows $V$ but does not know $V_i$.\footnote{We do not consider the acquisition of information for the recommender to know $V$ and suppose that she has sufficient data to learn $V$ before recommendation.} However, the recommender does know the users' beliefs, $\overline V_i$. Thus, at any given period, the recommender provides a personalized recommendation that combines the knowledge of the common value component $V$ with the user beliefs $\overline V_i$. User's beliefs about her valuation of each item become crucial in this case: just providing the user with information about $V$ may change the user's original ranking, but, without considering the user's beliefs, she will not necessarily follow recommendation.
+
+The notion of partial recommendation that we consider is idealized where the recommendation does the Bayesian updating for users. An alternative that is equivalent would be the recommender simply providing $V$ without knowing $\overline V_i$. In this case, the recommendation will be that the consumer $i$ chooses $r_{it} \in \arg \max_{n \in \mathcal{N} \backslash C_i^T} u_n$, but we assume the recommender provides full information about $V$. For instance, the recommender could display the whole distribution of utilities reported by other users or even its average, which is a good proxy for the common value component.\footnote{
 The best item that could recommended with such information if the item with highest common value component. However, in that case, recommending only a single item generates costly Bayesian updating to the consumer and provides little guidance as to what she should indeed pick as the common value might be of little importance when compared to the idiosyncratic component. Therefore, we assume that the RS reports the whole $V$, which results in higher expected welfare in choices and is not costly to implement.
-}
-Note that with partial recommendation it is not necessarily optimal for the user to follow the recommendation, that is, to pick the item with the highest common-value component $v_n$. Consumer's beliefs about her valuation of each item become crucial in this case: knowing $V$ may change the original ranking, but given this new information the consumer may find it best to pick an item other than the one recommended.
+} The results would be equivalent, but this would shift the burden of Bayesian updating to users.
 
-We further consider two cases that serve primarily as benchmarks. The first is \textit{no recommendation}, where consumers get no additional information about utilities and make consumption choices based on their beliefs and consumption history. This gives us a benchmark as to how consumers in our model would behave \textit{without} recommendation so that we can analyze what changes with the introduction of recommendation. The second is \textit{omniscient recommendation} where the recommender knows the true utility of each good for each consumer and can therefore recommend the best remaining good in every period. This gives us a full information benchmark, which is the optimal consumption path for a consumer if all uncertainty about their preferences was resolved. We compare this benchmark to the partial recommendation case and it allows us to understand how much this form of recommendation affects behavior relative to the ideal.
+We further consider two cases that serve primarily as benchmarks. The first is \textit{no recommendation}, where consumers get no additional information about utilities and make consumption choices based on their beliefs and consumption history. This gives us a benchmark as to how consumers in our model would behave \textit{without} recommendation so that we can analyze what changes with the introduction of recommendation. The second is \textit{omniscient recommendation} where the recommender knows the true realized utility of each good for each consumer and can therefore recommend the best remaining good in every period. This gives us a full information benchmark, which is the optimal consumption path for a consumer if all uncertainty about their preferences was resolved.
 \par
-\noindent \textbf{Simulation Details}. We analyze our model using numerical simulation since the sequential decision-making component of our model paired with the rich covariance structure between the items make it difficult to characterize optimal consumer behavior analytically. We explore how consumption patterns differ as we consider different recommendation regimes and report representative results from our simulations. $P$ populations of $I$ users and compare their consumption choices under different recommendation system regimes. We simulate over $100$ populations with $100$ consumers. We average over the consumers in a population to get a representative consumer and then report results where a single data point is over the set of representative consumers.
+\noindent \textbf{Simulation Details}. We analyze our model using numerical simulation since the sequential decision-making component of our model paired with the rich covariance structure between the items make it difficult to characterize optimal consumer behavior analytically. The Gaussian assumption allows for closed form Bayesian-updating which enables us to simulate our model but does not provide much help in analytical characterizations.
 
-\section{User Behavior}
+We explore how consumption patterns differ as we consider different recommendation regimes and report representative results from our simulations. We simulate our model over $100$ populations of users with $100$ users per population. For every population and every statistic we calculate, we average over the users in the population to get a representative statistic for this population. A given set of parameters and a population are a single data point in our dataset.
+
+\subsection{Discussion of Assumptions}
+
+In this section we provide further discussion of several of the assumptions of our model.
+
+\noindent \textbf{Uncertainty}: We assume that users have underlying uncertainty about the realized utility of the items in their choice sets and as a result face a decision problem under uncertainty. The first justification for this is that environments where recommender systems are commonly deployed, such as on media streaming or e-commerce platforms, contain experience goods. A common assumption in the economics literature is that for experience goods, where users can only observe their realized utility after consumption, users face a decision problem under uncertainty when making consumption choices. The second justification is that, even if users are in an environment where they could observe utilities based on product reviews or introspection, it is prohibitively costly for them to do so in large choice sets.\footnote{Recent empirical work [cite the cameras paper and hodgson-lewis] has shown that, for product search, users engage in a ``zooming in" search strategy in terms of the information they acquire about products before purchasing and only end up acquiring information about a small set of products in a large product space.} Even if they acquired all the information from product reviews, this would only fully resolve uncertainty if individuals did not have idiosyncratic tastes.
+
+This motivates modeling recommendation as providing users \textit{information} in order to reduce their uncertainty.
+
+\noindent \textbf{Large Choice Sets}: We are interested in environments where the number of items in the choice set is very large and users only consume a small number of these items. This is realistic for platforms such as Netflix, Spotify, Amazon, and YouTube where there are sometimes billions of items and users can realistically only consume a handful of these items in their lifetime.
+
+\noindent \textbf{Learning Spillovers}: Users in our environment face a sequential decision-making problem. However, we suppose that individuals are myopic (i.e. consume the item with the highest expected utility, given their beliefs in a single period) in order to maintain tractability. The predominant difficulty in the learning problem they face is not that they need to repeatedly sample a single item in order to learn its value (as in standard multi-armed bandit formulations), but rather that they need to be able to generalize from their experience from consuming one item to other items. After consuming a single item they learn the realized utility of the good.
+
+\indent \cite{schulz2019structured} studies how individuals solve sequential decision-making problems under uncertainty in large choice sets in the context of mobile food delivery orders. They find that individuals engage in similarity-based generalization where learning about the realized utility of a particular good provides them with information about similar goods. Content-based recommender systems exploit a similar idea where, if a user liked one item, then it is also likely that they will like a similar, but different, item as well.
+
+Our model incorporates this observation in a stylized fashion where the degree of information spill-overs is controlled via parameter $\rho$ and we study how the strength of the spill-overs impacts behavior and the effect of recommendation.
+
+
+\section{Results}
 
 \subsection{Local Consumption}
 
