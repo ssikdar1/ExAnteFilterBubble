@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  16 SEP 2019 01:37
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  17 SEP 2019 01:24
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -808,10 +808,16 @@ LaTeX Font Info:    Redeclaring font encoding T1 on input line 48.
 ))
 \c@finding=\count129
 
+(./color-edits.sty
+Package: color-edits 
+
+(/usr/local/texlive/2018/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+))
 (/usr/local/texlive/2018/texmf-dist/tex/latex/tools/xspace.sty
 Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
 )
-Package hyperref Info: Option `pdfdisplaydoctitle' set `true' on input line 51.
+Package hyperref Info: Option `pdfdisplaydoctitle' set `true' on input line 53.
 
 \c@theorem=\count130
 
@@ -819,61 +825,61 @@ Excluding comment 'screenonly' Include comment 'printonly'
 Include comment 'anonsuppress' (./filter_bubbles.aux)
 \openout1 = `filter_bubbles.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/nxlmi/m/it on input line 51.
-LaTeX Font Info:    Try loading font information for OML+nxlmi on input line 51
+LaTeX Font Info:    Checking defaults for OML/nxlmi/m/it on input line 53.
+LaTeX Font Info:    Try loading font information for OML+nxlmi on input line 53
 .
 
 (/usr/local/texlive/2018/texmf-dist/tex/latex/newtx/omlnxlmi.fd
 File: omlnxlmi.fd 2013/11/19 Fontinst v1.933 font definitions for OML/nxlmi.
 )
-LaTeX Font Info:    ... okay on input line 51.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 51.
-LaTeX Font Info:    ... okay on input line 51.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 51.
-LaTeX Font Info:    ... okay on input line 51.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 51.
-LaTeX Font Info:    ... okay on input line 51.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 51.
-LaTeX Font Info:    ... okay on input line 51.
-LaTeX Font Info:    Checking defaults for U/ntxexa/m/n on input line 51.
-LaTeX Font Info:    Try loading font information for U+ntxexa on input line 51.
+LaTeX Font Info:    ... okay on input line 53.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 53.
+LaTeX Font Info:    ... okay on input line 53.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 53.
+LaTeX Font Info:    ... okay on input line 53.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 53.
+LaTeX Font Info:    ... okay on input line 53.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 53.
+LaTeX Font Info:    ... okay on input line 53.
+LaTeX Font Info:    Checking defaults for U/ntxexa/m/n on input line 53.
+LaTeX Font Info:    Try loading font information for U+ntxexa on input line 53.
 
 
 (/usr/local/texlive/2018/texmf-dist/tex/latex/newtx/untxexa.fd
 File: untxexa.fd 2012/04/16 Fontinst v1.933 font definitions for U/ntxexa.
 )
-LaTeX Font Info:    ... okay on input line 51.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 51.
-LaTeX Font Info:    ... okay on input line 51.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 51.
-LaTeX Font Info:    ... okay on input line 51.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 51.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 51.
+LaTeX Font Info:    ... okay on input line 53.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 53.
+LaTeX Font Info:    ... okay on input line 53.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 53.
+LaTeX Font Info:    ... okay on input line 53.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 53.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 53.
 
 (/usr/local/texlive/2018/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 51.
-LaTeX Font Info:    Checking defaults for LMS/ntxsy/m/n on input line 51.
-LaTeX Font Info:    Try loading font information for LMS+ntxsy on input line 51
+LaTeX Font Info:    ... okay on input line 53.
+LaTeX Font Info:    Checking defaults for LMS/ntxsy/m/n on input line 53.
+LaTeX Font Info:    Try loading font information for LMS+ntxsy on input line 53
 .
 
 (/usr/local/texlive/2018/texmf-dist/tex/latex/newtx/lmsntxsy.fd
 File: lmsntxsy.fd 2016/07/02 Fontinst v1.933 font definitions for LMS/ntxsy.
 )
-LaTeX Font Info:    ... okay on input line 51.
-LaTeX Font Info:    Checking defaults for LMX/ntxexx/m/n on input line 51.
+LaTeX Font Info:    ... okay on input line 53.
+LaTeX Font Info:    Checking defaults for LMX/ntxexx/m/n on input line 53.
 LaTeX Font Info:    Try loading font information for LMX+ntxexx on input line 5
-1.
+3.
 
 (/usr/local/texlive/2018/texmf-dist/tex/latex/newtx/lmxntxexx.fd
 File: lmxntxexx.fd 2016/07/03 Fontinst v1.933 font definitions for LMX/ntxexx.
 )
-LaTeX Font Info:    ... okay on input line 51.
+LaTeX Font Info:    ... okay on input line 53.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 7.0pt on input line 51.
+(Font)              scaled to size 7.0pt on input line 53.
 LaTeX Font Info:    Try loading font information for OT1+LinuxLibertineT-TLF on
- input line 51.
+ input line 53.
 
 (/usr/local/texlive/2018/texmf-dist/tex/latex/libertine/OT1LinuxLibertineT-TLF.
 fd
@@ -881,40 +887,40 @@ File: OT1LinuxLibertineT-TLF.fd 2017/03/20 (autoinst) Font definitions for OT1/
 LinuxLibertineT-TLF.
 )
 LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 7.3pt on input line 51.
+(Font)              scaled to size 7.3pt on input line 53.
 <<ot1.cmap>>
 LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 5.5pt on input line 51.
+(Font)              scaled to size 5.5pt on input line 53.
 <<oml.cmap>>
-LaTeX Font Info:    Try loading font information for U+msa on input line 51.
+LaTeX Font Info:    Try loading font information for U+msa on input line 53.
 
 (/usr/local/texlive/2018/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 51.
+LaTeX Font Info:    Try loading font information for U+msb on input line 53.
 
 (/usr/local/texlive/2018/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Try loading font information for U+ntxmia on input line 51.
+LaTeX Font Info:    Try loading font information for U+ntxmia on input line 53.
 
 
 (/usr/local/texlive/2018/texmf-dist/tex/latex/newtx/untxmia.fd
 File: untxmia.fd 2016/01/31 Fontinst v1.933 font definitions for U/ntxmia.
 )
-LaTeX Font Info:    Try loading font information for U+ntxsym on input line 51.
+LaTeX Font Info:    Try loading font information for U+ntxsym on input line 53.
 
 
 (/usr/local/texlive/2018/texmf-dist/tex/latex/newtx/untxsym.fd
 File: untxsym.fd 2015/03/20 Fontinst v1.933 font definitions for U/ntxsym.
 )
-LaTeX Font Info:    Try loading font information for U+ntxsyc on input line 51.
+LaTeX Font Info:    Try loading font information for U+ntxsyc on input line 53.
 
 
 (/usr/local/texlive/2018/texmf-dist/tex/latex/newtx/untxsyc.fd
 File: untxsyc.fd 2012/04/12 Fontinst v1.933 font definitions for U/ntxsyc.
 )
-LaTeX Info: Redefining \microtypecontext on input line 51.
+LaTeX Info: Redefining \microtypecontext on input line 53.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
@@ -931,7 +937,7 @@ Package microtype Info: Loading generic protrusion settings for font family
 
 ABD: EveryShipout initializing macros
 \AtBeginShipoutBox=\box34
-Package hyperref Info: Link coloring OFF on input line 51.
+Package hyperref Info: Link coloring OFF on input line 53.
 
 (/usr/local/texlive/2018/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
@@ -941,9 +947,9 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count131
 )
-LaTeX Info: Redefining \ref on input line 51.
-LaTeX Info: Redefining \pageref on input line 51.
-LaTeX Info: Redefining \nameref on input line 51.
+LaTeX Info: Redefining \ref on input line 53.
+LaTeX Info: Redefining \pageref on input line 53.
+LaTeX Info: Redefining \nameref on input line 53.
 
 (./filter_bubbles.out) (./filter_bubbles.out)
 \@outlinefile=\write5
@@ -1024,30 +1030,30 @@ Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: float package is loaded.
 Package caption Info: End \AtBeginDocument code.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 17.28pt on input line 81.
+(Font)              scaled to size 17.28pt on input line 83.
 LaTeX Font Info:    Try loading font information for T1+LinuxBiolinumT-TLF on i
-nput line 81.
+nput line 83.
 
 (/usr/local/texlive/2018/texmf-dist/tex/latex/libertine/T1LinuxBiolinumT-TLF.fd
 File: T1LinuxBiolinumT-TLF.fd 2017/03/20 (autoinst) Font definitions for T1/Lin
 uxBiolinumT-TLF.
 )
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
-(Font)              scaled to size 17.28pt on input line 81.
+(Font)              scaled to size 17.28pt on input line 83.
 Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `LinuxBiolinumT-TLF' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/b/n' will be
-(Font)              scaled to size 17.28pt on input line 81.
+(Font)              scaled to size 17.28pt on input line 83.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 12.0pt on input line 81.
+(Font)              scaled to size 12.0pt on input line 83.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 10.0pt on input line 81.
+(Font)              scaled to size 10.0pt on input line 83.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
-(Font)              scaled to size 7.0pt on input line 81.
+(Font)              scaled to size 7.0pt on input line 83.
 LaTeX Font Info:    Try loading font information for TS1+LinuxLibertineT-TLF on
- input line 81.
+ input line 83.
 
 (/usr/local/texlive/2018/texmf-dist/tex/latex/libertine/TS1LinuxLibertineT-TLF.
 fd
@@ -1055,17 +1061,17 @@ File: TS1LinuxLibertineT-TLF.fd 2017/03/20 (autoinst) Font definitions for TS1/
 LinuxLibertineT-TLF.
 )
 LaTeX Font Info:    Font shape `TS1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 7.0pt on input line 81.
+(Font)              scaled to size 7.0pt on input line 83.
 Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `LinuxLibertineT-TLF' (encoding: TS1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/b/n' will be
-(Font)              scaled to size 9.0pt on input line 81.
+(Font)              scaled to size 9.0pt on input line 83.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/b/n' will be
-(Font)              scaled to size 10.95pt on input line 81.
+(Font)              scaled to size 10.95pt on input line 83.
 LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 9.0pt on input line 87.
+(Font)              scaled to size 9.0pt on input line 89.
 Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `LinuxLibertineT-TLF' (encoding: OT1).
 (microtype)             For optimal results, create family-specific settings.
@@ -1077,159 +1083,148 @@ File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 7.3pt on input line 87.
+(Font)              scaled to size 7.3pt on input line 89.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 5.5pt on input line 87.
-
-Underfull \hbox (badness 10000) in paragraph at lines 87--87
-[][][]\T1/LinuxLibertineT-TLF/m/n/7 (+10) https://www.theatlantic.com/politics/
-archive/2018/03/youtube-extremism-and-the-
- []
-
+(Font)              scaled to size 5.5pt on input line 89.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
-(Font)              scaled to size 9.0pt on input line 87.
-[1.1{/usr/local/texlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
+(Font)              scaled to size 9.0pt on input line 89.
+
+Underfull \vbox (badness 1215) has occurred while \output is active []
+
+ [1.1{/usr/local/texlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
 ]
-LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
-(Font)              scaled to size 9.0pt on input line 161.
+Underfull \vbox (badness 1038) has occurred while \output is active []
 
-[2.2]
-<figures/consumption_dist_N_200T_20no_correlation.png, id=116, 537.00626pt x 37
+LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
+(Font)              scaled to size 9.0pt on input line 164.
+ [2.2]
+<figures/consumption_dist_N_200T_20no_correlation.png, id=117, 537.00626pt x 37
 9.4175pt>
 File: figures/consumption_dist_N_200T_20no_correlation.png Graphic file (type p
 ng)
 <use figures/consumption_dist_N_200T_20no_correlation.png>
 Package pdftex.def Info: figures/consumption_dist_N_200T_20no_correlation.png  
-used on input line 188.
+used on input line 199.
 (pdftex.def)             Requested size: 214.79869pt x 151.7643pt.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 8.0pt on input line 189.
+(Font)              scaled to size 8.0pt on input line 200.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/b/n' will be
-(Font)              scaled to size 8.0pt on input line 189.
-<figures/consumption_dist_N_200T_20_overall.jpeg, id=118, 2237.35875pt x 1579.9
+(Font)              scaled to size 8.0pt on input line 200.
+
+[3.3]
+<figures/consumption_dist_N_200T_20_overall.jpeg, id=128, 2237.35875pt x 1579.9
 025pt>
 File: figures/consumption_dist_N_200T_20_overall.jpeg Graphic file (type jpg)
 <use figures/consumption_dist_N_200T_20_overall.jpeg>
 Package pdftex.def Info: figures/consumption_dist_N_200T_20_overall.jpeg  used 
-on input line 194.
+on input line 205.
 (pdftex.def)             Requested size: 223.74898pt x 157.9995pt.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [3.3 <./figures/consumption_dist_N_200T_20no_correlation.png> <./figures/consu
-mption_dist_N_200T_20_overall.jpeg>]
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/sc' will be
-(Font)              scaled to size 9.0pt on input line 201.
-<figures/consumption_dist_N_200T_20_no_rec_rho.jpeg, id=131, 2237.35875pt x 157
+(Font)              scaled to size 9.0pt on input line 212.
+<figures/consumption_dist_N_200T_20_no_rec_rho.jpeg, id=133, 2237.35875pt x 157
 9.9025pt>
 File: figures/consumption_dist_N_200T_20_no_rec_rho.jpeg Graphic file (type jpg
 )
 <use figures/consumption_dist_N_200T_20_no_rec_rho.jpeg>
 Package pdftex.def Info: figures/consumption_dist_N_200T_20_no_rec_rho.jpeg  us
-ed on input line 216.
+ed on input line 227.
 (pdftex.def)             Requested size: 223.74898pt x 157.9995pt.
-<figures/consumption_dist_N_200T_20_omni_rho.jpeg, id=132, 2237.35875pt x 1579.
+<figures/consumption_dist_N_200T_20_omni_rho.jpeg, id=134, 2237.35875pt x 1579.
 9025pt>
 File: figures/consumption_dist_N_200T_20_omni_rho.jpeg Graphic file (type jpg)
 <use figures/consumption_dist_N_200T_20_omni_rho.jpeg>
 Package pdftex.def Info: figures/consumption_dist_N_200T_20_omni_rho.jpeg  used
- on input line 217.
+ on input line 228.
 (pdftex.def)             Requested size: 223.74898pt x 157.9995pt.
-<figures/consumption_dist_N_200T_20_no_rec_alpha.jpeg, id=133, 2237.35875pt x 1
+<figures/consumption_dist_N_200T_20_no_rec_alpha.jpeg, id=135, 2237.35875pt x 1
 579.9025pt>
 File: figures/consumption_dist_N_200T_20_no_rec_alpha.jpeg Graphic file (type j
 pg)
 <use figures/consumption_dist_N_200T_20_no_rec_alpha.jpeg>
 Package pdftex.def Info: figures/consumption_dist_N_200T_20_no_rec_alpha.jpeg  
-used on input line 223.
+used on input line 234.
 (pdftex.def)             Requested size: 223.74898pt x 157.9995pt.
-
-Underfull \vbox (badness 4254) has occurred while \output is active []
-
-<figures/gamma_diversity_N_200_T_20.jpeg, id=138, 2237.35875pt x 1579.9025pt>
+ [4.4 <./figures/consumption_dist_N_200T_20no_correlation.png> <./figures/consu
+mption_dist_N_200T_20_overall.jpeg>]
+<figures/gamma_diversity_N_200_T_20.jpeg, id=160, 2237.35875pt x 1579.9025pt>
 File: figures/gamma_diversity_N_200_T_20.jpeg Graphic file (type jpg)
 <use figures/gamma_diversity_N_200_T_20.jpeg>
 Package pdftex.def Info: figures/gamma_diversity_N_200_T_20.jpeg  used on input
- line 266.
+ line 277.
 (pdftex.def)             Requested size: 223.74898pt x 157.9995pt.
- [4.4]
-<figures/rho_diversity_N_200_T_20.jpeg, id=165, 2237.35875pt x 1579.9025pt>
+<figures/rho_diversity_N_200_T_20.jpeg, id=164, 2237.35875pt x 1579.9025pt>
 File: figures/rho_diversity_N_200_T_20.jpeg Graphic file (type jpg)
 <use figures/rho_diversity_N_200_T_20.jpeg>
 Package pdftex.def Info: figures/rho_diversity_N_200_T_20.jpeg  used on input l
-ine 274.
+ine 285.
 (pdftex.def)             Requested size: 223.74898pt x 157.9995pt.
-<figures/rho_welfare_N_200_T_20.jpeg, id=166, 2237.35875pt x 1579.9025pt>
+<figures/rho_welfare_N_200_T_20.jpeg, id=165, 2237.35875pt x 1579.9025pt>
 File: figures/rho_welfare_N_200_T_20.jpeg Graphic file (type jpg)
 <use figures/rho_welfare_N_200_T_20.jpeg>
 Package pdftex.def Info: figures/rho_welfare_N_200_T_20.jpeg  used on input lin
-e 275.
+e 286.
 (pdftex.def)             Requested size: 223.74898pt x 157.9995pt.
-<figures/diversity_welfare_no_risk_aversion.png, id=167, 703.62875pt x 511.9125
+<figures/diversity_welfare_no_risk_aversion.png, id=166, 703.62875pt x 511.9125
 pt>
 File: figures/diversity_welfare_no_risk_aversion.png Graphic file (type png)
 <use figures/diversity_welfare_no_risk_aversion.png>
 Package pdftex.def Info: figures/diversity_welfare_no_risk_aversion.png  used o
-n input line 281.
+n input line 292.
 (pdftex.def)             Requested size: 211.09026pt x 153.57494pt.
-<figures/diversity_welfare_high_ra.png, id=168, 703.62875pt x 511.9125pt>
+<figures/diversity_welfare_high_ra.png, id=167, 703.62875pt x 511.9125pt>
 File: figures/diversity_welfare_high_ra.png Graphic file (type png)
 <use figures/diversity_welfare_high_ra.png>
 Package pdftex.def Info: figures/diversity_welfare_high_ra.png  used on input l
-ine 282.
+ine 293.
 (pdftex.def)             Requested size: 211.09026pt x 153.57494pt.
 LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 8.0pt on input line 283.
+(Font)              scaled to size 8.0pt on input line 294.
 LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 6.2pt on input line 283.
-<figures/beta_homogeneity_N_200_T_20.jpeg, id=174, 2237.35875pt x 1579.9025pt>
+(Font)              scaled to size 6.2pt on input line 294.
+ [5.5 <./figures/consumption_dist_N_200T_20_no_rec_rho.jpeg> <./figures/consump
+tion_dist_N_200T_20_omni_rho.jpeg> <./figures/consumption_dist_N_200T_20_no_rec
+_alpha.jpeg> <./figures/gamma_diversity_N_200_T_20.jpeg>]
+<figures/beta_homogeneity_N_200_T_20.jpeg, id=184, 2237.35875pt x 1579.9025pt>
 File: figures/beta_homogeneity_N_200_T_20.jpeg Graphic file (type jpg)
 <use figures/beta_homogeneity_N_200_T_20.jpeg>
 Package pdftex.def Info: figures/beta_homogeneity_N_200_T_20.jpeg  used on inpu
-t line 308.
+t line 319.
 (pdftex.def)             Requested size: 223.74898pt x 157.9995pt.
-<figures/rho_homogeneity_N_200_T_20.jpeg, id=175, 2237.35875pt x 1579.9025pt>
+<figures/rho_homogeneity_N_200_T_20.jpeg, id=185, 2237.35875pt x 1579.9025pt>
 File: figures/rho_homogeneity_N_200_T_20.jpeg Graphic file (type jpg)
 <use figures/rho_homogeneity_N_200_T_20.jpeg>
 Package pdftex.def Info: figures/rho_homogeneity_N_200_T_20.jpeg  used on input
- line 314.
+ line 325.
 (pdftex.def)             Requested size: 223.74898pt x 157.9995pt.
 
-[5.5 <./figures/consumption_dist_N_200T_20_no_rec_rho.jpeg> <./figures/consumpt
-ion_dist_N_200T_20_omni_rho.jpeg> <./figures/consumption_dist_N_200T_20_no_rec_
-alpha.jpeg> <./figures/gamma_diversity_N_200_T_20.jpeg>] [6.6 <./figures/rho_di
-versity_N_200_T_20.jpeg> <./figures/rho_welfare_N_200_T_20.jpeg> <./figures/div
-ersity_welfare_no_risk_aversion.png> <./figures/diversity_welfare_high_ra.png> 
-<./figures/beta_homogeneity_N_200_T_20.jpeg> <./figures/rho_homogeneity_N_200_T
-_20.jpeg>]
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \vbox (badness 5519) has occurred while \output is active []
 
- [7.7]
-(./filter_bubbles.bbl) [8.8
-
-]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 360.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 360.
+ [6.6 <./figures/rho_diversity_N_200_T_20.jpeg> <./figures/rho_welfare_N_200_T_
+20.jpeg> <./figures/diversity_welfare_no_risk_aversion.png> <./figures/diversit
+y_welfare_high_ra.png>] [7.7 <./figures/beta_homogeneity_N_200_T_20.jpeg> <./fi
+gures/rho_homogeneity_N_200_T_20.jpeg>] (./filter_bubbles.bbl) [8.8]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 371.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 371.
  (./filter_bubbles.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 360.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 360.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 371.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 371.
 Package rerunfilecheck Info: File `filter_bubbles.out' has not changed.
 (rerunfilecheck)             Checksum: EF5E7274559D53EBE4B968FBA93EB2E9;2249.
  ) 
 Here is how much of TeX's memory you used:
- 18289 strings out of 492649
- 279855 string characters out of 6129622
- 394297 words of memory out of 5000000
- 21138 multiletter control sequences out of 15000+600000
- 174072 words of font info for 412 fonts, out of 8000000 for 9000
+ 18358 strings out of 492649
+ 280641 string characters out of 6129622
+ 393594 words of memory out of 5000000
+ 21196 multiletter control sequences out of 15000+600000
+ 173876 words of font info for 412 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
- 60i,12n,94p,1409b,490s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 60i,12n,94p,1421b,490s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2018/texmf-dist/fonts/enc/dvips/newtx/libertinealt.enc}{/
 usr/local/texlive/2018/texmf-dist/fonts/enc/dvips/libertine/lbtn_ncsllp.enc}{/u
-sr/local/texlive/2018/texmf-dist/fonts/enc/dvips/libertine/lbtn_25tcsq.enc}{/us
-r/local/texlive/2018/texmf-dist/fonts/enc/dvips/libertine/lbtn_oexx6f.enc}{/usr
-/local/texlive/2018/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/local/texlive/
+sr/local/texlive/2018/texmf-dist/fonts/enc/dvips/libertine/lbtn_oexx6f.enc}{/us
+r/local/texlive/2018/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/local/texlive
+/2018/texmf-dist/fonts/enc/dvips/libertine/lbtn_25tcsq.enc}{/usr/local/texlive/
 2018/texmf-dist/fonts/enc/dvips/libertine/lbtn_naooyc.enc}{/usr/local/texlive/2
 018/texmf-dist/fonts/enc/dvips/libertine/lbtn_7grukw.enc}{/usr/local/texlive/20
 18/texmf-dist/fonts/enc/dvips/libertine/lbtn_76gpa5.enc}{/usr/local/texlive/201
@@ -1250,10 +1245,10 @@ f-dist/fonts/type1/public/txfonts/txsyb.pfb></usr/local/texlive/2018/texmf-dist
 /type1/public/newtx/txsys.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/p
 ublic/newtx/zxlr.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/new
 tx/zxlri.pfb>
-Output written on filter_bubbles.pdf (8 pages, 2688213 bytes).
+Output written on filter_bubbles.pdf (8 pages, 2690389 bytes).
 PDF statistics:
- 341 PDF objects out of 1000 (max. 8388607)
- 273 compressed objects within 3 object streams
- 78 named destinations out of 1000 (max. 500000)
+ 347 PDF objects out of 1000 (max. 8388607)
+ 279 compressed objects within 3 object streams
+ 83 named destinations out of 1000 (max. 500000)
  43705 words of extra memory for PDF output out of 51595 (max. 10000000)
 
