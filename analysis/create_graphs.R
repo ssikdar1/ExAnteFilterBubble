@@ -141,7 +141,7 @@ graph_stats_diversity <- function(df, var, N, T_val, use_hrbrthemes){
                   position=position_dodge(.9)) + 
     labs(x=var, 
          y="diversity",
-         title=paste("Diversity with varying ", var, " N = ", N, "T =", T_val, "Diversity",sep=" "))
+         title=paste("Diversity with varying ", var, sep=" "))
   g <- g + theme_bw()
   return(g)
 }
@@ -176,7 +176,7 @@ graph_stats_welfare <- function(d, var, N, T_val, use_hrbrthemes){
     geom_errorbar(aes(ymin=lower_ci_welfare, ymax=upper_ci_welfare), width=.02, position=position_dodge(.9)) + 
     labs(x=var, 
          y="welfare",
-         title=paste( "Welfare with varying ", var, " N = ", N, "T =", T_val, sep=" "))
+         title=paste( "Welfare with varying ", var, sep=" "))
   g <- g + theme_bw()
   return(g)
   
