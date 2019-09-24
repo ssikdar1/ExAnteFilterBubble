@@ -139,8 +139,9 @@ graph_stats_diversity <- function(df, var, N, T_val, use_hrbrthemes){
     geom_line(aes(colour=formatted_regime)) +
     geom_errorbar(aes(ymin=lower_ci_diversity, ymax=upper_ci_diveristy), width=.02,
                   position=position_dodge(.9)) + 
-    labs(x=var, y="diversity",
-         title=paste("N =", N, "T =", T_val, "Diversity",sep=" "))
+    labs(x=var, 
+         y="diversity",
+         title=paste("Diversity with varying ", var, " N = ", N, "T =", T_val, "Diversity",sep=" "))
   g <- g + theme_bw()
   return(g)
 }
@@ -173,8 +174,9 @@ graph_stats_welfare <- function(d, var, N, T_val, use_hrbrthemes){
   g <- ggplot(d, aes_string(x=var, y="welfare_mean")) +
     geom_line(aes(colour=formatted_regime)) +
     geom_errorbar(aes(ymin=lower_ci_welfare, ymax=upper_ci_welfare), width=.02, position=position_dodge(.9)) + 
-    labs(x=var, y="welfare",
-         title=paste( "Welfare",sep=" "))
+    labs(x=var, 
+         y="welfare",
+         title=paste( "Welfare with varying ", var, " N = ", N, "T =", T_val, sep=" "))
   g <- g + theme_bw()
   return(g)
   
@@ -390,7 +392,7 @@ process_time_path <- function(N, T_val, use_hrbrthemes){
   omni_rec <- filter(time_data, formatted_regime == "Omniscient")
   g <- ggplot(omni_rec, aes(x=t, y=mean_consumption_dist)) +
     geom_smooth(aes(colour=as.factor(rho))) + theme_bw() +
-    ggtitle(paste("Omniscient Rec Consumption Distance")) + xlab("t") + ylab("Average Consumption Distance")
+    ggtitle(paste("Omniscient Recommendation Consumption Distance")) + xlab("t") + ylab("Average Consumption Distance")
   
   g <- g + theme_bw() + theme(legend.position="bottom")  + 
     guides(color=guide_legend(override.aes=list(fill=NA), title="Correlation (rho)"))
@@ -403,7 +405,7 @@ process_time_path <- function(N, T_val, use_hrbrthemes){
   no_rec <- filter(time_data, formatted_regime == "No Rec")
   g <- ggplot(no_rec, aes(x=t, y=mean_consumption_dist)) +
     geom_smooth(aes(colour=as.factor(rho))) + theme_bw() +
-    ggtitle(paste("No Rec Consumption Distance")) + xlab("t") + ylab("Average Consumption Distance")
+    ggtitle(paste("No Recommendation Consumption Distance")) + xlab("t") + ylab("Average Consumption Distance")
   
   g <- g + theme_bw() + theme(legend.position="bottom")  + 
     guides(color=guide_legend(override.aes=list(fill=NA), title="Correlation (rho)"))
@@ -579,7 +581,7 @@ process_time_path <- function(N, T_val, use_hrbrthemes){
 ### MAIN
 
 USER <- Sys.getenv( "USER" )
-WORKING_DIR <- paste("/Users/",USER, "/Desktop/ExAnteFilterBubble/", sep="")
+WORKING_DIR <- paste("/Users/",USER, "/ExAnteFilterBubble/", sep="")
 setwd(WORKING_DIR)
 use_hrbrthemes <- FALSE
 
