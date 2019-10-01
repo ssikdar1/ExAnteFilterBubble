@@ -1,48 +1,48 @@
-This is BibTeX, Version 0.99d (TeX Live 2018)
+This is BibTeX, Version 0.99d (TeX Live 2019)
 Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
 The top-level auxiliary file: filter_bubbles.aux
 The style file: plain.bst
 Database file #1: refs.bib
 Warning--there's a number but no volume in adomavicius2005toward
-You've used 18 entries,
+You've used 28 entries,
             2118 wiz_defined-function locations,
-            607 strings with 7876 characters,
-and the built_in function-call counts, 7614 in all, are:
-= -- 780
-> -- 353
-< -- 9
-+ -- 141
-- -- 120
-* -- 508
-:= -- 1180
-add.period$ -- 63
-call.type$ -- 18
-change.case$ -- 113
+            666 strings with 9743 characters,
+and the built_in function-call counts, 10413 in all, are:
+= -- 1050
+> -- 491
+< -- 7
++ -- 197
+- -- 164
+* -- 727
+:= -- 1685
+add.period$ -- 95
+call.type$ -- 28
+change.case$ -- 164
 chr.to.int$ -- 0
-cite$ -- 19
-duplicate$ -- 319
-empty$ -- 586
-format.name$ -- 120
-if$ -- 1672
+cite$ -- 29
+duplicate$ -- 406
+empty$ -- 823
+format.name$ -- 164
+if$ -- 2218
 int.to.chr$ -- 0
-int.to.str$ -- 18
-missing$ -- 19
-newline$ -- 93
-num.names$ -- 36
-pop$ -- 140
+int.to.str$ -- 28
+missing$ -- 30
+newline$ -- 143
+num.names$ -- 56
+pop$ -- 188
 preamble$ -- 1
-purify$ -- 96
+purify$ -- 138
 quote$ -- 0
-skip$ -- 235
+skip$ -- 270
 stack$ -- 0
-substring$ -- 481
-swap$ -- 116
-text.length$ -- 9
+substring$ -- 652
+swap$ -- 100
+text.length$ -- 7
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 70
+type$ -- 108
 warning$ -- 1
-while$ -- 72
-width$ -- 20
-write$ -- 206
+while$ -- 101
+width$ -- 30
+write$ -- 312
 (There was 1 warning)

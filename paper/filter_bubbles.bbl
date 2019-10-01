@@ -1,11 +1,11 @@
 \begin{thebibliography}{10}
 
-\bibitem{adamopoulos2015unexpectedness}
+\bibitem{adamopoulos2014unexpectedness}
 Panagiotis Adamopoulos and Alexander Tuzhilin.
 \newblock On unexpectedness in recommender systems: Or how to better expect the
   unexpected.
-\newblock {\em ACM Transactions on Intelligent Systems and Technology (TIST)},
-  5(4):54, 2015.
+\newblock {\em {ACM} Transactions on Intelligent Systems and Technology},
+  5(4):1--32, December 2014.
 
 \bibitem{adomavicius2005toward}
 Gediminas Adomavicius and Alexander Tuzhilin.
@@ -17,7 +17,25 @@ Gediminas Adomavicius and Alexander Tuzhilin.
 \bibitem{bergemann2018design}
 Dirk Bergemann, Alessandro Bonatti, and Alex Smolin.
 \newblock The design and price of information.
-\newblock {\em American Economic Review}, 108(1):1--48, 2018.
+\newblock {\em American Economic Review}, 2018.
+
+\bibitem{bergemann2019information}
+Dirk Bergemann and Stephen Morris.
+\newblock Information design: A unified perspective.
+\newblock {\em Journal of Economic Literature}, 57(1):44--95, 2019.
+
+\bibitem{bronnenberg2014zooming}
+Bart~J. Bronnenberg, Byeong~Jun Kim, and Carl~F. Mela.
+\newblock Zooming in on choice: How do consumers search for cameras online?
+\newblock {\em Marketing Science}, 35(5):693--712, 2016.
+
+\bibitem{celam2008hits}
+{\`{O}}scar Celma and Pedro Cano.
+\newblock From hits to niches?: Or how popular artists can bias music
+  recommendation and discovery.
+\newblock In {\em Proceedings of the 2nd {KDD} Workshop on Large-Scale
+  Recommender Systems and the Netflix Prize Competition - {NETFLIX}
+  {\textquotesingle}08}. {ACM} Press, 2008.
 
 \bibitem{chaney2018algorithmic}
 Allison~JB Chaney, Brandon~M Stewart, and Barbara~E Engelhardt.
@@ -26,12 +44,35 @@ Allison~JB Chaney, Brandon~M Stewart, and Barbara~E Engelhardt.
 \newblock In {\em Proceedings of the 12th ACM Conference on Recommender
   Systems}, pages 224--232. ACM, 2018.
 
+\bibitem{flaxman2016filter}
+Seth Flaxman, Sharad Goel, and Justin~M. Rao.
+\newblock Filter bubbles, echo chambers, and online news consumption.
+\newblock {\em Public Opinion Quarterly}, 80(S1):298--320, 2016.
+
+\bibitem{fleder2009blockbuster}
+Daniel Fleder and Kartik Hosanagar.
+\newblock Blockbuster culture's next rise or fall: The impact of recommender
+  systems on sales diversity.
+\newblock {\em Management science}, 55(5):697--712, 2009.
+
 \bibitem{ge2010beyond}
 Mouzhi Ge, Carla Delgado-Battenfeld, and Dietmar Jannach.
-\newblock Beyond accuracy: evaluating recommender systems by coverage and
+\newblock Beyond accuracy: Evaluating recommender systems by coverage and
   serendipity.
-\newblock In {\em Proceedings of the fourth ACM conference on Recommender
-  systems}, pages 257--260. ACM, 2010.
+\newblock In {\em Proceedings of the fourth {ACM} conference on Recommender
+  systems - {RecSys} {\textquotesingle}10}. {ACM} Press, 2010.
+
+\bibitem{ghirardato2002revisiting}
+Paolo Ghirardato.
+\newblock Revisiting savage in a conditional world.
+\newblock {\em Economic Theory}, 20(1):83--92, 2002.
+
+\bibitem{hodgson2019horse}
+Charles Hodgson and Gregory Lewis.
+\newblock You can lead a horse to water: Spatial learning and path dependence
+  in consumer search.
+\newblock In {\em Proceedings of the 2019 {ACM} Conference on Economics and
+  Computation - {EC} {\textquotesingle}19}. {ACM} Press, 2019.
 
 \bibitem{hosanagar2013will}
 Kartik Hosanagar, Daniel Fleder, Dokyun Lee, and Andreas Buja.
@@ -40,10 +81,9 @@ Kartik Hosanagar, Daniel Fleder, Dokyun Lee, and Andreas Buja.
 \newblock {\em Management Science}, 60(4):805--823, 2013.
 
 \bibitem{iaquinta2010can}
-Leo Iaquinta, Marco de~Gemmis, Pasquale Lops, Giovanni Semeraro, and Piero
-  Molino.
+Leo Iaquinta, Marco de, Pasquale Lops, Giovanni Semeraro, and Piero Molino.
 \newblock Can a recommender system induce serendipitous encounters?
-\newblock In {\em E-commerce}. IntechOpen, 2010.
+\newblock In {\em E-commerce}. {InTech}, feb 2010.
 
 \bibitem{jiang2014choice}
 Hai Jiang, Xin Qi, and He~Sun.
@@ -54,9 +94,9 @@ Hai Jiang, Xin Qi, and He~Sun.
 \bibitem{kaminskas2014measuring}
 Marius Kaminskas and Derek Bridge.
 \newblock Measuring surprise in recommender systems.
-\newblock In {\em Proceedings of the workshop on recommender systems
-  evaluation: dimensions and design (Workshop programme of the 8th ACM
-  conference on recommender systems)}. Citeseer, 2014.
+\newblock {\em Proceedings of the workshop on recommender systems evaluation:
+  dimensions and design (Workshop programme of the 8th ACM conference on
+  recommender systems)}, 2014.
 
 \bibitem{kotkov2016survey}
 Denis Kotkov, Shuaiqiang Wang, and Jari Veijalainen.
@@ -76,6 +116,12 @@ Sean~M McNee, John Riedl, and Joseph~A Konstan.
   recommender systems.
 \newblock In {\em CHI'06 extended abstracts on Human factors in computing
   systems}, pages 1097--1101. ACM, 2006.
+
+\bibitem{moller2018blame}
+Judith Möller, Damian Trilling, Natali Helberger, and Bram van Es.
+\newblock Do not blame it on the algorithm: an empirical assessment of multiple
+  recommender systems and their impact on content diversity.
+\newblock {\em Information, Communication \& Society}, 21(7):959--977, 2018.
 
 \bibitem{nguyen2014exploring}
 Tien~T Nguyen, Pik-Mai Hui, F~Maxwell Harper, Loren Terveen, and Joseph~A
@@ -97,13 +143,25 @@ Paula Saavedra, Pablo Barreiro, Roi Duran, Rosa Crujeiras, Mar{\'\i}a Loureiro,
 \newblock Choice-based recommender systems.
 \newblock In {\em RecTour@ RecSys}, pages 38--46, 2016.
 
+\bibitem{savage1954}
+Lenard~J. Savage.
+\newblock {\em The foundations of statistics}.
+\newblock John Wiley and Sons, 1954.
+
 \bibitem{schulz2019structured}
-Eric Schulz, Rahul Bhui, Bradley~C Love, Bastien Brier, Michael~T Todd, and
-  Samuel~J Gershman.
+Eric Schulz, Rahul Bhui, Bradley~C. Love, Bastien Brier, Michael~T. Todd, and
+  Samuel~J. Gershman.
 \newblock Structured, uncertainty-driven exploration in real-world consumer
   choice.
-\newblock {\em Proceedings of the National Academy of Sciences}, page
-  201821028, 2019.
+\newblock {\em Proceedings of the National Academy of Sciences},
+  116(28):13903--13908, jun 2019.
+
+\bibitem{treviranus2009value}
+Jutta Treviranus and Stephen Hockema.
+\newblock The value of the unpopular: Counteracting the popularity echo-chamber
+  on the web.
+\newblock In {\em 2009 {IEEE} Toronto International Conference Science and
+  Technology for Humanity ({TIC}-{STH})}. {IEEE}, sep 2009.
 
 \bibitem{vargas2011rank}
 Sa{\'u}l Vargas and Pablo Castells.
