@@ -4,45 +4,45 @@ The top-level auxiliary file: filter_bubbles.aux
 The style file: plain.bst
 Database file #1: refs.bib
 Warning--there's a number but no volume in adomavicius2005toward
-You've used 28 entries,
+You've used 27 entries,
             2118 wiz_defined-function locations,
-            666 strings with 9743 characters,
-and the built_in function-call counts, 10413 in all, are:
-= -- 1050
-> -- 491
+            661 strings with 9571 characters,
+and the built_in function-call counts, 10031 in all, are:
+= -- 1016
+> -- 463
 < -- 7
-+ -- 197
-- -- 164
-* -- 727
-:= -- 1685
-add.period$ -- 95
-call.type$ -- 28
-change.case$ -- 164
++ -- 186
+- -- 154
+* -- 698
+:= -- 1618
+add.period$ -- 91
+call.type$ -- 27
+change.case$ -- 156
 chr.to.int$ -- 0
-cite$ -- 29
-duplicate$ -- 406
-empty$ -- 823
-format.name$ -- 164
-if$ -- 2218
+cite$ -- 28
+duplicate$ -- 391
+empty$ -- 795
+format.name$ -- 154
+if$ -- 2139
 int.to.chr$ -- 0
-int.to.str$ -- 28
-missing$ -- 30
-newline$ -- 143
-num.names$ -- 56
-pop$ -- 188
+int.to.str$ -- 27
+missing$ -- 29
+newline$ -- 138
+num.names$ -- 54
+pop$ -- 176
 preamble$ -- 1
-purify$ -- 138
+purify$ -- 131
 quote$ -- 0
-skip$ -- 270
+skip$ -- 265
 stack$ -- 0
-substring$ -- 652
-swap$ -- 100
+substring$ -- 647
+swap$ -- 99
 text.length$ -- 7
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 108
+type$ -- 104
 warning$ -- 1
-while$ -- 101
-width$ -- 30
-write$ -- 312
+while$ -- 99
+width$ -- 29
+write$ -- 301
 (There was 1 warning)
