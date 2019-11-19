@@ -3,6 +3,10 @@ User based Collaborative Filtering
 
 dumb example
 
+A Survey of Collaborative Filtering Techniques
+Xiaoyuan Su and Taghi M. Khoshgoftaar
+http://downloads.hindawi.com/archive/2009/421425.pdf
+
 https://realpython.com/build-recommendation-engine-collaborative-filtering/
 https://medium.com/@cfpinela/recommender-systems-user-based-and-item-based-collaborative-filtering-5d5f375a127f
 
