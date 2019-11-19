@@ -1,4 +1,4 @@
-\documentclass[sigconf, review, anonymous]{acmart}
+\documentclass[sigconf]{acmart}
 \settopmatter{printacmref=false}
 \usepackage[T1]{fontenc}
 %\usepackage{lmodern}
@@ -54,8 +54,6 @@
 %
 % The "title" command has an optional parameter, allowing the author to define a "short title" to be used in page headers.
 \title{A User-Centric Approach to the Design and Consequences of Recommender Systems}
-
-
 %
 % By default, the full list of authors will be used in the page headers. Often, this list is too long, and will overlap
 % other information printed in the page headers. This command allows the author to define a more concise list
@@ -225,7 +223,7 @@ We explore how consumption patterns differ as we consider different recommendati
 A given set of parameters and a user are a single data point in our dataset.
 \par
 
-We simulate over risk-aversion parameters $\gamma \in \{ 0, 0.3, 0.6, 1, 5 \}$, standard-deviation $\sigma \in \{ 0.25, 0.5, 1.0, 2.0, 4.0 \}$, correlation parameters $\rho\in \{ 0, 0.1, 0.3, 0.5, 0.7, 0.9 \} $ and degree of idiosyncrasy of individual valuations $\beta \in \{ 0, 0.4, 0.8, 1, 2, 5\}$. When we consider results varying a single parameter, we group the results over the other parameters and provide reports varying only the parameter of interest. We report results for a relatively small consumption history $T=20$ with a product space size $N=200$. Unless otherwise reported, our results are robust to varying $N$.
+We simulate over risk-aversion parameters $\gamma \in \{ 0, 0.3, 0.6, 1, 5 \}$, standard-deviation $\sigma \in \{ 0.25, 0.5, 1.0, 2.0, 4.0 \}$, correlation parameters $\rho\in \{ 0, 0.1, 0.3, 0.5, 0.7, 0.9 \} $ and degree of idiosyncrasy of individual valuations $\beta \in \{ 0, 0.4, 0.8, 1, 2, 5\}$. When we consider results varying a single parameter, we group the results over the other parameters and provide reports varying only the parameter of interest. We report results for a relatively small consumption history $T=20$ with a produce space size $N=200$. Unless otherwise reported, our results are robust to varying $N$.
 
 \subsection{Discussion of the Assumptions}
 In this section we provide further discussion of several assumptions of our model.
@@ -283,9 +281,9 @@ Finally, this effect is further amplified as the level of risk aversion, $\gamma
 \end{figure}
 
 \begin{figure}[t]
-\includegraphics[width=0.9\linewidth]{figures/gamma_consumption_dist_N_200T_20.pdf}\\
-\includegraphics[width=0.9\linewidth]{figures/gamma_consumption_dist_N_200T_20_partial.pdf}\\
-\includegraphics[width=0.9\linewidth]{figures/gamma_consumption_dist_N_200T_20_omni.pdf}\\
+\includegraphics[width=\linewidth]{figures/gamma_consumption_dist_N_200T_20.pdf}\\
+\includegraphics[width=\linewidth]{figures/gamma_consumption_dist_N_200T_20_partial.pdf}\\
+\includegraphics[width=\linewidth]{figures/gamma_consumption_dist_N_200T_20_omni.pdf}\\
 \caption{Effect of Risk Aversion on Local Consumption for No Recommendation (Top), Recommendation (Middle) and Oracle (Bottom)}
 \label{fig:no_rec_risk_aversion}
 \end{figure}
@@ -311,7 +309,7 @@ The impact of recommendation on product diversity:
 As before, when there is no correlation between valuations, product diversity is the same across different recommendation regimes. The over-exploitation of the learning spillovers when $\rho > 0$ leads to product diversity being lowest in the no recommendation regime.  Figure \ref{fig:risk_aversion_diversity} shows how diversity varies as risk aversion levels change and Figure \ref{fig:diversity_correlation} shows how diversity varies across recommendation regimes and the level of $\rho$.
 
 \begin{figure}[ht]
-\includegraphics[width=.85\linewidth]{figures/gamma_diversity_N_200_T_20}
+\includegraphics[width=.9\linewidth]{figures/gamma_diversity_N_200_T_20}
 \captionof{figure}{Risk Aversion and Diversity}\label{fig:risk_aversion_diversity}
 \end{figure}
 
@@ -321,8 +319,8 @@ The welfare gap between the no recommendation and the recommendation regimes and
 However, interestingly, the decrease in diversity is \textit{not} associated with a decline in welfare. In fact, welfare stays roughly the same in the oracle and recommendation cases. The welfare gap between the no recommendation case and the other two cases \textit{decreases} as the diversity gap increases.
 \par
 \begin{figure}[t]
-\includegraphics[width=.85\linewidth]{figures/rho_diversity_N_200_T_20.pdf}\\
-\includegraphics[width=.85\linewidth]{figures/rho_welfare_N_200_T_20.pdf}\\
+\includegraphics[width=.9\linewidth]{figures/rho_diversity_N_200_T_20.pdf}\\
+\includegraphics[width=.9\linewidth]{figures/rho_welfare_N_200_T_20.pdf}\\
 \captionof{figure}{Welfare, Diversity, and Correlation}\label{fig:diversity_correlation}
 \end{figure}
 
@@ -357,8 +355,8 @@ This only happens since $\gamma = 0$ leads to users only caring about the expect
 \captionof{figure}{Diversity vs. Welfare, No-Recommendation, $\gamma = 0$ (Top), Diversity vs. Welfare, $\gamma = 5$ (Bottom)}\label{fig:diversity_welfare_ra}
 \end{figure}
 \begin{figure}[t]
-\includegraphics[width=1.0\linewidth]{figures/diversity_welfare_rn_partial.pdf}\\
-\includegraphics[width=1.0\linewidth]{figures/diversity_welfare_ra_partial.pdf}\\
+\includegraphics[width=1.05\linewidth]{figures/diversity_welfare_rn_partial.pdf}\\
+\includegraphics[width=1.05\linewidth]{figures/diversity_welfare_ra_partial.pdf}\\
 \captionof{figure}{Diversity vs. Welfare, Recommendation, $\gamma = 0$ (Top), Diversity vs. Welfare, $\gamma = 5$ (Bottom)}\label{fig:diversity_welfare_ra_partial}
 \end{figure}
 
@@ -382,13 +380,13 @@ Figure \ref{fig:beta_homo} shows that as the weight of the common-value componen
 Figure \ref{fig:cor_homo} shows that the degree of homogeneity in the recommendation case however is \textit{decreasing} as $\rho$ increases. As was highlighted in Findings \ref{finding_local_consumption} and \ref{finding_diversity}, the degree of local consumption increases with $\rho$. Even though the revelation of the common-value component induces them to search in similar parts of the product space, their idiosyncratic components induce them to consume products in a more localized area of the product space as $\rho$ increases which leads to a decline in homogeneity.
 
 \begin{figure}[t]
-\includegraphics[width=.7\linewidth]{figures/beta_homogeneity_N_200_T_20}
+\includegraphics[width=.8\linewidth]{figures/beta_homogeneity_N_200_T_20}
 \captionof{figure}{Strength of Recommendation and Homogeneity}\label{fig:beta_homo}
 \end{figure}
 ~
 
 \begin{figure}[t]
-\includegraphics[width=.7\linewidth]{figures/rho_homogeneity_N_200_T_20}
+\includegraphics[width=.8\linewidth]{figures/rho_homogeneity_N_200_T_20}
 \captionof{figure}{Correlation and Homogeneity}\label{fig:cor_homo}
 \end{figure}
 
@@ -403,7 +401,7 @@ The classic approach to recommender system evaluation is to predict user ratings
 There has been a recent movement away from such evaluation measures due to the observation that accurate recommendations are not necessarily useful recommendations \cite{mcnee2006being}. Our model illustrates why this could be the case. Consider the domain of movie recommendation and suppose a user has just watched the movie \textit{John Wick} and rated it highly. A recommender system attempting to predict user ratings may then predict that this user is very likely to enjoy the sequel, \textit{John Wick: Chapter Two}, as well. However, the user herself may also have made this inference since the two movies are very similar to each other and, after enjoying \textit{John Wick}, the user will update her beliefs about \textit{John Wick: Chapter Two}. Thus, if the recommender system recommends this movie to the user then this recommendation is not useful since the recommendation gives the user little information that they did not already know. The key insight is that the recommendation is not useful since \textit{it ignores the inference the user themselves made and their updated beliefs}. The user may watch \textit{John Wick: Chapter Two}, then, even without recommendation and the value of the recommendation was small.
 \par
 
-As a result, several alternative recommendation evaluation metrics, such as serendipity \cite{kotkov2016survey}, coverage \cite{ge2010beyond}, novelty \cite{vargas2011rank}, and many others, have been proposed in order to develop recommender systems that produce recommendations that are more useful for users. We use our model to motivate an alternative recommendation evaluation metric that provides an alternative perspective on the serendipity metric proposed in the literature. Serendipitous recommendations are said to ``have the quality of being both unexpected and useful" \cite{maksai2015predicting} and we use this as a guide towards our definition.
+As a result, several alternative recommendation evaluation metrics, such as serendipity \cite{kotkov2016survey}, coverage \cite{ge2010beyond}, novelty \cite{vargas2011rank}, and many others have been proposed in order to develop recommender systems that produce recommendations that are more useful for users. We use our model to motivate an alternative recommendation evaluation metric that provides an alternative perspective on the serendipity metric proposed in the literature. Serendipitous recommendations are said to ``have the quality of being both unexpected and useful" \cite{maksai2015predicting} and we use this as a guide towards our definition.
 
 Our approach to serendipity comes from the intuition that a recommendation is only useful insofar as it leads a user to take a better action than she would without recommendation. This approach stems from the idea that the value of recommendation is the marginal utility gain that a user receives from recommendation.\footnote{This notion is similar to the ``value of information" notion utilized in the literature in economics on the pricing of information goods \cite{bergemann2018design}.} This intuitively should come from providing information about products that, without additional information, users assign a low likelihood to being the best products currently available for them to consume and so would not consume them without these being recommended.
 \par
@@ -429,7 +427,7 @@ Furthermore, our model shows the importance of understanding the underlying user
 We have studied a model of user decision-making in the context of markets where recommender systems are traditionally deployed in order to understand the consequences of recommender systems on consumption patterns of users. The key components of the model are that users make decisions under uncertainty and that consuming a good leads to informational spillovers about similar goods. We have shown that this alone can generate consumption behavior that is consistent with filter bubble effects that have traditionally been associated with personalized recommender systems. This effect is weakened once we allow for recommendation, but not as much as if users have full information. We have further explored the relationship between consumption diversity and user welfare and found that they are negatively correlated, implying that striving for consumption diversity is not necessarily welfare-improving for users. Finally, we have shown that recommendation can lead to increases in user homogenization both relative to no recommendation and full information since it concentrates users' consumption in portions of the product space with the highest utility according to the limits of what the recommender can predict about the utility of the good.
 \par
 
-We have used the insights from our model to guide the evaluation and design of recommender systems. The key insight is that a critical component of designing good recommendations is understanding what user behavior would be without recommendation and then understanding how recommendation would change their consumption. Operationalizing this requires collecting information on user beliefs about the goods in the product space, which is not data that is traditionally collected for recommender systems.
+We have used the insights from our model to guide the evaluation and design of recommender systems. The key insight is that a critical component of designing good recommendations is understanding what user behavior would be without recommendation and then understanding how recommendation would change their consumption. Operationalizing this requires collecting information on user beliefs about the goods in the product space, which is not data that is traditionally collected for the development of recommender systems.
 \par
 
 We leave for future work exploring to what extent user behavior changes if we drop the myopia assumption, so that users themselves are engaging in exploration. This likely interacts with recommendation in interesting ways as the recommendations may provide information that can complement or crowd-out user-led exploration. Our model also reveals a clear path-dependence in choice since consumption decisions today shape the information users have tomorrow about other products which affects their consumption choices tomorrow, etc. Even under the myopia assumption, understanding which recommendation system is optimal is an interesting and challenging problem.

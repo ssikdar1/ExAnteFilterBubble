@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  4 OCT 2019 16:18
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  7 NOV 2019 08:35
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -36,8 +36,6 @@ Package acmart Info: Explicitly selecting natbib mode on input line 118.
 Package acmart Info: Not using anonymous mode on input line 126.
 Package acmart Info: Not using timestamp mode on input line 134.
 Package acmart Info: Not using authordraft mode on input line 144.
-Package acmart Info: Using review mode on input line 153.
-Package acmart Info: Using anonymous mode on input line 153.
 Class acmart Info: Using format sigconf, number 4 on input line 153.
 Class acmart Info: Using fontsize 9pt on input line 211.
 
@@ -789,9 +787,6 @@ s
 \f@nch@O@olf=\skip67
 \f@nch@O@orf=\skip68
 )
-\ACM@linecount@bx=\box35
-\ACM@linecount@bxht=\skip69
-\ACM@linecount=\count138
 \@folio@wd=\dimen140
 \@folio@ht=\dimen141
 \@folio@voffset=\dimen142
@@ -819,27 +814,27 @@ LaTeX Font Info:    Redeclaring font encoding T1 on input line 48.
 (/usr/local/texlive/2019/texmf-dist/tex/latex/enumitem/enumitem.sty
 Package: enumitem 2019/02/04 v3.8 Customized lists
 \enitkv@toks@=\toks32
-\labelindent=\skip70
+\labelindent=\skip69
 \enit@outerparindent=\dimen143
 \enit@toks=\toks33
-\enit@inbox=\box36
-\enit@count@id=\count139
-\enitdp@description=\count140
+\enit@inbox=\box35
+\enit@count@id=\count138
+\enitdp@description=\count139
 )
-\c@finding=\count141
+\c@finding=\count140
 Package hyperref Info: Option `pdfdisplaydoctitle' set `true' on input line 49.
 
-\c@theorem=\count142
+\c@theorem=\count141
 
 Excluding comment 'screenonly' Include comment 'printonly'
-Excluding comment 'anonsuppress' Excluding comment 'acks' (./filter_bubbles.aux
-)
+Include comment 'anonsuppress' (./filter_bubbles.aux)
 \openout1 = `filter_bubbles.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/nxlmi/m/it on input line 49.
 LaTeX Font Info:    Try loading font information for OML+nxlmi on input line 49
 .
- (/usr/local/texlive/2019/texmf-dist/tex/latex/newtx/omlnxlmi.fd
+
+(/usr/local/texlive/2019/texmf-dist/tex/latex/newtx/omlnxlmi.fd
 File: omlnxlmi.fd 2013/11/19 Fontinst v1.933 font definitions for OML/nxlmi.
 )
 LaTeX Font Info:    ... okay on input line 49.
@@ -946,7 +941,7 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             See the microtype manual for details.
 
 ABD: EveryShipout initializing macros
-\AtBeginShipoutBox=\box37
+\AtBeginShipoutBox=\box36
 Package hyperref Info: Link coloring OFF on input line 49.
 
 (/usr/local/texlive/2019/texmf-dist/tex/latex/hyperref/nameref.sty
@@ -955,7 +950,7 @@ Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 (/usr/local/texlive/2019/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
-\c@section@level=\count143
+\c@section@level=\count142
 )
 LaTeX Info: Redefining \ref on input line 49.
 LaTeX Info: Redefining \pageref on input line 49.
@@ -968,16 +963,16 @@ LaTeX Info: Redefining \nameref on input line 49.
 
 (/usr/local/texlive/2019/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count144
+\scratchcounter=\count143
 \scratchdimen=\dimen144
-\scratchbox=\box38
-\nofMPsegments=\count145
-\nofMParguments=\count146
+\scratchbox=\box37
+\nofMPsegments=\count144
+\nofMParguments=\count145
 \everyMPshowfont=\toks34
-\MPscratchCnt=\count147
+\MPscratchCnt=\count146
 \MPscratchDim=\dimen145
-\MPnumerator=\count148
-\makeMPintoPDFobject=\count149
+\MPnumerator=\count147
+\makeMPintoPDFobject=\count148
 \everyMPtoPDFconversion=\toks35
 ) (/usr/local/texlive/2019/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
@@ -1030,8 +1025,8 @@ e
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-\c@mv@tabular=\count150
-\c@mv@boldtabular=\count151
+\c@mv@tabular=\count149
+\c@mv@boldtabular=\count150
 (/usr/local/texlive/2019/texmf-dist/tex/latex/upquote/upquote.sty
 Package: upquote 2012/04/19 v1.3 upright-quote and grave-accent glyphs in verba
 tim
@@ -1124,15 +1119,11 @@ The At-lantic\T1/LinuxLibertineT-TLF/m/n/7 (+20) . []$https : / / www . theatla
 ntic . com / politics / archive / 2018 / 03 /
  []
 
-LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 6.0pt on input line 130.
 [1.1{/usr/local/texlive/2019/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
 ]
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
 (Font)              scaled to size 9.0pt on input line 152.
-LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
-(Font)              scaled to size 6.0pt on input line 152.
 
 [2.2]
 Underfull \vbox (badness 1215) has occurred while \output is active []
@@ -1227,12 +1218,6 @@ Overfull \hbox (5.3835pt too wide) in paragraph at lines 293--294
  driven by learning-spillovers
  []
 
-<figures/gamma_diversity_N_200_T_20.pdf, id=286, 476.94905pt x 399.31621pt>
-File: figures/gamma_diversity_N_200_T_20.pdf Graphic file (type pdf)
-<use figures/gamma_diversity_N_200_T_20.pdf>
-Package pdftex.def Info: figures/gamma_diversity_N_200_T_20.pdf  used on input 
-line 314.
-(pdftex.def)             Requested size: 204.97684pt x 171.61122pt.
 [6.6 <./figures/rho_consumption_dist_N_200T_20.pdf> <./figures/rho_consumption_
 dist_N_200T_20_partial.pdf
 
@@ -1245,26 +1230,26 @@ pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/rho_consumption_di
 st_N_200T_20_omni.pdf): PDF inclusion: multiple pdfs with page group included i
 n a single page
 >]
-<figures/rho_diversity_N_200_T_20.pdf, id=455, 476.94905pt x 399.31621pt>
+<figures/gamma_diversity_N_200_T_20.pdf, id=452, 476.94905pt x 399.31621pt>
+File: figures/gamma_diversity_N_200_T_20.pdf Graphic file (type pdf)
+<use figures/gamma_diversity_N_200_T_20.pdf>
+Package pdftex.def Info: figures/gamma_diversity_N_200_T_20.pdf  used on input 
+line 314.
+(pdftex.def)             Requested size: 204.97684pt x 171.61122pt.
+<figures/rho_diversity_N_200_T_20.pdf, id=453, 476.94905pt x 399.31621pt>
 File: figures/rho_diversity_N_200_T_20.pdf Graphic file (type pdf)
 <use figures/rho_diversity_N_200_T_20.pdf>
 Package pdftex.def Info: figures/rho_diversity_N_200_T_20.pdf  used on input li
 ne 324.
 (pdftex.def)             Requested size: 204.97684pt x 171.61122pt.
-<figures/rho_welfare_N_200_T_20.pdf, id=456, 482.23442pt x 416.36427pt>
+<figures/rho_welfare_N_200_T_20.pdf, id=454, 482.23442pt x 416.36427pt>
 File: figures/rho_welfare_N_200_T_20.pdf Graphic file (type pdf)
 <use figures/rho_welfare_N_200_T_20.pdf>
 Package pdftex.def Info: figures/rho_welfare_N_200_T_20.pdf  used on input line
  325.
 (pdftex.def)             Requested size: 204.97684pt x 176.98106pt.
-
-Overfull \hbox (3.34749pt too wide) in paragraph at lines 338--339
-[]\T1/LinuxLibertineT-TLF/m/it/9 (-20) Positively cor-re-lated when users have 
-high lev-els of risk-aversion. 
- []
-
-[7.7 <./figures/gamma_consumption_dist_N_200T_20.pdf> <./figures/gamma_consumpt
-ion_dist_N_200T_20_partial.pdf
+ [7.7 <./figures/gamma_consumption_dist_N_200T_20.pdf> <./figures/gamma_consump
+tion_dist_N_200T_20_partial.pdf
 
 pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/gamma_consumption_
 dist_N_200T_20_partial.pdf): PDF inclusion: multiple pdfs with page group inclu
@@ -1290,7 +1275,12 @@ pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/rho_welfare_N_200_
 T_20.pdf): PDF inclusion: multiple pdfs with page group included in a single pa
 ge
 >]
-<figures/diversity_welfare_rn.pdf, id=758, 588.44218pt x 411.84805pt>
+Overfull \hbox (3.34749pt too wide) in paragraph at lines 338--339
+[]\T1/LinuxLibertineT-TLF/m/it/9 (-20) Positively cor-re-lated when users have 
+high lev-els of risk-aversion. 
+ []
+
+<figures/diversity_welfare_rn.pdf, id=755, 588.44218pt x 411.84805pt>
 File: figures/diversity_welfare_rn.pdf Graphic file (type pdf)
 <use figures/diversity_welfare_rn.pdf>
 Package pdftex.def Info: figures/diversity_welfare_rn.pdf  used on input line 3
@@ -1301,7 +1291,7 @@ Overfull \hbox (12.0581pt too wide) in paragraph at lines 355--355
  [][] 
  []
 
-<figures/diversity_welfare_ra.pdf, id=759, 588.44218pt x 411.84805pt>
+<figures/diversity_welfare_ra.pdf, id=756, 588.44218pt x 411.84805pt>
 File: figures/diversity_welfare_ra.pdf Graphic file (type pdf)
 <use figures/diversity_welfare_ra.pdf>
 Package pdftex.def Info: figures/diversity_welfare_ra.pdf  used on input line 3
@@ -1312,37 +1302,43 @@ Overfull \hbox (12.0581pt too wide) in paragraph at lines 356--356
  [][] 
  []
 
-<figures/diversity_welfare_rn_partial.pdf, id=760, 588.44218pt x 411.84805pt>
+<figures/diversity_welfare_rn_partial.pdf, id=757, 588.44218pt x 411.84805pt>
 File: figures/diversity_welfare_rn_partial.pdf Graphic file (type pdf)
 <use figures/diversity_welfare_rn_partial.pdf>
 Package pdftex.def Info: figures/diversity_welfare_rn_partial.pdf  used on inpu
 t line 360.
 (pdftex.def)             Requested size: 241.14749pt x 168.7771pt.
-<figures/diversity_welfare_ra_partial.pdf, id=761, 588.44218pt x 411.84805pt>
+<figures/diversity_welfare_ra_partial.pdf, id=758, 588.44218pt x 411.84805pt>
 File: figures/diversity_welfare_ra_partial.pdf Graphic file (type pdf)
 <use figures/diversity_welfare_ra_partial.pdf>
 Package pdftex.def Info: figures/diversity_welfare_ra_partial.pdf  used on inpu
 t line 361.
 (pdftex.def)             Requested size: 241.14749pt x 168.7771pt.
-<figures/beta_homogeneity_N_200_T_20.pdf, id=767, 476.94905pt x 399.31621pt>
+<figures/beta_homogeneity_N_200_T_20.pdf, id=764, 476.94905pt x 399.31621pt>
 File: figures/beta_homogeneity_N_200_T_20.pdf Graphic file (type pdf)
 <use figures/beta_homogeneity_N_200_T_20.pdf>
 Package pdftex.def Info: figures/beta_homogeneity_N_200_T_20.pdf  used on input
  line 385.
 (pdftex.def)             Requested size: 168.8025pt x 141.32867pt.
-<figures/rho_homogeneity_N_200_T_20.pdf, id=768, 476.94905pt x 399.31621pt>
+<figures/rho_homogeneity_N_200_T_20.pdf, id=765, 476.94905pt x 399.31621pt>
 File: figures/rho_homogeneity_N_200_T_20.pdf Graphic file (type pdf)
 <use figures/rho_homogeneity_N_200_T_20.pdf>
 Package pdftex.def Info: figures/rho_homogeneity_N_200_T_20.pdf  used on input 
 line 391.
 (pdftex.def)             Requested size: 168.8025pt x 141.32867pt.
-[8.8 <./figures/diversity_welfare_rn.pdf> <./figures/diversity_welfare_ra.pdf
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [8.8 <./figures/diversity_welfare_rn.pdf> <./figures/diversity_welfare_ra.pdf
 
 pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/diversity_welfare_
 ra.pdf): PDF inclusion: multiple pdfs with page group included in a single page
 
->] [9.9 <./figures/diversity_welfare_rn_partial.pdf> <./figures/diversity_welfa
-re_ra_partial.pdf
+>]
+Underfull \vbox (badness 3579) has occurred while \output is active []
+
+ [9.9 <./figures/diversity_welfare_rn_partial.pdf> <./figures/diversity_welfare
+_ra_partial.pdf
 
 pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/diversity_welfare_
 ra_partial.pdf): PDF inclusion: multiple pdfs with page group included in a sin
@@ -1358,31 +1354,32 @@ pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/rho_homogeneity_N_
 200_T_20.pdf): PDF inclusion: multiple pdfs with page group included in a singl
 e page
 >] (./filter_bubbles.bbl
+Underfull \vbox (badness 1038) has occurred while \output is active []
+
+ [10.10]
 LaTeX Font Info:    Font shape `TS1/LinuxLibertineT-TLF/m/it' will be
 (Font)              scaled to size 7.0pt on input line 38.
 
-Underfull \vbox (badness 1755) has occurred while \output is active []
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [10.10])
-[11.11
-
-]
+) [11.11]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 441.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 441.
- (./filter_bubbles.aux)
+
+(./filter_bubbles.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 441.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 441.
 Package rerunfilecheck Info: File `filter_bubbles.out' has not changed.
 (rerunfilecheck)             Checksum: C47C56309D14B2A91011B581F6B58208;2142.
  ) 
 Here is how much of TeX's memory you used:
- 18699 strings out of 492616
- 287904 string characters out of 6129482
- 412213 words of memory out of 5000000
- 21575 multiletter control sequences out of 15000+600000
- 160275 words of font info for 383 fonts, out of 8000000 for 9000
+ 18694 strings out of 492616
+ 287804 string characters out of 6129482
+ 408140 words of memory out of 5000000
+ 21569 multiletter control sequences out of 15000+600000
+ 150378 words of font info for 382 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
- 60i,17n,94p,1693b,627s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 60i,12n,94p,1693b,600s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2019/texmf-dist/fonts/enc/dvips/libertine/lbtn_u7qtuy.enc
 }{/usr/local/texlive/2019/texmf-dist/fonts/enc/dvips/newtx/libertinealt.enc}{/u
 sr/local/texlive/2019/texmf-dist/fonts/enc/dvips/libertine/lbtn_ncsllp.enc}{/us
@@ -1409,10 +1406,10 @@ fonts/type1/public/txfonts/txsyc.pfb></usr/local/texlive/2019/texmf-dist/fonts/
 type1/public/newtx/txsys.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/pu
 blic/newtx/zxlr.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/newt
 x/zxlri.pfb>
-Output written on filter_bubbles.pdf (11 pages, 931727 bytes).
+Output written on filter_bubbles.pdf (11 pages, 928024 bytes).
 PDF statistics:
  1267 PDF objects out of 1440 (max. 8388607)
  553 compressed objects within 6 object streams
  94 named destinations out of 1000 (max. 500000)
- 38095 words of extra memory for PDF output out of 42996 (max. 10000000)
+ 39119 words of extra memory for PDF output out of 42996 (max. 10000000)
 
