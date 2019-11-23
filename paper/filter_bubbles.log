@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  7 NOV 2019 08:35
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  23 NOV 2019 08:35
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1034,32 +1034,32 @@ tim
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: float package is loaded.
 Package caption Info: End \AtBeginDocument code.
-Class acmart Info: Suppressing bibformat on input line 64.
+Class acmart Info: Suppressing bibformat on input line 62.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 17.28pt on input line 100.
+(Font)              scaled to size 17.28pt on input line 98.
 LaTeX Font Info:    Try loading font information for T1+LinuxBiolinumT-TLF on i
-nput line 100.
+nput line 98.
 
 (/usr/local/texlive/2019/texmf-dist/tex/latex/libertine/T1LinuxBiolinumT-TLF.fd
 File: T1LinuxBiolinumT-TLF.fd 2017/03/20 (autoinst) Font definitions for T1/Lin
 uxBiolinumT-TLF.
 )
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
-(Font)              scaled to size 17.28pt on input line 100.
+(Font)              scaled to size 17.28pt on input line 98.
 Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `LinuxBiolinumT-TLF' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/b/n' will be
-(Font)              scaled to size 17.28pt on input line 100.
+(Font)              scaled to size 17.28pt on input line 98.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 12.0pt on input line 100.
+(Font)              scaled to size 12.0pt on input line 98.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 10.0pt on input line 100.
+(Font)              scaled to size 10.0pt on input line 98.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
-(Font)              scaled to size 7.0pt on input line 100.
+(Font)              scaled to size 7.0pt on input line 98.
 LaTeX Font Info:    Try loading font information for TS1+LinuxLibertineT-TLF on
- input line 100.
+ input line 98.
 
 (/usr/local/texlive/2019/texmf-dist/tex/latex/libertine/TS1LinuxLibertineT-TLF.
 fd
@@ -1067,19 +1067,19 @@ File: TS1LinuxLibertineT-TLF.fd 2017/03/20 (autoinst) Font definitions for TS1/
 LinuxLibertineT-TLF.
 )
 LaTeX Font Info:    Font shape `TS1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 7.0pt on input line 100.
+(Font)              scaled to size 7.0pt on input line 98.
 Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `LinuxLibertineT-TLF' (encoding: TS1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/b/n' will be
-(Font)              scaled to size 9.0pt on input line 100.
+(Font)              scaled to size 9.0pt on input line 98.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/b/n' will be
-(Font)              scaled to size 10.95pt on input line 100.
+(Font)              scaled to size 10.95pt on input line 98.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
-(Font)              scaled to size 9.0pt on input line 100.
+(Font)              scaled to size 9.0pt on input line 98.
 LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 9.0pt on input line 107.
+(Font)              scaled to size 9.0pt on input line 105.
 Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `LinuxLibertineT-TLF' (encoding: OT1).
 (microtype)             For optimal results, create family-specific settings.
@@ -1091,29 +1091,29 @@ File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 7.3pt on input line 107.
+(Font)              scaled to size 7.3pt on input line 105.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 5.5pt on input line 107.
+(Font)              scaled to size 5.5pt on input line 105.
 
-Underfull \hbox (badness 10000) in paragraph at lines 107--107
+Underfull \hbox (badness 10000) in paragraph at lines 105--105
 [][][]\T1/LinuxLibertineT-TLF/m/n/7 (+20) MacKenzie et al. (2013, Oct.), How re
 -tail-ers can keep up with
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 107--107
+Underfull \hbox (badness 10000) in paragraph at lines 105--105
 \T1/LinuxLibertineT-TLF/m/n/7 (+20) con-sumers. []$https : / / www . mckinsey .
  com / industries / retail / our-[]insights /
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 107--107
+Underfull \hbox (badness 10000) in paragraph at lines 105--105
 [][][]\T1/LinuxLibertineT-TLF/m/n/7 (+20) Friedersdorf (2018, Mar. 12), YouTube
  Ex-trem-ism and the Long
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 107--107
+Underfull \hbox (badness 10000) in paragraph at lines 105--105
 \T1/LinuxLibertineT-TLF/m/n/7 (+20) Tail, \T1/LinuxLibertineT-TLF/m/it/7 (+20) 
 The At-lantic\T1/LinuxLibertineT-TLF/m/n/7 (+20) . []$https : / / www . theatla
 ntic . com / politics / archive / 2018 / 03 /
@@ -1123,7 +1123,7 @@ ntic . com / politics / archive / 2018 / 03 /
 
 ]
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
-(Font)              scaled to size 9.0pt on input line 152.
+(Font)              scaled to size 9.0pt on input line 150.
 
 [2.2]
 Underfull \vbox (badness 1215) has occurred while \output is active []
@@ -1135,7 +1135,7 @@ inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 <Example-Bubbles.pdf, id=129, 181.7701pt x 174.7619pt>
 File: Example-Bubbles.pdf Graphic file (type pdf)
 <use Example-Bubbles.pdf>
-Package pdftex.def Info: Example-Bubbles.pdf  used on input line 194.
+Package pdftex.def Info: Example-Bubbles.pdf  used on input line 192.
 (pdftex.def)             Requested size: 96.45752pt x 92.73802pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -1147,7 +1147,7 @@ File: figures/rho_pos_consumption_dist_N_200T_20_overall.pdf Graphic file (type
  pdf)
 <use figures/rho_pos_consumption_dist_N_200T_20_overall.pdf>
 Package pdftex.def Info: figures/rho_pos_consumption_dist_N_200T_20_overall.pdf
-  used on input line 235.
+  used on input line 233.
 (pdftex.def)             Requested size: 217.03127pt x 186.3963pt.
 <figures/rho_zero_consumption_dist_N_200T_20_overall.pdf, id=146, 468.98022pt x
  402.77289pt>
@@ -1155,12 +1155,12 @@ File: figures/rho_zero_consumption_dist_N_200T_20_overall.pdf Graphic file (typ
 e pdf)
 <use figures/rho_zero_consumption_dist_N_200T_20_overall.pdf>
 Package pdftex.def Info: figures/rho_zero_consumption_dist_N_200T_20_overall.pd
-f  used on input line 236.
+f  used on input line 234.
 (pdftex.def)             Requested size: 217.03127pt x 186.3963pt.
 
 [4.4 <./Example-Bubbles.pdf>]
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/sc' will be
-(Font)              scaled to size 9.0pt on input line 261.
+(Font)              scaled to size 9.0pt on input line 259.
  [5.5 <./figures/rho_pos_consumption_dist_N_200T_20_overall.pdf> <./figures/rho
 _zero_consumption_dist_N_200T_20_overall.pdf
 
@@ -1172,7 +1172,7 @@ cluded in a single page
 File: figures/rho_consumption_dist_N_200T_20.pdf Graphic file (type pdf)
 <use figures/rho_consumption_dist_N_200T_20.pdf>
 Package pdftex.def Info: figures/rho_consumption_dist_N_200T_20.pdf  used on in
-put line 278.
+put line 276.
 (pdftex.def)             Requested size: 241.14749pt x 155.84346pt.
 <figures/rho_consumption_dist_N_200T_20_partial.pdf, id=278, 579.0634pt x 374.2
 2623pt>
@@ -1180,40 +1180,40 @@ File: figures/rho_consumption_dist_N_200T_20_partial.pdf Graphic file (type pdf
 )
 <use figures/rho_consumption_dist_N_200T_20_partial.pdf>
 Package pdftex.def Info: figures/rho_consumption_dist_N_200T_20_partial.pdf  us
-ed on input line 279.
+ed on input line 277.
 (pdftex.def)             Requested size: 241.14749pt x 155.84346pt.
 <figures/rho_consumption_dist_N_200T_20_omni.pdf, id=279, 579.0634pt x 374.2262
 3pt>
 File: figures/rho_consumption_dist_N_200T_20_omni.pdf Graphic file (type pdf)
 <use figures/rho_consumption_dist_N_200T_20_omni.pdf>
 Package pdftex.def Info: figures/rho_consumption_dist_N_200T_20_omni.pdf  used 
-on input line 280.
+on input line 278.
 (pdftex.def)             Requested size: 241.14749pt x 155.84346pt.
 <figures/gamma_consumption_dist_N_200T_20.pdf, id=280, 579.0634pt x 374.22623pt
 >
 File: figures/gamma_consumption_dist_N_200T_20.pdf Graphic file (type pdf)
 <use figures/gamma_consumption_dist_N_200T_20.pdf>
 Package pdftex.def Info: figures/gamma_consumption_dist_N_200T_20.pdf  used on 
-input line 286.
-(pdftex.def)             Requested size: 217.03127pt x 140.26025pt.
+input line 284.
+(pdftex.def)             Requested size: 241.14749pt x 155.84346pt.
 <figures/gamma_consumption_dist_N_200T_20_partial.pdf, id=281, 579.0634pt x 374
 .22623pt>
 File: figures/gamma_consumption_dist_N_200T_20_partial.pdf Graphic file (type p
 df)
 <use figures/gamma_consumption_dist_N_200T_20_partial.pdf>
 Package pdftex.def Info: figures/gamma_consumption_dist_N_200T_20_partial.pdf  
-used on input line 287.
-(pdftex.def)             Requested size: 217.03127pt x 140.26025pt.
+used on input line 285.
+(pdftex.def)             Requested size: 241.14749pt x 155.84346pt.
 <figures/gamma_consumption_dist_N_200T_20_omni.pdf, id=282, 579.0634pt x 374.22
 623pt>
 File: figures/gamma_consumption_dist_N_200T_20_omni.pdf Graphic file (type pdf)
 
 <use figures/gamma_consumption_dist_N_200T_20_omni.pdf>
 Package pdftex.def Info: figures/gamma_consumption_dist_N_200T_20_omni.pdf  use
-d on input line 288.
-(pdftex.def)             Requested size: 217.03127pt x 140.26025pt.
+d on input line 286.
+(pdftex.def)             Requested size: 241.14749pt x 155.84346pt.
 
-Overfull \hbox (5.3835pt too wide) in paragraph at lines 293--294
+Overfull \hbox (5.3835pt too wide) in paragraph at lines 291--292
 []\T1/LinuxLibertineT-TLF/m/n/9 (-20) In sum, in our model fil-ter bub-bles are
  driven by learning-spillovers
  []
@@ -1234,22 +1234,28 @@ n a single page
 File: figures/gamma_diversity_N_200_T_20.pdf Graphic file (type pdf)
 <use figures/gamma_diversity_N_200_T_20.pdf>
 Package pdftex.def Info: figures/gamma_diversity_N_200_T_20.pdf  used on input 
-line 314.
-(pdftex.def)             Requested size: 204.97684pt x 171.61122pt.
+line 312.
+(pdftex.def)             Requested size: 217.03127pt x 181.70743pt.
 <figures/rho_diversity_N_200_T_20.pdf, id=453, 476.94905pt x 399.31621pt>
 File: figures/rho_diversity_N_200_T_20.pdf Graphic file (type pdf)
 <use figures/rho_diversity_N_200_T_20.pdf>
 Package pdftex.def Info: figures/rho_diversity_N_200_T_20.pdf  used on input li
-ne 324.
-(pdftex.def)             Requested size: 204.97684pt x 171.61122pt.
+ne 322.
+(pdftex.def)             Requested size: 217.03127pt x 181.70743pt.
 <figures/rho_welfare_N_200_T_20.pdf, id=454, 482.23442pt x 416.36427pt>
 File: figures/rho_welfare_N_200_T_20.pdf Graphic file (type pdf)
 <use figures/rho_welfare_N_200_T_20.pdf>
 Package pdftex.def Info: figures/rho_welfare_N_200_T_20.pdf  used on input line
- 325.
-(pdftex.def)             Requested size: 204.97684pt x 176.98106pt.
- [7.7 <./figures/gamma_consumption_dist_N_200T_20.pdf> <./figures/gamma_consump
-tion_dist_N_200T_20_partial.pdf
+ 323.
+(pdftex.def)             Requested size: 217.03127pt x 187.3876pt.
+
+Overfull \hbox (3.34749pt too wide) in paragraph at lines 336--337
+[]\T1/LinuxLibertineT-TLF/m/it/9 (-20) Positively cor-re-lated when users have 
+high lev-els of risk-aversion. 
+ []
+
+[7.7 <./figures/gamma_consumption_dist_N_200T_20.pdf> <./figures/gamma_consumpt
+ion_dist_N_200T_20_partial.pdf
 
 pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/gamma_consumption_
 dist_N_200T_20_partial.pdf): PDF inclusion: multiple pdfs with page group inclu
@@ -1264,79 +1270,80 @@ dist_N_200T_20_omni.pdf): PDF inclusion: multiple pdfs with page group included
 pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/gamma_diversity_N_
 200_T_20.pdf): PDF inclusion: multiple pdfs with page group included in a singl
 e page
-> <./figures/rho_diversity_N_200_T_20.pdf
+>]
+<figures/diversity_welfare_rn.pdf, id=673, 588.44218pt x 411.84805pt>
+File: figures/diversity_welfare_rn.pdf Graphic file (type pdf)
+<use figures/diversity_welfare_rn.pdf>
+Package pdftex.def Info: figures/diversity_welfare_rn.pdf  used on input line 3
+53.
+(pdftex.def)             Requested size: 253.2056pt x 177.21689pt.
 
-pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/rho_diversity_N_20
-0_T_20.pdf): PDF inclusion: multiple pdfs with page group included in a single 
-page
-> <./figures/rho_welfare_N_200_T_20.pdf
+Overfull \hbox (12.0581pt too wide) in paragraph at lines 353--353
+ [][] 
+ []
+
+<figures/diversity_welfare_ra.pdf, id=674, 588.44218pt x 411.84805pt>
+File: figures/diversity_welfare_ra.pdf Graphic file (type pdf)
+<use figures/diversity_welfare_ra.pdf>
+Package pdftex.def Info: figures/diversity_welfare_ra.pdf  used on input line 3
+54.
+(pdftex.def)             Requested size: 253.2056pt x 177.21689pt.
+
+Overfull \hbox (12.0581pt too wide) in paragraph at lines 354--354
+ [][] 
+ []
+
+<figures/diversity_welfare_rn_partial.pdf, id=675, 588.44218pt x 411.84805pt>
+File: figures/diversity_welfare_rn_partial.pdf Graphic file (type pdf)
+<use figures/diversity_welfare_rn_partial.pdf>
+Package pdftex.def Info: figures/diversity_welfare_rn_partial.pdf  used on inpu
+t line 358.
+(pdftex.def)             Requested size: 253.2056pt x 177.21689pt.
+
+Overfull \hbox (12.0581pt too wide) in paragraph at lines 358--358
+ [][] 
+ []
+
+<figures/diversity_welfare_ra_partial.pdf, id=676, 588.44218pt x 411.84805pt>
+File: figures/diversity_welfare_ra_partial.pdf Graphic file (type pdf)
+<use figures/diversity_welfare_ra_partial.pdf>
+Package pdftex.def Info: figures/diversity_welfare_ra_partial.pdf  used on inpu
+t line 359.
+(pdftex.def)             Requested size: 253.2056pt x 177.21689pt.
+
+Overfull \hbox (12.0581pt too wide) in paragraph at lines 359--359
+ [][] 
+ []
+
+<figures/beta_homogeneity_N_200_T_20.pdf, id=682, 476.94905pt x 399.31621pt>
+File: figures/beta_homogeneity_N_200_T_20.pdf Graphic file (type pdf)
+<use figures/beta_homogeneity_N_200_T_20.pdf>
+Package pdftex.def Info: figures/beta_homogeneity_N_200_T_20.pdf  used on input
+ line 383.
+(pdftex.def)             Requested size: 192.91872pt x 161.51501pt.
+[8.8 <./figures/rho_diversity_N_200_T_20.pdf> <./figures/rho_welfare_N_200_T_20
+.pdf
 
 pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/rho_welfare_N_200_
 T_20.pdf): PDF inclusion: multiple pdfs with page group included in a single pa
 ge
->]
-Overfull \hbox (3.34749pt too wide) in paragraph at lines 338--339
-[]\T1/LinuxLibertineT-TLF/m/it/9 (-20) Positively cor-re-lated when users have 
-high lev-els of risk-aversion. 
- []
+> <./figures/diversity_welfare_rn.pdf
 
-<figures/diversity_welfare_rn.pdf, id=755, 588.44218pt x 411.84805pt>
-File: figures/diversity_welfare_rn.pdf Graphic file (type pdf)
-<use figures/diversity_welfare_rn.pdf>
-Package pdftex.def Info: figures/diversity_welfare_rn.pdf  used on input line 3
-55.
-(pdftex.def)             Requested size: 253.2056pt x 177.21689pt.
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/diversity_welfare_
+rn.pdf): PDF inclusion: multiple pdfs with page group included in a single page
 
-Overfull \hbox (12.0581pt too wide) in paragraph at lines 355--355
- [][] 
- []
-
-<figures/diversity_welfare_ra.pdf, id=756, 588.44218pt x 411.84805pt>
-File: figures/diversity_welfare_ra.pdf Graphic file (type pdf)
-<use figures/diversity_welfare_ra.pdf>
-Package pdftex.def Info: figures/diversity_welfare_ra.pdf  used on input line 3
-56.
-(pdftex.def)             Requested size: 253.2056pt x 177.21689pt.
-
-Overfull \hbox (12.0581pt too wide) in paragraph at lines 356--356
- [][] 
- []
-
-<figures/diversity_welfare_rn_partial.pdf, id=757, 588.44218pt x 411.84805pt>
-File: figures/diversity_welfare_rn_partial.pdf Graphic file (type pdf)
-<use figures/diversity_welfare_rn_partial.pdf>
-Package pdftex.def Info: figures/diversity_welfare_rn_partial.pdf  used on inpu
-t line 360.
-(pdftex.def)             Requested size: 241.14749pt x 168.7771pt.
-<figures/diversity_welfare_ra_partial.pdf, id=758, 588.44218pt x 411.84805pt>
-File: figures/diversity_welfare_ra_partial.pdf Graphic file (type pdf)
-<use figures/diversity_welfare_ra_partial.pdf>
-Package pdftex.def Info: figures/diversity_welfare_ra_partial.pdf  used on inpu
-t line 361.
-(pdftex.def)             Requested size: 241.14749pt x 168.7771pt.
-<figures/beta_homogeneity_N_200_T_20.pdf, id=764, 476.94905pt x 399.31621pt>
-File: figures/beta_homogeneity_N_200_T_20.pdf Graphic file (type pdf)
-<use figures/beta_homogeneity_N_200_T_20.pdf>
-Package pdftex.def Info: figures/beta_homogeneity_N_200_T_20.pdf  used on input
- line 385.
-(pdftex.def)             Requested size: 168.8025pt x 141.32867pt.
-<figures/rho_homogeneity_N_200_T_20.pdf, id=765, 476.94905pt x 399.31621pt>
-File: figures/rho_homogeneity_N_200_T_20.pdf Graphic file (type pdf)
-<use figures/rho_homogeneity_N_200_T_20.pdf>
-Package pdftex.def Info: figures/rho_homogeneity_N_200_T_20.pdf  used on input 
-line 391.
-(pdftex.def)             Requested size: 168.8025pt x 141.32867pt.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [8.8 <./figures/diversity_welfare_rn.pdf> <./figures/diversity_welfare_ra.pdf
+> <./figures/diversity_welfare_ra.pdf
 
 pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/diversity_welfare_
 ra.pdf): PDF inclusion: multiple pdfs with page group included in a single page
 
 >]
-Underfull \vbox (badness 3579) has occurred while \output is active []
-
+<figures/rho_homogeneity_N_200_T_20.pdf, id=910, 476.94905pt x 399.31621pt>
+File: figures/rho_homogeneity_N_200_T_20.pdf Graphic file (type pdf)
+<use figures/rho_homogeneity_N_200_T_20.pdf>
+Package pdftex.def Info: figures/rho_homogeneity_N_200_T_20.pdf  used on input 
+line 389.
+(pdftex.def)             Requested size: 192.91872pt x 161.51501pt.
  [9.9 <./figures/diversity_welfare_rn_partial.pdf> <./figures/diversity_welfare
 _ra_partial.pdf
 
@@ -1353,33 +1360,30 @@ le page
 pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/rho_homogeneity_N_
 200_T_20.pdf): PDF inclusion: multiple pdfs with page group included in a singl
 e page
->] (./filter_bubbles.bbl
-Underfull \vbox (badness 1038) has occurred while \output is active []
-
- [10.10]
+>] [10.10] (./filter_bubbles.bbl
 LaTeX Font Info:    Font shape `TS1/LinuxLibertineT-TLF/m/it' will be
 (Font)              scaled to size 7.0pt on input line 38.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
 ) [11.11]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 441.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 441.
-
-(./filter_bubbles.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 441.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 441.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 439.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 439.
+ (./filter_bubbles.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 439.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 439.
 Package rerunfilecheck Info: File `filter_bubbles.out' has not changed.
 (rerunfilecheck)             Checksum: C47C56309D14B2A91011B581F6B58208;2142.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
  ) 
 Here is how much of TeX's memory you used:
  18694 strings out of 492616
  287804 string characters out of 6129482
- 408140 words of memory out of 5000000
+ 407147 words of memory out of 5000000
  21569 multiletter control sequences out of 15000+600000
  150378 words of font info for 382 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
- 60i,12n,94p,1693b,600s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 60i,12n,94p,1693b,426s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2019/texmf-dist/fonts/enc/dvips/libertine/lbtn_u7qtuy.enc
 }{/usr/local/texlive/2019/texmf-dist/fonts/enc/dvips/newtx/libertinealt.enc}{/u
 sr/local/texlive/2019/texmf-dist/fonts/enc/dvips/libertine/lbtn_ncsllp.enc}{/us
@@ -1406,7 +1410,7 @@ fonts/type1/public/txfonts/txsyc.pfb></usr/local/texlive/2019/texmf-dist/fonts/
 type1/public/newtx/txsys.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/pu
 blic/newtx/zxlr.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/newt
 x/zxlri.pfb>
-Output written on filter_bubbles.pdf (11 pages, 928024 bytes).
+Output written on filter_bubbles.pdf (11 pages, 928242 bytes).
 PDF statistics:
  1267 PDF objects out of 1440 (max. 8388607)
  553 compressed objects within 6 object streams
