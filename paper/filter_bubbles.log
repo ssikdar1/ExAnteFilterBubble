@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  23 NOV 2019 08:35
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  14 DEC 2019 08:44
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1338,7 +1338,7 @@ pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/diversity_welfare_
 ra.pdf): PDF inclusion: multiple pdfs with page group included in a single page
 
 >]
-<figures/rho_homogeneity_N_200_T_20.pdf, id=910, 476.94905pt x 399.31621pt>
+<figures/rho_homogeneity_N_200_T_20.pdf, id=911, 476.94905pt x 399.31621pt>
 File: figures/rho_homogeneity_N_200_T_20.pdf Graphic file (type pdf)
 <use figures/rho_homogeneity_N_200_T_20.pdf>
 Package pdftex.def Info: figures/rho_homogeneity_N_200_T_20.pdf  used on input 
@@ -1371,15 +1371,11 @@ Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 439.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 439.
 Package rerunfilecheck Info: File `filter_bubbles.out' has not changed.
 (rerunfilecheck)             Checksum: C47C56309D14B2A91011B581F6B58208;2142.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
  ) 
 Here is how much of TeX's memory you used:
  18694 strings out of 492616
  287804 string characters out of 6129482
- 407147 words of memory out of 5000000
+ 406140 words of memory out of 5000000
  21569 multiletter control sequences out of 15000+600000
  150378 words of font info for 382 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
@@ -1410,10 +1406,10 @@ fonts/type1/public/txfonts/txsyc.pfb></usr/local/texlive/2019/texmf-dist/fonts/
 type1/public/newtx/txsys.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/pu
 blic/newtx/zxlr.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/newt
 x/zxlri.pfb>
-Output written on filter_bubbles.pdf (11 pages, 928242 bytes).
+Output written on filter_bubbles.pdf (11 pages, 928154 bytes).
 PDF statistics:
- 1267 PDF objects out of 1440 (max. 8388607)
- 553 compressed objects within 6 object streams
+ 1268 PDF objects out of 1440 (max. 8388607)
+ 554 compressed objects within 6 object streams
  94 named destinations out of 1000 (max. 500000)
  39119 words of extra memory for PDF output out of 42996 (max. 10000000)
 

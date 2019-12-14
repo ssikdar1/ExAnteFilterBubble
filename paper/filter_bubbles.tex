@@ -19,7 +19,7 @@
 \copyrightyear{2020}
 \acmYear{2020}
 \setcopyright{acmlicensed}
-\acmConference[WWW'20]{Recomme '18: ACM Symposium on Neural Gaze Detection}{April 20-24, 2020}{Taipai, Taiwan}
+\acmConference[WWW'20]{Recomme '18: ACM Symposium on Neural Gaze Detection}{April 20-24, 2020}{Taipei, Taiwan}
 \acmBooktitle{RecSys '19: ACM Conference on Neural Gaze Detection, June 03--05, 2018, Woodstock, NY}
 \acmPrice{15.00}
 \acmDOI{10.1145/1122445.1122456}
@@ -105,7 +105,7 @@ Recommender Systems (RS) have become critical for assisting users in navigating 
 Recommender systems have been influential in shaping consumer choice in these markets with 75\% of movies watched on Netflix and 35\% of page-views on Amazon coming from recommendations.\footnote{MacKenzie et al. (2013, Oct.),  How retailers can keep up with consumers. \url{https://www.mckinsey.com/industries/retail/our-insights/how-retailers-can-keep-up-with-consumers}. Retrieved on October 3, 2019.} While there are many positive effects from these systems, there is an increasing worry that there are unintended side-effects of recommendation systems. There have been claims that YouTube's recommendation algorithm unintentionally lead to the radicalization of many individuals,\footnote{Friedersdorf (2018, Mar. 12), YouTube Extremism and the Long Tail, \textit{The Atlantic}. \url{https://www.theatlantic.com/politics/archive/2018/03/youtube-extremism-and-the-long-tail/555350}. Retrieved on October 3, 2019.} that personalized recommender systems lead users into \textit{filter bubbles} where they effectively get isolated from a diversity of viewpoints or content \cite{pariser2011filter}, and that personalized recommender systems may also lead users to become increasingly homogenized at the same time \cite{chaney2018algorithmic, hosanagar2013will}.
 \par
 
-\textbf{Our Model and Contributions} In this paper, 
+\noindent \textbf{Our Model and Contributions} In this paper, 
 %drawing from recent work in psychology and decision theory in economics, 
 we first propose a model of consumer decision-making in the context of large choice sets faced by users in online markets and show that the model is able to rationalize features of user behavior in such contexts by means of simulations. 
 We then ask how a stylized model of recommendation can shape the behavior of long-lived users
@@ -114,7 +114,7 @@ and finally ask how the insights from our model can be used to improve recommend
 
 The key components of our model are:
 \begin{enumerate}[label=(\arabic*)]
-\item Users face uncertainty about their valuation of the different goods and thus face a decision problem under under uncertainty.
+\item Users face uncertainty about their valuation of the different goods and thus face a decision problem under uncertainty.
 \item Choice sets are large and users only consume a small fraction of this choice set over their lifetime.
 \item Consumption of these items is sequential and users live for multiple periods.
 \item Consuming an item provides information about the value of similar items in the product space.
@@ -264,7 +264,7 @@ The impact of recommendation on local consumption:
 \end{enumerate}
 \end{finding}
 
-First, the bottom panel of Figure \ref{fig:correlation_consumption_path} shows that, when $\rho = 0$, there is no difference in consumption distance between the three regimes. This is due to the fact that when $\rho = 0$, there is no reason that items that are close in the product space should have similar va;ues and so the optimal consumption path does not depend on the similarity of the items. However this also means that users do not learn anything about neighboring products and so there is limited path-dependence in consumption.
+First, the bottom panel of Figure \ref{fig:correlation_consumption_path} shows that, when $\rho = 0$, there is no difference in consumption distance between the three regimes. This is due to the fact that when $\rho = 0$, there is no reason that items that are close in the product space should have similar values and so the optimal consumption path does not depend on the similarity of the items. However this also means that users do not learn anything about neighboring products and so there is limited path-dependence in consumption.
 \par
 
 The top panel of Figure \ref{fig:correlation_consumption_path} shows that, when $\rho > 0$, both recommendation and no recommendation lead to increasingly local consumption compared to the oracle benchmark case. Further, the average consumption path between periods is \textit{decreasing} for the no recommendation case whereas it is \textit{increasing} for the oracle case. The recommendation regime decreases the degree of local consumption but not as much as the oracle benchmark. Due to the correlation of values, the oracle consumption path exploits this and leads to the consumption of more similar products than in the case when $\rho = 0$. However, since these spillovers also impact user learning in the no recommendation case, users \textit{over-exploit} this and increasingly consume products similar to good products that they have consumed before. This is further illustrated by Figure \ref{fig:local_consumption_across_rho} which shows how the consumption paths in the oracle and no recommendation regimes vary as $\rho$ increases.

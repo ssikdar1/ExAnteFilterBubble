@@ -1,0 +1,16 @@
+[Review1and2]: We focused on building a model based on assumptions backed by work in psychology and economic decision theory. An online experiment with real users is a great idea and will be addressed in future work.
+Clarity issues will be addressed in the revision.
+
+[Review2Q1]: At the start V_i and V are drawn for each product and individual so that realized value (and utility) of each item is fixed throughout. Each user has correct initial beliefs about the distribution these are drawn from, a standard assumption in decision theory. As the user observes realized values of items they consume (x_{i,n}'s), they update beliefs on the distribution of values of the remaining items. The reason this updating is meaningful is that these values are correlated. The crucial point is that there is a difference between the perceived ("ex-ante") expected utility driving users’ decisions and the true/realized ("ex-post") utility. The user’s decisions depend on how much they know about the items, but the realized utility does not.
+
+The realized X_i(=V_i+\beta*V) is fixed, only uncovered upon consumption. Without recommendation, user's beliefs are a combination of uncertainty over V and V_i. Recommendation reveals the realized V, but does not affect uncertainty over V_i.
+
+Realized utility is fixed throughout so oracle recommendation does not need to account for user beliefs.
+
+[Review2Q2]: We should have and will provide references from decision theory. We use a standard formulation of risk preferences, CARA preferences. The certainty equivalent of an item is homeomorphic to its expected utility, where risk attitudes play a role. The certainty equivalent of an item is the certain value x (line 248) that leads to the same expected utility: u(x)=E[u(item)]. As such, it is sufficient to know the certainty equivalents to which items have highest expected utility. In a Gaussian environment with CARA preferences, the expected utility of an item is increasing in mean and decreasing in variance (line 313), capturing users’ dislike of uncertainty. Higher risk aversion implies a higher penalty to uncertainty when ranking items. In our setup, having explored more nearby items decreases uncertainty, which may lead consumers to prefer safer items with lower expected values over riskier items with higher means. 
+
+[Review2Q3]: The illustrative example is under-specified as the arguments hold for any variance: information on item 0’s value impacts beliefs about both mean and variance and, under risk-aversion, both are relevant in determining user’s choices. Omitted algebraic details provided in the revision.
+
+[Review2Q4]: We suppose the recommender knows V at t=0 and does not need to learn them. Having the recommender also learning V is an interesting extension, worth studying.
+
+[Review3]: Existing approaches to serendipity and diversity focus on predicting realized utilities and "diversifying" the recommended itemset. Our approach emphasizes the role of beliefs and using as an evaluation metric the recommendation’s impact on user behavior.
