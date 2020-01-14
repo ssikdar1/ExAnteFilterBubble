@@ -199,7 +199,10 @@ end
     return cit
 end 
 
-
+"""
+# Arguments
+- `use_thompson`: use thompson sampling decision rule
+"""
 @everywhere function choice_part(
     V_i::Array{Float64,1}, 
     mu_V_i::Array{Float64,1},
@@ -210,7 +213,8 @@ end
     Nset::Array{Int64,1},
     alpha::Float64,
     epsilon::Float64,
-    beta::Float64
+    beta::Float64,
+    use_thompson::Bool
 )
     C_iT::Array{Int64,1} = []
     R_iT::Array{Int64,1} = []
@@ -228,7 +232,10 @@ end
         mu_Uit = mu_Vit + beta * cur_V
         # make choice
         ce_Uit = certainty_equivalent(alpha, mu_Uit, Sigma_Vit) # γ: uncertainty aversion
+
         c_it = nothing
+        if use_thompson
+            c_it = argmax(rand(V))
         if rand() < epsilon
             c_it = rand(choice_set)
         else
@@ -253,6 +260,10 @@ end
     return C_iT
 end
 
+"""
+# Arguments
+- `use_thompson`: use thompson sampling decision rule
+"""
 @everywhere function choice_ind(U_i::Array{Float64,1}, 
 			mu_U_i::Array{Float64,1}, 
 			Sigma_U_i::Array{Float64,2}, 
@@ -260,7 +271,9 @@ end
 			N::Int64, 
 			Nset::Array{Int64,1}, 
 			alpha::Float64, 
-			epsilon::Float64)
+			epsilon::Float64,
+                        use_thompson::Bool
+                        )
 
     C_iT::Array{Int64,1} = []
     for t=1:T
@@ -274,8 +287,11 @@ end
         # make choice
         ce_Uit = certainty_equivalent(alpha, mu_Uit, Sigma_Uit)
         choice_set = [n for n in Nset if n ∉ C_iT]
+        
         c_it = 0
-        if rand() < epsilon
+        if use_thompson
+            c_it = argmax(rand(U_i)) 
+        elseif rand() < epsilon
             c_it = rand(choice_set)
         else
             c_it = choice_helper(ce_Uit, choice_set)
@@ -341,7 +357,7 @@ end
     mu_V = zeros(Float64, N)
     V = rand(MvNormal(mu_V, Sigma_V))
 
-
+    use_thompson::Bool = true
     for it_ind=1:nr_ind
         # V_i = (v_in) n in I aka: consumer i’s idiosyncratic taste for good n in vector form
 
@@ -356,7 +372,7 @@ end
 
         ## NO RECOMMENDATION CASE
         Sigma_U_i = Sigma_V_i + beta^2 * (Sigma_V)
-        C_iT_no_rec = choice_ind(copy(U_i), copy(mu_U_i), copy(Sigma_U_i),T,N, Nset, alpha, epsilon)
+        C_iT_no_rec = choice_ind(copy(U_i), copy(mu_U_i), copy(Sigma_U_i),T,N, Nset, alpha, epsilon, use_thompson)
         C_pop["no_rec"][it_ind,:] = C_iT_no_rec
         W_pop["no_rec"][it_ind,:] = U_i[C_iT_no_rec]
 
@@ -368,7 +384,7 @@ end
 
  
         ## PARTIAL REC Case
-        C_iT_partial, R_iT = choice_part(copy(V_i), copy(mu_V_i), copy(Sigma_V_i), copy(V), T, N, Nset, alpha, epsilon, beta)
+        C_iT_partial, R_iT = choice_part(copy(V_i), copy(mu_V_i), copy(Sigma_V_i), copy(V), T, N, Nset, alpha, epsilon, beta, use_thompson)
         C_pop["partial"][it_ind,:] = C_iT_partial
         W_pop["partial"][it_ind,:] = copy(U_i[C_iT_partial])
         R_pop["partial"][it_ind,:] = R_iT
