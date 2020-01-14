@@ -199,10 +199,6 @@ end
     return cit
 end 
 
-"""
-# Arguments
-- `use_thompson`: use thompson sampling decision rule
-"""
 @everywhere function choice_part(
     V_i::Array{Float64,1}, 
     mu_V_i::Array{Float64,1},
@@ -236,7 +232,7 @@ end
         c_it = nothing
         if use_thompson
             c_it = argmax(rand(V))
-        if rand() < epsilon
+        elseif rand() < epsilon
             c_it = rand(choice_set)
         else
             c_it = choice_helper(ce_Uit, choice_set)
@@ -260,10 +256,6 @@ end
     return C_iT
 end
 
-"""
-# Arguments
-- `use_thompson`: use thompson sampling decision rule
-"""
 @everywhere function choice_ind(U_i::Array{Float64,1}, 
 			mu_U_i::Array{Float64,1}, 
 			Sigma_U_i::Array{Float64,2}, 
