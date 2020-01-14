@@ -9,4 +9,4 @@ julia-install:
 	julia -e 'import Pkg; Pkg.add("Distributions")'
 
 latex:
-	/Library/TeX/texbin/pdflatex paper.tex  2>&1 > /dev/null
+	/Library/TeX/texbin/pdflatex paper/sample-ec-submission.tex  2>&1 > /dev/null

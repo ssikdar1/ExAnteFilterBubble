@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  23 NOV 2019 08:35
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  9 JAN 2020 13:23
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -6,7 +6,7 @@ entering extended mode
 (./filter_bubbles.tex
 LaTeX2e <2018-12-01>
 (./acmart.cls
-Document Class: acmart 2018/08/12 v1.55 Typesetting articles for the Associatio
+Document Class: acmart 2019/10/19 v1.65 Typesetting articles for the Associatio
 n for Computing Machinery
 (/usr/local/texlive/2019/texmf-dist/tex/latex/xkeyval/xkeyval.sty
 Package: xkeyval 2014/12/03 v2.7a package option processing (HA)
@@ -27,17 +27,18 @@ File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
 )
 Package: xstring 2019/02/06 v1.83 String manipulations (CT)
 )
-Package acmart Info: Not using screen mode on input line 73.
-Package acmart Info: Requiring acmthm on input line 81.
-Package acmart Info: Not using review mode on input line 90.
-Package acmart Info: Not using authorversion mode on input line 98.
-Package acmart Info: Not using nonacm mode on input line 110.
-Package acmart Info: Explicitly selecting natbib mode on input line 118.
-Package acmart Info: Not using anonymous mode on input line 126.
-Package acmart Info: Not using timestamp mode on input line 134.
-Package acmart Info: Not using authordraft mode on input line 144.
-Class acmart Info: Using format sigconf, number 4 on input line 153.
-Class acmart Info: Using fontsize 9pt on input line 211.
+Package acmart Info: Not using screen mode on input line 72.
+Package acmart Info: Using breaking urls on hyphens on input line 80.
+Package acmart Info: Requiring acmthm on input line 88.
+Package acmart Info: Not using review mode on input line 97.
+Package acmart Info: Not using authorversion mode on input line 105.
+Package acmart Info: Not using nonacm mode on input line 117.
+Package acmart Info: Explicitly selecting natbib mode on input line 129.
+Package acmart Info: Not using anonymous mode on input line 137.
+Package acmart Info: Not using timestamp mode on input line 145.
+Package acmart Info: Not using authordraft mode on input line 155.
+Class acmart Info: Using format sigconf, number 4 on input line 164.
+Class acmart Info: Using fontsize 9pt on input line 228.
 
 (/usr/local/texlive/2019/texmf-dist/tex/latex/amscls/amsart.cls
 Document Class: amsart 2017/10/31 v2.20.4
@@ -163,6 +164,26 @@ File: microtype.cfg 2019/02/28 v2.7b microtype main configuration file (RS)
 Package: etoolbox 2018/08/19 v2.5f e-TeX tools for LaTeX (JAW)
 \etb@tempcnta=\count105
 )
+(/usr/local/texlive/2019/texmf-dist/tex/latex/booktabs/booktabs.sty
+Package: booktabs 2016/04/27 v1.618033 publication quality tables
+\heavyrulewidth=\dimen115
+\lightrulewidth=\dimen116
+\cmidrulewidth=\dimen117
+\belowrulesep=\dimen118
+\belowbottomsep=\dimen119
+\aboverulesep=\dimen120
+\abovetopsep=\dimen121
+\cmidrulesep=\dimen122
+\cmidrulekern=\dimen123
+\defaultaddspace=\dimen124
+\@cmidla=\count106
+\@cmidlb=\count107
+\@aboverulesep=\dimen125
+\@belowrulesep=\dimen126
+\@thisruleclass=\count108
+\@lastruleclass=\count109
+\@thisrulewidth=\dimen127
+)
 (/usr/local/texlive/2019/texmf-dist/tex/latex/oberdiek/refcount.sty
 Package: refcount 2016/05/16 v3.5 Data extraction from label references (HO)
 
@@ -192,7 +213,7 @@ Package: natbib 2010/09/13 8.31b (PWD, AO)
 \bibhang=\skip52
 \bibsep=\skip53
 LaTeX Info: Redefining \cite on input line 694.
-\c@NAT@ctr=\count106
+\c@NAT@ctr=\count110
 )
 (/usr/local/texlive/2019/texmf-dist/tex/latex/hyperref/hyperref.sty
 Package: hyperref 2018/11/30 v6.88e Hypertext links for LaTeX
@@ -245,16 +266,16 @@ Package: auxhook 2016/05/16 v1.4 Hooks for auxiliary files (HO)
 (/usr/local/texlive/2019/texmf-dist/tex/latex/oberdiek/kvoptions.sty
 Package: kvoptions 2016/05/16 v3.12 Key value format for package options (HO)
 )
-\@linkdim=\dimen115
-\Hy@linkcounter=\count107
-\Hy@pagecounter=\count108
+\@linkdim=\dimen128
+\Hy@linkcounter=\count111
+\Hy@pagecounter=\count112
 
 (/usr/local/texlive/2019/texmf-dist/tex/latex/hyperref/pd1enc.def
 File: pd1enc.def 2018/11/30 v6.88e Hyperref: PDFDocEncoding definition (HO)
 Now handling font encoding PD1 ...
 ... no UTF-8 mapping file for font encoding PD1
 )
-\Hy@SavedSpaceFactor=\count109
+\Hy@SavedSpaceFactor=\count113
 
 (/usr/local/texlive/2019/texmf-dist/tex/latex/latexconfig/hyperref.cfg
 File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
@@ -275,17 +296,17 @@ Package hyperref Info: Plain pages OFF on input line 4534.
 Package hyperref Info: Backreferencing OFF on input line 4539.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4772.
-\c@Hy@tempcnt=\count110
+\c@Hy@tempcnt=\count114
 
 (/usr/local/texlive/2019/texmf-dist/tex/latex/url/url.sty
 \Urlmuskip=\muskip11
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
 LaTeX Info: Redefining \url on input line 5125.
-\XeTeXLinkMargin=\dimen116
-\Fld@menulength=\count111
-\Field@Width=\dimen117
-\Fld@charsize=\dimen118
+\XeTeXLinkMargin=\dimen129
+\Fld@menulength=\count115
+\Field@Width=\dimen130
+\Fld@charsize=\dimen131
 Package hyperref Info: Hyper figures OFF on input line 6380.
 Package hyperref Info: Link nesting OFF on input line 6385.
 Package hyperref Info: Hyper index ON on input line 6388.
@@ -295,16 +316,16 @@ Package hyperref Info: Link coloring with OCG OFF on input line 6405.
 Package hyperref Info: PDF/A mode OFF on input line 6410.
 LaTeX Info: Redefining \ref on input line 6450.
 LaTeX Info: Redefining \pageref on input line 6454.
-\Hy@abspage=\count112
-\c@Item=\count113
-\c@Hfootnote=\count114
+\Hy@abspage=\count116
+\c@Item=\count117
+\c@Hfootnote=\count118
 )
 Package hyperref Info: Driver (autodetected): hpdftex.
 
 (/usr/local/texlive/2019/texmf-dist/tex/latex/hyperref/hpdftex.def
 File: hpdftex.def 2018/11/30 v6.88e Hyperref driver for pdfTeX
-\Fld@listcount=\count115
-\c@bookmark@seq@number=\count116
+\Fld@listcount=\count119
+\c@bookmark@seq@number=\count120
 
 (/usr/local/texlive/2019/texmf-dist/tex/latex/oberdiek/rerunfilecheck.sty
 Package: rerunfilecheck 2016/05/16 v1.8 Rerun checks for auxiliary files (HO)
@@ -330,8 +351,8 @@ Package graphics Info: Driver file: pdftex.def on input line 99.
 (/usr/local/texlive/2019/texmf-dist/tex/latex/graphics-def/pdftex.def
 File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
 ))
-\Gin@req@height=\dimen119
-\Gin@req@width=\dimen120
+\Gin@req@height=\dimen132
+\Gin@req@width=\dimen133
 )
 (/usr/local/texlive/2019/texmf-dist/tex/latex/xcolor/xcolor.sty
 Package: xcolor 2016/05/11 v2.12 LaTeX color extensions (UK)
@@ -352,17 +373,17 @@ Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
 )
 (/usr/local/texlive/2019/texmf-dist/tex/latex/geometry/geometry.sty
 Package: geometry 2018/04/16 v5.8 Page Geometry
-\Gm@cnth=\count117
-\Gm@cntv=\count118
-\c@Gm@tempcnt=\count119
-\Gm@bindingoffset=\dimen121
-\Gm@wd@mp=\dimen122
-\Gm@odd@mp=\dimen123
-\Gm@even@mp=\dimen124
-\Gm@layoutwidth=\dimen125
-\Gm@layoutheight=\dimen126
-\Gm@layouthoffset=\dimen127
-\Gm@layoutvoffset=\dimen128
+\Gm@cnth=\count121
+\Gm@cntv=\count122
+\c@Gm@tempcnt=\count123
+\Gm@bindingoffset=\dimen134
+\Gm@wd@mp=\dimen135
+\Gm@odd@mp=\dimen136
+\Gm@even@mp=\dimen137
+\Gm@layoutwidth=\dimen138
+\Gm@layoutheight=\dimen139
+\Gm@layouthoffset=\dimen140
+\Gm@layoutvoffset=\dimen141
 \Gm@dimlist=\toks28
 )
 (/usr/local/texlive/2019/texmf-dist/tex/latex/ncctools/manyfoot.sty
@@ -371,12 +392,12 @@ Package: manyfoot 2005/09/11 v1.10 Many Footnote Levels Package (NCC)
 (/usr/local/texlive/2019/texmf-dist/tex/latex/ncctools/nccfoots.sty
 Package: nccfoots 2005/02/03 v1.2 NCC Footnotes Package (NCC)
 )
-\MFL@columnwidth=\dimen129
+\MFL@columnwidth=\dimen142
 )
 \footinsauthorsaddresses=\insert198
-\c@footnoteauthorsaddresses=\count120
+\c@footnoteauthorsaddresses=\count124
 \footinscopyrightpermission=\insert197
-\c@footnotecopyrightpermission=\count121
+\c@footnotecopyrightpermission=\count125
 
 (/usr/local/texlive/2019/texmf-dist/tex/generic/iftex/iftex.sty
 Package: iftex 2013/04/04 v0.2 Provides if(tex) conditional for PDFTeX, XeTeX, 
@@ -580,7 +601,7 @@ LaTeX Info: Redefining \oldstylenums on input line 489.
 Package: zi4 2017/01/04 v1.112
 
 `inconsolata-zi4' v1.112, 2017/01/04 Text macros for Inconsolata (msharpe)
-\zifour@ocount=\count122
+\zifour@ocount=\count126
 )
 (/usr/local/texlive/2019/texmf-dist/tex/latex/newtx/newtxmath.sty
 Package: newtxmath 2018/05/15 v1.553
@@ -589,11 +610,11 @@ Package: newtxmath 2018/05/15 v1.553
 ) (/usr/local/texlive/2019/texmf-dist/tex/latex/oberdiek/centernot.sty
 Package: centernot 2016/05/16 v1.4 Centers the not symbol horizontally (HO)
 )
-\tx@cntz=\count123
+\tx@cntz=\count127
 
 (/usr/local/texlive/2019/texmf-dist/tex/generic/kastrup/binhex.tex)
-\tx@Isdigit=\count124
-\tx@IsAlNum=\count125
+\tx@Isdigit=\count128
+\tx@IsAlNum=\count129
 LaTeX Font Info:    Redeclaring symbol font `operators' on input line 171.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
 (Font)                  OT1/cmr/m/n --> OT1/LinuxLibertineT-TLF/m/n on input li
@@ -712,12 +733,12 @@ LaTeX Font Info:    Redeclaring math delimiter \rvert on input line 582.
 LaTeX Font Info:    Redeclaring math delimiter \lVert on input line 583.
 LaTeX Font Info:    Redeclaring math delimiter \rVert on input line 584.
 LaTeX Font Info:    Redeclaring math symbol \m@thbbch@rA on input line 1929.
-\ntx@numstart=\count126
-\ntx@UCstart=\count127
-\ntx@lcstart=\count128
-\ntx@tmpc=\count129
-\ntx@imath=\count130
-\ntx@jmath=\count131
+\ntx@numstart=\count130
+\ntx@UCstart=\count131
+\ntx@lcstart=\count132
+\ntx@tmpc=\count133
+\ntx@imath=\count134
+\ntx@jmath=\count135
 LaTeX Info: Redefining \not on input line 2322.
 LaTeX Info: Redefining \textsquare on input line 2352.
 LaTeX Info: Redefining \openbox on input line 2354.
@@ -728,50 +749,51 @@ Package: caption 2018/10/06 v3.3-154 Customizing captions (AR)
 (/usr/local/texlive/2019/texmf-dist/tex/latex/caption/caption3.sty
 Package: caption3 2018/09/12 v1.8c caption3 kernel (AR)
 Package caption3 Info: TeX engine: e-TeX on input line 64.
-\captionmargin=\dimen130
-\captionmargin@=\dimen131
-\captionwidth=\dimen132
-\caption@tempdima=\dimen133
-\caption@indent=\dimen134
-\caption@parindent=\dimen135
-\caption@hangindent=\dimen136
+\captionmargin=\dimen143
+\captionmargin@=\dimen144
+\captionwidth=\dimen145
+\caption@tempdima=\dimen146
+\caption@indent=\dimen147
+\caption@parindent=\dimen148
+\caption@hangindent=\dimen149
 )
 Package caption Info: AMS or SMF document class.
-\c@caption@flags=\count132
-\c@ContinuedFloat=\count133
+\c@caption@flags=\count136
+\c@ContinuedFloat=\count137
 Package caption Info: hyperref package is loaded.
 )
 (/usr/local/texlive/2019/texmf-dist/tex/latex/float/float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
-\c@float@type=\count134
+\c@float@type=\count138
 \float@exts=\toks29
 \float@box=\box30
 \@float@everytoks=\toks30
 \@floatcapt=\box31
 )
 \@float@every@sidebar=\toks31
-\c@sidebar=\count135
-\fulltextwidth=\dimen137
-\@ACM@labelwidth=\dimen138
+\c@sidebar=\count139
+\fulltextwidth=\dimen150
+\@ACM@labelwidth=\dimen151
 \listisep=\skip55
-\num@authorgroups=\count136
-\num@authors=\count137
+\num@authorgroups=\count140
+\num@authors=\count141
 \@ACM@badge@width=\skip56
 \@ACM@title@width=\skip57
 \@ACM@badge@skip=\skip58
-Class acmart Info: Printing CCS on input line 1297.
-Class acmart Info: Printing bibformat on input line 1297.
-Class acmart Info: Suppressing folios on input line 1304.
-Class acmart Info: Setting authorsperrow to 0 on input line 1307.
+Class acmart Info: Printing CCS on input line 1413.
+Class acmart Info: Printing bibformat on input line 1413.
+Class acmart Info: Suppressing folios on input line 1420.
+Class acmart Info: Setting authorsperrow to 0 on input line 1423.
 
 (/usr/local/texlive/2019/texmf-dist/tex/latex/comment/comment.sty
 \CommentStream=\write3
 
 Excluding comment 'comment') Excluding comment 'CCSXML'
+\c@@concepts=\count142
 \mktitle@bx=\box32
 \@ACM@commabox=\box33
 \author@bx=\box34
-\author@bx@wd=\dimen139
+\author@bx@wd=\dimen152
 \author@bx@sep=\skip59
 
 (/usr/local/texlive/2019/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty
@@ -787,13 +809,13 @@ s
 \f@nch@O@olf=\skip67
 \f@nch@O@orf=\skip68
 )
-\@folio@wd=\dimen140
-\@folio@ht=\dimen141
-\@folio@voffset=\dimen142
+\@folio@wd=\dimen153
+\@folio@ht=\dimen154
+\@folio@voffset=\dimen155
 
 Special comment 'acks'
 LaTeX Font Info:    Try loading font information for T1+LinuxLibertineT-TLF on 
-input line 2668.
+input line 2873.
 
 (/usr/local/texlive/2019/texmf-dist/tex/latex/libertine/T1LinuxLibertineT-TLF.f
 d
@@ -801,7 +823,7 @@ File: T1LinuxLibertineT-TLF.fd 2017/03/20 (autoinst) Font definitions for T1/Li
 nuxLibertineT-TLF.
 )
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 9.0pt on input line 2668.
+(Font)              scaled to size 9.0pt on input line 2873.
 )
 Class acmart Info: Suppressing bibformat on input line 2.
  (/usr/local/texlive/2019/texmf-dist/tex/latex/base/fontenc.sty
@@ -815,17 +837,21 @@ LaTeX Font Info:    Redeclaring font encoding T1 on input line 48.
 Package: enumitem 2019/02/04 v3.8 Customized lists
 \enitkv@toks@=\toks32
 \labelindent=\skip69
-\enit@outerparindent=\dimen143
+\enit@outerparindent=\dimen156
 \enit@toks=\toks33
 \enit@inbox=\box35
-\enit@count@id=\count138
-\enitdp@description=\count139
+\enit@count@id=\count143
+\enitdp@description=\count144
 )
-\c@finding=\count140
+\c@finding=\count145
 Package hyperref Info: Option `pdfdisplaydoctitle' set `true' on input line 49.
 
-\c@theorem=\count141
+\c@theorem=\count146
 
+(/usr/local/texlive/2019/texmf-dist/tex/latex/preprint/balance.sty
+Package: balance 1999/02/23 4.3 (PWD)
+\oldvsize=\dimen157
+)
 Excluding comment 'screenonly' Include comment 'printonly'
 Include comment 'anonsuppress' (./filter_bubbles.aux)
 \openout1 = `filter_bubbles.aux'.
@@ -950,7 +976,7 @@ Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 (/usr/local/texlive/2019/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
-\c@section@level=\count142
+\c@section@level=\count147
 )
 LaTeX Info: Redefining \ref on input line 49.
 LaTeX Info: Redefining \pageref on input line 49.
@@ -963,16 +989,16 @@ LaTeX Info: Redefining \nameref on input line 49.
 
 (/usr/local/texlive/2019/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count143
-\scratchdimen=\dimen144
+\scratchcounter=\count148
+\scratchdimen=\dimen158
 \scratchbox=\box37
-\nofMPsegments=\count144
-\nofMParguments=\count145
+\nofMPsegments=\count149
+\nofMParguments=\count150
 \everyMPshowfont=\toks34
-\MPscratchCnt=\count146
-\MPscratchDim=\dimen145
-\MPnumerator=\count147
-\makeMPintoPDFobject=\count148
+\MPscratchCnt=\count151
+\MPscratchDim=\dimen159
+\MPnumerator=\count152
+\makeMPintoPDFobject=\count153
 \everyMPtoPDFconversion=\toks35
 ) (/usr/local/texlive/2019/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
@@ -1025,8 +1051,8 @@ e
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-\c@mv@tabular=\count149
-\c@mv@boldtabular=\count150
+\c@mv@tabular=\count154
+\c@mv@boldtabular=\count155
 (/usr/local/texlive/2019/texmf-dist/tex/latex/upquote/upquote.sty
 Package: upquote 2012/04/19 v1.3 upright-quote and grave-accent glyphs in verba
 tim
@@ -1095,28 +1121,15 @@ LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
 (Font)              scaled to size 5.5pt on input line 105.
 
-Underfull \hbox (badness 10000) in paragraph at lines 105--105
+Underfull \hbox (badness 2376) in paragraph at lines 105--105
 [][][]\T1/LinuxLibertineT-TLF/m/n/7 (+20) MacKenzie et al. (2013, Oct.), How re
--tail-ers can keep up with
+-tail-ers can keep up with con-sumers.
  []
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 105--105
-\T1/LinuxLibertineT-TLF/m/n/7 (+20) con-sumers. []$https : / / www . mckinsey .
- com / industries / retail / our-[]insights /
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 105--105
-[][][]\T1/LinuxLibertineT-TLF/m/n/7 (+20) Friedersdorf (2018, Mar. 12), YouTube
- Ex-trem-ism and the Long
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 105--105
-\T1/LinuxLibertineT-TLF/m/n/7 (+20) Tail, \T1/LinuxLibertineT-TLF/m/it/7 (+20) 
-The At-lantic\T1/LinuxLibertineT-TLF/m/n/7 (+20) . []$https : / / www . theatla
-ntic . com / politics / archive / 2018 / 03 /
+[]$\T1/LinuxLibertineT-TLF/m/n/7 (+20) https : / / www . mckinsey . com / indus
+tries / retail / our -[] insights / how -[] retailers -[] can -[] keep -[]
  []
 
 [1.1{/usr/local/texlive/2019/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
@@ -1124,9 +1137,11 @@ ntic . com / politics / archive / 2018 / 03 /
 ]
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
 (Font)              scaled to size 9.0pt on input line 150.
+LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
+(Font)              scaled to size 7.0pt on input line 150.
 
 [2.2]
-Underfull \vbox (badness 1215) has occurred while \output is active []
+Underfull \vbox (badness 4108) has occurred while \output is active []
 
 
 
@@ -1137,6 +1152,9 @@ File: Example-Bubbles.pdf Graphic file (type pdf)
 <use Example-Bubbles.pdf>
 Package pdftex.def Info: Example-Bubbles.pdf  used on input line 192.
 (pdftex.def)             Requested size: 96.45752pt x 92.73802pt.
+
+Class acmart Warning: A possible image without description on input line 195.
+
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
@@ -1157,6 +1175,9 @@ e pdf)
 Package pdftex.def Info: figures/rho_zero_consumption_dist_N_200T_20_overall.pd
 f  used on input line 234.
 (pdftex.def)             Requested size: 217.03127pt x 186.3963pt.
+
+
+Class acmart Warning: A possible image without description on input line 237.
 
 [4.4 <./Example-Bubbles.pdf>]
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/sc' will be
@@ -1189,6 +1210,10 @@ File: figures/rho_consumption_dist_N_200T_20_omni.pdf Graphic file (type pdf)
 Package pdftex.def Info: figures/rho_consumption_dist_N_200T_20_omni.pdf  used 
 on input line 278.
 (pdftex.def)             Requested size: 241.14749pt x 155.84346pt.
+
+
+Class acmart Warning: A possible image without description on input line 281.
+
 <figures/gamma_consumption_dist_N_200T_20.pdf, id=280, 579.0634pt x 374.22623pt
 >
 File: figures/gamma_consumption_dist_N_200T_20.pdf Graphic file (type pdf)
@@ -1213,13 +1238,19 @@ Package pdftex.def Info: figures/gamma_consumption_dist_N_200T_20_omni.pdf  use
 d on input line 286.
 (pdftex.def)             Requested size: 241.14749pt x 155.84346pt.
 
+Class acmart Warning: A possible image without description on input line 289.
+
+
 Overfull \hbox (5.3835pt too wide) in paragraph at lines 291--292
 []\T1/LinuxLibertineT-TLF/m/n/9 (-20) In sum, in our model fil-ter bub-bles are
  driven by learning-spillovers
  []
 
-[6.6 <./figures/rho_consumption_dist_N_200T_20.pdf> <./figures/rho_consumption_
-dist_N_200T_20_partial.pdf
+
+Underfull \vbox (badness 1270) has occurred while \output is active []
+
+ [6.6 <./figures/rho_consumption_dist_N_200T_20.pdf> <./figures/rho_consumption
+_dist_N_200T_20_partial.pdf
 
 pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/rho_consumption_di
 st_N_200T_20_partial.pdf): PDF inclusion: multiple pdfs with page group include
@@ -1236,6 +1267,10 @@ File: figures/gamma_diversity_N_200_T_20.pdf Graphic file (type pdf)
 Package pdftex.def Info: figures/gamma_diversity_N_200_T_20.pdf  used on input 
 line 312.
 (pdftex.def)             Requested size: 217.03127pt x 181.70743pt.
+
+
+Class acmart Warning: A possible image without description on input line 314.
+
 <figures/rho_diversity_N_200_T_20.pdf, id=453, 476.94905pt x 399.31621pt>
 File: figures/rho_diversity_N_200_T_20.pdf Graphic file (type pdf)
 <use figures/rho_diversity_N_200_T_20.pdf>
@@ -1248,6 +1283,9 @@ File: figures/rho_welfare_N_200_T_20.pdf Graphic file (type pdf)
 Package pdftex.def Info: figures/rho_welfare_N_200_T_20.pdf  used on input line
  323.
 (pdftex.def)             Requested size: 217.03127pt x 187.3876pt.
+
+Class acmart Warning: A possible image without description on input line 325.
+
 
 Overfull \hbox (3.34749pt too wide) in paragraph at lines 336--337
 []\T1/LinuxLibertineT-TLF/m/it/9 (-20) Positively cor-re-lated when users have 
@@ -1293,6 +1331,9 @@ Overfull \hbox (12.0581pt too wide) in paragraph at lines 354--354
  [][] 
  []
 
+
+Class acmart Warning: A possible image without description on input line 356.
+
 <figures/diversity_welfare_rn_partial.pdf, id=675, 588.44218pt x 411.84805pt>
 File: figures/diversity_welfare_rn_partial.pdf Graphic file (type pdf)
 <use figures/diversity_welfare_rn_partial.pdf>
@@ -1315,12 +1356,18 @@ Overfull \hbox (12.0581pt too wide) in paragraph at lines 359--359
  [][] 
  []
 
+
+Class acmart Warning: A possible image without description on input line 361.
+
 <figures/beta_homogeneity_N_200_T_20.pdf, id=682, 476.94905pt x 399.31621pt>
 File: figures/beta_homogeneity_N_200_T_20.pdf Graphic file (type pdf)
 <use figures/beta_homogeneity_N_200_T_20.pdf>
 Package pdftex.def Info: figures/beta_homogeneity_N_200_T_20.pdf  used on input
  line 383.
 (pdftex.def)             Requested size: 192.91872pt x 161.51501pt.
+
+Class acmart Warning: A possible image without description on input line 385.
+
 [8.8 <./figures/rho_diversity_N_200_T_20.pdf> <./figures/rho_welfare_N_200_T_20
 .pdf
 
@@ -1338,14 +1385,18 @@ pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/diversity_welfare_
 ra.pdf): PDF inclusion: multiple pdfs with page group included in a single page
 
 >]
-<figures/rho_homogeneity_N_200_T_20.pdf, id=910, 476.94905pt x 399.31621pt>
+<figures/rho_homogeneity_N_200_T_20.pdf, id=911, 476.94905pt x 399.31621pt>
 File: figures/rho_homogeneity_N_200_T_20.pdf Graphic file (type pdf)
 <use figures/rho_homogeneity_N_200_T_20.pdf>
 Package pdftex.def Info: figures/rho_homogeneity_N_200_T_20.pdf  used on input 
 line 389.
 (pdftex.def)             Requested size: 192.91872pt x 161.51501pt.
- [9.9 <./figures/diversity_welfare_rn_partial.pdf> <./figures/diversity_welfare
-_ra_partial.pdf
+
+
+Class acmart Warning: A possible image without description on input line 391.
+
+[9.9 <./figures/diversity_welfare_rn_partial.pdf> <./figures/diversity_welfare_
+ra_partial.pdf
 
 pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/diversity_welfare_
 ra_partial.pdf): PDF inclusion: multiple pdfs with page group included in a sin
@@ -1363,7 +1414,15 @@ e page
 >] [10.10] (./filter_bubbles.bbl
 LaTeX Font Info:    Font shape `TS1/LinuxLibertineT-TLF/m/it' will be
 (Font)              scaled to size 7.0pt on input line 38.
-) [11.11]
+)
+
+Class acmart Warning: Some images may lack descriptions.
+
+
+Package balance Warning: You have called \balance in second column
+(balance)                Columns might not be balanced.
+
+[11.11]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 439.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 439.
  (./filter_bubbles.aux)
@@ -1371,19 +1430,15 @@ Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 439.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 439.
 Package rerunfilecheck Info: File `filter_bubbles.out' has not changed.
 (rerunfilecheck)             Checksum: C47C56309D14B2A91011B581F6B58208;2142.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
  ) 
 Here is how much of TeX's memory you used:
- 18694 strings out of 492616
- 287804 string characters out of 6129482
- 407147 words of memory out of 5000000
- 21569 multiletter control sequences out of 15000+600000
- 150378 words of font info for 382 fonts, out of 8000000 for 9000
+ 18820 strings out of 492616
+ 290031 string characters out of 6129482
+ 410287 words of memory out of 5000000
+ 21677 multiletter control sequences out of 15000+600000
+ 156203 words of font info for 389 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
- 60i,12n,94p,1693b,426s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 60i,12n,94p,1693b,434s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2019/texmf-dist/fonts/enc/dvips/libertine/lbtn_u7qtuy.enc
 }{/usr/local/texlive/2019/texmf-dist/fonts/enc/dvips/newtx/libertinealt.enc}{/u
 sr/local/texlive/2019/texmf-dist/fonts/enc/dvips/libertine/lbtn_ncsllp.enc}{/us
@@ -1410,10 +1465,10 @@ fonts/type1/public/txfonts/txsyc.pfb></usr/local/texlive/2019/texmf-dist/fonts/
 type1/public/newtx/txsys.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/pu
 blic/newtx/zxlr.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/newt
 x/zxlri.pfb>
-Output written on filter_bubbles.pdf (11 pages, 928242 bytes).
+Output written on filter_bubbles.pdf (11 pages, 928161 bytes).
 PDF statistics:
- 1267 PDF objects out of 1440 (max. 8388607)
- 553 compressed objects within 6 object streams
+ 1268 PDF objects out of 1440 (max. 8388607)
+ 554 compressed objects within 6 object streams
  94 named destinations out of 1000 (max. 500000)
- 39119 words of extra memory for PDF output out of 42996 (max. 10000000)
+ 41167 words of extra memory for PDF output out of 42996 (max. 10000000)
 
