@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  19 JAN 2020 13:21
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  19 JAN 2020 14:02
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1426,11 +1426,11 @@ Package rerunfilecheck Info: File `filter_bubbles.out' has not changed.
 (rerunfilecheck)             Checksum: 761B643657CE50FFDAE43D0E55AEAEC3;2038.
  ) 
 Here is how much of TeX's memory you used:
- 19607 strings out of 492616
- 302458 string characters out of 6129482
+ 19613 strings out of 492616
+ 302608 string characters out of 6129482
  424753 words of memory out of 5000000
  22387 multiletter control sequences out of 15000+600000
- 190013 words of font info for 466 fonts, out of 8000000 for 9000
+ 190559 words of font info for 470 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
  60i,12n,94p,1762b,557s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2019/texmf-dist/fonts/enc/dvips/newtx/libertinealt.enc}{/
@@ -1458,7 +1458,7 @@ xmf-dist/fonts/type1/public/newtx/txexs.pfb></usr/local/texlive/2019/texmf-dist
 /public/newtx/txsys.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/
 newtx/zxlr.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/newtx/zxl
 ri.pfb>
-Output written on filter_bubbles.pdf (18 pages, 977768 bytes).
+Output written on filter_bubbles.pdf (18 pages, 977757 bytes).
 PDF statistics:
  1388 PDF objects out of 1440 (max. 8388607)
  595 compressed objects within 6 object streams
