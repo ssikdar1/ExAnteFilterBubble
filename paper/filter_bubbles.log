@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  19 JAN 2020 13:18
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  19 JAN 2020 13:21
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1458,7 +1458,7 @@ xmf-dist/fonts/type1/public/newtx/txexs.pfb></usr/local/texlive/2019/texmf-dist
 /public/newtx/txsys.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/
 newtx/zxlr.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/newtx/zxl
 ri.pfb>
-Output written on filter_bubbles.pdf (18 pages, 977775 bytes).
+Output written on filter_bubbles.pdf (18 pages, 977768 bytes).
 PDF statistics:
  1388 PDF objects out of 1440 (max. 8388607)
  595 compressed objects within 6 object streams
