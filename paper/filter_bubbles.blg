@@ -1,48 +1,75 @@
 This is BibTeX, Version 0.99d (TeX Live 2019)
 Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
 The top-level auxiliary file: filter_bubbles.aux
-The style file: plain.bst
+The style file: ACM-Reference-Format.bst
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
 Database file #1: refs.bib
-Warning--there's a number but no volume in adomavicius2005toward
-You've used 27 entries,
-            2118 wiz_defined-function locations,
-            661 strings with 9571 characters,
-and the built_in function-call counts, 10031 in all, are:
-= -- 1016
-> -- 463
-< -- 7
-+ -- 186
-- -- 154
-* -- 698
-:= -- 1618
-add.period$ -- 91
-call.type$ -- 27
-change.case$ -- 156
-chr.to.int$ -- 0
-cite$ -- 28
-duplicate$ -- 391
-empty$ -- 795
-format.name$ -- 154
-if$ -- 2139
-int.to.chr$ -- 0
-int.to.str$ -- 27
-missing$ -- 29
-newline$ -- 138
-num.names$ -- 54
-pop$ -- 176
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated glb_str_ptr (elt_size=4) to 20 items from 10.
+Reallocated global_strs (elt_size=20001) to 20 items from 10.
+Reallocated glb_str_end (elt_size=4) to 20 items from 10.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Warning--unusual to have number, but no volume, for adomavicius2005toward
+Warning--empty publisher in celma2008hits
+Warning--empty address in celma2008hits
+Warning--empty publisher in chaney2018algorithmic
+Warning--empty address in chaney2018algorithmic
+Warning--empty publisher in frazier2014incentivizing
+Warning--empty address in frazier2014incentivizing
+Warning--no number and no volume in immorlica2018incentivizing
+Warning--page numbers missing in both pages and numpages fields in immorlica2018incentivizing
+Warning--empty publisher in mansour2015bayesian
+Warning--empty address in mansour2015bayesian
+Warning--empty address in mas1995microeconomic
+Warning--empty publisher in nguyen2014exploring
+Warning--empty address in nguyen2014exploring
+Warning--empty address in pariser2011filter
+Warning--empty address in savage1954
+Warning--no number and no volume in schulz2019structured
+Warning--empty address in treviranus2009value
+Warning--page numbers missing in both pages and numpages fields in treviranus2009value
+Warning--empty publisher in ziegler2005improving
+Warning--empty address in ziegler2005improving
+You've used 22 entries,
+            5727 wiz_defined-function locations,
+            1436 strings with 19056 characters,
+and the built_in function-call counts, 26611 in all, are:
+= -- 3486
+> -- 942
+< -- 0
++ -- 312
+- -- 320
+* -- 1857
+:= -- 2658
+add.period$ -- 114
+call.type$ -- 22
+change.case$ -- 152
+chr.to.int$ -- 22
+cite$ -- 43
+duplicate$ -- 2329
+empty$ -- 1621
+format.name$ -- 396
+if$ -- 6533
+int.to.chr$ -- 2
+int.to.str$ -- 1
+missing$ -- 90
+newline$ -- 215
+num.names$ -- 176
+pop$ -- 867
 preamble$ -- 1
-purify$ -- 131
+purify$ -- 350
 quote$ -- 0
-skip$ -- 265
+skip$ -- 823
 stack$ -- 0
-substring$ -- 647
-swap$ -- 99
-text.length$ -- 7
+substring$ -- 1950
+swap$ -- 257
+text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 104
-warning$ -- 1
-while$ -- 99
-width$ -- 29
-write$ -- 301
-(There was 1 warning)
+type$ -- 461
+warning$ -- 21
+while$ -- 169
+width$ -- 0
+write$ -- 421
+(There were 21 warnings)
