@@ -2,7 +2,7 @@
 %%% Do NOT edit. File created by BibTeX with style
 %%% ACM-Reference-Format-Journals [18-Jan-2012].
 
-\begin{thebibliography}{22}
+\begin{thebibliography}{27}
 
 %%% ====================================================================
 %%% NOTE TO THE USER: you can override these defaults by providing
@@ -50,6 +50,29 @@
 \newblock
 
 
+\bibitem[\protect\citeauthoryear{Aridor and Goncalves}{Aridor and
+  Goncalves}{2020}]%
+        {aridor2020recommender}
+\bibfield{author}{\bibinfo{person}{Guy Aridor} {and} \bibinfo{person}{Duarte
+  Goncalves}.} \bibinfo{year}{2020}\natexlab{}.
+\newblock \showarticletitle{Recommenders’ Originals: Integrated Recommender
+  Systems and Vertical Foreclosure}.
+\newblock \bibinfo{journal}{\emph{Mimeo}} (\bibinfo{year}{2020}).
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Bourreau and Gaudin}{Bourreau and
+  Gaudin}{2018}]%
+        {bourreau2018streaming}
+\bibfield{author}{\bibinfo{person}{Marc Bourreau} {and}
+  \bibinfo{person}{Germain Gaudin}.} \bibinfo{year}{2018}\natexlab{}.
+\newblock \showarticletitle{Streaming Platform and Strategic Recommendation
+  Bias}.
+\newblock \bibinfo{journal}{\emph{Available at SSRN 3290617}}
+  (\bibinfo{year}{2018}).
+\newblock
+
+
 \bibitem[\protect\citeauthoryear{Bronnenberg, Kim, and Mela}{Bronnenberg
   et~al\mbox{.}}{2016}]%
         {bronnenberg2016zooming}
@@ -59,6 +82,18 @@
   cameras online?}
 \newblock \bibinfo{journal}{\emph{Marketing Science}} \bibinfo{volume}{35},
   \bibinfo{number}{5} (\bibinfo{year}{2016}), \bibinfo{pages}{693--712}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Castells, Hurley, and Vargas}{Castells
+  et~al\mbox{.}}{2015}]%
+        {castells2015novelty}
+\bibfield{author}{\bibinfo{person}{Pablo Castells}, \bibinfo{person}{Neil~J
+  Hurley}, {and} \bibinfo{person}{Saul Vargas}.}
+  \bibinfo{year}{2015}\natexlab{}.
+\newblock \showarticletitle{Novelty and diversity in recommender systems}.
+\newblock In \bibinfo{booktitle}{\emph{Recommender Systems Handbook}}.
+  \bibinfo{publisher}{Springer}, \bibinfo{pages}{881--918}.
 \newblock
 
 
@@ -97,6 +132,18 @@
 \newblock \bibinfo{journal}{\emph{The Quarterly Journal of Economics}}
   \bibinfo{volume}{133}, \bibinfo{number}{2} (\bibinfo{year}{2017}),
   \bibinfo{pages}{871--925}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{de~Corniere and Taylor}{de~Corniere and
+  Taylor}{2019}]%
+        {DeCorniereTaylor2019RAND}
+\bibfield{author}{\bibinfo{person}{Alexandre de Corniere} {and}
+  \bibinfo{person}{Greg Taylor}.} \bibinfo{year}{2019}\natexlab{}.
+\newblock \showarticletitle{A model of biased intermediation}.
+\newblock \bibinfo{journal}{\emph{RAND Journal of Economics}}
+  \bibinfo{volume}{50}, \bibinfo{number}{4} (\bibinfo{year}{2019}),
+  \bibinfo{pages}{854--882}.
 \newblock
 
 
@@ -200,6 +247,17 @@
 \newblock \bibinfo{journal}{\emph{Journal of Political Economy}}
   \bibinfo{volume}{122}, \bibinfo{number}{5} (\bibinfo{year}{2014}),
   \bibinfo{pages}{988--1012}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Kunaver and Po{\v{z}}rl}{Kunaver and
+  Po{\v{z}}rl}{2017}]%
+        {kunaver2017diversity}
+\bibfield{author}{\bibinfo{person}{Matev{\v{z}} Kunaver} {and}
+  \bibinfo{person}{Toma{\v{z}} Po{\v{z}}rl}.} \bibinfo{year}{2017}\natexlab{}.
+\newblock \showarticletitle{Diversity in recommender systems--A survey}.
+\newblock \bibinfo{journal}{\emph{Knowledge-Based Systems}}
+  \bibinfo{volume}{123} (\bibinfo{year}{2017}), \bibinfo{pages}{154--162}.
 \newblock
 
 

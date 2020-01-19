@@ -39,7 +39,7 @@ We study a model of user decision-making in the context of recommender systems. 
 % Paper body
 \section{Introduction}
 
-Users in many online markets face difficult decision problems as they have to sort through the vast choice sets present in these markets. For instance, users have to select from thousands of movies on Netflix, millions of products on Amazon, and billions of videos on YouTube. A common remedy by online platforms has been to deploy \textit{recommender systems}, which have become critical for assisting users in making consumption decisions by providing users with information and recommendations to allow them to make more informed consumption decisions. These systems have been shown to be influential in steering consumer choice with 75\% of movies watched on Netflix and 35\% of page-views on Amazon coming from recommendations.\footnote{MacKenzie et al. (2013, Oct.),  How retailers can keep up with consumers. 
+Users in many online platforms face difficult decision problems as they have to sort through the vast choice sets present in these markets. For instance, users have to select from thousands of movies on Netflix, millions of products on Amazon, and billions of videos on YouTube. A common remedy by online platforms has been to deploy \textit{recommender systems}, which have become critical for assisting users in making consumption decisions by providing users with information and recommendations to allow them to make more informed consumption decisions. These systems have been shown to be influential in steering consumer choice with 75\% of movies watched on Netflix and 35\% of page-views on Amazon coming from recommendations.\footnote{MacKenzie et al. (2013, Oct.),  How retailers can keep up with consumers. 
 \url{https://www.mckinsey.com/industries/retail/our-insights/how-retailers-can-keep-up-with-consumers}. 
 Retrieved on October 3, 2019.}
 \par 
@@ -48,7 +48,7 @@ Despite evidence of the power of these systems in determining user choice, we ha
 \url{https://www.theatlantic.com/politics/archive/2018/03/youtube-extremism-and-the-long-tail/555350}. Retrieved on October 3, 2019.} 
 that personalized recommender systems lead users into \textit{filter bubbles} 
 where they effectively get isolated from a diversity of viewpoints or content 
-\cite{pariser2011filter}, and that personalized recommender systems may also lead users to become increasingly homogenized at the same time \cite{chaney2018algorithmic, hosanagar2013will}. Further, an emerging worry is that recommender systems can be utilized as a tool of market power by steering consumer choice towards products more profitable for online platforms to the detriment of consumer welfare [citations]. Finally, there has emerged a burgeoning literature that focuses on understanding how recommender systems themselves can acquire information about product quality from the choices of self-interested consumers \cite{kremer2014implementing, che2017recommender,frazier2014incentivizing,mansour2015bayesian}. 
+\cite{pariser2011filter}, and that personalized recommender systems may also lead users to become increasingly homogenized at the same time \cite{chaney2018algorithmic, hosanagar2013will}. Further, an emerging worry is that recommender systems can be utilized as a tool of market power by steering consumer choice towards products more profitable for online platforms to the detriment of consumer welfare \citep{aridor2020recommender, bourreau2018streaming, DeCorniereTaylor2019RAND}. Finally, there has emerged a burgeoning literature that focuses on understanding how recommender systems themselves can acquire information about product quality from the choices of self-interested consumers \cite{kremer2014implementing, che2017recommender,frazier2014incentivizing,mansour2015bayesian}. 
 \par
 While these issues are important, it is hard to make progress on them without a model of user choice with foundations in economic decision theory and psychology. It is difficult to understand to what extent issues such as filter bubbles and homogenization are a consequence of recommender systems or a natural consequence of consumer decision-making in these contexts without such analysis. Further, it is challenging to understand how recommender systems can be used anti-competitively without understanding how such steering can influence user behavior. Finally, a major open question in the literature on incentivizing exploration in recommender systems is how to design recommendation policies in the context of realistic user behavior \cite{immorlica2018incentivizing}, which requires an understanding of what models of user decision-making are appropriate.
 
@@ -69,7 +69,7 @@ We find that, even if there were no uncertainty about valuations, if there is no
 \par 
 We then investigate whether the introduction of recommendation either mitigates or amplifies this effect. Recommendations could potentially make matters worse: providing information about the common value of the items when this value is correlated could intensify the extent of local consumption. However, we find the opposite - that recommendation partially mitigates this narrowing effect - since the revelation of the common value component allows for users to escape being stuck in portions of the product space due to lack of information about other portions of the product space.
 \par
-\xhdr{Additional Findings} We further explore the diversity of the overall set of items that users consume. Consumption diversity is increasingly a common goal of many recommender systems [references], which is reasonable since it could be expected that higher diversity is associated with more intense search and therefore higher welfare. However, we find that, without recommendation, higher diversity of items does not ensure higher welfare. This is due to the fact that high consumption set diversity in our model can arise from a sequence of bad realizations, which leads to very intense search over very different parts of the product space and high consumption diversity but very low welfare. However, discovering a sweet spot leads to highly rewarding local search and very low diversity. Thus, contrary to what a natural intuition could suggest, we find that consumption set diversity is not by itself a useful measure for understanding the impact of recommender systems on user welfare.
+\xhdr{Additional Findings} We further explore the diversity of the overall set of items that users consume. Consumption diversity is increasingly a common goal of many recommender systems \cite{castells2015novelty, kunaver2017diversity}, which is reasonable since it could be expected that higher diversity is associated with more intense search and therefore higher welfare. However, we find that, without recommendation, higher diversity of items does not ensure higher welfare. This is due to the fact that high consumption set diversity in our model can arise from a sequence of bad realizations, which leads to very intense search over very different parts of the product space and high consumption diversity but very low welfare. However, discovering a sweet spot leads to highly rewarding local search and very low diversity. Thus, contrary to what a natural intuition could suggest, we find that consumption set diversity is not by itself a useful measure for understanding the impact of recommender systems on user welfare.
 \par
 We then turn to the extent to which recommendation leads to increasing user homogenization. We find that, without recommendation, there is very little homogenization as users are effectively all doing their own random exploration around the product space. In the ex-post utility maximizing consumption path (i.e. the consumption path the user would have taken if all uncertainty had been resolved) we find that some degree of homogenization is optimal. However, we find that while recommendation leads to an increase in consumer welfare, it concentrates user consumption choices in the same portions of the product space where there is a high common-value component. As a result, it leads to a substantially higher homogenization when compared both to the no recommendation and ex-post utility maximizing consumption path.
 \par 
@@ -237,7 +237,7 @@ Finally, this effect is further amplified as the level of risk aversion, $\gamma
 \begin{subfigure}{.45\textwidth}
 \includegraphics[width=\linewidth]{figures/rho_consumption_dist_N_200T_20_omni.pdf}\\
 \end{subfigure}
-\caption{Extent of Local Consumption for No Recommendation (Top Left), Recommendation (Top Right) and Oracle (Bottom) for different Correlation values}
+\caption{Extent of Local Consumption for No Recommendation (Top Left), Recommendation (Top Right) and Oracle (Bottom) as strength of correlation, $\rho$, varies}
 \label{fig:local_consumption_across_rho}
 \end{figure}
 
@@ -259,7 +259,7 @@ Finally, this effect is further amplified as the level of risk aversion, $\gamma
 In sum, filter bubble effects can only arise when there is an inherent correlation between the realized utilities of the items in the product space. However, this is often the case in most environments where recommender systems are deployed. When there is a correlation between the realized utilities then filter bubbles can naturally arise due to the nature of how individuals acquire additional information about the remaining items. We have shown that, unless users are provided with additional information to guide their consumption choices, then these learning spillovers and user risk-aversion can lead users into filter bubbles. When users consume high valued items, they exploit the underlying correlation across different products' values, stronger for similar products, which leads them to increasingly consume products in narrower and narrower portions of the product space. Risk aversion may lead users into performing local consumption even when they have a low valuation of nearby items just because they know what to expect from the item. Recommendation leads to these effects being mitigated by providing users with additional information on products outside the already explored portions of the product space. Further, if all uncertainty was resolved as in the oracle regime, then such behavior is not present.
 
 \subsection{User Welfare and Product Diversity}
-In this section we primarily focus on the impact of recommendation on the welfare on users as well as the overall diversity of the items that they consume.
+In this section we primarily focus on the impact of recommendation on user welfare and the overall diversity of the items that they consume.
 \par 
 While in the previous section we looked at the distance between consecutive items, in this section we focus on a diversity measure that considers the entire consumed set of items. The diversity measure we utilize is common in recommender system literature (e.g. \cite{ziegler2005improving}) which is the average normalized pairwise distance between the consumed products:
 $$D_i:=\frac{1}{N}\frac{1}{T(T-1)}\sum_{n,m \in C_i^T: n \ne m} d(n,m)$$
@@ -278,9 +278,9 @@ The impact of recommendation on product diversity:
 \end{enumerate}
 \end{finding}
 \par 
-Finding~\ref{finding_diversity} summarizes the main results on product diversity. As before, when there is no correlation between valuations, product diversity is the same across different recommendation regimes. The over-exploitation of learning spillovers when $\rho > 0$ leads to product diversity being lowest in the no recommendation regime. As a result, this effect gets amplified as $\rho$ increases, which leads to the gap in diversity between the regimes to increase as $\rho$ increases. Figure \ref{fig:diversity_correlation} shows how diversity varies as $\rho$ increases across the three regimes that we consider. There is a similar increasing diversity gap as $\gamma$, or the level of risk-aversion, increases as can be seen in Figure \ref{fig:risk_aversion_diversity}. The mechanisms behind these effects have direct parallels to those discussed in the previous section since low average sequential consumption distance directly leads to low diversity.
+Finding~\ref{finding_diversity} summarizes the main results on product diversity. As before, when there is no correlation between valuations, product diversity is the same across different recommendation regimes. The over-exploitation of learning spillovers when $\rho > 0$ leads to product diversity being lowest in the no recommendation regime. As a result, this effect gets amplified as $\rho$ increases, which leads to the gap in diversity between the regimes to increase as $\rho$ increases. Figure \ref{fig:diversity_welfare_correlation} shows how diversity varies as $\rho$ increases across the three regimes that we consider. There is a similar increasing diversity gap as $\gamma$, or the level of risk-aversion, increases as can be seen in Figure \ref{fig:risk_aversion_diversity}. The mechanisms behind these effects have direct parallels to those discussed in the previous section since low average sequential consumption distance directly leads to low diversity.
 \par 
-We now study how recommendation impacts consumer welfare in our model. In our model users make consumption decisions that maximize their current period ex-ante utility that depends on their beliefs in that period. Thus, from an ex-ante perspective, they make optimal decisions, but our primary interest is in understanding how the ex-post, or realized, utility varies across regimes and parameter values. We define user's \textit{ex-post} welfare as the average of the realized values, controlling for the effect of $T$:
+We now study how recommendation impacts user welfare in our model. In our model users make consumption decisions that maximize their current period ex-ante utility that depends on their beliefs in that period. Thus, from an ex-ante perspective, they make optimal decisions, but our primary interest is in understanding how the ex-post, or realized, utility varies across regimes and parameter values. We define user's \textit{ex-post} welfare as the average of the realized values, controlling for the effect of $T$:
 $$W_i:= \frac{1}{T}\sum_{n \in C_i^T} x_{i,n}$$
 
 \begin{finding}\label{finding_welfare_gap}
@@ -288,11 +288,13 @@ The impact of recommendation on consumer welfare is as follows:
 \begin{enumerate}
 \item Under oracle recommendation, welfare is constant as $\rho$ increases.
 \item Under no recommendation, welfare is increasing as $\rho$ increases.
-\item Recommendation introduces welfare gains, but these gains are decreasing as $\rho$ increases. 
+\item Recommendation introduces welfare gains relative to no recommendation, but these gains are decreasing as $\rho$ increases. 
 \end{enumerate}
 \end{finding}
 \par 
-Finding~\ref{finding_welfare_gap} states our main findings of the impact of recommendation on ex-post welfare, which are drawn from Figure~\ref{fig:diversity_correlation}. The most interesting observation is that the value of recommendation decreases as $\rho$ decreases. The intuition for this is clear as recommendation provides users with information that allows them to better guide their decisions and increase welfare. However, as $\rho$ increases users get increasingly more information simply from consuming items since the realized utility is now more informative about the utility of nearby items. Thus, since consumption decisions themselves reveal information, the information that recommendation reveals provides less  value.
+Finding~\ref{finding_welfare_gap} states our main findings of the impact of recommendation on ex-post welfare, which are drawn from Figure~\ref{fig:diversity_welfare_correlation}. The most interesting observation is that the value of recommendation decreases as $\rho$ decreases. The intuition for this is clear as recommendation provides users with information that allows them to better guide their decisions and increase welfare. However, as $\rho$ increases users get increasingly more information simply from consuming items since the realized utility is now more informative about the utility of nearby items. Thus, since consumption decisions themselves reveal information, the information that recommendation reveals provides less value.
+\par 
+Figure~\ref{fig:diversity_welfare_common_value} shows how diversity and welfare vary across recommendation regimes as the the strength of the common-value component, $\beta$, varies. As expected, when $\beta = 0$, these values are the same. However, as $\beta$ grows the idiosyncratic component of user valuations becomes increasingly less important and the recommendation regime begins to converge to the oracle regime. Indeed, we see that both product diversity and welfare increase under recommendation, whereas under no recommendation we see that there is a decrease in diversity with little changes to consumer welfare. This is intuitive as $\beta$ controls the informativeness of recommendation about user preferences.
 \par 
 One striking observation is that the decrease in diversity does not appear to be associated with a decline in welfare. Indeed, it appears that the opposite is the case - that low diversity is associated with higher welfare and vice versa. Thus, we next explore the relationship between welfare and diversity.
 \begin{figure}
@@ -302,7 +304,7 @@ One striking observation is that the decrease in diversity does not appear to be
 \begin{subfigure}{.45\linewidth}
   \includegraphics[width=.8\linewidth]{figures/rho_welfare_N_200_T_20.pdf}
 \end{subfigure}
-\captionof{figure}{User Welfare and Diversity as the strength of correlation, $\rho$, varies}\label{fig:diversity_correlation}
+\caption{User Welfare and Diversity as the strength of correlation, $\rho$, varies}\label{fig:diversity_welfare_correlation}
 \end{figure}
 
 \begin{figure}
@@ -312,7 +314,7 @@ One striking observation is that the decrease in diversity does not appear to be
 \begin{subfigure}{.45\linewidth}
   \includegraphics[width=.8\linewidth]{figures/beta_welfare_N_200_T_20.pdf}
 \end{subfigure}
-\captionof{figure}{User Welfare and Diversity as the strength of the common value component, $\beta$, varies}\label{fig:diversity_correlation}
+\caption{User Welfare and Diversity as the strength of the common value component, $\beta$, varies}\label{fig:diversity_welfare_common_value}
 \end{figure}
 
 
@@ -340,7 +342,7 @@ This only happens since $\gamma = 0$ leads to users only caring about the expect
 \begin{subfigure}{.45\textwidth}
 \includegraphics[width=1.05\linewidth]{figures/diversity_welfare_ra.pdf}
 \end{subfigure}\\
-\captionof{figure}{Diversity vs. Welfare, No-Recommendation, $\gamma = 0$ (Left), Diversity vs. Welfare, $\gamma = 5$ (Right)}\label{fig:diversity_welfare_ra}
+\caption{Diversity vs. Welfare, No-Recommendation, $\gamma = 0$ (Left), Diversity vs. Welfare, $\gamma = 5$ (Right)}\label{fig:diversity_welfare_ra}
 \end{figure}
 
 \begin{figure}[t]
@@ -350,7 +352,7 @@ This only happens since $\gamma = 0$ leads to users only caring about the expect
 \begin{subfigure}{.45\textwidth}
 \includegraphics[width=1.05\linewidth]{figures/diversity_welfare_ra_partial.pdf}
 \end{subfigure}\\
-\captionof{figure}{Diversity vs. Welfare, Recommendation, $\gamma = 0$ (Left), Diversity vs. Welfare, $\gamma = 5$ (Right)}\label{fig:diversity_welfare_ra_partial}
+\caption{Diversity vs. Welfare, Recommendation, $\gamma = 0$ (Left), Diversity vs. Welfare, $\gamma = 5$ (Right)}\label{fig:diversity_welfare_ra_partial}
 \end{figure}
 
 \subsection{User Homogenization}
@@ -384,9 +386,12 @@ We next study how the degree of homogeneity varies as $\rho$ increases. Figure \
 
 \section{Conclusion}
 We have studied a model of user decision-making in the context of markets where recommender systems are traditionally deployed in order to understand the consequences of recommender systems on consumption patterns of users. The key components of the model are that users make decisions under uncertainty and that consuming a good leads to informational spillovers about similar items. We have shown that this alone can generate consumption behavior that is consistent with filter bubble effects that have traditionally been associated with personalized recommender systems. This effect is weakened once we allow for recommendation, but not as much as if users have full information. We have further explored the relationship between consumption diversity and user welfare and found that they are negatively correlated, implying that striving for consumption diversity is not necessarily welfare-improving for users. Finally, we have shown that recommendation can lead to increases in user homogenization both relative to no recommendation and full information since it concentrates users' consumption in portions of the product space with the highest utility according to the limits of what the recommender can predict about the utility of the good.
+\par 
+Our results highlight that user choice in these markets is path dependent as a result of the nature of user preferences and how these preferences evolve over time. This has important ramifications for understanding the extent to which recommender systems can steer user behavior, potentially in anti-competitive ways. Steering users towards certain items today provides them with information that they utilize to make decisions tomorrow, which leads them to consume similar items to those they were originally steered towards. Thus, online platforms can potentially shape the long-term preferences of users and not only impact their current period choices. This has broader ramifications about the equilibrium effects of such behavior on competition and consumer welfare in online platform which we leave to future work.
 \par
-We leave for future work exploring to what extent user behavior changes if we drop the myopia assumption, so that users themselves are engaging in exploration. This likely interacts with recommendation in interesting ways as the recommendations may provide information that can complement or crowd-out user-led exploration. Our model also reveals a clear path-dependence in choice since consumption decisions today shape the information users have tomorrow about other products which affects their consumption choices tomorrow, etc. Even under the myopia assumption, understanding which recommendation system is optimal is an interesting and challenging problem.
-
+We leave for future work exploring to what extent user behavior changes if we drop the myopia assumption, so that users themselves are engaging in explicit exploration. This likely interacts with recommendation in interesting ways as the recommendations may provide information that can complement or crowd-out user-led exploration. Even under the myopia assumption, understanding which recommendation system is optimal is an interesting and challenging problem. Further, our results point to an important consideration in the literature on incentivizing exploration which is that the exploration faced by the recommender itself likely interacts in interesting and important ways with the choice problem faced by the users.
+\par 
+Overall, understanding how users make choices in online platforms and how recommender systems impact these choices is important to understand. Understanding these issues allows us to better understand the broader social and economic impact of such systems as well as can provide a guide to the improved design of such systems.
 % Bibliography
 \bibliographystyle{ACM-Reference-Format}
 \bibliography{refs}

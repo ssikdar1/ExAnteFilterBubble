@@ -444,12 +444,38 @@
   publisher = {Oxford University Press},
 }
 
-@Book{mas1995microeconomic,
-  title     = {Microeconomic theory},
-  publisher = {Oxford university press New York},
-  year      = {1995},
-  author    = {Mas-Colell, Andreu and Whinston, Michael Dennis and Green, Jerry R and others},
-  volume    = {1},
+@Article{aridor2020recommender,
+  author  = {Aridor, Guy and Goncalves, Duarte},
+  title   = {Recommenders’ Originals: Integrated Recommender Systems and Vertical Foreclosure},
+  journal = {Mimeo},
+  year    = {2020},
+}
+
+@Article{DeCorniereTaylor2019RAND,
+  author    = {de Corniere, Alexandre and Taylor, Greg},
+  title     = {A model of biased intermediation},
+  journal   = {RAND Journal of Economics},
+  year      = {2019},
+  volume    = {50},
+  number    = {4},
+  pages     = {854--882},
+  timestamp = {2018-11-26},
+}
+
+@Article{bourreau2018streaming,
+  author  = {Bourreau, Marc and Gaudin, Germain},
+  title   = {Streaming Platform and Strategic Recommendation Bias},
+  journal = {Available at SSRN 3290617},
+  year    = {2018},
+}
+
+@InCollection{castells2015novelty,
+  author    = {Castells, Pablo and Hurley, Neil J and Vargas, Saul},
+  title     = {Novelty and diversity in recommender systems},
+  booktitle = {Recommender Systems Handbook},
+  publisher = {Springer},
+  year      = {2015},
+  pages     = {881--918},
 }
 
 @Comment{jabref-meta: databaseType:bibtex;}
