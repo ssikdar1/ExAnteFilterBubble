@@ -26,23 +26,20 @@ end
 
 function thompson_sampling(
     mu_V::Array{Float64,1},
-    Sigma_V::Array{Float64,2},
-    N
+    Sigma_V::Array{Float64,2}
 )
 
 
     draws = [
             rand(
-                MvNormal(
-                    [mu_V[ii]],
-                    [Sigma_V[ii,ii]]
+               Normal(
+                    mu_V[ii],
+                    Sigma_V[ii,ii]
                 )
-            )  for ii in 1:N ]
-    c_it_index = argmax(draws)
-    c_it = draws[c_it_index][1]
+            )  for ii in 1:length(mu_V) ]
+    c_it = argmax(draws)
 
     @show draws
-    @show c_it_index
     @show c_it
 
     return c_it
@@ -65,8 +62,5 @@ V = rand(MvNormal(mu_V, Sigma_V))
 @show typeof(mu_V)
 @show mu_V[1]
 @show Sigma_V[1,1]
-#MvNormal(Int(0.0), 0.25)
 
-@show rand(MvNormal( [mu_V[1]] , [Sigma_V[1,1]] ))[1]
-
-thompson_sampling(mu_V, Sigma_V, N)
+thompson_sampling(mu_V, Sigma_V)

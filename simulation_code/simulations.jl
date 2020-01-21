@@ -201,20 +201,18 @@ end
 
 function thompson_sampling(
     mu_V::Array{Float64,1},
-    Sigma_V::Array{Float64,2},
-    N
+    Sigma_V::Array{Float64,2}
 )
 
     
     draws = [ 
             rand(
-                MvNormal(
-                    [mu_V[ii]], 
-                    [Sigma_V[ii,ii]]
+                Normal(
+                    mu_V[ii],
+                    Sigma_V[ii,ii]
                 )
-            )  for ii in 1:N ]
-    c_it_index = argmax(draws)
-    c_it = draws[c_it_index][1]  
+            )  for ii in 1:length(mu_V) ]
+    c_it = argmax(draws)
 
     return c_it
 end
@@ -251,7 +249,7 @@ end
 
         c_it = nothing
         if use_thompson
-            c_it = thompson_sampling(mu_V_i, Sigma_V_i, N)
+            c_it = thompson_sampling(mu_V_i, Sigma_V_i)
         elseif rand() < epsilon
             c_it = rand(choice_set)
         else
@@ -302,7 +300,7 @@ end
         
         c_it = 0
         if use_thompson
-            c_it = thompson_sampling(mu_U_i, Sigma_U_i, N)
+            c_it = thompson_sampling(mu_U_i, Sigma_U_i)
             @show c_it
         elseif rand() < epsilon
             c_it = rand(choice_set)
