@@ -302,7 +302,6 @@ end
         
         c_it = 0
         if use_thompson
-            c_it = argmax(rand(U_i)) 
             c_it = thompson_sampling(mu_U_i, Sigma_U_i, N)
             @show c_it
         elseif rand() < epsilon
