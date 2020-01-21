@@ -199,6 +199,23 @@ end
     return cit
 end 
 
+function thompson_sampling(
+    mu_V::Array{Float64,1},
+    Sigma_V::Array{Float64,2}
+)
+
+    
+    draws = [ 
+            rand(
+                Normal(
+                    mu_V[ii],
+                    Sigma_V[ii,ii]
+                )
+            )  for ii in 1:length(mu_V) ]
+    c_it = argmax(draws)
+
+    return c_it
+end
 
 @everywhere function choice_part(
     V_i::Array{Float64,1}, 
@@ -210,7 +227,8 @@ end
     Nset::Array{Int64,1},
     alpha::Float64,
     epsilon::Float64,
-    beta::Float64
+    beta::Float64,
+    use_thompson::Bool
 )
     C_iT::Array{Int64,1} = []
     R_iT::Array{Int64,1} = []
@@ -228,8 +246,11 @@ end
         mu_Uit = mu_Vit + beta * cur_V
         # make choice
         ce_Uit = certainty_equivalent(alpha, mu_Uit, Sigma_Vit) # γ: uncertainty aversion
+
         c_it = nothing
-        if rand() < epsilon
+        if use_thompson
+            c_it = thompson_sampling(mu_V_i, Sigma_V_i)
+        elseif rand() < epsilon
             c_it = rand(choice_set)
         else
             c_it = choice_helper(ce_Uit, choice_set)
@@ -260,7 +281,9 @@ end
 			N::Int64, 
 			Nset::Array{Int64,1}, 
 			alpha::Float64, 
-			epsilon::Float64)
+			epsilon::Float64,
+                        use_thompson::Bool
+                        )
 
     C_iT::Array{Int64,1} = []
     for t=1:T
@@ -274,8 +297,11 @@ end
         # make choice
         ce_Uit = certainty_equivalent(alpha, mu_Uit, Sigma_Uit)
         choice_set = [n for n in Nset if n ∉ C_iT]
+        
         c_it = 0
-        if rand() < epsilon
+        if use_thompson
+            c_it = thompson_sampling(mu_U_i, Sigma_U_i)
+        elseif rand() < epsilon
             c_it = rand(choice_set)
         else
             c_it = choice_helper(ce_Uit, choice_set)
@@ -320,7 +346,8 @@ end
     Sigma_V_ibar::Array{Float64,2},
     alpha::Float64,
     epsilon::Float64,
-    seed::Int64
+    seed::Int64,
+    use_thompson::Bool
     )
 
     
@@ -341,7 +368,6 @@ end
     mu_V = zeros(Float64, N)
     V = rand(MvNormal(mu_V, Sigma_V))
 
-
     for it_ind=1:nr_ind
         # V_i = (v_in) n in I aka: consumer i’s idiosyncratic taste for good n in vector form
 
@@ -356,7 +382,7 @@ end
 
         ## NO RECOMMENDATION CASE
         Sigma_U_i = Sigma_V_i + beta^2 * (Sigma_V)
-        C_iT_no_rec = choice_ind(copy(U_i), copy(mu_U_i), copy(Sigma_U_i),T,N, Nset, alpha, epsilon)
+        C_iT_no_rec = choice_ind(copy(U_i), copy(mu_U_i), copy(Sigma_U_i),T,N, Nset, alpha, epsilon, use_thompson)
         C_pop["no_rec"][it_ind,:] = C_iT_no_rec
         W_pop["no_rec"][it_ind,:] = U_i[C_iT_no_rec]
 
@@ -368,7 +394,7 @@ end
 
  
         ## PARTIAL REC Case
-        C_iT_partial, R_iT = choice_part(copy(V_i), copy(mu_V_i), copy(Sigma_V_i), copy(V), T, N, Nset, alpha, epsilon, beta)
+        C_iT_partial, R_iT = choice_part(copy(V_i), copy(mu_V_i), copy(Sigma_V_i), copy(V), T, N, Nset, alpha, epsilon, beta, use_thompson)
         C_pop["partial"][it_ind,:] = C_iT_partial
         W_pop["partial"][it_ind,:] = copy(U_i[C_iT_partial])
         R_pop["partial"][it_ind,:] = R_iT
@@ -377,6 +403,7 @@ end
     return Dict( "Consumption" => C_pop, "Welfare" => W_pop, "Rec" => R_pop )
 end
 
+use_thompson::Bool = true
 #
 nr_pop = 100
 #
@@ -391,13 +418,13 @@ N_vals = [200]
 T_vals = [20]
 
 # Covariance structure
-rho_vals = [0., 0.1, 0.3, 0.5, 0.7, 0.9]
+rho_vals = [0.1, 0.3, 0.5, 0.7, 0.9]
 
 # utility idiosyncratic degree 
-beta_vals = [0., 0.4, 0.8, 1., 2., 5.]
+beta_vals = [0.4, 0.8, 1., 2., 5.]
 
 # absolute risk aversion
-alpha_vals = [0., 0.3, 0.6, 1., 5.]
+alpha_vals = [0.3, 0.6, 1., 5.]
 
 # action of the time for random exploration
 epsilon_vals = [0.0]
@@ -428,7 +455,7 @@ for (N, T, rho, beta, sigma, alpha, epsilon) in params
 
     Sigma_V_ibar = cov_mat_fun(sigma_ibar,rho_ibar,N)
     global sim_results[(N, T, rho, beta, sigma, alpha, epsilon, nr_pop, nr_ind)] = @sync @distributed vcat for i= 1:nr_pop
-        simulate(N, T,sigma, sigma_i, sigma_ibar, beta, nr_ind, Sigma_V_i,  Sigma_V,  Sigma_V_ibar,  alpha, epsilon, i)
+        simulate(N, T,sigma, sigma_i, sigma_ibar, beta, nr_ind, Sigma_V_i,  Sigma_V,  Sigma_V_ibar,  alpha, epsilon, i, use_thompson)
     end
     total_num = total_num
     if total_num > NUM_SIMS_TO_WRITE
