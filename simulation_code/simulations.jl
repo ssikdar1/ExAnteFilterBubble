@@ -199,7 +199,7 @@ end
     return cit
 end 
 
-function thompson_sampling(
+@everywhere function thompson_sampling(
     mu_V::Array{Float64,1},
     Sigma_V::Array{Float64,2}
 )
@@ -403,7 +403,7 @@ end
     return Dict( "Consumption" => C_pop, "Welfare" => W_pop, "Rec" => R_pop )
 end
 
-use_thompson::Bool = true
+use_thompson = true
 #
 nr_pop = 100
 #
