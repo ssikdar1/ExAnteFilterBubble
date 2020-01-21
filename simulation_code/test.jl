@@ -3,6 +3,7 @@ using Distributions;
 using Distances;
 using Random;
 
+
 function hop_distance(
         i::Int64,
         j::Int64,
@@ -23,6 +24,35 @@ function cov_mat_fun(sigma::Float64, rho::Float64, N::Int64)::Array{Float64,2}
     return cov_mat
 end
 
+function thompson_sampling(
+    mu_V::Array{Float64,1},
+    Sigma_V::Array{Float64,2},
+    N
+)
+
+
+    draws = [
+            rand(
+                MvNormal(
+                    [mu_V[ii]],
+                    [Sigma_V[ii,ii]]
+                )
+            )  for ii in 1:N ]
+    c_it_index = argmax(draws)
+    c_it = draws[c_it_index][1]
+
+    @show draws
+    @show c_it_index
+    @show c_it
+
+    return c_it
+end
+
+
+
+seed = 1
+Random.seed!(seed);
+
 N = 20
 sigma = 0.25
 rho = 0.1
@@ -32,13 +62,11 @@ Nset = [ n for n=1:N]   # set of N items I = {1, ..., N}
 mu_V = zeros(Float64, N)
 V = rand(MvNormal(mu_V, Sigma_V))
 
-@show V
-x = rand(V)
-@show x
-@show typeof(x)
-y = argmax(x)
-@show y
+@show typeof(mu_V)
+@show mu_V[1]
+@show Sigma_V[1,1]
+#MvNormal(Int(0.0), 0.25)
 
-x = zeros(Float64, N)
-@show Random.rand!(V, x)
-@show x
+@show rand(MvNormal( [mu_V[1]] , [Sigma_V[1,1]] ))[1]
+
+thompson_sampling(mu_V, Sigma_V, N)

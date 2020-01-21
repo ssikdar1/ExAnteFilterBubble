@@ -199,6 +199,26 @@ end
     return cit
 end 
 
+function thompson_sampling(
+    mu_V::Array{Float64,1},
+    Sigma_V::Array{Float64,2},
+    N
+)
+
+    
+    draws = [ 
+            rand(
+                MvNormal(
+                    [mu_V[ii]], 
+                    [Sigma_V[ii,ii]]
+                )
+            )  for ii in 1:N ]
+    c_it_index = argmax(draws)
+    c_it = draws[c_it_index][1]  
+
+    return c_it
+end
+
 @everywhere function choice_part(
     V_i::Array{Float64,1}, 
     mu_V_i::Array{Float64,1},
@@ -231,7 +251,7 @@ end
 
         c_it = nothing
         if use_thompson
-            c_it = argmax(rand(V))
+            c_it = thompson_sampling(mu_V_i, Sigma_V_i, N)
         elseif rand() < epsilon
             c_it = rand(choice_set)
         else
@@ -283,6 +303,8 @@ end
         c_it = 0
         if use_thompson
             c_it = argmax(rand(U_i)) 
+            c_it = thompson_sampling(mu_U_i, Sigma_U_i, N)
+            @show c_it
         elseif rand() < epsilon
             c_it = rand(choice_set)
         else
@@ -328,7 +350,8 @@ end
     Sigma_V_ibar::Array{Float64,2},
     alpha::Float64,
     epsilon::Float64,
-    seed::Int64
+    seed::Int64,
+    use_thompson::Bool
     )
 
     
@@ -349,7 +372,6 @@ end
     mu_V = zeros(Float64, N)
     V = rand(MvNormal(mu_V, Sigma_V))
 
-    use_thompson::Bool = true
     for it_ind=1:nr_ind
         # V_i = (v_in) n in I aka: consumer i’s idiosyncratic taste for good n in vector form
 
@@ -385,27 +407,28 @@ end
     return Dict( "Consumption" => C_pop, "Welfare" => W_pop, "Rec" => R_pop )
 end
 
+use_thompson::Bool = true
 #
-nr_pop = 100
+nr_pop = 10
 #
-nr_ind = 100
+nr_ind = 10
 #
 sigma_ibar = .1
 #
 rho_ibar = 0.0
 
-N_vals = [200]
+N_vals = [20]
 
-T_vals = [20]
+T_vals = [2]
 
 # Covariance structure
-rho_vals = [0., 0.1, 0.3, 0.5, 0.7, 0.9]
+rho_vals = [0.1, 0.3, 0.5, 0.7, 0.9]
 
 # utility idiosyncratic degree 
-beta_vals = [0., 0.4, 0.8, 1., 2., 5.]
+beta_vals = [0.4, 0.8, 1., 2., 5.]
 
 # absolute risk aversion
-alpha_vals = [0., 0.3, 0.6, 1., 5.]
+alpha_vals = [0.3, 0.6, 1., 5.]
 
 # action of the time for random exploration
 epsilon_vals = [0.0]
@@ -436,7 +459,7 @@ for (N, T, rho, beta, sigma, alpha, epsilon) in params
 
     Sigma_V_ibar = cov_mat_fun(sigma_ibar,rho_ibar,N)
     global sim_results[(N, T, rho, beta, sigma, alpha, epsilon, nr_pop, nr_ind)] = @sync @distributed vcat for i= 1:nr_pop
-        simulate(N, T,sigma, sigma_i, sigma_ibar, beta, nr_ind, Sigma_V_i,  Sigma_V,  Sigma_V_ibar,  alpha, epsilon, i)
+        simulate(N, T,sigma, sigma_i, sigma_ibar, beta, nr_ind, Sigma_V_i,  Sigma_V,  Sigma_V_ibar,  alpha, epsilon, i, use_thompson)
     end
     total_num = total_num
     if total_num > NUM_SIMS_TO_WRITE
