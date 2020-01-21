@@ -301,7 +301,6 @@ end
         c_it = 0
         if use_thompson
             c_it = thompson_sampling(mu_U_i, Sigma_U_i)
-            @show c_it
         elseif rand() < epsilon
             c_it = rand(choice_set)
         else
