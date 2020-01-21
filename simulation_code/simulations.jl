@@ -408,17 +408,17 @@ end
 
 use_thompson::Bool = true
 #
-nr_pop = 10
+nr_pop = 100
 #
-nr_ind = 10
+nr_ind = 100
 #
 sigma_ibar = .1
 #
 rho_ibar = 0.0
 
-N_vals = [20]
+N_vals = [200]
 
-T_vals = [2]
+T_vals = [20]
 
 # Covariance structure
 rho_vals = [0.1, 0.3, 0.5, 0.7, 0.9]
