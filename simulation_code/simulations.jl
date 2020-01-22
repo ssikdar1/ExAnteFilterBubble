@@ -250,9 +250,6 @@ end
         c_it = nothing
         if use_thompson
             c_it = thompson_sampling(copy(mu_Vit), copy(Sigma_Vit))
-            @show c_it
-            @show mu_V_i
-            @show choice_set
         elseif rand() < epsilon
             c_it = rand(choice_set)
         else
