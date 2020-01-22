@@ -7,7 +7,6 @@ import numpy as np
 
 import datetime
 from scipy.spatial.distance import jaccard, euclidean 
-from simulations import iota
 
 def get_files(root_path):
   dat_files = set()
