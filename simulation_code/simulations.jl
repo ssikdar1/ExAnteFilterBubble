@@ -424,7 +424,7 @@ rho_vals = [0.1, 0.3, 0.5, 0.7, 0.9]
 beta_vals = [0.4, 0.8, 1., 2., 5.]
 
 # absolute risk aversion
-alpha_vals = [0.3, 0.6, 1., 5.]
+alpha_vals = [0.0]
 
 # action of the time for random exploration
 epsilon_vals = [0.0]
