@@ -249,7 +249,10 @@ end
 
         c_it = nothing
         if use_thompson
-            c_it = thompson_sampling(mu_V_i, Sigma_V_i)
+            c_it = thompson_sampling(copy(mu_Vit), copy(Sigma_Vit))
+            @show c_it
+            @show mu_V_i
+            @show choice_set
         elseif rand() < epsilon
             c_it = rand(choice_set)
         else
@@ -300,7 +303,7 @@ end
         
         c_it = 0
         if use_thompson
-            c_it = thompson_sampling(mu_U_i, Sigma_U_i)
+            c_it = thompson_sampling(copy(mu_Uit), copy(Sigma_Uit))
         elseif rand() < epsilon
             c_it = rand(choice_set)
         else
@@ -424,7 +427,7 @@ rho_vals = [0.1, 0.3, 0.5, 0.7, 0.9]
 beta_vals = [0.4, 0.8, 1., 2., 5.]
 
 # absolute risk aversion
-alpha_vals = [0.3, 0.6, 1., 5.]
+alpha_vals = [0.0]
 
 # action of the time for random exploration
 epsilon_vals = [0.0]
