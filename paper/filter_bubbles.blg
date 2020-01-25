@@ -30,7 +30,6 @@ Warning--empty address in mas1995microeconomic
 Warning--empty publisher in nguyen2014exploring
 Warning--empty address in nguyen2014exploring
 Warning--empty address in pariser2011filter
-Warning--empty address in savage1954
 Warning--no number and no volume in schulz2019structured
 Warning--empty address in treviranus2009value
 Warning--page numbers missing in both pages and numpages fields in treviranus2009value
@@ -38,43 +37,43 @@ Warning--empty publisher in ziegler2005improving
 Warning--empty address in ziegler2005improving
 You've used 27 entries,
             5727 wiz_defined-function locations,
-            1465 strings with 19799 characters,
-and the built_in function-call counts, 32572 in all, are:
-= -- 4388
-> -- 1135
+            1466 strings with 20002 characters,
+and the built_in function-call counts, 33390 in all, are:
+= -- 4538
+> -- 1207
 < -- 0
-+ -- 379
-- -- 396
-* -- 2246
-:= -- 3243
-add.period$ -- 140
++ -- 405
+- -- 420
+* -- 2337
+:= -- 3326
+add.period$ -- 139
 call.type$ -- 27
-change.case$ -- 183
+change.case$ -- 189
 chr.to.int$ -- 27
-cite$ -- 53
-duplicate$ -- 2818
-empty$ -- 1967
-format.name$ -- 492
-if$ -- 8049
+cite$ -- 52
+duplicate$ -- 2842
+empty$ -- 1985
+format.name$ -- 524
+if$ -- 8274
 int.to.chr$ -- 2
 int.to.str$ -- 1
-missing$ -- 107
+missing$ -- 109
 newline$ -- 255
 num.names$ -- 216
-pop$ -- 1037
+pop$ -- 1046
 preamble$ -- 1
-purify$ -- 426
+purify$ -- 432
 quote$ -- 0
-skip$ -- 994
+skip$ -- 1003
 stack$ -- 0
-substring$ -- 2382
-swap$ -- 308
+substring$ -- 2422
+swap$ -- 312
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 555
-warning$ -- 26
-while$ -- 214
+type$ -- 556
+warning$ -- 25
+while$ -- 213
 width$ -- 0
 write$ -- 505
-(There were 26 warnings)
+(There were 25 warnings)

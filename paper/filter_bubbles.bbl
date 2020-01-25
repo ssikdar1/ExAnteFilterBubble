@@ -135,6 +135,20 @@
 \newblock
 
 
+\bibitem[\protect\citeauthoryear{Chen, De~Gemmis, Felfernig, Lops, Ricci, and
+  Semeraro}{Chen et~al\mbox{.}}{2013}]%
+        {chen2013human}
+\bibfield{author}{\bibinfo{person}{Li Chen}, \bibinfo{person}{Marco De~Gemmis},
+  \bibinfo{person}{Alexander Felfernig}, \bibinfo{person}{Pasquale Lops},
+  \bibinfo{person}{Francesco Ricci}, {and} \bibinfo{person}{Giovanni
+  Semeraro}.} \bibinfo{year}{2013}\natexlab{}.
+\newblock \showarticletitle{Human decision making and recommender systems}.
+\newblock \bibinfo{journal}{\emph{ACM Transactions on Interactive Intelligent
+  Systems (TiiS)}} \bibinfo{volume}{3}, \bibinfo{number}{3}
+  (\bibinfo{year}{2013}), \bibinfo{pages}{1--7}.
+\newblock
+
+
 \bibitem[\protect\citeauthoryear{de~Corniere and Taylor}{de~Corniere and
   Taylor}{2019}]%
         {DeCorniereTaylor2019RAND}
@@ -185,13 +199,15 @@
 \newblock
 
 
-\bibitem[\protect\citeauthoryear{Ghirardato}{Ghirardato}{2002}]%
-        {ghirardato2002revisiting}
-\bibfield{author}{\bibinfo{person}{Paolo Ghirardato}.}
-  \bibinfo{year}{2002}\natexlab{}.
-\newblock \showarticletitle{Revisiting Savage in a Conditional World}.
-\newblock \bibinfo{journal}{\emph{Economic Theory}} \bibinfo{volume}{20},
-  \bibinfo{number}{1} (\bibinfo{year}{2002}), \bibinfo{pages}{83--92}.
+\bibitem[\protect\citeauthoryear{Gilboa and Schmeidler}{Gilboa and
+  Schmeidler}{1995}]%
+        {gilboa1995case}
+\bibfield{author}{\bibinfo{person}{Itzhak Gilboa} {and} \bibinfo{person}{David
+  Schmeidler}.} \bibinfo{year}{1995}\natexlab{}.
+\newblock \showarticletitle{Case-based decision theory}.
+\newblock \bibinfo{journal}{\emph{The quarterly Journal of economics}}
+  \bibinfo{volume}{110}, \bibinfo{number}{3} (\bibinfo{year}{1995}),
+  \bibinfo{pages}{605--639}.
 \newblock
 
 
@@ -320,15 +336,6 @@
 \newblock \bibinfo{booktitle}{\emph{The filter bubble: How the new personalized
   web is changing what we read and how we think}}.
 \newblock \bibinfo{publisher}{Penguin}.
-\newblock
-
-
-\bibitem[\protect\citeauthoryear{Savage}{Savage}{1954}]%
-        {savage1954}
-\bibfield{author}{\bibinfo{person}{Lenard~J. Savage}.}
-  \bibinfo{year}{1954}\natexlab{}.
-\newblock \bibinfo{booktitle}{\emph{The foundations of statistics}}.
-\newblock \bibinfo{publisher}{John Wiley and Sons}.
 \newblock
 
 
