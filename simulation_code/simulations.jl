@@ -226,9 +226,7 @@ end
     N::Int64,
     Nset::Array{Int64,1},
     alpha::Float64,
-    epsilon::Float64,
-    beta::Float64,
-    use_thompson::Bool
+    beta::Float64
 )
     C_iT::Array{Int64,1} = []
     R_iT::Array{Int64,1} = []
@@ -247,14 +245,7 @@ end
         # make choice
         ce_Uit = certainty_equivalent(alpha, mu_Uit, Sigma_Vit) # γ: uncertainty aversion
 
-        c_it = nothing
-        if use_thompson
-            c_it = choice_set[thompson_sampling(mu_V_i, Sigma_V_i)]
-        elseif rand() < epsilon
-            c_it = rand(choice_set)
-        else
-            c_it = choice_helper(ce_Uit, choice_set)
-        end
+        c_it = choice_helper(ce_Uit, choice_set)
         r_it = choice_set[argmax([V[i] for i in choice_set])]
         append!(R_iT,r_it)
         append!(C_iT,c_it)
@@ -280,10 +271,8 @@ end
 			T::Int64, 
 			N::Int64, 
 			Nset::Array{Int64,1}, 
-			alpha::Float64, 
-			epsilon::Float64,
-                        use_thompson::Bool
-                        )
+			alpha::Float64
+)
 
     C_iT::Array{Int64,1} = []
     for t=1:T
@@ -297,15 +286,7 @@ end
         # make choice
         ce_Uit = certainty_equivalent(alpha, mu_Uit, Sigma_Uit)
         choice_set = [n for n in Nset if n ∉ C_iT]
-        
-        c_it = 0
-        if use_thompson
-            c_it = choice_set[thompson_sampling(mu_U_i, Sigma_U_i)]
-        elseif rand() < epsilon
-            c_it = rand(choice_set)
-        else
-            c_it = choice_helper(ce_Uit, choice_set)
-        end
+        c_it = choice_helper(ce_Uit, choice_set)
         append!(C_iT, c_it)
     end
 		
@@ -326,7 +307,6 @@ end
         Sigma_V::Array{Float64,2},
         Sigma_V_ibar::Array{Float64,2},
         alpha::Float64,
-        epsilon::Float64,
         seed::Float64
     )
 
@@ -345,9 +325,7 @@ end
     Sigma_V::Array{Float64,2},
     Sigma_V_ibar::Array{Float64,2},
     alpha::Float64,
-    epsilon::Float64,
-    seed::Int64,
-    use_thompson::Bool
+    seed::Int64
     )
 
     
@@ -382,7 +360,7 @@ end
 
         ## NO RECOMMENDATION CASE
         Sigma_U_i = Sigma_V_i + beta^2 * (Sigma_V)
-        C_iT_no_rec = choice_ind(copy(U_i), copy(mu_U_i), copy(Sigma_U_i),T,N, Nset, alpha, epsilon, use_thompson)
+        C_iT_no_rec = choice_ind(copy(U_i), copy(mu_U_i), copy(Sigma_U_i),T,N, Nset, alpha)
         C_pop["no_rec"][it_ind,:] = C_iT_no_rec
         W_pop["no_rec"][it_ind,:] = U_i[C_iT_no_rec]
 
@@ -394,7 +372,7 @@ end
 
  
         ## PARTIAL REC Case
-        C_iT_partial, R_iT = choice_part(copy(V_i), copy(mu_V_i), copy(Sigma_V_i), copy(V), T, N, Nset, alpha, epsilon, beta, use_thompson)
+        C_iT_partial, R_iT = choice_part(copy(V_i), copy(mu_V_i), copy(Sigma_V_i), copy(V), T, N, Nset, alpha, beta)
         C_pop["partial"][it_ind,:] = C_iT_partial
         W_pop["partial"][it_ind,:] = copy(U_i[C_iT_partial])
         R_pop["partial"][it_ind,:] = R_iT
@@ -402,8 +380,6 @@ end
 
     return Dict( "Consumption" => C_pop, "Welfare" => W_pop, "Rec" => R_pop )
 end
-
-use_thompson = true
 #
 nr_pop = 100
 #
@@ -419,33 +395,29 @@ T_vals = [20]
 
 # Covariance structure
 rho_vals = [0.0, 0.1, 0.3, 0.5, 0.7, 0.9]
-
 # utility idiosyncratic degree 
 beta_vals = [0.0, 0.4, 0.8, 1., 2., 5.]
-
 # absolute risk aversion
-alpha_vals = [0.0]
+alpha_vals = [0.0, 0.3, 0.6, 1., 5.]
 
-# action of the time for random exploration
-epsilon_vals = [0.0]
 
 sigma_vals = [0.25, 0.5, 1.0, 2.0, 4.0]
 
-params = Iterators.product(N_vals, T_vals, rho_vals, beta_vals, sigma_vals, alpha_vals, epsilon_vals)
+params = Iterators.product(N_vals, T_vals, rho_vals, beta_vals, sigma_vals, alpha_vals)
 
 println(length(collect(params)))
 
-#WORKING_DIR = "/Users/guyaridor/Desktop/ExAnteFilterBubble/data/sim_results/"
-WORKING_DIR = "/media/IntentMedia/rec_data/sim_results/"
+WORKING_DIR = "/Users/guyaridor/Desktop/ExAnteFilterBubble/data/sim_results/"
+#WORKING_DIR = "/media/IntentMedia/rec_data/sim_results/"
 
 global NUM_SIMS_TO_WRITE = 25
 global file_idx = 1
 global sim_results = Dict()
 global total_num = 0
 
-for (N, T, rho, beta, sigma, alpha, epsilon) in params
+for (N, T, rho, beta, sigma, alpha) in params
     println("STARTING")
-    println("N: $N, T: $T, ρ: $rho β: $beta σ: $sigma α: $alpha  ε: $epsilon")
+    println("N: $N, T: $T, ρ: $rho β: $beta σ: $sigma α: $alpha")
     println(Dates.now())
     flush(stdout) # so that nohup shows progress
     sigma_i = sigma
@@ -454,8 +426,8 @@ for (N, T, rho, beta, sigma, alpha, epsilon) in params
     Sigma_V = cov_mat_fun(sigma,rho,N)
 
     Sigma_V_ibar = cov_mat_fun(sigma_ibar,rho_ibar,N)
-    global sim_results[(N, T, rho, beta, sigma, alpha, epsilon, nr_pop, nr_ind)] = @sync @distributed vcat for i= 1:nr_pop
-        simulate(N, T,sigma, sigma_i, sigma_ibar, beta, nr_ind, Sigma_V_i,  Sigma_V,  Sigma_V_ibar,  alpha, epsilon, i, use_thompson)
+    global sim_results[(N, T, rho, beta, sigma, alpha, nr_pop, nr_ind)] = @sync @distributed vcat for i= 1:nr_pop
+        simulate(N, T,sigma, sigma_i, sigma_ibar, beta, nr_ind, Sigma_V_i,  Sigma_V,  Sigma_V_ibar,  alpha, i)
     end
     total_num = total_num
     if total_num > NUM_SIMS_TO_WRITE
