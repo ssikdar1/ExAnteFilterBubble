@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  25 JAN 2020 22:28
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  27 JAN 2020 10:55
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1168,14 +1168,11 @@ LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/b/n' will be
 Underfull \vbox (badness 2698) has occurred while \output is active []
 
  [4.4]
-[5.5]
-Underfull \vbox (badness 4242) has occurred while \output is active []
-
- [6.6]
+[5.5] [6.6]
 
 pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/Example-Bubbles.pd
 f): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<figures/Example-Bubbles.pdf, id=166, 181.7701pt x 174.7619pt>
+<figures/Example-Bubbles.pdf, id=168, 181.7701pt x 174.7619pt>
 File: figures/Example-Bubbles.pdf Graphic file (type pdf)
 <use figures/Example-Bubbles.pdf>
 Package pdftex.def Info: figures/Example-Bubbles.pdf  used on input line 141.
@@ -1183,7 +1180,7 @@ Package pdftex.def Info: figures/Example-Bubbles.pdf  used on input line 141.
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
 (Font)              scaled to size 9.0pt on input line 142.
 [7.7 <./figures/Example-Bubbles.pdf>] [8.8]
-<figures/rho_pos_consumption_dist_N_200T_20_overall.pdf, id=192, 468.98022pt x 
+<figures/rho_pos_consumption_dist_N_200T_20_overall.pdf, id=194, 468.98022pt x 
 402.77289pt>
 File: figures/rho_pos_consumption_dist_N_200T_20_overall.pdf Graphic file (type
  pdf)
@@ -1191,7 +1188,7 @@ File: figures/rho_pos_consumption_dist_N_200T_20_overall.pdf Graphic file (type
 Package pdftex.def Info: figures/rho_pos_consumption_dist_N_200T_20_overall.pdf
   used on input line 225.
 (pdftex.def)             Requested size: 178.1189pt x 152.97539pt.
-<figures/rho_zero_consumption_dist_N_200T_20_overall.pdf, id=193, 468.98022pt x
+<figures/rho_zero_consumption_dist_N_200T_20_overall.pdf, id=195, 468.98022pt x
  402.77289pt>
 File: figures/rho_zero_consumption_dist_N_200T_20_overall.pdf Graphic file (typ
 e pdf)
@@ -1211,13 +1208,13 @@ cluded in a single page
 >]
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/sc' will be
 (Font)              scaled to size 10.0pt on input line 242.
-<figures/rho_consumption_dist_N_200T_20.pdf, id=294, 579.0634pt x 374.22623pt>
+<figures/rho_consumption_dist_N_200T_20.pdf, id=296, 579.0634pt x 374.22623pt>
 File: figures/rho_consumption_dist_N_200T_20.pdf Graphic file (type pdf)
 <use figures/rho_consumption_dist_N_200T_20.pdf>
 Package pdftex.def Info: figures/rho_consumption_dist_N_200T_20.pdf  used on in
 put line 259.
 (pdftex.def)             Requested size: 178.11891pt x 115.11243pt.
-<figures/rho_consumption_dist_N_200T_20_partial.pdf, id=295, 579.0634pt x 374.2
+<figures/rho_consumption_dist_N_200T_20_partial.pdf, id=297, 579.0634pt x 374.2
 2623pt>
 File: figures/rho_consumption_dist_N_200T_20_partial.pdf Graphic file (type pdf
 )
@@ -1225,7 +1222,7 @@ File: figures/rho_consumption_dist_N_200T_20_partial.pdf Graphic file (type pdf
 Package pdftex.def Info: figures/rho_consumption_dist_N_200T_20_partial.pdf  us
 ed on input line 262.
 (pdftex.def)             Requested size: 178.11891pt x 115.11243pt.
-<figures/rho_consumption_dist_N_200T_20_omni.pdf, id=296, 579.0634pt x 374.2262
+<figures/rho_consumption_dist_N_200T_20_omni.pdf, id=298, 579.0634pt x 374.2262
 3pt>
 File: figures/rho_consumption_dist_N_200T_20_omni.pdf Graphic file (type pdf)
 <use figures/rho_consumption_dist_N_200T_20_omni.pdf>
@@ -1239,14 +1236,14 @@ Underfull \hbox (badness 10000) in paragraph at lines 265--266
 
 LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/m/n' will be
 (Font)              scaled to size 9.0pt on input line 267.
-<figures/gamma_consumption_dist_N_200T_20.pdf, id=297, 579.0634pt x 374.22623pt
+<figures/gamma_consumption_dist_N_200T_20.pdf, id=299, 579.0634pt x 374.22623pt
 >
 File: figures/gamma_consumption_dist_N_200T_20.pdf Graphic file (type pdf)
 <use figures/gamma_consumption_dist_N_200T_20.pdf>
 Package pdftex.def Info: figures/gamma_consumption_dist_N_200T_20.pdf  used on 
 input line 274.
 (pdftex.def)             Requested size: 178.11891pt x 115.11243pt.
-<figures/gamma_consumption_dist_N_200T_20_partial.pdf, id=298, 579.0634pt x 374
+<figures/gamma_consumption_dist_N_200T_20_partial.pdf, id=300, 579.0634pt x 374
 .22623pt>
 File: figures/gamma_consumption_dist_N_200T_20_partial.pdf Graphic file (type p
 df)
@@ -1254,7 +1251,7 @@ df)
 Package pdftex.def Info: figures/gamma_consumption_dist_N_200T_20_partial.pdf  
 used on input line 277.
 (pdftex.def)             Requested size: 178.11891pt x 115.11243pt.
-<figures/gamma_consumption_dist_N_200T_20_omni.pdf, id=299, 579.0634pt x 374.22
+<figures/gamma_consumption_dist_N_200T_20_omni.pdf, id=301, 579.0634pt x 374.22
 623pt>
 File: figures/gamma_consumption_dist_N_200T_20_omni.pdf Graphic file (type pdf)
 
@@ -1268,7 +1265,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 280--281
  []
 
 [10.10]
-<figures/gamma_diversity_N_200_T_20.pdf, id=311, 476.94905pt x 399.31621pt>
+<figures/gamma_diversity_N_200_T_20.pdf, id=313, 476.94905pt x 399.31621pt>
 File: figures/gamma_diversity_N_200_T_20.pdf Graphic file (type pdf)
 <use figures/gamma_diversity_N_200_T_20.pdf>
 Package pdftex.def Info: figures/gamma_diversity_N_200_T_20.pdf  used on input 
@@ -1302,25 +1299,25 @@ pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/gamma_diversity_N_
 200_T_20.pdf): PDF inclusion: multiple pdfs with page group included in a singl
 e page
 >]
-<figures/rho_diversity_N_200_T_20.pdf, id=687, 476.94905pt x 399.31621pt>
+<figures/rho_diversity_N_200_T_20.pdf, id=689, 476.94905pt x 399.31621pt>
 File: figures/rho_diversity_N_200_T_20.pdf Graphic file (type pdf)
 <use figures/rho_diversity_N_200_T_20.pdf>
 Package pdftex.def Info: figures/rho_diversity_N_200_T_20.pdf  used on input li
 ne 329.
 (pdftex.def)             Requested size: 142.49567pt x 119.30225pt.
-<figures/rho_welfare_N_200_T_20.pdf, id=688, 482.23442pt x 416.36427pt>
+<figures/rho_welfare_N_200_T_20.pdf, id=690, 482.23442pt x 416.36427pt>
 File: figures/rho_welfare_N_200_T_20.pdf Graphic file (type pdf)
 <use figures/rho_welfare_N_200_T_20.pdf>
 Package pdftex.def Info: figures/rho_welfare_N_200_T_20.pdf  used on input line
  332.
 (pdftex.def)             Requested size: 142.49567pt x 123.0297pt.
-<figures/beta_diversity_N_200_T_20.pdf, id=689, 488.80585pt x 412.85115pt>
+<figures/beta_diversity_N_200_T_20.pdf, id=691, 488.80585pt x 412.85115pt>
 File: figures/beta_diversity_N_200_T_20.pdf Graphic file (type pdf)
 <use figures/beta_diversity_N_200_T_20.pdf>
 Package pdftex.def Info: figures/beta_diversity_N_200_T_20.pdf  used on input l
 ine 339.
 (pdftex.def)             Requested size: 142.49567pt x 120.35371pt.
-<figures/beta_welfare_N_200_T_20.pdf, id=690, 479.03497pt x 412.85115pt>
+<figures/beta_welfare_N_200_T_20.pdf, id=692, 479.03497pt x 412.85115pt>
 File: figures/beta_welfare_N_200_T_20.pdf Graphic file (type pdf)
 <use figures/beta_welfare_N_200_T_20.pdf>
 Package pdftex.def Info: figures/beta_welfare_N_200_T_20.pdf  used on input lin
@@ -1333,7 +1330,7 @@ pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/rho_welfare_N_200_
 T_20.pdf): PDF inclusion: multiple pdfs with page group included in a single pa
 ge
 >]
-<figures/diversity_welfare_rn.pdf, id=796, 588.44218pt x 411.84805pt>
+<figures/diversity_welfare_rn.pdf, id=798, 588.44218pt x 411.84805pt>
 File: figures/diversity_welfare_rn.pdf Graphic file (type pdf)
 <use figures/diversity_welfare_rn.pdf>
 Package pdftex.def Info: figures/diversity_welfare_rn.pdf  used on input line 3
@@ -1344,7 +1341,7 @@ Overfull \hbox (8.90648pt too wide) in paragraph at lines 367--368
 [][] 
  []
 
-<figures/diversity_welfare_ra.pdf, id=797, 588.44218pt x 411.84805pt>
+<figures/diversity_welfare_ra.pdf, id=799, 588.44218pt x 411.84805pt>
 File: figures/diversity_welfare_ra.pdf Graphic file (type pdf)
 <use figures/diversity_welfare_ra.pdf>
 Package pdftex.def Info: figures/diversity_welfare_ra.pdf  used on input line 3
@@ -1355,7 +1352,15 @@ Overfull \hbox (8.90648pt too wide) in paragraph at lines 370--371
 [][] 
  []
 
-<figures/diversity_welfare_rn_partial.pdf, id=798, 588.44218pt x 411.84805pt>
+LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/b/n' will be
+(Font)              scaled to size 9.0pt on input line 372.
+LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/b/it' in size <9> not ava
+ilable
+(Font)              Font shape `T1/LinuxBiolinumT-TLF/b/sl' tried instead on in
+put line 372.
+LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/b/sl' will be
+(Font)              scaled to size 9.0pt on input line 372.
+<figures/diversity_welfare_rn_partial.pdf, id=800, 588.44218pt x 411.84805pt>
 File: figures/diversity_welfare_rn_partial.pdf Graphic file (type pdf)
 <use figures/diversity_welfare_rn_partial.pdf>
 Package pdftex.def Info: figures/diversity_welfare_rn_partial.pdf  used on inpu
@@ -1366,7 +1371,7 @@ Overfull \hbox (8.90648pt too wide) in paragraph at lines 377--378
 [][] 
  []
 
-<figures/diversity_welfare_ra_partial.pdf, id=799, 588.44218pt x 411.84805pt>
+<figures/diversity_welfare_ra_partial.pdf, id=801, 588.44218pt x 411.84805pt>
 File: figures/diversity_welfare_ra_partial.pdf Graphic file (type pdf)
 <use figures/diversity_welfare_ra_partial.pdf>
 Package pdftex.def Info: figures/diversity_welfare_ra_partial.pdf  used on inpu
@@ -1400,13 +1405,13 @@ pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/diversity_welfare_
 ra_partial.pdf): PDF inclusion: multiple pdfs with page group included in a sin
 gle page
 >]
-<figures/beta_homogeneity_N_200_T_20.pdf, id=1175, 476.94905pt x 399.31621pt>
+<figures/beta_homogeneity_N_200_T_20.pdf, id=1178, 476.94905pt x 399.31621pt>
 File: figures/beta_homogeneity_N_200_T_20.pdf Graphic file (type pdf)
 <use figures/beta_homogeneity_N_200_T_20.pdf>
 Package pdftex.def Info: figures/beta_homogeneity_N_200_T_20.pdf  used on input
  line 404.
 (pdftex.def)             Requested size: 178.11891pt x 149.1278pt.
-<figures/rho_homogeneity_N_200_T_20.pdf, id=1176, 476.94905pt x 399.31621pt>
+<figures/rho_homogeneity_N_200_T_20.pdf, id=1179, 476.94905pt x 399.31621pt>
 File: figures/rho_homogeneity_N_200_T_20.pdf Graphic file (type pdf)
 <use figures/rho_homogeneity_N_200_T_20.pdf>
 Package pdftex.def Info: figures/rho_homogeneity_N_200_T_20.pdf  used on input 
@@ -1434,42 +1439,43 @@ Package rerunfilecheck Info: File `filter_bubbles.out' has not changed.
 (rerunfilecheck)             Checksum: AA8CF1BA0EF1F8CBFB9D62CECF6BB7D1;1803.
  ) 
 Here is how much of TeX's memory you used:
- 19610 strings out of 492616
- 302268 string characters out of 6129482
- 423721 words of memory out of 5000000
- 22386 multiletter control sequences out of 15000+600000
- 194705 words of font info for 475 fonts, out of 8000000 for 9000
+ 19626 strings out of 492616
+ 302665 string characters out of 6129482
+ 423727 words of memory out of 5000000
+ 22391 multiletter control sequences out of 15000+600000
+ 205381 words of font info for 482 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
  60i,12n,94p,1858b,572s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2019/texmf-dist/fonts/enc/dvips/newtx/libertinealt.enc}{/
-usr/local/texlive/2019/texmf-dist/fonts/enc/dvips/libertine/lbtn_ncsllp.enc}{/u
-sr/local/texlive/2019/texmf-dist/fonts/enc/dvips/libertine/lbtn_oexx6f.enc}{/us
-r/local/texlive/2019/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/local/texlive
-/2019/texmf-dist/fonts/enc/dvips/libertine/lbtn_nh77jq.enc}{/usr/local/texlive/
-2019/texmf-dist/fonts/enc/dvips/libertine/lbtn_7grukw.enc}{/usr/local/texlive/2
-019/texmf-dist/fonts/enc/dvips/libertine/lbtn_76gpa5.enc}{/usr/local/texlive/20
-19/texmf-dist/fonts/enc/dvips/libertine/lbtn_25tcsq.enc}</usr/local/texlive/201
+usr/local/texlive/2019/texmf-dist/fonts/enc/dvips/libertine/lbtn_25tcsq.enc}{/u
+sr/local/texlive/2019/texmf-dist/fonts/enc/dvips/libertine/lbtn_ncsllp.enc}{/us
+r/local/texlive/2019/texmf-dist/fonts/enc/dvips/libertine/lbtn_oexx6f.enc}{/usr
+/local/texlive/2019/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/local/texlive/
+2019/texmf-dist/fonts/enc/dvips/libertine/lbtn_nh77jq.enc}{/usr/local/texlive/2
+019/texmf-dist/fonts/enc/dvips/libertine/lbtn_7grukw.enc}{/usr/local/texlive/20
+19/texmf-dist/fonts/enc/dvips/libertine/lbtn_76gpa5.enc}</usr/local/texlive/201
 9/texmf-dist/fonts/type1/public/libertine/LinBiolinumT.pfb></usr/local/texlive/
 2019/texmf-dist/fonts/type1/public/libertine/LinBiolinumTB.pfb></usr/local/texl
-ive/2019/texmf-dist/fonts/type1/public/libertine/LinLibertineT.pfb></usr/local/
-texlive/2019/texmf-dist/fonts/type1/public/libertine/LinLibertineTB.pfb></usr/l
-ocal/texlive/2019/texmf-dist/fonts/type1/public/libertine/LinLibertineTI.pfb></
-usr/local/texlive/2019/texmf-dist/fonts/type1/public/newtx/fxlri-5letters.pfb><
-/usr/local/texlive/2019/texmf-dist/fonts/type1/public/newtx/fxlri-7letters.pfb>
-</usr/local/texlive/2019/texmf-dist/fonts/type1/public/txfonts/rtxmi.pfb></usr/
-local/texlive/2019/texmf-dist/fonts/type1/public/newtx/rtxmi5.pfb></usr/local/t
-exlive/2019/texmf-dist/fonts/type1/public/newtx/rtxmi7.pfb></usr/local/texlive/
-2019/texmf-dist/fonts/type1/public/txfonts/rtxr.pfb></usr/local/texlive/2019/te
-xmf-dist/fonts/type1/public/newtx/txexs.pfb></usr/local/texlive/2019/texmf-dist
-/fonts/type1/public/txfonts/txsyb.pfb></usr/local/texlive/2019/texmf-dist/fonts
-/type1/public/txfonts/txsyc.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1
-/public/newtx/txsys.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/
-newtx/zxlr.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/newtx/zxl
-ri.pfb>
-Output written on filter_bubbles.pdf (18 pages, 976237 bytes).
+ive/2019/texmf-dist/fonts/type1/public/libertine/LinBiolinumTBO.pfb></usr/local
+/texlive/2019/texmf-dist/fonts/type1/public/libertine/LinLibertineT.pfb></usr/l
+ocal/texlive/2019/texmf-dist/fonts/type1/public/libertine/LinLibertineTB.pfb></
+usr/local/texlive/2019/texmf-dist/fonts/type1/public/libertine/LinLibertineTI.p
+fb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/newtx/fxlri-5letters.
+pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/newtx/fxlri-7letters
+.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/txfonts/rtxmi.pfb><
+/usr/local/texlive/2019/texmf-dist/fonts/type1/public/newtx/rtxmi5.pfb></usr/lo
+cal/texlive/2019/texmf-dist/fonts/type1/public/newtx/rtxmi7.pfb></usr/local/tex
+live/2019/texmf-dist/fonts/type1/public/txfonts/rtxr.pfb></usr/local/texlive/20
+19/texmf-dist/fonts/type1/public/newtx/txexs.pfb></usr/local/texlive/2019/texmf
+-dist/fonts/type1/public/txfonts/txsyb.pfb></usr/local/texlive/2019/texmf-dist/
+fonts/type1/public/txfonts/txsyc.pfb></usr/local/texlive/2019/texmf-dist/fonts/
+type1/public/newtx/txsys.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/pu
+blic/newtx/zxlr.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/newt
+x/zxlri.pfb>
+Output written on filter_bubbles.pdf (18 pages, 1020956 bytes).
 PDF statistics:
- 1382 PDF objects out of 1440 (max. 8388607)
- 589 compressed objects within 6 object streams
- 95 named destinations out of 1000 (max. 500000)
- 58569 words of extra memory for PDF output out of 61914 (max. 10000000)
+ 1389 PDF objects out of 1440 (max. 8388607)
+ 594 compressed objects within 6 object streams
+ 96 named destinations out of 1000 (max. 500000)
+ 59593 words of extra memory for PDF output out of 61914 (max. 10000000)
 
