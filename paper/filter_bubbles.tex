@@ -133,11 +133,6 @@ Thus, after consuming the items in $C_{i}^{t}$ the resulting beliefs over the re
 \bar{\mu} \mid c_t = \mu_{N-t} + \Sigma_{(N-t,t)} \Sigma_{(t,t)}^{-1}(c_t - \mu_t) \\
 \bar{\Sigma} \mid c_t = \Sigma_{(N-t,N-t)} - \Sigma_{(N-t,t)} \Sigma_{(t,t)}^{-1} \Sigma_{(t,N-t)}
 \end{align*}
-\begin{figure}[t]
-\includegraphics[width=.3\linewidth]{figures/Example-Bubbles.pdf}
-\captionof{figure}{Illustrative Example}
-\label{fig:illustrative_example}
-\end{figure}
 
 \xhdr{An Illustrative Example} We illustrate the main intuitions of our model with a simple example. Suppose that there are four items: 0, 1, 2, 3. The items are in different places of the product space, where 0 is close to 1 and 3 but more distant from 2, as shown in Figure \ref{fig:illustrative_example}. The initial beliefs are given as follows:
 \[ \mu = \left (\begin{array}{c}
@@ -380,16 +375,7 @@ Operationalizing this approach requires the collection of data that is not tradi
 \par
 
 Furthermore, our model shows the importance of understanding the underlying user preferences and the nature of the product space in the setting in which a recommender system is deployed since that will change the consumption patterns of users. For instance, understanding the degree of correlation of utilities and the level of risk-aversion become crucial in understanding how users will make consumption choices without recommendation and what kind of recommendation would be useful for users.
-\par
 
-
-
-\section{Conclusion}
-We have studied a model of user decision-making in the context of markets where recommender systems are traditionally deployed in order to understand the consequences of recommender systems on consumption patterns of users. The key components of the model are that users make decisions under uncertainty and that consuming a good leads to informational spillovers about similar items. We have shown that this alone can generate consumption behavior that is consistent with filter bubble effects that have traditionally been associated with personalized recommender systems. This effect is weakened once we allow for recommendation, but not as much as if users have full information. We have further explored the relationship between consumption diversity and user welfare and found that they are negatively correlated, implying that striving for consumption diversity is not necessarily welfare-improving for users. Finally, we have shown that recommendation can lead to increases in user homogenization both relative to no recommendation and full information since it concentrates users' consumption in portions of the product space with the highest utility according to the limits of what the recommender can predict about the utility of the good.
-\par 
-We leave for future work exploring to what extent user behavior changes if we drop the myopia assumption, so that users themselves are engaging in explicit exploration. This likely interacts with recommendation in interesting ways as the recommendations may provide information that can complement or crowd-out user-led exploration. Even under the myopia assumption, understanding which recommendation system is optimal is an interesting and challenging problem. Further, our results point to an important consideration in the literature on incentivizing exploration which is that the exploration faced by the recommender itself likely interacts in interesting and important ways with the choice problem faced by the users.
-\par 
-Overall, understanding how users make choices in online platforms and how recommender systems impact these choices is important to understand. Understanding these issues allows us to better understand the broader social and economic impact of such systems as well as can provide a guide to improve the design of such systems.
 % Bibliography
 \bibliographystyle{ACM-Reference-Format}
 \bibliography{refs}
