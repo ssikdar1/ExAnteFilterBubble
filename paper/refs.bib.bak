@@ -499,4 +499,15 @@
   publisher = {MIT Press},
 }
 
+@Article{chen2013human,
+  author    = {Chen, Li and De Gemmis, Marco and Felfernig, Alexander and Lops, Pasquale and Ricci, Francesco and Semeraro, Giovanni},
+  title     = {Human decision making and recommender systems},
+  journal   = {ACM Transactions on Interactive Intelligent Systems (TiiS)},
+  year      = {2013},
+  volume    = {3},
+  number    = {3},
+  pages     = {1--7},
+  publisher = {ACM New York, NY, USA},
+}
+
 @Comment{jabref-meta: databaseType:bibtex;}

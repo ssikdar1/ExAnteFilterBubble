@@ -2,7 +2,7 @@
 %%% Do NOT edit. File created by BibTeX with style
 %%% ACM-Reference-Format-Journals [18-Jan-2012].
 
-\begin{thebibliography}{27}
+\begin{thebibliography}{28}
 
 %%% ====================================================================
 %%% NOTE TO THE USER: you can override these defaults by providing
@@ -58,6 +58,20 @@
 \newblock \showarticletitle{Recommenders’ Originals: Integrated Recommender
   Systems and Vertical Foreclosure}.
 \newblock \bibinfo{journal}{\emph{Mimeo}} (\bibinfo{year}{2020}).
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Billot, Gilboa, and Schmeidler}{Billot
+  et~al\mbox{.}}{2008}]%
+        {billot2008axiomatization}
+\bibfield{author}{\bibinfo{person}{Antoine Billot}, \bibinfo{person}{Itzhak
+  Gilboa}, {and} \bibinfo{person}{David Schmeidler}.}
+  \bibinfo{year}{2008}\natexlab{}.
+\newblock \showarticletitle{Axiomatization of an exponential similarity
+  function}.
+\newblock \bibinfo{journal}{\emph{Mathematical Social Sciences}}
+  \bibinfo{volume}{55}, \bibinfo{number}{2} (\bibinfo{year}{2008}),
+  \bibinfo{pages}{107--115}.
 \newblock
 
 
