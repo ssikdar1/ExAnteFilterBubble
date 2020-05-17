@@ -2,7 +2,7 @@
 %%% Do NOT edit. File created by BibTeX with style
 %%% ACM-Reference-Format-Journals [18-Jan-2012].
 
-\begin{thebibliography}{23}
+\begin{thebibliography}{31}
 
 %%% ====================================================================
 %%% NOTE TO THE USER: you can override these defaults by providing
@@ -63,15 +63,16 @@
 \newblock
 
 
-\bibitem[\protect\citeauthoryear{Bergemann and Morris}{Bergemann and
-  Morris}{2019}]%
-        {bergemann2019information}
-\bibfield{author}{\bibinfo{person}{Dirk Bergemann} {and}
-  \bibinfo{person}{Stephen Morris}.} \bibinfo{year}{2019}\natexlab{}.
-\newblock \showarticletitle{Information design: A unified perspective}.
-\newblock \bibinfo{journal}{\emph{Journal of Economic Literature}}
-  \bibinfo{volume}{57}, \bibinfo{number}{1} (\bibinfo{year}{2019}),
-  \bibinfo{pages}{44--95}.
+\bibitem[\protect\citeauthoryear{Bettman, Luce, and Payne}{Bettman
+  et~al\mbox{.}}{1998}]%
+        {bettman1998constructive}
+\bibfield{author}{\bibinfo{person}{James~R Bettman},
+  \bibinfo{person}{Mary~Frances Luce}, {and} \bibinfo{person}{John~W Payne}.}
+  \bibinfo{year}{1998}\natexlab{}.
+\newblock \showarticletitle{Constructive consumer choice processes}.
+\newblock \bibinfo{journal}{\emph{Journal of consumer research}}
+  \bibinfo{volume}{25}, \bibinfo{number}{3} (\bibinfo{year}{1998}),
+  \bibinfo{pages}{187--217}.
 \newblock
 
 
@@ -89,6 +90,28 @@
 \newblock
 
 
+\bibitem[\protect\citeauthoryear{Celma and Cano}{Celma and Cano}{2008}]%
+        {celma2008hits}
+\bibfield{author}{\bibinfo{person}{{\`O}scar Celma} {and}
+  \bibinfo{person}{Pedro Cano}.} \bibinfo{year}{2008}\natexlab{}.
+\newblock \showarticletitle{From hits to niches?: or how popular artists can
+  bias music recommendation and discovery}. In
+  \bibinfo{booktitle}{\emph{Proceedings of the 2nd KDD Workshop on Large-Scale
+  Recommender Systems and the Netflix Prize Competition}}. ACM,
+  \bibinfo{pages}{5}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Celma and Herrera}{Celma and Herrera}{2008}]%
+        {celma2008new}
+\bibfield{author}{\bibinfo{person}{{\`O}scar Celma} {and}
+  \bibinfo{person}{Perfecto Herrera}.} \bibinfo{year}{2008}\natexlab{}.
+\newblock \showarticletitle{A new approach to evaluating novel
+  recommendations}. In \bibinfo{booktitle}{\emph{Proceedings of the 2008 ACM
+  conference on Recommender systems}}. \bibinfo{pages}{179--186}.
+\newblock
+
+
 \bibitem[\protect\citeauthoryear{Chaney, Stewart, and Engelhardt}{Chaney
   et~al\mbox{.}}{2018}]%
         {chaney2018algorithmic}
@@ -99,6 +122,32 @@
   systems increases homogeneity and decreases utility}. In
   \bibinfo{booktitle}{\emph{Proceedings of the 12th ACM Conference on
   Recommender Systems}}. ACM, \bibinfo{pages}{224--232}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Chen, De~Gemmis, Felfernig, Lops, Ricci, and
+  Semeraro}{Chen et~al\mbox{.}}{2013}]%
+        {chen2013human}
+\bibfield{author}{\bibinfo{person}{Li Chen}, \bibinfo{person}{Marco De~Gemmis},
+  \bibinfo{person}{Alexander Felfernig}, \bibinfo{person}{Pasquale Lops},
+  \bibinfo{person}{Francesco Ricci}, {and} \bibinfo{person}{Giovanni
+  Semeraro}.} \bibinfo{year}{2013}\natexlab{}.
+\newblock \showarticletitle{Human decision making and recommender systems}.
+\newblock \bibinfo{journal}{\emph{ACM Transactions on Interactive Intelligent
+  Systems (TiiS)}} \bibinfo{volume}{3}, \bibinfo{number}{3}
+  (\bibinfo{year}{2013}), \bibinfo{pages}{1--7}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Cremonesi, Garzotto, and Turrin}{Cremonesi
+  et~al\mbox{.}}{2013}]%
+        {cremonesi2013user}
+\bibfield{author}{\bibinfo{person}{Paolo Cremonesi}, \bibinfo{person}{Franca
+  Garzotto}, {and} \bibinfo{person}{Roberto Turrin}.}
+  \bibinfo{year}{2013}\natexlab{}.
+\newblock \showarticletitle{User-centric vs. system-centric evaluation of
+  recommender systems}. In \bibinfo{booktitle}{\emph{IFIP Conference on
+  Human-Computer Interaction}}. Springer, \bibinfo{pages}{334--351}.
 \newblock
 
 
@@ -207,6 +256,16 @@
 \newblock
 
 
+\bibitem[\protect\citeauthoryear{Lichtenstein and Slovic}{Lichtenstein and
+  Slovic}{2006}]%
+        {lichtenstein2006construction}
+\bibfield{author}{\bibinfo{person}{Sarah Lichtenstein} {and}
+  \bibinfo{person}{Paul Slovic}.} \bibinfo{year}{2006}\natexlab{}.
+\newblock \bibinfo{booktitle}{\emph{The construction of preference}}.
+\newblock \bibinfo{publisher}{Cambridge University Press}.
+\newblock
+
+
 \bibitem[\protect\citeauthoryear{Maksai, Garcin, and Faltings}{Maksai
   et~al\mbox{.}}{2015}]%
         {maksai2015predicting}
@@ -282,6 +341,16 @@
 \newblock
 
 
+\bibitem[\protect\citeauthoryear{Pu, Chen, and Hu}{Pu et~al\mbox{.}}{2011}]%
+        {pu2011user}
+\bibfield{author}{\bibinfo{person}{Pearl Pu}, \bibinfo{person}{Li Chen}, {and}
+  \bibinfo{person}{Rong Hu}.} \bibinfo{year}{2011}\natexlab{}.
+\newblock \showarticletitle{A user-centric evaluation framework for recommender
+  systems}. In \bibinfo{booktitle}{\emph{Proceedings of the fifth ACM
+  conference on Recommender systems}}. \bibinfo{pages}{157--164}.
+\newblock
+
+
 \bibitem[\protect\citeauthoryear{Schulz, Bhui, Love, Brier, Todd, and
   Gershman}{Schulz et~al\mbox{.}}{2019}]%
         {schulz2019structured}
@@ -293,6 +362,16 @@
   real-world consumer choice}.
 \newblock \bibinfo{journal}{\emph{Proceedings of the National Academy of
   Sciences}} (\bibinfo{year}{2019}), \bibinfo{pages}{201821028}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Steck}{Steck}{2018}]%
+        {steck2018calibrated}
+\bibfield{author}{\bibinfo{person}{Harald Steck}.}
+  \bibinfo{year}{2018}\natexlab{}.
+\newblock \showarticletitle{Calibrated recommendations}. In
+  \bibinfo{booktitle}{\emph{Proceedings of the 12th ACM conference on
+  recommender systems}}. \bibinfo{pages}{154--162}.
 \newblock
 
 
@@ -320,6 +399,19 @@
   for recommender systems}. In \bibinfo{booktitle}{\emph{Proceedings of the
   fifth ACM conference on Recommender systems}}. ACM,
   \bibinfo{pages}{109--116}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Winecoff, Brasoveanu, Casavant, Washabaugh,
+  and Graham}{Winecoff et~al\mbox{.}}{2019}]%
+        {winecoff2019users}
+\bibfield{author}{\bibinfo{person}{Amy~A Winecoff}, \bibinfo{person}{Florin
+  Brasoveanu}, \bibinfo{person}{Bryce Casavant}, \bibinfo{person}{Pearce
+  Washabaugh}, {and} \bibinfo{person}{Matthew Graham}.}
+  \bibinfo{year}{2019}\natexlab{}.
+\newblock \showarticletitle{Users in the loop: a psychologically-informed
+  approach to similar item retrieval}. In \bibinfo{booktitle}{\emph{Proceedings
+  of the 13th ACM Conference on Recommender Systems}}. \bibinfo{pages}{52--59}.
 \newblock
 
 
