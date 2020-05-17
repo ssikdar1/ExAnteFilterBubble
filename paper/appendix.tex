@@ -2,7 +2,6 @@
 \usepackage{acm-tweaks}
 \usepackage{booktabs} % For formal tables
 \usepackage[ruled]{algorithm2e} % For algorithms
-
 \usepackage{subcaption}
 \newcommand{\xhdr}[1]{\vspace{1mm} \noindent{\bf #1}}
 
@@ -32,10 +31,19 @@
 This section contains figures that were omitted from the main text due to space constraints. Thus, the figures in this section are computed utilizing the same parameter values described in the main text for $N = 200$.
 
 \begin{figure}[ht]
-\caption{Relationship between $\beta$ and Homogeneity, $N = 200$}
-\includegraphics[width=.45\linewidth]{figures/beta_homogeneity_N_200_T_20}\label{fig:beta_homo}
-\caption*{\scriptsize Notes: This figure displays the value of the homogeneity measure as we vary the weight of the common value component, $\beta$. Each line represents this plot for a single recommendation regime.}
+\caption{Relationship between User Welfare and Diversity, varying $\rho$}\label{fig:diversity_welfare_correlation}
+\begin{subfigure}{.45\linewidth}
+  \includegraphics[width=.8\linewidth]{figures/rho_diversity_N_200_T_20.pdf}
+\end{subfigure}
+\ContinuedFloat
+\begin{subfigure}{.45\linewidth}
+  \includegraphics[width=.8\linewidth]{figures/rho_welfare_N_200_T_20.pdf}
+\end{subfigure}
+\caption*{\scriptsize Notes: The figure on the left displays the relationship between $rho$, the correlation between valuations of items, and overall consumed product diversity. The figure on the right displays the relationship between $\rho$ and overall welfare.}
 \end{figure}
+
+\addtocounter{figure}{-1}
+
 \begin{figure}[ht]
 \caption{Relationship between $\rho$ and Homogeneity, $N = 200$}
 \includegraphics[width=.45\linewidth]{figures/rho_homogeneity_N_200_T_20}
@@ -56,6 +64,7 @@ This section contains figures that were omitted from the main text due to space 
 \caption*{\scriptsize Notes: Each figure plots the average consecutive consumption distance across time as the inherent correlation between the valuation of the items, $\rho$. The top left displays the no recommendation regime, the top right displays the recommendation regime, and the bottom displays the oracle regime.}
 \label{fig:local_consumption_across_rho}
 \end{figure}
+\addtocounter{figure}{-1}
 
 \begin{figure}[H]
 \caption{Relationship between Local Consumption and $\gamma$, $N = 200$}
@@ -71,6 +80,8 @@ This section contains figures that were omitted from the main text due to space 
 \caption*{\scriptsize Notes: Each figure plots the average consecutive consumption distance across time as the risk aversion level of users, $\gamma$, varies. The top left displays the no recommendation regime, the top right displays the recommendation regime, and the bottom displays the oracle regime.}
 \label{fig:no_rec_risk_aversion}
 \end{figure}
+\addtocounter{figure}{-1}
+
 
 \clearpage
 \section{N = 100}
@@ -101,6 +112,7 @@ This section contains the same figures as reported in the main text and appendix
 \caption*{\scriptsize Notes: Each figure plots the average consecutive consumption distance across time as the risk aversion level of users, $\gamma$, varies. The top left displays the no recommendation regime, the top right displays the recommendation regime, and the bottom displays the oracle regime.}
 \label{fig:no_rec_risk_aversion}
 \end{figure}
+\addtocounter{figure}{-1}
 
 \begin{figure}[H]
 \caption{Local Consumption and Correlation, $N = 100$}
@@ -117,6 +129,7 @@ This section contains the same figures as reported in the main text and appendix
 \caption*{\footnotesize Notes: The figure shows the consecutive consumption path difference between the no recommendation, recommendation, and oracle regime. The figure on the left displays the average consecutive consumption distance aggregating over simulations where $\rho = 0$ and the figure on the right displays the average consecutive consumption distance aggregating over simulations where $\rho > 0$}
 \label{fig:correlation_consumption_path_n_100}
 \end{figure}
+\addtocounter{figure}{-1}
 
 
 % Paper body
@@ -167,6 +180,8 @@ This section contains the same figures as reported in the main text and appendix
 \label{fig:no_rec_risk_aversion}
 \end{figure}
 
+\addtocounter{figure}{-1}
+
 % Paper body
 \begin{figure}[H]
 \caption{Relationship between Local Consumption and $\rho$, $N = 500$}
@@ -182,6 +197,8 @@ This section contains the same figures as reported in the main text and appendix
 \caption*{\scriptsize Notes: Each figure plots the average consecutive consumption distance across time as the inherent correlation between the valuation of the items, $\rho$. The top left displays the no recommendation regime, the top right displays the recommendation regime, and the bottom displays the oracle regime.}
 \label{fig:local_consumption_across_rho}
 \end{figure}
+
+\addtocounter{figure}{-1}
 
 \begin{figure}[H]
 \caption{Local Consumption and Correlation, $N = 500$}
