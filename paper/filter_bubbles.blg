@@ -5,75 +5,74 @@ The style file: ACM-Reference-Format.bst
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
 Database file #1: refs.bib
+Warning--I didn't find a database entry for "celam2008hits"
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated glb_str_ptr (elt_size=4) to 20 items from 10.
 Reallocated global_strs (elt_size=20001) to 20 items from 10.
 Reallocated glb_str_end (elt_size=4) to 20 items from 10.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Warning--unusual to have number, but no volume, for adomavicius2005toward
-Warning--no number and no volume in aridor2020recommender
-Warning--page numbers missing in both pages and numpages fields in aridor2020recommender
-Warning--no number and no volume in bourreau2018streaming
-Warning--page numbers missing in both pages and numpages fields in bourreau2018streaming
-Warning--empty address in castells2015novelty
-Warning--empty publisher in celma2008hits
-Warning--empty address in celma2008hits
 Warning--empty publisher in chaney2018algorithmic
 Warning--empty address in chaney2018algorithmic
-Warning--empty publisher in frazier2014incentivizing
-Warning--empty address in frazier2014incentivizing
-Warning--no number and no volume in immorlica2018incentivizing
-Warning--page numbers missing in both pages and numpages fields in immorlica2018incentivizing
-Warning--empty publisher in mansour2015bayesian
-Warning--empty address in mansour2015bayesian
+Warning--empty publisher in ge2010beyond
+Warning--empty address in ge2010beyond
+Warning--empty publisher in kaminskas2014measuring
+Warning--empty address in kaminskas2014measuring
+Warning--page numbers missing in both pages and numpages fields in kaminskas2014measuring
+Warning--empty publisher in maksai2015predicting
+Warning--empty address in maksai2015predicting
 Warning--empty address in mas1995microeconomic
+Warning--empty publisher in mcnee2006being
+Warning--empty address in mcnee2006being
 Warning--empty publisher in nguyen2014exploring
 Warning--empty address in nguyen2014exploring
 Warning--empty address in pariser2011filter
 Warning--no number and no volume in schulz2019structured
 Warning--empty address in treviranus2009value
 Warning--page numbers missing in both pages and numpages fields in treviranus2009value
+Warning--empty publisher in vargas2011rank
+Warning--empty address in vargas2011rank
 Warning--empty publisher in ziegler2005improving
 Warning--empty address in ziegler2005improving
-You've used 28 entries,
+You've used 23 entries,
             5727 wiz_defined-function locations,
-            1471 strings with 20170 characters,
-and the built_in function-call counts, 34691 in all, are:
-= -- 4744
-> -- 1248
+            1444 strings with 19483 characters,
+and the built_in function-call counts, 28578 in all, are:
+= -- 3730
+> -- 994
 < -- 0
-+ -- 418
-- -- 432
-* -- 2428
-:= -- 3445
-add.period$ -- 144
-call.type$ -- 28
-change.case$ -- 196
-chr.to.int$ -- 28
-cite$ -- 53
-duplicate$ -- 2948
-empty$ -- 2060
-format.name$ -- 540
-if$ -- 8617
++ -- 333
+- -- 344
+* -- 1973
+:= -- 2825
+add.period$ -- 118
+call.type$ -- 23
+change.case$ -- 158
+chr.to.int$ -- 23
+cite$ -- 46
+duplicate$ -- 2522
+empty$ -- 1749
+format.name$ -- 432
+if$ -- 7018
 int.to.chr$ -- 2
 int.to.str$ -- 1
-missing$ -- 113
-newline$ -- 263
-num.names$ -- 224
-pop$ -- 1080
+missing$ -- 98
+newline$ -- 221
+num.names$ -- 184
+pop$ -- 936
 preamble$ -- 1
-purify$ -- 448
+purify$ -- 365
 quote$ -- 0
-skip$ -- 1038
+skip$ -- 912
 stack$ -- 0
-substring$ -- 2528
-swap$ -- 325
+substring$ -- 2134
+swap$ -- 286
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 572
-warning$ -- 25
-while$ -- 220
+type$ -- 506
+warning$ -- 23
+while$ -- 183
 width$ -- 0
-write$ -- 522
-(There were 25 warnings)
+write$ -- 438
+(There were 24 warnings)
