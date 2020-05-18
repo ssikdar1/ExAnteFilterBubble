@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  17 MAY 2020 19:53
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  17 MAY 2020 21:20
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1132,8 +1132,6 @@ LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/b/n' will be
 (Font)              scaled to size 14.4pt on input line 36.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
 (Font)              scaled to size 9.0pt on input line 36.
-LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
-(Font)              scaled to size 9.0pt on input line 36.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
@@ -1220,48 +1218,50 @@ ed on input line 254.
 [10.10]
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/b/n' will be
 (Font)              scaled to size 9.0pt on input line 276.
-<figures/diversity_welfare_rn.pdf, id=290, 635.76271pt x 392.37215pt>
-File: figures/diversity_welfare_rn.pdf Graphic file (type pdf)
-<use figures/diversity_welfare_rn.pdf>
-Package pdftex.def Info: figures/diversity_welfare_rn.pdf  used on input line 2
-78.
-(pdftex.def)             Requested size: 178.11891pt x 109.9293pt.
-<figures/diversity_welfare_ra.pdf, id=291, 635.76271pt x 392.37215pt>
-File: figures/diversity_welfare_ra.pdf Graphic file (type pdf)
-<use figures/diversity_welfare_ra.pdf>
-Package pdftex.def Info: figures/diversity_welfare_ra.pdf  used on input line 2
-81.
-(pdftex.def)             Requested size: 178.11891pt x 109.9293pt.
-<figures/diversity_welfare_rn_partial.pdf, id=292, 635.76271pt x 392.37215pt>
-File: figures/diversity_welfare_rn_partial.pdf Graphic file (type pdf)
-<use figures/diversity_welfare_rn_partial.pdf>
-Package pdftex.def Info: figures/diversity_welfare_rn_partial.pdf  used on inpu
-t line 290.
-(pdftex.def)             Requested size: 178.11891pt x 109.9293pt.
-<figures/diversity_welfare_ra_partial.pdf, id=293, 588.44218pt x 411.84805pt>
-File: figures/diversity_welfare_ra_partial.pdf Graphic file (type pdf)
-<use figures/diversity_welfare_ra_partial.pdf>
-Package pdftex.def Info: figures/diversity_welfare_ra_partial.pdf  used on inpu
-t line 293.
-(pdftex.def)             Requested size: 178.11891pt x 124.66139pt.
- [11.11 <./figures/diversity_welfare_rn.pdf> <./figures/diversity_welfare_ra.pd
-f
+<figures/diversity_welfare_rn_n_200.pdf, id=287, 577.75388pt x 403.15155pt>
+File: figures/diversity_welfare_rn_n_200.pdf Graphic file (type pdf)
+<use figures/diversity_welfare_rn_n_200.pdf>
+Package pdftex.def Info: figures/diversity_welfare_rn_n_200.pdf  used on input 
+line 278.
+(pdftex.def)             Requested size: 178.11891pt x 124.2867pt.
+<figures/diversity_welfare_ra_n_200.pdf, id=288, 577.75388pt x 403.30989pt>
+File: figures/diversity_welfare_ra_n_200.pdf Graphic file (type pdf)
+<use figures/diversity_welfare_ra_n_200.pdf>
+Package pdftex.def Info: figures/diversity_welfare_ra_n_200.pdf  used on input 
+line 281.
+(pdftex.def)             Requested size: 178.11891pt x 124.33551pt.
+<figures/diversity_welfare_rn_partial_n_200.pdf, id=289, 577.75388pt x 403.3098
+9pt>
+File: figures/diversity_welfare_rn_partial_n_200.pdf Graphic file (type pdf)
+<use figures/diversity_welfare_rn_partial_n_200.pdf>
+Package pdftex.def Info: figures/diversity_welfare_rn_partial_n_200.pdf  used o
+n input line 290.
+(pdftex.def)             Requested size: 178.11891pt x 124.33551pt.
+<figures/diversity_welfare_ra_partial_n_200.pdf, id=290, 577.75388pt x 403.3098
+9pt>
+File: figures/diversity_welfare_ra_partial_n_200.pdf Graphic file (type pdf)
+<use figures/diversity_welfare_ra_partial_n_200.pdf>
+Package pdftex.def Info: figures/diversity_welfare_ra_partial_n_200.pdf  used o
+n input line 293.
+(pdftex.def)             Requested size: 178.11891pt x 124.33551pt.
+ [11.11 <./figures/diversity_welfare_rn_n_200.pdf> <./figures/diversity_welfare
+_ra_n_200.pdf
 
 pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/diversity_welfare_
-ra.pdf): PDF inclusion: multiple pdfs with page group included in a single page
-
-> <./figures/diversity_welfare_rn_partial.pdf
-
-pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/diversity_welfare_
-rn_partial.pdf): PDF inclusion: multiple pdfs with page group included in a sin
-gle page
-> <./figures/diversity_welfare_ra_partial.pdf
+ra_n_200.pdf): PDF inclusion: multiple pdfs with page group included in a singl
+e page
+> <./figures/diversity_welfare_rn_partial_n_200.pdf
 
 pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/diversity_welfare_
-ra_partial.pdf): PDF inclusion: multiple pdfs with page group included in a sin
-gle page
+rn_partial_n_200.pdf): PDF inclusion: multiple pdfs with page group included in
+ a single page
+> <./figures/diversity_welfare_ra_partial_n_200.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/diversity_welfare_
+ra_partial_n_200.pdf): PDF inclusion: multiple pdfs with page group included in
+ a single page
 >]
-<figures/beta_homogeneity_N_200_T_20.pdf, id=513, 565.25081pt x 404.69257pt>
+<figures/beta_homogeneity_N_200_T_20.pdf, id=506, 565.25081pt x 404.69257pt>
 File: figures/beta_homogeneity_N_200_T_20.pdf Graphic file (type pdf)
 <use figures/beta_homogeneity_N_200_T_20.pdf>
 Package pdftex.def Info: figures/beta_homogeneity_N_200_T_20.pdf  used on input
@@ -1284,11 +1284,11 @@ LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 19870 strings out of 492616
- 304869 string characters out of 6129482
- 432390 words of memory out of 5000000
- 22649 multiletter control sequences out of 15000+600000
- 196606 words of font info for 482 fonts, out of 8000000 for 9000
+ 19851 strings out of 492616
+ 304471 string characters out of 6129482
+ 431264 words of memory out of 5000000
+ 22647 multiletter control sequences out of 15000+600000
+ 189642 words of font info for 471 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
  60i,12n,94p,1988b,609s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2019/texmf-dist/fonts/enc/dvips/libertine/lbtn_ncsllp.enc
@@ -1315,10 +1315,10 @@ t/fonts/type1/public/txfonts/txsyc.pfb></usr/local/texlive/2019/texmf-dist/font
 s/type1/public/newtx/txsys.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/
 public/newtx/zxlr.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/ne
 wtx/zxlri.pfb>
-Output written on filter_bubbles.pdf (16 pages, 774215 bytes).
+Output written on filter_bubbles.pdf (16 pages, 771143 bytes).
 PDF statistics:
- 729 PDF objects out of 1000 (max. 8388607)
+ 714 PDF objects out of 1000 (max. 8388607)
  411 compressed objects within 5 object streams
  92 named destinations out of 1000 (max. 500000)
- 55432 words of extra memory for PDF output out of 61914 (max. 10000000)
+ 51336 words of extra memory for PDF output out of 51595 (max. 10000000)
 

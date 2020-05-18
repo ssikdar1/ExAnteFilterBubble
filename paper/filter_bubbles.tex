@@ -28,7 +28,7 @@
 
 % Abstract. Note that this must come before \maketitle.
 \begin{abstract}
-We study a model of user decision-making in the context of recommender systems via numerical simulation. We explore the extent to which two issues traditionally associated with recommender systems -- \textit{filter bubbles} and \textit{user homogenization} -- can be attributed to recommendation systems. In our model users face a sequential decision problem under uncertainty and there are informational spillovers where a user consuming a product and learning how she values it reduces uncertainty and provides information about similar products. We find that this generates behavior consistent with filter bubble effects -- where users consume increasingly similar items over time -- and that recommendation can help alleviate these effects, as has been found in the empirical work of Nguyen et al. (2014). However, we find that recommendation, while alleviating filter bubble effects, leads to an increase in user homogeneity. Our results highlight the path-dependence of user choice in environments where recommender systems are deployed.
+We study a model of user decision-making in the context of recommender systems via numerical simulation. Our model provides an explanation for the findings of Nguyen, et. al (2014), where users consume increasingly similar items over time even without recommendation. Our model naturally generates such filter bubble effects since users face a sequential decision making problem under uncertainty and there are informational spillovers where a user consuming a item and learning how she values it reduces uncertainty and provides information about similar items. As shown in Nguyen, et. al (2014), recommendation alleviates these filter bubble effects and we further find that, by providing users with information, recommendation leads users to consume increasingly similar items. Finally, our model highlights the importance of collecting data on user beliefs and their evolution over time both to design better recommendations and to further understand their impact.
 \end{abstract}
 
 \begin{document}
@@ -230,7 +230,7 @@ The impact of recommendation on local consumption:
 
 First, the left panel of Figure \ref{fig:correlation_consumption_path} shows that, when $\rho = 0$, there is no difference in consumption distance between the three regimes. This is due to the fact that when $\rho = 0$, there is no reason that items that are close in the product space should have similar values and so the optimal consumption path does not depend on the similarity of the items. However this also means that users do not learn anything about neighboring products and so there is limited path-dependence in consumption. Not only is there no difference in the levels between the three regimes, but they all have the same, flat, average consumption distance path. This underscores the fact that such concerns about filter bubbles \textit{only} arise in a world where there is correlation between the realized utility of items. If there were no correlation between the realized utilities then there would be no reason for users to consume similar items and thus no narrowing effect, regardless of the information on the true utility of the items that users had.
 \par
-The right panel of Figure~\ref{fig:correlation_consumption_path} shows that, when $\rho > 0$, both recommendation and no recommendation lead to increasingly local consumption compared to the oracle benchmark case. Further, the average consumption path between periods is \textit{decreasing} for the no recommendation case whereas it is \textit{increasing} for the oracle case. The recommendation regime decreases the degree of local consumption, but not as much as the oracle benchmark. Due to the correlation of values, the oracle consumption path exploits this and leads to the consumption of more similar products than in the case when $\rho = 0$. However, since these spillovers also impact user learning in the no recommendation case, users \textit{over-exploit} this and increasingly consume products similar to good products that they have consumed before. This is further illustrated by Figure 3 in the supplementary material  which shows how the consumption paths in the oracle and no recommendation regimes vary as $\rho$ increases.
+The left panel of Figure~\ref{fig:correlation_consumption_path} shows that, when $\rho > 0$, both recommendation and no recommendation lead to increasingly local consumption compared to the oracle benchmark case. Further, the average consumption path between periods is \textit{decreasing} for the no recommendation case whereas it is \textit{increasing} for the oracle case. The recommendation regime decreases the degree of local consumption, but not as much as the oracle benchmark. Due to the correlation of values, the oracle consumption path exploits this and leads to the consumption of more similar products than in the case when $\rho = 0$. However, since these spillovers also impact user learning in the no recommendation case, users \textit{over-exploit} this and increasingly consume products similar to good products that they have consumed before. This is further illustrated by Figure 3 in the supplementary material  which shows how the consumption paths in the oracle and no recommendation regimes vary as $\rho$ increases.
 \par
 
 Finally, this effect is further amplified as the level of risk aversion, $\gamma$, increases. Figure 4 in the supplementary material shows how drastically the degree of local consumption increases as $\gamma$ increases. This is due to the fact that the spillovers not only affect the mean expected belief about quality but also the degree of uncertainty. Local consumption therefore leads to users having less uncertainty about certain areas of the product space and risk aversion may lead them to increasingly consume nearby products.
@@ -275,10 +275,10 @@ One striking observation is that the decrease in diversity does not appear to be
 \begin{figure}[ht]
 \caption{Diversity vs. Welfare, \textbf{No Recommendation}}
 \begin{subfigure}{.45\textwidth}
-\includegraphics[width=1.0\linewidth]{figures/diversity_welfare_rn.pdf}
+\includegraphics[width=1.0\linewidth]{figures/diversity_welfare_rn_n_200.pdf}
 \end{subfigure}
 \begin{subfigure}{.45\textwidth}
-\includegraphics[width=1.0\linewidth]{figures/diversity_welfare_ra.pdf}
+\includegraphics[width=1.0\linewidth]{figures/diversity_welfare_ra_n_200.pdf}
 \end{subfigure}\\
 \caption*{\scriptsize Notes: The figure plots the relationship between diversity and welfare under the no recommendation regime. The figure on the left displays this relationship for when $\gamma = 0$ and the figure on the right for when $\gamma = 5$.}\label{fig:diversity_welfare_ra}
 \end{figure}
@@ -287,10 +287,10 @@ One striking observation is that the decrease in diversity does not appear to be
 \begin{figure}[ht]
 \caption{Diversity vs. Welfare, \textbf{Recommendation}}
 \begin{subfigure}{.45\textwidth}
-\includegraphics[width=1.0\linewidth]{figures/diversity_welfare_rn_partial.pdf}
+\includegraphics[width=1.0\linewidth]{figures/diversity_welfare_rn_partial_n_200.pdf}
 \end{subfigure}
 \begin{subfigure}{.45\textwidth}
-\includegraphics[width=1.0\linewidth]{figures/diversity_welfare_ra_partial.pdf}
+\includegraphics[width=1.0\linewidth]{figures/diversity_welfare_ra_partial_n_200.pdf}
 \end{subfigure}\\
 \caption*{\scriptsize Notes: The figure plots the relationship between diversity and welfare under the recommendation regime. The figure on the left displays this relationship for when $\gamma = 0$ and the figure on the right for when $\gamma = 5$.}\label{fig:diversity_welfare_ra_partial}
 \end{figure}
