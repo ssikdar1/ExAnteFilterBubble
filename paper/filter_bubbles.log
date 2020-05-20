@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  19 MAY 2020 22:30
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  20 MAY 2020 09:38
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1178,16 +1178,16 @@ This may cause the page layout to be inconsistent, however.
 
 [3.3] [4.4] [5.5] [6.6] [7.7]
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
-(Font)              scaled to size 9.0pt on input line 200.
+(Font)              scaled to size 9.0pt on input line 199.
 LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 9.0pt on input line 200.
+(Font)              scaled to size 9.0pt on input line 199.
 <figures/rho_pos_consumption_dist_N_200T_20_overall.pdf, id=162, 550.70427pt x 
 444.5979pt>
 File: figures/rho_pos_consumption_dist_N_200T_20_overall.pdf Graphic file (type
  pdf)
 <use figures/rho_pos_consumption_dist_N_200T_20_overall.pdf>
 Package pdftex.def Info: figures/rho_pos_consumption_dist_N_200T_20_overall.pdf
-  used on input line 203.
+  used on input line 202.
 (pdftex.def)             Requested size: 178.1189pt x 143.80063pt.
 <figures/rho_zero_consumption_dist_N_200T_20_overall.pdf, id=163, 480.31946pt x
  402.77289pt>
@@ -1195,12 +1195,12 @@ File: figures/rho_zero_consumption_dist_N_200T_20_overall.pdf Graphic file (typ
 e pdf)
 <use figures/rho_zero_consumption_dist_N_200T_20_overall.pdf>
 Package pdftex.def Info: figures/rho_zero_consumption_dist_N_200T_20_overall.pd
-f  used on input line 208.
+f  used on input line 207.
 (pdftex.def)             Requested size: 178.1189pt x 149.36165pt.
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
-(Font)              scaled to size 7.0pt on input line 211.
+(Font)              scaled to size 7.0pt on input line 210.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/sc' will be
-(Font)              scaled to size 10.0pt on input line 220.
+(Font)              scaled to size 10.0pt on input line 219.
  [8.8 <./figures/rho_pos_consumption_dist_N_200T_20_overall.pdf> <./figures/rho
 _zero_consumption_dist_N_200T_20_overall.pdf
 
@@ -1213,32 +1213,32 @@ Underfull \vbox (badness 6396) has occurred while \output is active []
  [9.9]
 [10.10]
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/b/n' will be
-(Font)              scaled to size 9.0pt on input line 271.
+(Font)              scaled to size 9.0pt on input line 270.
 <figures/diversity_welfare_rn_n_200.pdf, id=288, 577.75388pt x 403.15155pt>
 File: figures/diversity_welfare_rn_n_200.pdf Graphic file (type pdf)
 <use figures/diversity_welfare_rn_n_200.pdf>
 Package pdftex.def Info: figures/diversity_welfare_rn_n_200.pdf  used on input 
-line 273.
+line 272.
 (pdftex.def)             Requested size: 178.11891pt x 124.2867pt.
 <figures/diversity_welfare_ra_n_200.pdf, id=289, 577.75388pt x 403.30989pt>
 File: figures/diversity_welfare_ra_n_200.pdf Graphic file (type pdf)
 <use figures/diversity_welfare_ra_n_200.pdf>
 Package pdftex.def Info: figures/diversity_welfare_ra_n_200.pdf  used on input 
-line 276.
+line 275.
 (pdftex.def)             Requested size: 178.11891pt x 124.33551pt.
 <figures/diversity_welfare_rn_partial_n_200.pdf, id=290, 577.75388pt x 403.3098
 9pt>
 File: figures/diversity_welfare_rn_partial_n_200.pdf Graphic file (type pdf)
 <use figures/diversity_welfare_rn_partial_n_200.pdf>
 Package pdftex.def Info: figures/diversity_welfare_rn_partial_n_200.pdf  used o
-n input line 285.
+n input line 284.
 (pdftex.def)             Requested size: 178.11891pt x 124.33551pt.
 <figures/diversity_welfare_ra_partial_n_200.pdf, id=291, 577.75388pt x 403.3098
 9pt>
 File: figures/diversity_welfare_ra_partial_n_200.pdf Graphic file (type pdf)
 <use figures/diversity_welfare_ra_partial_n_200.pdf>
 Package pdftex.def Info: figures/diversity_welfare_ra_partial_n_200.pdf  used o
-n input line 288.
+n input line 287.
 (pdftex.def)             Requested size: 178.11891pt x 124.33551pt.
  [11.11 <./figures/diversity_welfare_rn_n_200.pdf> <./figures/diversity_welfare
 _ra_n_200.pdf
@@ -1261,7 +1261,7 @@ ra_partial_n_200.pdf): PDF inclusion: multiple pdfs with page group included in
 File: figures/beta_homogeneity_N_200_T_20.pdf Graphic file (type pdf)
 <use figures/beta_homogeneity_N_200_T_20.pdf>
 Package pdftex.def Info: figures/beta_homogeneity_N_200_T_20.pdf  used on input
- line 316.
+ line 315.
 (pdftex.def)             Requested size: 178.11891pt x 127.52205pt.
  [12.12 <./figures/beta_homogeneity_N_200_T_20.pdf>] [13.13]
 (./filter_bubbles.bbl
@@ -1270,13 +1270,17 @@ LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
  [14.14] [15.15]
 LaTeX Info: Redefining \tempurl on input line 389.
 ) [16.16]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 353.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 353.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 352.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 352.
  (./filter_bubbles.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 353.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 353.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 352.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 352.
 Package rerunfilecheck Info: File `filter_bubbles.out' has not changed.
 (rerunfilecheck)             Checksum: 87BAC4E49E737FAFE79F3042BFCF8C25;1903.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
  ) 
 Here is how much of TeX's memory you used:
  19848 strings out of 492616
@@ -1310,7 +1314,7 @@ t/fonts/type1/public/txfonts/txsyc.pfb></usr/local/texlive/2019/texmf-dist/font
 s/type1/public/newtx/txsys.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/
 public/newtx/zxlr.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/ne
 wtx/zxlri.pfb>
-Output written on filter_bubbles.pdf (16 pages, 771230 bytes).
+Output written on filter_bubbles.pdf (16 pages, 771228 bytes).
 PDF statistics:
  715 PDF objects out of 1000 (max. 8388607)
  412 compressed objects within 5 object streams
