@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  20 MAY 2020 09:38
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  20 MAY 2020 10:28
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1213,32 +1213,32 @@ Underfull \vbox (badness 6396) has occurred while \output is active []
  [9.9]
 [10.10]
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/b/n' will be
-(Font)              scaled to size 9.0pt on input line 270.
+(Font)              scaled to size 9.0pt on input line 269.
 <figures/diversity_welfare_rn_n_200.pdf, id=288, 577.75388pt x 403.15155pt>
 File: figures/diversity_welfare_rn_n_200.pdf Graphic file (type pdf)
 <use figures/diversity_welfare_rn_n_200.pdf>
 Package pdftex.def Info: figures/diversity_welfare_rn_n_200.pdf  used on input 
-line 272.
+line 271.
 (pdftex.def)             Requested size: 178.11891pt x 124.2867pt.
 <figures/diversity_welfare_ra_n_200.pdf, id=289, 577.75388pt x 403.30989pt>
 File: figures/diversity_welfare_ra_n_200.pdf Graphic file (type pdf)
 <use figures/diversity_welfare_ra_n_200.pdf>
 Package pdftex.def Info: figures/diversity_welfare_ra_n_200.pdf  used on input 
-line 275.
+line 274.
 (pdftex.def)             Requested size: 178.11891pt x 124.33551pt.
 <figures/diversity_welfare_rn_partial_n_200.pdf, id=290, 577.75388pt x 403.3098
 9pt>
 File: figures/diversity_welfare_rn_partial_n_200.pdf Graphic file (type pdf)
 <use figures/diversity_welfare_rn_partial_n_200.pdf>
 Package pdftex.def Info: figures/diversity_welfare_rn_partial_n_200.pdf  used o
-n input line 284.
+n input line 283.
 (pdftex.def)             Requested size: 178.11891pt x 124.33551pt.
 <figures/diversity_welfare_ra_partial_n_200.pdf, id=291, 577.75388pt x 403.3098
 9pt>
 File: figures/diversity_welfare_ra_partial_n_200.pdf Graphic file (type pdf)
 <use figures/diversity_welfare_ra_partial_n_200.pdf>
 Package pdftex.def Info: figures/diversity_welfare_ra_partial_n_200.pdf  used o
-n input line 287.
+n input line 286.
 (pdftex.def)             Requested size: 178.11891pt x 124.33551pt.
  [11.11 <./figures/diversity_welfare_rn_n_200.pdf> <./figures/diversity_welfare
 _ra_n_200.pdf
@@ -1261,7 +1261,7 @@ ra_partial_n_200.pdf): PDF inclusion: multiple pdfs with page group included in
 File: figures/beta_homogeneity_N_200_T_20.pdf Graphic file (type pdf)
 <use figures/beta_homogeneity_N_200_T_20.pdf>
 Package pdftex.def Info: figures/beta_homogeneity_N_200_T_20.pdf  used on input
- line 315.
+ line 314.
 (pdftex.def)             Requested size: 178.11891pt x 127.52205pt.
  [12.12 <./figures/beta_homogeneity_N_200_T_20.pdf>] [13.13]
 (./filter_bubbles.bbl
@@ -1270,24 +1270,20 @@ LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
  [14.14] [15.15]
 LaTeX Info: Redefining \tempurl on input line 389.
 ) [16.16]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 352.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 352.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 351.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 351.
  (./filter_bubbles.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 352.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 352.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 351.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 351.
 Package rerunfilecheck Info: File `filter_bubbles.out' has not changed.
 (rerunfilecheck)             Checksum: 87BAC4E49E737FAFE79F3042BFCF8C25;1903.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
  ) 
 Here is how much of TeX's memory you used:
- 19848 strings out of 492616
- 304366 string characters out of 6129482
+ 19851 strings out of 492616
+ 304438 string characters out of 6129482
  431282 words of memory out of 5000000
  22646 multiletter control sequences out of 15000+600000
- 189075 words of font info for 469 fonts, out of 8000000 for 9000
+ 189544 words of font info for 471 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
  60i,12n,94p,1988b,609s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2019/texmf-dist/fonts/enc/dvips/libertine/lbtn_ncsllp.enc
@@ -1314,7 +1310,7 @@ t/fonts/type1/public/txfonts/txsyc.pfb></usr/local/texlive/2019/texmf-dist/font
 s/type1/public/newtx/txsys.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/
 public/newtx/zxlr.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/ne
 wtx/zxlri.pfb>
-Output written on filter_bubbles.pdf (16 pages, 771228 bytes).
+Output written on filter_bubbles.pdf (16 pages, 771216 bytes).
 PDF statistics:
  715 PDF objects out of 1000 (max. 8388607)
  412 compressed objects within 5 object streams
