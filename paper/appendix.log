@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  17 MAY 2020 21:19
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  19 MAY 2020 22:25
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -904,10 +904,19 @@ Include comment 'anonsuppress' (./appendix.aux
 LaTeX Warning: Label `fig:cor_homo' multiply defined.
 
 
+LaTeX Warning: Label `fig:diversity_welfare_correlation' multiply defined.
+
+
+LaTeX Warning: Label `fig:cor_homo' multiply defined.
+
+
 LaTeX Warning: Label `fig:no_rec_risk_aversion' multiply defined.
 
 
 LaTeX Warning: Label `fig:local_consumption_across_rho' multiply defined.
+
+
+LaTeX Warning: Label `fig:cor_homo' multiply defined.
 
 
 LaTeX Warning: Label `fig:beta_homo' multiply defined.
@@ -936,6 +945,9 @@ LaTeX Warning: Label `sub@fig:sfig2' multiply defined.
 
 LaTeX Warning: Label `fig:correlation_consumption_path_n_100' multiply defined.
 
+
+
+LaTeX Warning: Label `fig:cor_homo' multiply defined.
 
 )
 \openout1 = `appendix.aux'.
@@ -1247,14 +1259,14 @@ pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/rho_homogeneity_N_
 200_T_20.pdf): PDF inclusion: multiple pdfs with page group included in a singl
 e page
 >]
-<figures/gamma_consumption_dist_N_200T_20.pdf, id=176, 595.6064pt x 380.06053pt
+<figures/gamma_consumption_dist_N_200T_20.pdf, id=175, 595.6064pt x 380.06053pt
 >
 File: figures/gamma_consumption_dist_N_200T_20.pdf Graphic file (type pdf)
 <use figures/gamma_consumption_dist_N_200T_20.pdf>
 Package pdftex.def Info: figures/gamma_consumption_dist_N_200T_20.pdf  used on 
 input line 72.
 (pdftex.def)             Requested size: 178.11891pt x 113.65948pt.
-<figures/gamma_consumption_dist_N_200T_20_partial.pdf, id=177, 595.6064pt x 380
+<figures/gamma_consumption_dist_N_200T_20_partial.pdf, id=176, 595.6064pt x 380
 .06053pt>
 File: figures/gamma_consumption_dist_N_200T_20_partial.pdf Graphic file (type p
 df)
@@ -1262,7 +1274,7 @@ df)
 Package pdftex.def Info: figures/gamma_consumption_dist_N_200T_20_partial.pdf  
 used on input line 75.
 (pdftex.def)             Requested size: 178.11891pt x 113.65948pt.
-<figures/gamma_consumption_dist_N_200T_20_omni.pdf, id=178, 595.6064pt x 380.06
+<figures/gamma_consumption_dist_N_200T_20_omni.pdf, id=177, 595.6064pt x 380.06
 053pt>
 File: figures/gamma_consumption_dist_N_200T_20_omni.pdf Graphic file (type pdf)
 
@@ -1289,8 +1301,27 @@ d in a single page
 pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/rho_consumption_di
 st_N_200T_20_omni.pdf): PDF inclusion: multiple pdfs with page group included i
 n a single page
->] [3.3 <./figures/gamma_consumption_dist_N_200T_20.pdf> <./figures/gamma_consu
-mption_dist_N_200T_20_partial.pdf
+>]
+<figures/gamma_diversity_N_200_T_20.pdf, id=315, 490.20169pt x 395.80309pt>
+File: figures/gamma_diversity_N_200_T_20.pdf Graphic file (type pdf)
+<use figures/gamma_diversity_N_200_T_20.pdf>
+Package pdftex.def Info: figures/gamma_diversity_N_200_T_20.pdf  used on input 
+line 87.
+(pdftex.def)             Requested size: 178.11891pt x 143.81767pt.
+<figures/beta_diversity_N_200_T_20.pdf, id=316, 502.24669pt x 412.85115pt>
+File: figures/beta_diversity_N_200_T_20.pdf Graphic file (type pdf)
+<use figures/beta_diversity_N_200_T_20.pdf>
+Package pdftex.def Info: figures/beta_diversity_N_200_T_20.pdf  used on input l
+ine 94.
+(pdftex.def)             Requested size: 142.49567pt x 117.13463pt.
+<figures/beta_welfare_N_200_T_20.pdf, id=317, 479.03497pt x 412.85115pt>
+File: figures/beta_welfare_N_200_T_20.pdf Graphic file (type pdf)
+<use figures/beta_welfare_N_200_T_20.pdf>
+Package pdftex.def Info: figures/beta_welfare_N_200_T_20.pdf  used on input lin
+e 98.
+(pdftex.def)             Requested size: 142.49567pt x 122.80426pt.
+ [3.3 <./figures/gamma_consumption_dist_N_200T_20.pdf> <./figures/gamma_consump
+tion_dist_N_200T_20_partial.pdf
 
 pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/gamma_consumption_
 dist_N_200T_20_partial.pdf): PDF inclusion: multiple pdfs with page group inclu
@@ -1300,51 +1331,62 @@ ded in a single page
 pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/gamma_consumption_
 dist_N_200T_20_omni.pdf): PDF inclusion: multiple pdfs with page group included
  in a single page
+> <./figures/gamma_diversity_N_200_T_20.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/gamma_diversity_N_
+200_T_20.pdf): PDF inclusion: multiple pdfs with page group included in a singl
+e page
+>] [4.4 <./figures/beta_diversity_N_200_T_20.pdf> <./figures/beta_welfare_N_200
+_T_20.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/beta_welfare_N_200
+_T_20.pdf): PDF inclusion: multiple pdfs with page group included in a single p
+age
 >]
-<figures/beta_homogeneity_N_100_T_20.pdf, id=452, 565.25081pt x 410.00241pt>
+<figures/beta_homogeneity_N_100_T_20.pdf, id=597, 565.25081pt x 410.00241pt>
 File: figures/beta_homogeneity_N_100_T_20.pdf Graphic file (type pdf)
 <use figures/beta_homogeneity_N_100_T_20.pdf>
 Package pdftex.def Info: figures/beta_homogeneity_N_100_T_20.pdf  used on input
- line 92.
+ line 113.
 (pdftex.def)             Requested size: 178.11891pt x 129.19522pt.
-<figures/rho_homogeneity_N_100_T_20.pdf, id=453, 565.25081pt x 404.69257pt>
+<figures/rho_homogeneity_N_100_T_20.pdf, id=598, 565.25081pt x 404.69257pt>
 File: figures/rho_homogeneity_N_100_T_20.pdf Graphic file (type pdf)
 <use figures/rho_homogeneity_N_100_T_20.pdf>
 Package pdftex.def Info: figures/rho_homogeneity_N_100_T_20.pdf  used on input 
-line 97.
+line 118.
 (pdftex.def)             Requested size: 178.11891pt x 127.52205pt.
-<figures/gamma_consumption_dist_N_100T_20.pdf, id=454, 595.6064pt x 380.06053pt
+<figures/gamma_consumption_dist_N_100T_20.pdf, id=599, 595.6064pt x 380.06053pt
 >
 File: figures/gamma_consumption_dist_N_100T_20.pdf Graphic file (type pdf)
 <use figures/gamma_consumption_dist_N_100T_20.pdf>
 Package pdftex.def Info: figures/gamma_consumption_dist_N_100T_20.pdf  used on 
-input line 104.
+input line 125.
 (pdftex.def)             Requested size: 178.11891pt x 113.65948pt.
-<figures/gamma_consumption_dist_N_100T_20_partial.pdf, id=455, 595.6064pt x 380
+<figures/gamma_consumption_dist_N_100T_20_partial.pdf, id=600, 595.6064pt x 380
 .06053pt>
 File: figures/gamma_consumption_dist_N_100T_20_partial.pdf Graphic file (type p
 df)
 <use figures/gamma_consumption_dist_N_100T_20_partial.pdf>
 Package pdftex.def Info: figures/gamma_consumption_dist_N_100T_20_partial.pdf  
-used on input line 107.
+used on input line 128.
 (pdftex.def)             Requested size: 178.11891pt x 113.65948pt.
-<figures/gamma_consumption_dist_N_100T_20_omni.pdf, id=456, 595.6064pt x 380.06
+<figures/gamma_consumption_dist_N_100T_20_omni.pdf, id=601, 595.6064pt x 380.06
 053pt>
 File: figures/gamma_consumption_dist_N_100T_20_omni.pdf Graphic file (type pdf)
 
 <use figures/gamma_consumption_dist_N_100T_20_omni.pdf>
 Package pdftex.def Info: figures/gamma_consumption_dist_N_100T_20_omni.pdf  use
-d on input line 110.
+d on input line 131.
 (pdftex.def)             Requested size: 178.11891pt x 113.65948pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 110--111
+Underfull \hbox (badness 10000) in paragraph at lines 131--132
 
  []
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [4.4
+ [5.5
 
  <./figures/beta_homogeneity_N_100_T_20.pdf> <./figures/rho_homogeneity_N_100_T
 _20.pdf
@@ -1353,55 +1395,53 @@ pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/rho_homogeneity_N_
 100_T_20.pdf): PDF inclusion: multiple pdfs with page group included in a singl
 e page
 >]
-<figures/rho_pos_consumption_dist_N_100T_20_overall.pdf, id=542, 550.70427pt x 
+<figures/rho_pos_consumption_dist_N_100T_20_overall.pdf, id=688, 550.70427pt x 
 444.5979pt>
 File: figures/rho_pos_consumption_dist_N_100T_20_overall.pdf Graphic file (type
  pdf)
 <use figures/rho_pos_consumption_dist_N_100T_20_overall.pdf>
 Package pdftex.def Info: figures/rho_pos_consumption_dist_N_100T_20_overall.pdf
-  used on input line 121.
+  used on input line 142.
 (pdftex.def)             Requested size: 178.1189pt x 143.80063pt.
-<figures/rho_zero_consumption_dist_N_100T_20_overall.pdf, id=543, 480.31946pt x
+<figures/rho_zero_consumption_dist_N_100T_20_overall.pdf, id=689, 480.31946pt x
  402.77289pt>
 File: figures/rho_zero_consumption_dist_N_100T_20_overall.pdf Graphic file (typ
 e pdf)
 <use figures/rho_zero_consumption_dist_N_100T_20_overall.pdf>
 Package pdftex.def Info: figures/rho_zero_consumption_dist_N_100T_20_overall.pd
-f  used on input line 126.
+f  used on input line 147.
 (pdftex.def)             Requested size: 178.1189pt x 149.36165pt.
-LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
-(Font)              scaled to size 8.0pt on input line 129.
-<figures/rho_consumption_dist_N_100T_20.pdf, id=544, 612.11186pt x 393.33513pt>
+<figures/rho_consumption_dist_N_100T_20.pdf, id=690, 612.11186pt x 393.33513pt>
 
 File: figures/rho_consumption_dist_N_100T_20.pdf Graphic file (type pdf)
 <use figures/rho_consumption_dist_N_100T_20.pdf>
 Package pdftex.def Info: figures/rho_consumption_dist_N_100T_20.pdf  used on in
-put line 139.
+put line 160.
 (pdftex.def)             Requested size: 178.11891pt x 114.45438pt.
-<figures/rho_consumption_dist_N_100T_20_partial.pdf, id=545, 595.6064pt x 380.0
+<figures/rho_consumption_dist_N_100T_20_partial.pdf, id=691, 595.6064pt x 380.0
 6053pt>
 File: figures/rho_consumption_dist_N_100T_20_partial.pdf Graphic file (type pdf
 )
 <use figures/rho_consumption_dist_N_100T_20_partial.pdf>
 Package pdftex.def Info: figures/rho_consumption_dist_N_100T_20_partial.pdf  us
-ed on input line 142.
+ed on input line 163.
 (pdftex.def)             Requested size: 178.11891pt x 113.65948pt.
-<figures/rho_consumption_dist_N_100T_20_omni.pdf, id=546, 595.6064pt x 380.0605
+<figures/rho_consumption_dist_N_100T_20_omni.pdf, id=692, 595.6064pt x 380.0605
 3pt>
 File: figures/rho_consumption_dist_N_100T_20_omni.pdf Graphic file (type pdf)
 <use figures/rho_consumption_dist_N_100T_20_omni.pdf>
 Package pdftex.def Info: figures/rho_consumption_dist_N_100T_20_omni.pdf  used 
-on input line 145.
+on input line 166.
 (pdftex.def)             Requested size: 178.11891pt x 113.65948pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 145--146
+Underfull \hbox (badness 10000) in paragraph at lines 166--167
 
  []
 
 
-Underfull \vbox (badness 1052) has occurred while \output is active []
+Underfull \vbox (badness 3646) has occurred while \output is active []
 
- [5.5 <./figures/gamma_consumption_dist_N_100T_20.pdf> <./figures/gamma_consump
+ [6.6 <./figures/gamma_consumption_dist_N_100T_20.pdf> <./figures/gamma_consump
 tion_dist_N_100T_20_partial.pdf
 
 pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/gamma_consumption_
@@ -1422,8 +1462,15 @@ luded in a single page
 pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/rho_zero_consumpti
 on_dist_N_100T_20_overall.pdf): PDF inclusion: multiple pdfs with page group in
 cluded in a single page
->] [6.6 <./figures/rho_consumption_dist_N_100T_20.pdf> <./figures/rho_consumpti
-on_dist_N_100T_20_partial.pdf
+>]
+<figures/gamma_diversity_N_100_T_20.pdf, id=917, 490.20169pt x 395.80309pt>
+File: figures/gamma_diversity_N_100_T_20.pdf Graphic file (type pdf)
+<use figures/gamma_diversity_N_100_T_20.pdf>
+Package pdftex.def Info: figures/gamma_diversity_N_100_T_20.pdf  used on input 
+line 174.
+(pdftex.def)             Requested size: 178.11891pt x 143.81767pt.
+ [7.7 <./figures/rho_consumption_dist_N_100T_20.pdf> <./figures/rho_consumption
+_dist_N_100T_20_partial.pdf
 
 pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/rho_consumption_di
 st_N_100T_20_partial.pdf): PDF inclusion: multiple pdfs with page group include
@@ -1433,51 +1480,56 @@ d in a single page
 pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/rho_consumption_di
 st_N_100T_20_omni.pdf): PDF inclusion: multiple pdfs with page group included i
 n a single page
+> <./figures/gamma_diversity_N_100_T_20.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/gamma_diversity_N_
+100_T_20.pdf): PDF inclusion: multiple pdfs with page group included in a singl
+e page
 >]
-<figures/beta_homogeneity_N_500_T_20.pdf, id=906, 565.25081pt x 404.69257pt>
+<figures/beta_homogeneity_N_500_T_20.pdf, id=1097, 565.25081pt x 404.69257pt>
 File: figures/beta_homogeneity_N_500_T_20.pdf Graphic file (type pdf)
 <use figures/beta_homogeneity_N_500_T_20.pdf>
 Package pdftex.def Info: figures/beta_homogeneity_N_500_T_20.pdf  used on input
- line 159.
+ line 186.
 (pdftex.def)             Requested size: 178.11891pt x 127.52205pt.
-<figures/rho_homogeneity_N_500_T_20.pdf, id=907, 565.25081pt x 406.88348pt>
+<figures/rho_homogeneity_N_500_T_20.pdf, id=1098, 565.25081pt x 406.88348pt>
 File: figures/rho_homogeneity_N_500_T_20.pdf Graphic file (type pdf)
 <use figures/rho_homogeneity_N_500_T_20.pdf>
 Package pdftex.def Info: figures/rho_homogeneity_N_500_T_20.pdf  used on input 
-line 164.
+line 191.
 (pdftex.def)             Requested size: 178.11891pt x 128.21243pt.
-<figures/gamma_consumption_dist_N_500T_20.pdf, id=908, 605.8321pt x 380.06053pt
->
+<figures/gamma_consumption_dist_N_500T_20.pdf, id=1099, 605.8321pt x 380.06053p
+t>
 File: figures/gamma_consumption_dist_N_500T_20.pdf Graphic file (type pdf)
 <use figures/gamma_consumption_dist_N_500T_20.pdf>
 Package pdftex.def Info: figures/gamma_consumption_dist_N_500T_20.pdf  used on 
-input line 171.
+input line 198.
 (pdftex.def)             Requested size: 178.11891pt x 111.73993pt.
-<figures/gamma_consumption_dist_N_500T_20_partial.pdf, id=909, 605.8321pt x 380
-.06053pt>
+<figures/gamma_consumption_dist_N_500T_20_partial.pdf, id=1100, 605.8321pt x 38
+0.06053pt>
 File: figures/gamma_consumption_dist_N_500T_20_partial.pdf Graphic file (type p
 df)
 <use figures/gamma_consumption_dist_N_500T_20_partial.pdf>
 Package pdftex.def Info: figures/gamma_consumption_dist_N_500T_20_partial.pdf  
-used on input line 174.
+used on input line 201.
 (pdftex.def)             Requested size: 178.11891pt x 111.73993pt.
-<figures/gamma_consumption_dist_N_500T_20_omni.pdf, id=910, 605.8321pt x 380.06
-053pt>
+<figures/gamma_consumption_dist_N_500T_20_omni.pdf, id=1101, 605.8321pt x 380.0
+6053pt>
 File: figures/gamma_consumption_dist_N_500T_20_omni.pdf Graphic file (type pdf)
 
 <use figures/gamma_consumption_dist_N_500T_20_omni.pdf>
 Package pdftex.def Info: figures/gamma_consumption_dist_N_500T_20_omni.pdf  use
-d on input line 177.
+d on input line 204.
 (pdftex.def)             Requested size: 178.11891pt x 111.73993pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 177--178
+Underfull \hbox (badness 10000) in paragraph at lines 204--205
 
  []
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [7.7
+ [8.8
 
  <./figures/beta_homogeneity_N_500_T_20.pdf> <./figures/rho_homogeneity_N_500_T
 _20.pdf
@@ -1486,37 +1538,37 @@ pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/rho_homogeneity_N_
 500_T_20.pdf): PDF inclusion: multiple pdfs with page group included in a singl
 e page
 >]
-<figures/rho_consumption_dist_N_500T_20.pdf, id=998, 622.33755pt x 393.33513pt>
-
+<figures/rho_consumption_dist_N_500T_20.pdf, id=1187, 622.33755pt x 393.33513pt
+>
 File: figures/rho_consumption_dist_N_500T_20.pdf Graphic file (type pdf)
 <use figures/rho_consumption_dist_N_500T_20.pdf>
 Package pdftex.def Info: figures/rho_consumption_dist_N_500T_20.pdf  used on in
-put line 189.
+put line 216.
 (pdftex.def)             Requested size: 178.11891pt x 112.5758pt.
-<figures/rho_consumption_dist_N_500T_20_partial.pdf, id=999, 605.8321pt x 380.0
-6053pt>
+<figures/rho_consumption_dist_N_500T_20_partial.pdf, id=1188, 605.8321pt x 380.
+06053pt>
 File: figures/rho_consumption_dist_N_500T_20_partial.pdf Graphic file (type pdf
 )
 <use figures/rho_consumption_dist_N_500T_20_partial.pdf>
 Package pdftex.def Info: figures/rho_consumption_dist_N_500T_20_partial.pdf  us
-ed on input line 192.
+ed on input line 219.
 (pdftex.def)             Requested size: 178.11891pt x 111.73993pt.
-<figures/rho_consumption_dist_N_500T_20_omni.pdf, id=1000, 605.8321pt x 380.060
+<figures/rho_consumption_dist_N_500T_20_omni.pdf, id=1189, 605.8321pt x 380.060
 53pt>
 File: figures/rho_consumption_dist_N_500T_20_omni.pdf Graphic file (type pdf)
 <use figures/rho_consumption_dist_N_500T_20_omni.pdf>
 Package pdftex.def Info: figures/rho_consumption_dist_N_500T_20_omni.pdf  used 
-on input line 195.
+on input line 222.
 (pdftex.def)             Requested size: 178.11891pt x 111.73993pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 195--196
+Underfull \hbox (badness 10000) in paragraph at lines 222--223
 
  []
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [8.8 <./figures/gamma_consumption_dist_N_500T_20.pdf> <./figures/gamma_consump
+ [9.9 <./figures/gamma_consumption_dist_N_500T_20.pdf> <./figures/gamma_consump
 tion_dist_N_500T_20_partial.pdf
 
 pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/gamma_consumption_
@@ -1528,24 +1580,30 @@ pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/gamma_consumption_
 dist_N_500T_20_omni.pdf): PDF inclusion: multiple pdfs with page group included
  in a single page
 >]
-<figures/rho_pos_consumption_dist_N_500T_20_overall.pdf, id=1139, 560.3889pt x 
+<figures/rho_pos_consumption_dist_N_500T_20_overall.pdf, id=1329, 560.3889pt x 
 444.5979pt>
 File: figures/rho_pos_consumption_dist_N_500T_20_overall.pdf Graphic file (type
  pdf)
 <use figures/rho_pos_consumption_dist_N_500T_20_overall.pdf>
 Package pdftex.def Info: figures/rho_pos_consumption_dist_N_500T_20_overall.pdf
-  used on input line 207.
+  used on input line 234.
 (pdftex.def)             Requested size: 178.1189pt x 141.31767pt.
-<figures/rho_zero_consumption_dist_N_500T_20_overall.pdf, id=1140, 490.54517pt 
+<figures/rho_zero_consumption_dist_N_500T_20_overall.pdf, id=1330, 490.54517pt 
 x 402.77289pt>
 File: figures/rho_zero_consumption_dist_N_500T_20_overall.pdf Graphic file (typ
 e pdf)
 <use figures/rho_zero_consumption_dist_N_500T_20_overall.pdf>
 Package pdftex.def Info: figures/rho_zero_consumption_dist_N_500T_20_overall.pd
-f  used on input line 212.
+f  used on input line 239.
 (pdftex.def)             Requested size: 178.1189pt x 146.25186pt.
- [9.9 <./figures/rho_consumption_dist_N_500T_20.pdf> <./figures/rho_consumption
-_dist_N_500T_20_partial.pdf
+<figures/gamma_diversity_N_500_T_20.pdf, id=1331, 490.20169pt x 398.5872pt>
+File: figures/gamma_diversity_N_500_T_20.pdf Graphic file (type pdf)
+<use figures/gamma_diversity_N_500_T_20.pdf>
+Package pdftex.def Info: figures/gamma_diversity_N_500_T_20.pdf  used on input 
+line 248.
+(pdftex.def)             Requested size: 178.11891pt x 144.8293pt.
+ [10.10 <./figures/rho_consumption_dist_N_500T_20.pdf> <./figures/rho_consumpti
+on_dist_N_500T_20_partial.pdf
 
 pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/rho_consumption_di
 st_N_500T_20_partial.pdf): PDF inclusion: multiple pdfs with page group include
@@ -1565,27 +1623,27 @@ luded in a single page
 pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./figures/rho_zero_consumpti
 on_dist_N_500T_20_overall.pdf): PDF inclusion: multiple pdfs with page group in
 cluded in a single page
->]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 221.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 221.
+>] [11.11 <./figures/gamma_diversity_N_500_T_20.pdf>]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 255.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 255.
  (./appendix.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 221.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 221.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 255.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 255.
 Package rerunfilecheck Info: File `appendix.out' has not changed.
-(rerunfilecheck)             Checksum: D5B43D70C9E66F207D153CF47EF4FF2B;328.
+(rerunfilecheck)             Checksum: 4CFC2EE714A228C5BBDBB9E42A9D25E8;343.
 
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 19088 strings out of 492616
- 291958 string characters out of 6129482
- 412219 words of memory out of 5000000
- 22293 multiletter control sequences out of 15000+600000
- 121061 words of font info for 222 fonts, out of 8000000 for 9000
+ 19051 strings out of 492616
+ 291780 string characters out of 6129482
+ 412220 words of memory out of 5000000
+ 22291 multiletter control sequences out of 15000+600000
+ 107270 words of font info for 185 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
- 60i,11n,94p,822b,530s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 60i,11n,94p,822b,531s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2019/texmf-dist/fonts/enc/dvips/libertine/lbtn_7grukw.enc
 }{/usr/local/texlive/2019/texmf-dist/fonts/enc/dvips/newtx/libertinealt.enc}{/u
 sr/local/texlive/2019/texmf-dist/fonts/enc/dvips/libertine/lbtn_25tcsq.enc}{/us
@@ -1600,10 +1658,10 @@ l/texlive/2019/texmf-dist/fonts/type1/public/libertine/LinLibertineTI.pfb></usr
 r/local/texlive/2019/texmf-dist/fonts/type1/public/newtx/rtxmi7.pfb></usr/local
 /texlive/2019/texmf-dist/fonts/type1/public/txfonts/rtxr.pfb></usr/local/texliv
 e/2019/texmf-dist/fonts/type1/public/newtx/zxlri.pfb>
-Output written on appendix.pdf (9 pages, 694023 bytes).
+Output written on appendix.pdf (11 pages, 706885 bytes).
 PDF statistics:
- 1427 PDF objects out of 1440 (max. 8388607)
- 489 compressed objects within 5 object streams
- 27 named destinations out of 1000 (max. 500000)
- 39094 words of extra memory for PDF output out of 42996 (max. 10000000)
+ 1665 PDF objects out of 1728 (max. 8388607)
+ 565 compressed objects within 6 object streams
+ 33 named destinations out of 1000 (max. 500000)
+ 30415 words of extra memory for PDF output out of 35830 (max. 10000000)
 
