@@ -1,0 +1,187 @@
+\documentclass{article}
+
+\usepackage{icml2020}
+%\usepackage{lmodern}
+\usepackage{float}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{afterpage}
+\usepackage[suppress]{color-edits}
+\addauthor{dg}{red}    % dg for Duarte
+%
+\usepackage{amsmath}
+\usepackage{amstext}
+\newcommand{\xhdr}[1]{\vspace{1mm} \noindent{\bf #1}}
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{booktabs} % for professional tables
+
+\newtheorem{finding}{Finding}
+\setlength{\topsep}{0pt}
+
+% hyperref makes hyperlinks in the resulting PDF.
+% If your build breaks (sometimes temporarily if a hyperlink spans a page)
+% please comment out the following usepackage line and replace
+% \usepackage{icml2020} with \usepackage[nohyperref]{icml2020} above.
+\usepackage{hyperref}
+\begin{document}
+    
+% Rights management information. 
+% This information is sent to you when you complete the rights form.
+% These commands have SAMPLE values in them; it is your responsibility as an author to replace
+% the commands and values with those provided to you when you complete the rights form.
+%
+% These commands are for a PROCEEDINGS abstract or paper.
+
+%
+% These commands are for a JOURNAL article.
+%\setcopyright{acmcopyright}
+%\acmJournal{TOG}
+%\acmYear{2018}\acmVolume{37}\acmNumber{4}\acmArticle{111}\acmMonth{8}
+%\acmDOI{10.1145/1122445.1122456}
+
+%
+% Submission ID. 
+% Use this when submitting an article to a sponsored event. You'll receive a unique submission ID from the organizers
+% of the event, and this ID should be used as the parameter to this command.
+%\acmSubmissionID{123-A56-BU3}
+
+%
+% The majority of ACM publications use numbered citations and references. If you are preparing content for an event
+% sponsored by ACM SIGGRAPH, you must use the "author year" style of citations and references. Uncommenting
+% the next command will enable that style.
+%\citestyle{acmauthoryear}
+
+%
+% end of the preamble, start of the body of the document source.
+\icmltitlerunning{Deconstructing the Filter Bubble}
+
+\twocolumn[
+\icmltitle{Deconstructing the Filter Bubble:  \\User Decision-Making and Recommender Systems}
+
+% It is OKAY to include author information, even for blind
+% submissions: the style file will automatically remove it for you
+% unless you've provided the [accepted] option to the icml2020
+% package.
+
+% List of affiliations: The first argument should be a (short)
+% identifier you will use later to specify author affiliations
+% Academic affiliations should list Department, University, City, Region, Country
+% Industry affiliations should list Company, City, Region, Country
+
+% You can specify symbols, otherwise they are numbered in order.
+% Ideally, you should not use this facility. Affiliations will be numbered
+% in order of appearance and this is the preferred way.
+]
+
+
+% Anonymized submission.
+
+% Abstract. Note that this must come before \maketitle.
+\begin{abstract}
+We study a model of user decision-making in the context of recommender systems via numerical simulation. We show that this model provides an explanation for the findings of Nguyen, et. al (2014), where, in environments where recommender systems are typically deployed, users consume increasingly similar items over time even without recommendation. We find that recommendation alleviates these natural filter-bubble effects, but that it also leads to an increase in homogeneity across users, resulting in a trade-off between homogenizing across user consumption and diversifying within user consumption. Finally, we discuss how our model highlights the importance of collecting data on user beliefs and their evolution over time both to design better recommendations and to further understand their impact.
+\end{abstract}
+
+\textit{Note: This is an extended abstract of the paper - the full version is attached as an appendix and contains the omitted technical details and full description of the model and the exercises.}
+% Paper body
+\section{Introduction}
+
+Recommender systems (RS) have become critical for assisting users in navigating the large choice sets that they face on many online platforms. For instance, users have to select from thousands of movies on Netflix, millions of products on Amazon, and billions of videos on YouTube. Users in many cases are not aware of most items, let alone have full information about their preferences over them. To make matters worse, the items in these contexts are usually experience goods whose true value for users can only be learned after consumption.
+\par
+
+RS have driven a significant fraction of consumer choice on these platforms with 75\% of movies watched on Netflix and 35\% of page-views on Amazon coming from recommendations.\footnote{MacKenzie et al. (2013, Oct.),  How retailers can keep up with consumers. \url{https://www.mckinsey.com/industries/retail/our-insights/how-retailers-can-keep-up-with-consumers}. Retrieved on October 3, 2019.} While there are many positive effects from these systems, there is an increasing worry about their unintended side-effects. There have been claims that personalized RS lead users into \textit{filter bubbles} where they effectively get isolated from a diversity of viewpoints or content \cite{pariser2011filter}, and that personalized RS may also lead users to become increasingly homogenized at the same time \cite{chaney2018algorithmic, hosanagar2013will}.
+\par
+Understanding how RS influence user behavior is important not only for characterizing the broader consequences of such systems but also for guiding their design. In this paper we develop a theoretical model of user decision-making in contexts where RS are traditionally deployed. We utilize previous empirical studies that characterize how RS influence user choice as a benchmark and our theoretical model provides an intuitive mechanism that can explain these empirical results. The key insight of our model is that user \textit{beliefs} drive the consumption choices of users and that recommendations provide them with information that leads them to update their beliefs and alter their choices. A crucial component of our model is that users' beliefs about items are driven not only by recommendations, but also from their previous experiences with similar items. \dgdelete{We use these insights to provide guidance for RS design. In order to design good recommendations it becomes important for designers to understand user beliefs of the items they haven't consumed thus far and track how these beliefs evolve over time.}\dgedit{We use these insights to provide guidance for RS design, highlighting that understanding users' beliefs about the quality of the available items is essential in order to design recommendations and evaluate their impact.}
+
+\xhdr{Our Model\dgedit{.}} We \dgedit{analyze} a model of user choice \dgedit{with four central components}.
+\par
+The first component of our model is that users sequentially consume items and face large choice sets. In our setting of interest, users are long-lived, but they only consume a small fraction of this choice set over their lifetime. This is traditionally the case on online platforms that have thousands or millions of options for users.
+\par
+The second component is\dgedit{, prior to consuming them, users are \textit{uncertain} about how much they value the different items.}
+This is motivated both by the fact \dgedit{that, in many contexts, recommendations regard experience goods,} whose true value can only be learned after consumption, and the fact that such uncertainty is why RS exist in the first place. Thus, users face a sequential decision-making problem under uncertainty.
+\par 
+The third, and most crucial, element is that consumption of an item reveals information that changes user beliefs about the\dgedit{ir} valuation of similar items. Unlike in standard sequential decision-making problems, once an item is consumed all uncertainty about its valuation is resolved and provides information that enables users to update their beliefs about similar items. This exploits the fact that the valuations of similar items are correlated which assists users in navigating the vast product space. The idea that users make similarity-based assessments to guide their choice has grounding in \dgdelete{theoretical work in decision theory \cite{gilboa1995case} and } empirical evidence on how users navigate large choice sets \cite{schulz2019structured}.
+\par 
+Finally, in our model recommendation provides users with information about the true valuations. We model the realized valuations as being a weighted sum of a common-value and an idiosyncratic component. This formulation gives a stylized notion of predictability of user preferences where the idiosyncratic component is inherently unpredictable given other users' preferences and the common-value component is what the recommender can learn from previous users' data. We suppose that the recommender knows the common-value component for each item and combines it with users' beliefs over the product space when designing personalized recommendation.
+
+\xhdr{Our Contributions\dgedit{.}}
+We provide a clear mechanism that explains the empirical results in \cite{nguyen2014exploring} who show that, in the context of movie consumption, user behavior is consistent with filter\dgedit{-}bubble effects even without recommendation and that recommendation leads to users being less likely to fall into such filter bubbles. In this context, filter\dgedit{-}bubble effects are defined as users consuming items in an increasingly narrow portion of the product space over time. The simple and intuitive driving force of this\dgdelete{ in our model} is that preferences for similar items are correlated, which implies that when an item is consumed and the user learns its value, it provides information about similar items. Crucially, this not only impacts the underlying belief about the \dgedit{expected value of similar items, but also how uncertain the user is about their valuation of them}. Consequently, this learning spillover induces users to consume items similar to those they consumed before that had high realized value, leading to an increasing narrowing of consumption towards these regions of the product space. This effect is further amplified when users are \textit{risk-averse}, a concept from decision theory where all else being equal, users have a preference for items with lower uncertainty to those with higher uncertainty. However, by providing information to users, recommendation leads users to be more likely to explore other portions of the product space, limiting the filter bubble effect.
+\par
+We find that, while recommendation leads a single user to be more likely to explore diverse portions of the product space, it also coordinates consumption choices across users. This leads to an increase in homogeneity across users, resulting in a tradeoff between homogenizing across user consumption and diversifying within user consumption. We explore the relationship between the overall diversity of consumed items and user welfare and find that more diverse sets of consumed items do not always correspond to higher user welfare. 
+\par
+Lastly, we discuss how our model and findings can be used to inform the design and evaluation of RS as well as the data that is traditionally collected for them. This highlights the importance of user beliefs in determining user consumption choices and how both recommendation and informational spillovers determine how these beliefs change over time. By collecting information on user beliefs, RS designers can understand what items a user would consume \textit{without} recommendation and then predict how providing information to the user would change her beliefs and resulting consumption decisions. Thus,  our evaluation measure determines the value of a recommendation based on the marginal welfare gain associated with providing a user with a recommendation over what the user would do without it. We discuss how this provides an additional rationale as to why ``accurate" recommendations are not always good recommendations.
+\par
+\xhdr{Related Work.} 
+The first set of related works studies the extent and implications of filter bubbles. \cite{pariser2011filter} first informally described the idea of the ``filter bubble'' which is that online personalization services would lead users down paths of increasingly narrower content so that they would effectively be isolated from a diversity of viewpoints or content. Following this\dgedit{,} a number of empirical studies\dgdelete{, done} in various disciplines, have since studied the extent to which this phenomenon exists in a wide range of contexts \cite{flaxman2016filter,hosanagar2013will,moller2018blame,nguyen2014exploring}. The most relevant to our study is \cite{nguyen2014exploring} who study whether this effect exists in the context of movie consumption. They find that even users whose consumption choices are not guided by recommendations exhibit behavior consistent with ``filter bubbles'' and that RS can actually increase the diversity of the content that users consume. To our knowledge there are no theoretical models that rationalize these empirical findings and we provide a theoretical framework through which to view this problem. Furthermore, we provide a clear mechanism that drives such effects and how recommendation interacts with them.
+\par 
+Another set of papers has examined whether RS can lead users to become increasingly homogenized. \cite{celma2008hits, treviranus2009value} show that incorporating content popularity into RS can lead to increased user homogenization. \cite{chaney2018algorithmic} shows how user homogenization may arise from training RS on data from users exposed to algorithmic recommendations. \cite{fleder2009blockbuster} show that homogenization can increase due to a popularity recommendation bias that arises from lack of information about items with limited consumption histories. We show similar results as previous work where RS lead to increased user homogenization. However, the mechanisms behind this differ from existing work as homogenization arises due to the fact that recommendation leads users to coordinate their consumption decisions in certain portions of the product space.
+\par
+Another set of papers studies the impact of human decision-making on the design and evaluation of RS. \cite{chen2013human} surveys the literature on the relationship between human decision making and RS. The closest set of papers pointed out in this survey are those related to preference construction \cite{bettman1998constructive, lichtenstein2006construction} whereby users develop preferences over time through the context of a decision process. The primary insight of our paper is that user beliefs and how users update their beliefs about similar items after consumption are important and previously unconsidered elements of human decision making that are critical for understanding the design and consequences of RS. Within this literature, \cite{celma2008new, cremonesi2013user, pu2011user} focus on ``user-centric" approaches to recommendation whereby user evaluation of the usefulness of recommendation is a key evaluation measure. Our evaluation measure is similar, but, unlike previous approaches, emphasizes the importance of user beliefs.
+
+
+\section{Model Illustration}
+We illustrate the main intuitions of our model with a simple example. Suppose that there are four items: 0, 1, 2, 3. The items are in different places of the product space, where 0 is close to 1 and 3 but more distant from 2. \dgedit{For the sake of expositional clarity, suppose that t}he initial beliefs are given as follows where $\rho$ denotes the correlation between the utilities of the items, $\mu$ is the mean belief, and $\Sigma$ is the covariance matrix:\footnote{See section 2.2 of the full paper in the appendix for more details about the model}
+\[ \mu = \left (\begin{array}{c}
+0 \\
+0\\
+0 \\
+0
+\end{array}  \right), \\ 
+\dgedit{\qquad}\Sigma =  \sigma^{2} \left( \begin{array}{cccc}
+\rho^{0} & \rho^{1} & \rho^{2} & \rho^{0} \\
+\rho^{1} & \rho^{0} & \rho^{1} & \rho^{2} \\
+\rho^{2} & \rho^{1} & \rho^{0} & \rho^{1} \\
+\rho^{1} & \rho^{2} & \rho^{1} & \rho^{0} \\
+\end{array} \right)
+\]
+In period 1, every item is ex-ante identical since they have the same mean and variance and so suppose that the user breaks the tie arbitrarily and consumes item 0. The underlying correlation structure implies that upon observing that $x_0 = y$ the user will update beliefs about the remaining 3 items. For concreteness, we suppose that $\sigma = 1$ and $\rho = 0.5$, but the intuitions hold for any value of $\sigma$ and $\rho > 0$. First, we consider the case when the realization of $y > 0$ and\dgdelete{, for concreteness}, specifically\dgedit{,} \dgdelete{when} $y = 0.5$\dgedit{ --} though the general intuitions hold for any $y > 0$. The resulting beliefs after observing $y$ are then as follows:
+\[ \bar{\mu} =   \left (\begin{array}{c}
+\mathbb{E}[x_1] \vspace{0.15cm} \\
+\mathbb{E}[x_2] \vspace{0.15cm} \\
+\mathbb{E}[x_3]
+\end{array}  \right) =\left (\begin{array}{c}
+\rho y  \vspace{0.15cm} \\
+\rho^{2} y  \vspace{0.15cm} \\
+ \rho y \\
+\end{array} \right) =
+\left (\begin{array}{c}
+\frac{1}{4} \vspace{0.15cm} \\
+\frac{1}{8}  \vspace{0.15cm} \\
+\frac{1}{4}
+\end{array}  \right), \bar{\Sigma} =  \left( \begin{array}{ccc}
+\frac{3}{4} & \frac{3}{8} & 0 \vspace{0.15cm} \\
+\frac{3}{8} & \frac{15}{16} & \frac{3}{8} \vspace{0.15cm}  \\
+0 &\frac{3}{8} & \frac{3}{4}  \\
+\end{array} \right)
+\]
+Thus, upon learning $\dgedit{x_0=}y$, the user updates beliefs about the remaining items. Note that $\mathbb{E}[x_1] = \mathbb{E}[x_3] > \mathbb{E}[x_2]$ since item 0's value is more informative about similar items' values, items 1 and 3, than items further way in the product space such as item 2. Moreover, $\bar{\Sigma}_{11} = \bar{\Sigma}_{33} < \bar{\Sigma}_{22}$ as the uncertainty about items 1 and 3 is further reduced compared to item 2. Thus, since $y > 0$, the user in the next period will consume items nearby to item 0 since, even though initially she believed that all items had the same mean, the spillover from consuming item 0 leads her to believe that items 1 and 3 have higher expected valuations. Since both the mean is higher for these items and the variance is lower, the user will consume items 1 and 3 regardless of her risk aversion level.
+\par 
+Now we consider the case when item 0 ends up having a negative valuation so that $y = -0.5 < 0$. This results in $\mathbb{E}[x_1] = \mathbb{E}[x_3] = -\frac{1}{4} <  -\frac{1}{8} = \mathbb{E}[x_2]$ with $\bar{\Sigma}$ remaining the same as when $y = 0.5$. In this case the risk-aversion levels of the user determine the choice in the next period. If the user is risk-neutral ($\gamma = 0$), then she will go across the product space to consume item $2$ in the next period since it has a higher expected value. However, if she is sufficiently risk-averse then she may still consume item $1$ or $3$ since her uncertainty about these items is lower than item $2$. In particular, this will happen when 
+\begin{align*}
+\delta(3) = \delta(1) = \rho y - \frac{1}{2} \gamma \bar{\Sigma}_{11} > \rho^{2} y - \frac{1}{2} \gamma \bar{\Sigma}_{22} = \delta(2)
+\end{align*}
+Given the aforementioned parametrization and $y = -0.5$, the user will consume item $1$ or $3$ when $\gamma > \frac{4}{3}$ and will consume item $2$ when $\gamma < \frac{4}{3}$. Thus if the user is risk averse enough, then she might be willing to trade-off ex-ante lower expected values for lower risk and stick to consuming nearby items just because these items have lower uncertainty. 
+\par 
+This example illustrates the main mechanisms that can lead to excessive consumption of similar items. Once the user finds items in the product space with high valuations she will update her beliefs positively about items in this portion of the product space and continue consuming these items regardless of her level of risk aversion. However, this same updating leads to a reduction in uncertainty of these items and so, if she is sufficiently risk-averse, she still may continue consuming items in this portion of the product space, even if she has bad experiences with them, since they are perceived to be less risky. 
+\par
+
+\section{Recommender System Design}
+In this section we discuss how the insights from our model of user decision-making can inform the evaluation and design of recommender systems. The classic approach to evaluation is to predict user ratings for items and to compare how accurate this prediction is to recorded ratings data, either explicitly given by users or inferred from behavioral data. The RS should then recommend the items with the highest predicted ratings \cite{adomavicius2005toward}.
+\par
+There has been a recent movement away from such evaluation measures due to the observation that accurate recommendations are not necessarily useful recommendations \cite{mcnee2006being}. Our model illustrates a mechanism behind this observation. Consider the domain of movie recommendation and suppose a user has just watched the movie \textit{John Wick} and rated it highly. A RS attempting to predict user ratings may then predict that this user is very likely to enjoy the sequel, \textit{John Wick: Chapter Two}, as well. However, the user herself may also have made this inference since the two movies are very similar to each other. Thus, recommending this movie would not be not useful since the recommendation gives the user little information that she did not already know. The key insight is it is not useful since \textit{it ignores the inference the user themselves made and their updated beliefs}. The user may watch \textit{John Wick: Chapter Two}, then, even without recommendation, and the value of the recommendation was small.
+\par
+This intuition implies that RS should collect additional data beyond the type of data that is traditionally recorded. The first and most crucial type of data to collect is individual user \textit{beliefs} about items that they have not yet consumed. As illustrated by our model, these beliefs are what drive the future consumption decisions of users and understanding these beliefs is crucial for determining the value of recommending certain items.\footnote{Additionally, user beliefs contain information that may not have been observed by the recommender that only observes user choices on the platform.} The second type of data that is \dgedit{relevant} for RS designers to collect is how user beliefs change over time and, in particular, not just how individuals value the item they just consumed, but also how it impacts their beliefs about the quality of similar items. The third type of data is the risk-aversion levels of users as our model illustrates that the risk preferences of users are important for understanding what information RS can provide that materially leads users to alter their consumption patterns.
+\par 
+A natural follow-up question is how this additional data should be utilized in the design of good recommendations. Our model posits that recommendation provides value to users by providing them with information about the true valuation of an item if they were to consume it. Thus, the prediction problem for the recommender becomes predicting what item would the user choose with no recommendation and, correspondingly, what would be the most useful information to provide to the user that would lead her to consume a \textit{better} item than she would without recommendation. This links back to the intuition our model provided for the \textit{John Wick} example whereby collecting user beliefs and measuring how the user updated beliefs about similar items would lead the recommender to understand that the user would consume \textit{John Wick: Chapter Two}. Our approach would therefore imply that, with this as a starting point, the recommender's problem would be to predict what is the most useful information to give the user leading them to change the item that they eventually consume.
+\par 
+There have been a number of alternative recommendation evaluation metrics proposed in the literature with the aim of providing more useful recommendations than those provided by accuracy metrics, such as serendipity \cite{kotkov2016survey}, calibration \cite{steck2018calibrated}, coverage \cite{ge2010beyond}, novelty \cite{vargas2011rank}, and many others. Our approach most closely follows the set of proposed serendipity measures which are surveyed in \cite{kotkov2016survey}. As discussed by \cite{maksai2015predicting},  serendipitous recommendations are said to ``have the quality of being both unexpected and useful" which is in line with the primary intuition behind our approach. The primary difference between our proposed approach and those existing in the literature is that ours crucially hinges on understanding user beliefs and the risk-preferences of users. For instance, \cite{vargas2011rank, kaminskas2014measuring} propose unexpectedness metrics that look at the dissimilarity of the proposed recommended items compared to what the recommender already knows the user likes - either via a content-based approach or a collaborative-based approach. This metric depends only on the proposed item-set and not necessarily on the user's beliefs or how such a recommendation will change the item that the user consumes.
+\par 
+Indeed, our approach allows us to give precise definitions for what it means for a recommendation to be \textit{unexpected} and \textit{useful} in the spirit of serendipitous recommendations. Our evaluation measure leads to useful recommendations since it leads users towards better items than they would consume without recommendation. It further results in ``unexpected" recommendations since it explicitly incorporates user beliefs and thus allows the recommender to understand how ``unexpected" a recommendation would be from the perspective of a user.
+
+
+% Bibliography
+\bibliographystyle{icml2020}
+\bibliography{refs}
+
+\end{document}
