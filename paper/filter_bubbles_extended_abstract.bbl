@@ -1,0 +1,180 @@
+\begin{thebibliography}{25}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Adomavicius \& Tuzhilin(2005)Adomavicius and
+  Tuzhilin]{adomavicius2005toward}
+Adomavicius, G. and Tuzhilin, A.
+\newblock Toward the next generation of recommender systems: A survey of the
+  state-of-the-art and possible extensions.
+\newblock \emph{IEEE Transactions on Knowledge \& Data Engineering}, \penalty0
+  (6):\penalty0 734--749, 2005.
+
+\bibitem[Bettman et~al.(1998)Bettman, Luce, and Payne]{bettman1998constructive}
+Bettman, J.~R., Luce, M.~F., and Payne, J.~W.
+\newblock Constructive consumer choice processes.
+\newblock \emph{Journal of consumer research}, 25\penalty0 (3):\penalty0
+  187--217, 1998.
+
+\bibitem[Celma \& Cano(2008)Celma and Cano]{celma2008hits}
+Celma, {\`O}. and Cano, P.
+\newblock From hits to niches?: or how popular artists can bias music
+  recommendation and discovery.
+\newblock In \emph{Proceedings of the 2nd KDD Workshop on Large-Scale
+  Recommender Systems and the Netflix Prize Competition}, pp.\ ~5. ACM, 2008.
+
+\bibitem[Celma \& Herrera(2008)Celma and Herrera]{celma2008new}
+Celma, {\`O}. and Herrera, P.
+\newblock A new approach to evaluating novel recommendations.
+\newblock In \emph{Proceedings of the 2008 ACM conference on Recommender
+  systems}, pp.\  179--186, 2008.
+
+\bibitem[Chaney et~al.(2018)Chaney, Stewart, and
+  Engelhardt]{chaney2018algorithmic}
+Chaney, A.~J., Stewart, B.~M., and Engelhardt, B.~E.
+\newblock How algorithmic confounding in recommendation systems increases
+  homogeneity and decreases utility.
+\newblock In \emph{Proceedings of the 12th ACM Conference on Recommender
+  Systems}, pp.\  224--232. ACM, 2018.
+
+\bibitem[Chen et~al.(2013)Chen, De~Gemmis, Felfernig, Lops, Ricci, and
+  Semeraro]{chen2013human}
+Chen, L., De~Gemmis, M., Felfernig, A., Lops, P., Ricci, F., and Semeraro, G.
+\newblock Human decision making and recommender systems.
+\newblock \emph{ACM Transactions on Interactive Intelligent Systems (TiiS)},
+  3\penalty0 (3):\penalty0 1--7, 2013.
+
+\bibitem[Cremonesi et~al.(2013)Cremonesi, Garzotto, and
+  Turrin]{cremonesi2013user}
+Cremonesi, P., Garzotto, F., and Turrin, R.
+\newblock User-centric vs. system-centric evaluation of recommender systems.
+\newblock In \emph{IFIP Conference on Human-Computer Interaction}, pp.\
+  334--351. Springer, 2013.
+
+\bibitem[Flaxman et~al.(2016)Flaxman, Goel, and Rao]{flaxman2016filter}
+Flaxman, S., Goel, S., and Rao, J.~M.
+\newblock Filter bubbles, echo chambers, and online news consumption.
+\newblock \emph{Public opinion quarterly}, 80\penalty0 (S1):\penalty0 298--320,
+  2016.
+
+\bibitem[Fleder \& Hosanagar(2009)Fleder and Hosanagar]{fleder2009blockbuster}
+Fleder, D. and Hosanagar, K.
+\newblock Blockbuster culture's next rise or fall: The impact of recommender
+  systems on sales diversity.
+\newblock \emph{Management science}, 55\penalty0 (5):\penalty0 697--712, 2009.
+
+\bibitem[Ge et~al.(2010)Ge, Delgado-Battenfeld, and Jannach]{ge2010beyond}
+Ge, M., Delgado-Battenfeld, C., and Jannach, D.
+\newblock Beyond accuracy: evaluating recommender systems by coverage and
+  serendipity.
+\newblock In \emph{Proceedings of the fourth ACM conference on Recommender
+  systems}, pp.\  257--260. ACM, 2010.
+
+\bibitem[Hosanagar et~al.(2013)Hosanagar, Fleder, Lee, and
+  Buja]{hosanagar2013will}
+Hosanagar, K., Fleder, D., Lee, D., and Buja, A.
+\newblock Will the global village fracture into tribes? recommender systems and
+  their effects on consumer fragmentation.
+\newblock \emph{Management Science}, 60\penalty0 (4):\penalty0 805--823, 2013.
+
+\bibitem[Kaminskas \& Bridge(2014)Kaminskas and Bridge]{kaminskas2014measuring}
+Kaminskas, M. and Bridge, D.
+\newblock Measuring surprise in recommender systems.
+\newblock In \emph{Proceedings of the workshop on recommender systems
+  evaluation: dimensions and design (Workshop programme of the 8th ACM
+  conference on recommender systems)}. Citeseer, 2014.
+
+\bibitem[Kotkov et~al.(2016)Kotkov, Wang, and Veijalainen]{kotkov2016survey}
+Kotkov, D., Wang, S., and Veijalainen, J.
+\newblock A survey of serendipity in recommender systems.
+\newblock \emph{Knowledge-Based Systems}, 111:\penalty0 180--192, 2016.
+
+\bibitem[Lichtenstein \& Slovic(2006)Lichtenstein and
+  Slovic]{lichtenstein2006construction}
+Lichtenstein, S. and Slovic, P.
+\newblock \emph{The construction of preference}.
+\newblock Cambridge University Press, 2006.
+
+\bibitem[MacKenzie et~al.(2013)MacKenzie, Meyer, and
+  Noble]{mackenzie2013retailers}
+MacKenzie, I., Meyer, C., and Noble, S.
+\newblock \emph{How retailers can keep up with consumers.}, 2013.
+\newblock URL
+  \url{https://www.mckinsey.com/industries/retail/our-insights/how-retailers-can-keep-up-with-consumers}.
+
+\bibitem[Maksai et~al.(2015)Maksai, Garcin, and Faltings]{maksai2015predicting}
+Maksai, A., Garcin, F., and Faltings, B.
+\newblock Predicting online performance of news recommender systems through
+  richer evaluation metrics.
+\newblock In \emph{Proceedings of the 9th ACM Conference on Recommender
+  Systems}, pp.\  179--186. ACM, 2015.
+
+\bibitem[McNee et~al.(2006)McNee, Riedl, and Konstan]{mcnee2006being}
+McNee, S.~M., Riedl, J., and Konstan, J.~A.
+\newblock Being accurate is not enough: how accuracy metrics have hurt
+  recommender systems.
+\newblock In \emph{CHI'06 extended abstracts on Human factors in computing
+  systems}, pp.\  1097--1101. ACM, 2006.
+
+\bibitem[Möller et~al.(2018)Möller, Trilling, Helberger, and van
+  Es]{moller2018blame}
+Möller, J., Trilling, D., Helberger, N., and van Es, B.
+\newblock Do not blame it on the algorithm: an empirical assessment of multiple
+  recommender systems and their impact on content diversity.
+\newblock \emph{Information, Communication \& Society}, 21\penalty0
+  (7):\penalty0 959--977, 2018.
+
+\bibitem[Nguyen et~al.(2014)Nguyen, Hui, Harper, Terveen, and
+  Konstan]{nguyen2014exploring}
+Nguyen, T.~T., Hui, P.-M., Harper, F.~M., Terveen, L., and Konstan, J.~A.
+\newblock Exploring the filter bubble: the effect of using recommender systems
+  on content diversity.
+\newblock In \emph{Proceedings of the 23rd international conference on World
+  wide web}, pp.\  677--686. ACM, 2014.
+
+\bibitem[Pariser(2011)]{pariser2011filter}
+Pariser, E.
+\newblock \emph{The filter bubble: How the new personalized web is changing
+  what we read and how we think}.
+\newblock Penguin, 2011.
+
+\bibitem[Pu et~al.(2011)Pu, Chen, and Hu]{pu2011user}
+Pu, P., Chen, L., and Hu, R.
+\newblock A user-centric evaluation framework for recommender systems.
+\newblock In \emph{Proceedings of the fifth ACM conference on Recommender
+  systems}, pp.\  157--164, 2011.
+
+\bibitem[Schulz et~al.(2019)Schulz, Bhui, Love, Brier, Todd, and
+  Gershman]{schulz2019structured}
+Schulz, E., Bhui, R., Love, B.~C., Brier, B., Todd, M.~T., and Gershman, S.~J.
+\newblock Structured, uncertainty-driven exploration in real-world consumer
+  choice.
+\newblock \emph{Proceedings of the National Academy of Sciences}, pp.\
+  201821028, 2019.
+
+\bibitem[Steck(2018)]{steck2018calibrated}
+Steck, H.
+\newblock Calibrated recommendations.
+\newblock In \emph{Proceedings of the 12th ACM conference on recommender
+  systems}, pp.\  154--162, 2018.
+
+\bibitem[Treviranus \& Hockema(2009)Treviranus and
+  Hockema]{treviranus2009value}
+Treviranus, J. and Hockema, S.
+\newblock The value of the unpopular: Counteracting the popularity echo-chamber
+  on the web.
+\newblock In \emph{2009 {IEEE} Toronto International Conference Science and
+  Technology for Humanity ({TIC}-{STH})}. {IEEE}, sep 2009.
+\newblock \doi{10.1109/tic-sth.2009.5444430}.
+
+\bibitem[Vargas \& Castells(2011)Vargas and Castells]{vargas2011rank}
+Vargas, S. and Castells, P.
+\newblock Rank and relevance in novelty and diversity metrics for recommender
+  systems.
+\newblock In \emph{Proceedings of the fifth ACM conference on Recommender
+  systems}, pp.\  109--116. ACM, 2011.
+
+\end{thebibliography}

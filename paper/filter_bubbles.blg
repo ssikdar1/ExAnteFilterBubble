@@ -5,6 +5,12 @@ The style file: ACM-Reference-Format.bst
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
 Database file #1: refs.bib
+Warning--I didn't find a database entry for "bettman1998constructive"
+Warning--I didn't find a database entry for "lichtenstein2006construction"
+Warning--I didn't find a database entry for "celma2008new"
+Warning--I didn't find a database entry for "cremonesi2013user"
+Warning--I didn't find a database entry for "pu2011user"
+Warning--I didn't find a database entry for "steck2018calibrated"
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated glb_str_ptr (elt_size=4) to 20 items from 10.
 Reallocated global_strs (elt_size=20001) to 20 items from 10.
@@ -13,18 +19,13 @@ Reallocated singl_function (elt_size=4) to 100 items from 50.
 Warning--unusual to have number, but no volume, for adomavicius2005toward
 Warning--empty publisher in celma2008hits
 Warning--empty address in celma2008hits
-Warning--empty publisher in celma2008new
-Warning--empty address in celma2008new
 Warning--empty publisher in chaney2018algorithmic
 Warning--empty address in chaney2018algorithmic
-Warning--empty publisher in cremonesi2013user
-Warning--empty address in cremonesi2013user
 Warning--empty publisher in ge2010beyond
 Warning--empty address in ge2010beyond
 Warning--empty publisher in kaminskas2014measuring
 Warning--empty address in kaminskas2014measuring
 Warning--page numbers missing in both pages and numpages fields in kaminskas2014measuring
-Warning--empty address in lichtenstein2006construction
 Warning--empty publisher in maksai2015predicting
 Warning--empty address in maksai2015predicting
 Warning--empty address in mas1995microeconomic
@@ -33,11 +34,7 @@ Warning--empty address in mcnee2006being
 Warning--empty publisher in nguyen2014exploring
 Warning--empty address in nguyen2014exploring
 Warning--empty address in pariser2011filter
-Warning--empty publisher in pu2011user
-Warning--empty address in pu2011user
 Warning--no number and no volume in schulz2019structured
-Warning--empty publisher in steck2018calibrated
-Warning--empty address in steck2018calibrated
 Warning--empty address in treviranus2009value
 Warning--page numbers missing in both pages and numpages fields in treviranus2009value
 Warning--empty publisher in vargas2011rank
@@ -46,45 +43,45 @@ Warning--empty publisher in winecoff2019users
 Warning--empty address in winecoff2019users
 Warning--empty publisher in ziegler2005improving
 Warning--empty address in ziegler2005improving
-You've used 31 entries,
+You've used 25 entries,
             5727 wiz_defined-function locations,
-            1483 strings with 21003 characters,
-and the built_in function-call counts, 38261 in all, are:
-= -- 4793
-> -- 1350
+            1458 strings with 20201 characters,
+and the built_in function-call counts, 31133 in all, are:
+= -- 3968
+> -- 1131
 < -- 0
-+ -- 455
-- -- 464
-* -- 2654
-:= -- 3811
-add.period$ -- 159
-call.type$ -- 31
-change.case$ -- 215
-chr.to.int$ -- 31
-cite$ -- 67
-duplicate$ -- 3440
-empty$ -- 2383
-format.name$ -- 580
-if$ -- 9302
++ -- 379
+- -- 388
+* -- 2186
+:= -- 3110
+add.period$ -- 128
+call.type$ -- 25
+change.case$ -- 177
+chr.to.int$ -- 25
+cite$ -- 52
+duplicate$ -- 2749
+empty$ -- 1906
+format.name$ -- 484
+if$ -- 7599
 int.to.chr$ -- 2
 int.to.str$ -- 1
-missing$ -- 134
-newline$ -- 279
-num.names$ -- 248
-pop$ -- 1317
+missing$ -- 108
+newline$ -- 235
+num.names$ -- 200
+pop$ -- 1046
 preamble$ -- 1
-purify$ -- 494
+purify$ -- 402
 quote$ -- 0
-skip$ -- 1245
+skip$ -- 990
 stack$ -- 0
-substring$ -- 2856
-swap$ -- 380
+substring$ -- 2278
+swap$ -- 304
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 717
-warning$ -- 36
-while$ -- 246
+type$ -- 566
+warning$ -- 27
+while$ -- 195
 width$ -- 0
-write$ -- 570
-(There were 36 warnings)
+write$ -- 471
+(There were 33 warnings)
